@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+	<security:authentication-manager>
+		<security:authentication-provider>
+			<security:jdbc-user-service data-source-ref="dataSource"
+				authorities-by-username-query='select username, authority from userprofile where binary username = ?'
+				users-by-username-query='select username, password, enabled from userprofile where binary username = ?'
+				id="jdbcUserService" />
+			<security:password-encoder ref="passwordEncoder"></security:password-encoder>
+		</security:authentication-provider>
+	</security:authentication-manager>
+
+	<security:http use-expressions="true">
+		<security:intercept-url pattern="/" access="permitAll" />
+		<security:intercept-url pattern="/static/**" access="permitAll" />
+		<security:intercept-url pattern="/login" access="permitAll" />
+		<security:intercept-url pattern="/home" access="permitAll" />
+		<security:intercept-url pattern="/signup" access="permitAll"/>
+		<security:intercept-url pattern="/error" access="permitAll"/>
+		<security:intercept-url pattern="/denied" access="permitAll"/>
+		<security:intercept-url pattern="/loggedout" access="permitAll"/>
+		<security:intercept-url pattern="/createprofile" access="permitAll"/>
+		<security:intercept-url pattern="/contactus" access="permitAll"/>
+		<security:intercept-url pattern="/aboutus" access="permitAll"/>
+		<security:intercept-url pattern="/products" access="isAuthenticated()"/>
+		<security:intercept-url pattern="/productdetails" access="isAuthenticated()"/>
+		<security:intercept-url pattern="/paging" access="isAuthenticated()"/>
+		<security:intercept-url pattern="/userdetails" access="isAuthenticated()"/>
+		<security:intercept-url pattern="/mydonzalmart" access="isAuthenticated()"/>
+		<security:intercept-url pattern="/userdetails" access="isAuthenticated()"/>
+		<security:intercept-url pattern="/changepassword" access="isAuthenticated()"/>
+		<security:intercept-url pattern="/passwordchanged" access="isAuthenticated()"/>
+		<security:intercept-url pattern="/updateuser" access="isAuthenticated()"/>
+		<security:intercept-url pattern="/admin" access="hasRole('ROLE_ADMIN')"/>
+		<security:intercept-url pattern="/addinventory" access="hasRole('ROLE_ADMIN')"/>
+		<security:intercept-url pattern="/manageinventory" access="hasRole('ROLE_ADMIN')"/>
+		<security:intercept-url pattern="/inventorydetails" access="hasRole('ROLE_ADMIN')"/>
+		<security:intercept-url pattern="/saveinventory" access="hasRole('ROLE_ADMIN')"/>
+		<security:intercept-url pattern="/productadded" access="hasRole('ROLE_ADMIN')"/>
+		<security:intercept-url pattern="/inventorysaved" access="hasRole('ROLE_ADMIN')"/>
+		<security:intercept-url pattern="/deleteinventory" access="hasRole('ROLE_ADMIN')"/>
+		<security:intercept-url pattern="/uploadfile" access="hasRole('ROLE_ADMIN')"/>
+		<security:intercept-url pattern="/manageaccount" access="hasRole('ROLE_ADMIN')"/>
+		<security:intercept-url pattern="/addaccount" access="hasRole('ROLE_ADMIN')"/>
+		<security:intercept-url pattern="/submitaddaccount" access="hasRole('ROLE_ADMIN')"/>
+		<security:intercept-url pattern="/deleteaccount" access="hasRole('ROLE_ADMIN')"/>
+		<security:intercept-url pattern="/saveaccounts" access="hasRole('ROLE_ADMIN')"/>
+		<security:intercept-url pattern="/accountdetail" access="hasRole('ROLE_ADMIN')"/>
+		<security:intercept-url pattern="/saveaccount" access="hasRole('ROLE_ADMIN')"/>
+		<security:intercept-url pattern="/users" access="hasRole('ROLE_ADMIN')"/>
+		<security:intercept-url pattern="/saveuser" access="hasRole('ROLE_ADMIN')"/>
+		<security:intercept-url pattern="/**" access="denyAll" />
+		<security:form-login login-page="/login"
+			authentication-failure-url="/login?error=true" />
+		<security:logout logout-success-url="/loggedout" />
+		<security:access-denied-handler error-page="/denied" />
+		<security:remember-me key="gemmaAppKey"
+			user-service-ref="jdbcUserService" />
+	</security:http>
+	
+	<security:global-method-security secured-annotations="enabled"></security:global-method-security>
+	
+	<bean id="passwordEncoder"
+		class="org.springframework.security.crypto.password.StandardPasswordEncoder">
+	</bean>
+</beans>

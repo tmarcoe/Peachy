@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+
+<tiles-definitions>
+	<definition name="gemma.base" template="/WEB-INF/templates/default.jsp">
+		<put-attribute name="includes" value=""></put-attribute>
+		<put-attribute name="heading_title" value=""></put-attribute>
+		<put-attribute name="toolbar" value=""></put-attribute>
+		<put-attribute name="title" value="DonzalMart"></put-attribute>
+		<put-attribute name="header" value="/WEB-INF/tiles/header.jsp"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/content.jsp"></put-attribute>
+		<put-attribute name="footer" value="/WEB-INF/tiles/footer.jsp"></put-attribute>
+	</definition>
+
+	<definition name="home" extends="gemma.base">
+		<put-attribute name="title" value="DonzalMart"></put-attribute>
+		<put-attribute name="heading_title" value="Welcome to DonzalMart"></put-attribute>
+		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/home.jsp"></put-attribute>
+	</definition>
+
+	<definition name="signup" extends="gemma.base">
+		<put-attribute name="includes" value="/WEB-INF/tiles/signupscript.jsp"></put-attribute>
+		<put-attribute name="heading_title" value="Signup"></put-attribute>
+		<put-attribute name="title" value="Gemma's Home Page"></put-attribute>
+		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/signup.jsp"></put-attribute>
+
+	</definition>
+
+	<definition name="changepassword" extends="gemma.base">
+		<put-attribute name="includes" value="/WEB-INF/tiles/signupscript.jsp"></put-attribute>
+		<put-attribute name="heading_title" value="Change Password"></put-attribute>
+		<put-attribute name="title" value="Change Password"></put-attribute>
+		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/changepassword.jsp"></put-attribute>
+	</definition>
+
+	<definition name="createprofile" extends="gemma.base">
+		<put-attribute name="heading_title" value="Profile Created"></put-attribute>
+		<put-attribute name="title" value="Salamat"></put-attribute>
+		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/createprofile.jsp"></put-attribute>
+
+	</definition>
+	<definition name="login" extends="gemma.base">
+		<put-attribute name="heading_title" value="Login with email and password"></put-attribute>
+		<put-attribute name="title" value="Login"></put-attribute>
+		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/login.jsp"></put-attribute>
+
+	</definition>
+	<definition name="error" extends="gemma.base">
+		<put-attribute name="heading_title" value="Error"></put-attribute>
+		<put-attribute name="title" value="Error"></put-attribute>
+		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/error.jsp"></put-attribute>
+	</definition>
+	<definition name="denied" extends="gemma.base">
+		<put-attribute name="heading_title" value="You can't go here"></put-attribute>
+		<put-attribute name="title" value="denied"></put-attribute>
+		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/denied.jsp"></put-attribute>
+	</definition>
+	<definition name="products" extends="gemma.base">
+		<put-attribute name="heading_title" value="Shop"></put-attribute>
+		<put-attribute name="title" value="shop"></put-attribute>
+		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/products.jsp"></put-attribute>
+	</definition>
+	<definition name="productdetails" extends="gemma.base">
+		<put-attribute name="heading_title" value="Product Details"></put-attribute>
+		<put-attribute name="title" value="Product Details"></put-attribute>
+		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/productdetails.jsp"></put-attribute>
+	</definition>
+	<definition name="addinventory" extends="gemma.base">
+		<put-attribute name="heading_title" value="Add New Products"></put-attribute>
+		<put-attribute name="title" value="Add New Products"></put-attribute>
+		<put-attribute name="toolbar" value="/WEB-INF/tiles/admintoolbar.jsp"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/addinventory.jsp"></put-attribute>
+	</definition>
+	<definition name="manageinventory" extends="gemma.base">
+		<put-attribute name="heading_title" value="Manage Products"></put-attribute>
+		<put-attribute name="title" value="Manage Products"></put-attribute>
+		<put-attribute name="toolbar" value="/WEB-INF/tiles/admintoolbar.jsp"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/manageinventory.jsp"></put-attribute>
+	</definition>
+	<definition name="inventorydetails" extends="gemma.base">
+		<put-attribute name="heading_title" value="Inventory Details"></put-attribute>
+		<put-attribute name="title" value="Inventory Details"></put-attribute>
+		<put-attribute name="toolbar" value="/WEB-INF/tiles/admintoolbar.jsp"></put-attribute>
+		<put-attribute name="content"
+			value="/WEB-INF/tiles/inventorydetails.jsp"></put-attribute>
+	</definition>
+	<definition name="uploadfile" extends="gemma.base">
+		<put-attribute name="heading_title" value="Upload Product Image"></put-attribute>
+		<put-attribute name="title" value="Upload Image"></put-attribute>
+		<put-attribute name="toolbar" value="/WEB-INF/tiles/admintoolbar.jsp"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/uploadfile.jsp"></put-attribute>
+	</definition>
+
+	<definition name="loggedout" extends="gemma.base">
+		<put-attribute name="heading_title" value="We will miss you"></put-attribute>
+		<put-attribute name="title" value="logged out"></put-attribute>
+		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/loggedout.jsp"></put-attribute>
+	</definition>
+	<definition name="contactus" extends="gemma.base">
+		<put-attribute name="heading_title" value="Contact Info"></put-attribute>
+		<put-attribute name="title" value="Contact Us"></put-attribute>
+		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/contactus.jsp"></put-attribute>
+	</definition>
+	<definition name="aboutus" extends="gemma.base">
+		<put-attribute name="heading_title" value="About Us"></put-attribute>
+		<put-attribute name="title" value="About Us"></put-attribute>
+		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/aboutus.jsp"></put-attribute>
+	</definition>
+	<definition name="admin" extends="gemma.base">
+		<put-attribute name="heading_title" value="Admin"></put-attribute>
+		<put-attribute name="title" value="Admin"></put-attribute>
+		<put-attribute name="toolbar" value="/WEB-INF/tiles/admintoolbar.jsp"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/admin.jsp"></put-attribute>
+	</definition>
+	<definition name="manageaccount" extends="gemma.base">
+		<put-attribute name="heading_title" value="Manage Accounts"></put-attribute>
+		<put-attribute name="title" value="Manage Accounts"></put-attribute>
+		<put-attribute name="toolbar" value="/WEB-INF/tiles/admintoolbar.jsp"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/manageaccount.jsp"></put-attribute>
+	</definition>
+	<definition name="addaccount" extends="gemma.base">
+		<put-attribute name="heading_title" value="Add an Account"></put-attribute>
+		<put-attribute name="title" value="Add an Account"></put-attribute>
+		<put-attribute name="toolbar" value="/WEB-INF/tiles/admintoolbar.jsp"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/addaccount.jsp"></put-attribute>
+	</definition>
+	<definition name="accountdetail" extends="gemma.base">
+		<put-attribute name="heading_title" value="Account Detail"></put-attribute>
+		<put-attribute name="title" value="Account Detail"></put-attribute>
+		<put-attribute name="toolbar" value="/WEB-INF/tiles/admintoolbar.jsp"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/accountdetail.jsp"></put-attribute>
+	</definition>
+	<definition name="users" extends="gemma.base">
+		<put-attribute name="heading_title" value="User Profiles"></put-attribute>
+		<put-attribute name="title" value="User Profiles"></put-attribute>
+		<put-attribute name="toolbar" value="/WEB-INF/tiles/admintoolbar.jsp"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/users.jsp"></put-attribute>
+	</definition>
+	<definition name="userdetails" extends="gemma.base">
+		<put-attribute name="heading_title" value="User Details"></put-attribute>
+		<put-attribute name="title" value="User Details"></put-attribute>
+		<put-attribute name="toolbar" value="/WEB-INF/tiles/admintoolbar.jsp"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/userdetails.jsp"></put-attribute>
+	</definition>
+
+	<definition name="mydonzalmart" extends="gemma.base">
+		<put-attribute name="heading_title" value="My DonzalMart"></put-attribute>
+		<put-attribute name="title" value="User Details"></put-attribute>
+		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/userdetails.jsp"></put-attribute>
+	</definition>
+
+</tiles-definitions>
+
+
+
+
+
+
