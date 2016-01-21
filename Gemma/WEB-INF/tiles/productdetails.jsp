@@ -36,7 +36,8 @@
 	</table>
 	<a href="#" class="snipcart-add-item"
 		data-item-id="${inventory.skuNum}"
-		data-item-name="${inventory.productName}" data-item-price="${price}"
+		data-item-name="${inventory.productName}" 
+		data-item-price="${price}"
 		data-item-weight="20"
 		data-item-url="4c345efb.ngrok.io"
 		data-item-description="${inventory.description}"> <img
