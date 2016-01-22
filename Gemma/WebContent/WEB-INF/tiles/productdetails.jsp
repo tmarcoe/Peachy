@@ -37,10 +37,10 @@
 	<a href="#" class="snipcart-add-item"
 		data-item-id="${inventory.skuNum}"
 		data-item-name="${inventory.productName}" data-item-price="${price}"
-		data-item-weight="20"
-		data-item-url="/productdetails?skuNum=4800361386036"
+		data-item-weight="${inventory.weight}"
+		data-item-url="b5e89b27.ngrok.io"
 		data-item-description="${inventory.description}"> <img
-		alt="Add to Carte" src="<c:url value='/static/images/cart.ico' />"
+		alt="Add to Cart" src="<c:url value='/static/images/cart.ico' />"
 		width="50" height="60"><br>Add to Cart
 	</a>
 </sf:form>

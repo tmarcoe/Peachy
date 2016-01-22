@@ -54,11 +54,14 @@
 			<td>&nbsp;</td>
 			<td>Discount Price:</td>
 			<td><sf:input path="discountPrice" name="discountPrice" class="control" type="number" step=".01"/></td>
+			<td>Shipping Weight:</td>
+			<td><sf:input path="weight" name="weight" class="control" type="number" step=".1"/></td>
 		</tr>
 		<tr>
 			<td>&nbsp;</td><td><div class="error"><sf:errors path="salePrice"></sf:errors></div></td>
 			<td>&nbsp;</td>
 			<td>&nbsp;</td><td><div class="error"><sf:errors path="discountPrice"></sf:errors></div></td>
+			<td>&nbsp;</td><td><div class="error"><sf:errors path="weight"></sf:errors></div></td>
 		</tr>
 		<tr>
 			<td>Tax Amount:</td>

@@ -5,6 +5,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -89,9 +90,10 @@ public class AdminController {
 		String fileName = file.getOriginalFilename();
 		  try {
 			   inputStream = file.getInputStream();
-			   //String path = servletContext.getResource("WEB-INF").getFile();
+			   URL path = servletContext.getResource("WEB-INF"); //.getPath();
+			   //String path = servletContext.getResource("WebContent").getFile();
+			   System.out.println(path);
 
-			   
 			   File newFile = new File("/Users/Timothy Marcoe/workspace/Gemma/WebContent/resources/images/" + fileName);
 			   if (!newFile.exists()) {
 			    newFile.createNewFile();

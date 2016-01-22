@@ -27,6 +27,7 @@ public class Inventory {
 	private float salePrice;
 	private float discountPrice;
 	private float taxAmt;
+	private float weight;
 	private boolean onSale;
 	private String image;
 	@Size(min=10, max=1000)
@@ -98,6 +99,12 @@ public class Inventory {
 	}
 	public void setTaxAmt(float taxAmt) {
 		this.taxAmt = taxAmt;
+	}
+	public float getWeight() {
+		return weight;
+	}
+	public void setWeight(float weight) {
+		this.weight = weight;
 	}
 	public boolean isOnSale() {
 		return onSale;
