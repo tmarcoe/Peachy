@@ -18,9 +18,9 @@
 				<tr class="account" >    
 					<td><sf:input type="text" path="accountsList[${i.index}].accountNum" id="accountNum${i.index}" readonly = "true"/></td>
 					<td><sf:input type="text " path="accountsList[${i.index}].accountName" id="accountName${i.index}" readonly = "true"/></td>
-					<td><a href="#" onclick="rowRemoved(${i.index});" class="removeAccount"><img alt="[Remove]" src="<c:url value='/static/images/delete.gif' />"></a></td>
+					<td><a href="#" onclick="rowRemoved(${i.index});" class="removeAccount"><img alt="[Remove]" src="<c:url value='/static/images/web/delete.gif' />"></a></td>
 					<td>&nbsp;</td>
-					<td><a href="#" onclick="getDetail(${i.index});" class="inventorydetail"><img alt="[Show Detail]" src="<c:url value='/static/images/details.gif' />"></a></td>
+					<td><a href="#" onclick="getDetail(${i.index});" class="inventorydetail"><img alt="[Show Detail]" src="<c:url value='/static/images/web/details.gif' />"></a></td>
 				</tr>
 			</c:forEach>
 		</tbody>

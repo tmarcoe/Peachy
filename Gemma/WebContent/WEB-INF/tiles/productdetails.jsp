@@ -27,7 +27,7 @@
 		</thead>
 		<tr class="detailrow">
 			<td><img alt="Image Not Available"
-				src="<c:url value='/static/images/${inventory.image}' />"
+				src="<c:url value='/static/images/products/${inventory.image}' />"
 				width="120" height="140"></td>
 			<td class="name" width="600"><c:out
 					value="${inventory.description}"></c:out></td>
@@ -38,9 +38,9 @@
 		data-item-id="${inventory.skuNum}"
 		data-item-name="${inventory.productName}" data-item-price="${price}"
 		data-item-weight="${inventory.weight}"
-		data-item-url="b5e89b27.ngrok.io"
+		data-item-url="http://57adad8b.ngrok.io"
 		data-item-description="${inventory.description}"> <img
-		alt="Add to Cart" src="<c:url value='/static/images/cart.ico' />"
+		alt="Add to Cart" src="<c:url value='/static/images/web/cart.ico' />"
 		width="50" height="60"><br>Add to Cart
 	</a>
 </sf:form>

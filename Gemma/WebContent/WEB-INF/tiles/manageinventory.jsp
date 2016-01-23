@@ -19,10 +19,10 @@
 					<td><sf:input type="text" path="inventoryList[${i.index}].skuNum" readonly = "true"/></td>
 					<td><sf:input type="text " path="inventoryList[${i.index}].productName" readonly = "true"/></td>
 					<td><a href="#" onclick="rowRemoved(${i.index});" class="removeAccount"><img alt="[Remove]" 
-					src="<c:url value='/static/images/delete.gif' />" /></a></td>
+					src="<c:url value='/static/images/web/delete.gif' />" /></a></td>
 					<td>&nbsp;</td>
 					<td><a href="#" onclick="inventoryDetail(${i.index});" class="inventorydetail"><img alt="[Show Details]" 
-					src="<c:url value='/static/images/details.gif' />" /></a>
+					src="<c:url value='/static/images/web/details.gif' />" /></a>
 				</tr>
 			</c:forEach>
 		</tbody>

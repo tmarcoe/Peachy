@@ -5,7 +5,7 @@
 	uri="http://www.springframework.org/security/tags"%>
 
 <!--<img class="logo" alt="FlowerLogo.png"
-	src="<c:url value='/static/images/FlowerLogo.jpg' />" />
+	src="<c:url value='/static/web/images/FlowerLogo.jpg' />" />
   -->
 
 <div class="nav-bar">

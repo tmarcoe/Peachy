@@ -36,7 +36,7 @@
 
 			<tr>
 				<td><a href="productdetails?skuNum=${inventory.skuNum}"> <img alt="Image Not Available"
-						src="${pageContext.request.contextPath}/static/images/${inventory.image}"
+						src="${pageContext.request.contextPath}/static/images/products/${inventory.image}"
 						height="70" width="70">
 				</a></td>
 				<td width="600">${inventory.productName}</td>
@@ -57,7 +57,7 @@
 <div class="paging">
 	<c:if test="${inventoryList.isFirstPage()==false}">
 		<a href="paging?page=prev"><img alt="[Prev]"
-			src="<c:url value='/static/images/button_prev.gif'/>"></a>
+			src="<c:url value='/static/images/web/button_prev.gif'/>"></a>
 	</c:if>
 	<c:forEach begin="1" end="${inventoryList.getPageCount()}" var="i">
 
@@ -74,6 +74,6 @@
 	<%--For displaying Next link --%>
 	<c:if test="${inventoryList.isLastPage()==false}">
 		<a href="paging?page=next"><img alt="[Next]"
-			src="<c:url value='/static/images/button_next.gif'/>"></a>
+			src="<c:url value='/static/images/web/button_next.gif'/>"></a>
 	</c:if>
 </div>

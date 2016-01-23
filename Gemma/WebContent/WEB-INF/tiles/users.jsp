@@ -35,11 +35,11 @@
 					readonly="readonly"></td>
 				<td><a href="#" onclick="rowRemoved(${i.index});"
 					class="removeAccount"><img alt="[Remove]"
-						src="<c:url value='/static/images/delete.gif' />"></a></td>
+						src="<c:url value='/static/images/web/delete.gif' />"></a></td>
 				<td>&nbsp;</td>
 				<td><a href="#" onclick="getDetail(${i.index});"
 					class="inventorydetail"><img alt="[Show Detail]"
-						src="<c:url value='/static/images/details.gif' />"></a></td>
+						src="<c:url value='/static/images/web/details.gif' />"></a></td>
 			</tr>
 		</c:forEach>
 
@@ -51,7 +51,7 @@
 	<c:if test="${userList.getPageCount()>1}">
 		<c:if test="${userList.isFirstPage()==false}">
 			<a href="paging?page=prev"><img alt="[Prev]"
-				src="<c:url value='/static/images/button_prev.gif'/>"></a>
+				src="<c:url value='/static/images/web/button_prev.gif'/>"></a>
 		</c:if>
 		<c:forEach begin="1" end="${userList.getPageCount()}" var="i">
 
@@ -68,7 +68,7 @@
 		<%--For displaying Next link --%>
 		<c:if test="${userList.isLastPage()==false}">
 			<a href="paging?page=next"><img alt="[Next]"
-				src="<c:url value='/static/images/button_next.gif'/>"></a>
+				src="<c:url value='/static/images/web/button_next.gif'/>"></a>
 		</c:if>
 	</c:if>
 </div>

@@ -90,11 +90,12 @@ public class AdminController {
 		String fileName = file.getOriginalFilename();
 		  try {
 			   inputStream = file.getInputStream();
-			   URL path = servletContext.getResource("WEB-INF"); //.getPath();
+			   String path = servletContext.getResource("WEB-INF").getPath();
 			   //String path = servletContext.getResource("WebContent").getFile();
 			   System.out.println(path);
 
-			   File newFile = new File("/Users/Timothy Marcoe/workspace/Gemma/WebContent/resources/images/" + fileName);
+			   File newFile = new File(path + "/images/" + fileName);
+			   System.out.println(newFile);
 			   if (!newFile.exists()) {
 			    newFile.createNewFile();
 			   }
