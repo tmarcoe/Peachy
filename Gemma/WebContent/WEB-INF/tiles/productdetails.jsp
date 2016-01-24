@@ -38,7 +38,7 @@
 		data-item-id="${inventory.skuNum}"
 		data-item-name="${inventory.productName}" data-item-price="${price}"
 		data-item-weight="${inventory.weight}"
-		data-item-url="http://57adad8b.ngrok.io"
+		data-item-url="/productdetails"
 		data-item-description="${inventory.description}"> <img
 		alt="Add to Cart" src="<c:url value='/static/images/web/cart.ico' />"
 		width="50" height="60"><br>Add to Cart

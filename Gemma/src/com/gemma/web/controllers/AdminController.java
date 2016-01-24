@@ -4,13 +4,12 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
-import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +23,6 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.gemma.spring.web.dao.ChartOfAccounts;
 import com.gemma.spring.web.dao.ChartOfAccountsContainer;
@@ -37,16 +35,16 @@ import com.gemma.spring.web.service.InventoryService;
 import com.gemma.spring.web.service.UserProfileService;
 
 @Controller
-@Scope(value="session")
+@Scope(value = "session")
 public class AdminController {
+	private final String filePath = "C:\\Users\\Timothy Marcoe\\WebSite Archive\\Gemma\\WebContent\\resources\\images\\products";
 
 	@Autowired
 	ServletContext servletContext;
-	
+
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
-		SimpleDateFormat dateFormat = new SimpleDateFormat(
-				"yyyy-MM-dd");
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		dateFormat.setLenient(false);
 		binder.registerCustomEditor(Date.class, new CustomDateEditor(
 				dateFormat, false));
@@ -57,62 +55,65 @@ public class AdminController {
 
 	@Autowired
 	private ChartOfAccountsService chartOfAccountsService;
-	
+
 	@Autowired
 	private UserProfileService userProfileService;
-	
+
 	@Autowired
 	private PagedListHolder<UserProfile> userList;
-/******************************************************************************
- * Admin Home Page
- ******************************************************************************/
+	
+	@Autowired
+	private FileUpload fileUpload;
+
+	/******************************************************************************
+	 * Admin Home Page
+	 ******************************************************************************/
 	@RequestMapping("/admin")
 	public String showAdmin() {
 		return "admin";
 	}
-/******************************************************************************
- * Manage Inventory
- ******************************************************************************/
+
+	/******************************************************************************
+	 * Manage Inventory
+	 ******************************************************************************/
 	@RequestMapping("/uploadfile")
-	public String showUploadFile( Model model) {
-		model.addAttribute("fileUpload", new FileUpload());
-		
+	public String showUploadFile(Model model) {
+		model.addAttribute("fileUpload", fileUpload);
+
 		return "uploadfile";
 	}
-	
-	
+
 	@RequestMapping("/addinventory")
-	public String addInventory(@ModelAttribute("fileUpload") FileUpload fileUpload, Model model) {
-		InputStream inputStream = null;
-		OutputStream outputStream = null;
+	public String addInventory(
+			@ModelAttribute("fileUpload") FileUpload fileUpload, Model model, BindingResult result) throws IOException, IllegalStateException,
+			ServletException {
+
+		String contentType = fileUpload.getFile().getContentType();
+
+		if (!contentType.equals("image/png")) {
+			result.rejectValue("file","Unsupported.fileUpload.file");
+			return "uploadfile";
+		}
+
+		InputStream is = fileUpload.getFile().getInputStream();
 		
-		MultipartFile file = fileUpload.getFile();
-		String fileName = file.getOriginalFilename();
-		  try {
-			   inputStream = file.getInputStream();
-			   String path = servletContext.getResource("WEB-INF").getPath();
-			   //String path = servletContext.getResource("WebContent").getFile();
-			   System.out.println(path);
+		File f1 = new File(filePath);
 
-			   File newFile = new File(path + "/images/" + fileName);
-			   System.out.println(newFile);
-			   if (!newFile.exists()) {
-			    newFile.createNewFile();
-			   }
-			   outputStream = new FileOutputStream(newFile);
-			   int read = 0;
-			   byte[] bytes = new byte[1024];
+		File file = File.createTempFile("img", ".png", f1);
 
-			   while ((read = inputStream.read(bytes)) != -1) {
-			    outputStream.write(bytes, 0, read);
-			   }
-			   outputStream.close();
-			  } catch (IOException e) {
-			   e.printStackTrace();
-			  }
+		FileOutputStream fos = new FileOutputStream(file);
+
+		int data = 0;
+		while ((data = is.read()) != -1) {
+			fos.write(data);
+		}
+
+		fos.close();
+		is.close();
 
 		Inventory inventory = new Inventory();
-		inventory.setImage(fileName);
+		inventory.setImage(file.getName());
+
 		model.addAttribute("inventory", inventory);
 
 		return "addinventory";
@@ -124,12 +125,12 @@ public class AdminController {
 		if (result.hasErrors()) {
 			return "addinventory";
 		}
-		
+
 		if (inventoryService.getItem(inventory.getSkuNum()) != null) {
 			result.rejectValue("skuNum", "Duplicate.inventory.skuNum");
 			return "addinventory";
 		}
-		
+
 		if (inventory.getImage().length() == 0) {
 			inventory.setImage("notavailable.jpg");
 		}
@@ -140,12 +141,13 @@ public class AdminController {
 
 		return "home";
 	}
-	
+
 	@RequestMapping("/inventorydetails")
-	public String showInventoryDetails(@ModelAttribute("InventoryKey") String inventoryKey, Model model) {
+	public String showInventoryDetails(
+			@ModelAttribute("InventoryKey") String inventoryKey, Model model) {
 		Inventory inventory = inventoryService.getItem(inventoryKey);
 		model.addAttribute("inventory", inventory);
-	
+
 		return "inventorydetails";
 	}
 
@@ -153,48 +155,55 @@ public class AdminController {
 	public String showManageInventory(Model model) {
 		InventoryContainer container = inventoryService.getContainer();
 		model.addAttribute("inventoryContainer1", container);
-		
+
 		return "manageinventory";
 	}
-	
+
 	@RequestMapping("/inventorysaved")
-	public String inventorySaved(@ModelAttribute("Inventory") Inventory inventory, Model model) {
-		
+	public String inventorySaved(
+			@ModelAttribute("Inventory") Inventory inventory, Model model) {
+
 		inventoryService.update(inventory);
-		
+
 		InventoryContainer container = inventoryService.getContainer();
 		model.addAttribute("inventoryContainer1", container);
 
 		return "manageinventory";
 	}
-	
+
 	@RequestMapping("/deleteinventory")
-	public String deleteInventory(@ModelAttribute("deleteKey") String deleteKey, Model model) {
+	public String deleteInventory(
+			@ModelAttribute("deleteKey") String deleteKey, Model model) {
+		Inventory inventory = inventoryService.getItem(deleteKey);
 		
+		File file = new File(filePath + "\\" + inventory.getImage());
+		file.delete();
+
 		inventoryService.delete(deleteKey);
-		
+
 		InventoryContainer container = inventoryService.getContainer();
 		model.addAttribute("inventoryContainer1", container);
-	
-		
+
 		return "manageinventory";
 	}
-	
+
 	@RequestMapping("/saveinventory")
-	public String saveOrUpdateInventory(InventoryContainer inventory, Model model) {
+	public String saveOrUpdateInventory(InventoryContainer inventory,
+			Model model) {
 		List<Inventory> inventoryList = inventory.getInventoryList();
 		inventoryService.saveOrUpdate(inventoryList);
 		return "manageinventory";
 	}
-	
-/****************************************************************************************
- * Manage Accounts 
- ****************************************************************************************/
-	
+
+	/****************************************************************************************
+	 * Manage Accounts
+	 ****************************************************************************************/
+
 	@RequestMapping("/manageaccount")
 	public String showMangeAccounts(Model model) {
-		ChartOfAccountsContainer accounts = chartOfAccountsService.getContainer();
-		
+		ChartOfAccountsContainer accounts = chartOfAccountsService
+				.getContainer();
+
 		if (accounts.getAccountsList().size() == 0) {
 			ChartOfAccounts chartOfAccounts = new ChartOfAccounts();
 			model.addAttribute("chartOfAccounts", chartOfAccounts);
@@ -218,18 +227,20 @@ public class AdminController {
 	}
 
 	@RequestMapping("/submitaddaccount")
-	public String submitAddAccount(@Valid ChartOfAccounts chartOfAccounts, Model model, BindingResult result) {
+	public String submitAddAccount(@Valid ChartOfAccounts chartOfAccounts,
+			Model model, BindingResult result) {
 		if (result.hasErrors()) {
 			return "manageaccount";
 		}
 
 		chartOfAccountsService.create(chartOfAccounts);
-		ChartOfAccountsContainer container = chartOfAccountsService.getContainer();
+		ChartOfAccountsContainer container = chartOfAccountsService
+				.getContainer();
 		model.addAttribute("chartOfAccountsContainer1", container);
 
 		return "manageaccount";
 	}
-	
+
 	@RequestMapping("/saveaccounts")
 	public String saveAccounts(ChartOfAccountsContainer accounts, Model model) {
 		List<ChartOfAccounts> accountsList = accounts.getAccountsList();
@@ -247,73 +258,81 @@ public class AdminController {
 
 		return "manageaccount";
 	}
-	
+
 	@RequestMapping("/saveaccount")
 	public String saveAccount(ChartOfAccounts chartOfAccounts, Model model) {
 		chartOfAccountsService.update(chartOfAccounts);
-		
-		ChartOfAccountsContainer accounts = chartOfAccountsService.getContainer();
+
+		ChartOfAccountsContainer accounts = chartOfAccountsService
+				.getContainer();
 		model.addAttribute("chartOfAccountsContainer1", accounts);
 
 		return "manageaccount";
 	}
-	
+
 	@RequestMapping("/deleteaccount")
-	public String deleteAccount(@ModelAttribute("deleteKey")String deleteKey, Model model) {
-		
+	public String deleteAccount(@ModelAttribute("deleteKey") String deleteKey,
+			Model model) {
+
 		chartOfAccountsService.delete(deleteKey);
-		
-		ChartOfAccountsContainer container = chartOfAccountsService.getContainer();
+
+		ChartOfAccountsContainer container = chartOfAccountsService
+				.getContainer();
 		model.addAttribute("chartOfAccountsContainer1", container);
-		
+
 		return "manageaccount";
 	}
-	
+
 	@RequestMapping("/accountdetail")
-	public String showAccountDetail(@ModelAttribute("detailKey") String detailKey, Model model) {
-		
+	public String showAccountDetail(
+			@ModelAttribute("detailKey") String detailKey, Model model) {
+
 		ChartOfAccounts account = chartOfAccountsService.getAccount(detailKey);
 		model.addAttribute("chartOfAccounts", account);
-		
+
 		return "accountdetail";
 	}
+
 	/**************************************************************************************************
 	 * User Profile Management
 	 **************************************************************************************************/
 	@RequestMapping("/users")
 	public String showUsers(@ModelAttribute("page") String page, Model model) {
-		userList.setSource( userProfileService.getAllUsers());
+		userList.setSource(userProfileService.getAllUsers());
 		userList.setPageSize(15);
 		userList.setPage(0);
- 
+
 		model.addAttribute("userList", userList);
-		
+
 		return "users";
-		
+
 	}
-	
+
 	@RequestMapping("/deleteuser")
-	public String deleteUser(@ModelAttribute("deleteKey") String deleteKey, Model model){
-		
+	public String deleteUser(@ModelAttribute("deleteKey") String deleteKey,
+			Model model) {
+
 		userProfileService.delete(deleteKey);
-		
+
 		return "users";
 	}
-	
+
 	@RequestMapping("/userdetails")
-	public String showUserDetails(@ModelAttribute("detailKey") String detailKey, Model model){
-		
+	public String showUserDetails(
+			@ModelAttribute("detailKey") String detailKey, Model model) {
+
 		UserProfile userProfile = userProfileService.getUser(detailKey);
-		
+
 		model.addAttribute("userProfile", userProfile);
-		
+
 		return "userdetails";
 	}
-	
+
 	@RequestMapping("/saveuser")
-	public String partialUpdate(@ModelAttribute("userProfile") UserProfile userProfile, Model model) {
+	public String partialUpdate(
+			@ModelAttribute("userProfile") UserProfile userProfile, Model model) {
 		userProfileService.partialUpdate(userProfile);
 		return "users";
 	}
-	
+
 }

@@ -36,7 +36,7 @@
 			<td>Amount In Stock:</td>
 			<td><sf:input path="amtInStock" name="amtInStock" class="control" type="number" /></td>
 			<td>Amount Committed:</td>
-			<td><sf:input path="amtCommitted" name="amtCommitted" class="control" type="text" /></td>
+			<td><sf:input path="amtCommitted" name="amtCommitted" class="control" type="number" /></td>
 		</tr>
 		<tr>
 			<td>&nbsp;</td><td><div class="error"><sf:errors path="amtInStock"></sf:errors></div></td>
