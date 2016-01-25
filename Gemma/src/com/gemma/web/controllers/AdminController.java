@@ -85,32 +85,37 @@ public class AdminController {
 
 	@RequestMapping("/addinventory")
 	public String addInventory(
-			@ModelAttribute("fileUpload") FileUpload fileUpload, Model model, BindingResult result) throws IOException, IllegalStateException,
-			ServletException {
-
+			@ModelAttribute("fileUpload") FileUpload fileUpload, Model model, BindingResult result){
+		File file = null;
 		String contentType = fileUpload.getFile().getContentType();
 
 		if (!contentType.equals("image/png")) {
 			result.rejectValue("file","Unsupported.fileUpload.file");
 			return "uploadfile";
 		}
-
-		InputStream is = fileUpload.getFile().getInputStream();
 		
-		File f1 = new File(filePath);
+		try {
+			InputStream is = fileUpload.getFile().getInputStream();
 
-		File file = File.createTempFile("img", ".png", f1);
+			File f1 = new File(filePath);
 
-		FileOutputStream fos = new FileOutputStream(file);
+			file = File.createTempFile("img", ".png", f1);
 
-		int data = 0;
-		while ((data = is.read()) != -1) {
-			fos.write(data);
+			FileOutputStream fos = new FileOutputStream(file);
+
+			int data = 0;
+			while ((data = is.read()) != -1) {
+				fos.write(data);
+			}
+
+			fos.close();
+			is.close();
+		}catch(IOException i) {
+			result.rejectValue("file", "IOException.fileUpload.file", i.getMessage());
+			i.printStackTrace();
+		}catch(IllegalStateException s){
+			result.rejectValue("file", "IllegalStateException.fileUpload.file", s.getMessage());
 		}
-
-		fos.close();
-		is.close();
-
 		Inventory inventory = new Inventory();
 		inventory.setImage(file.getName());
 
