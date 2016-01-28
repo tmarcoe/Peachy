@@ -12,8 +12,4 @@
 		class="org.springframework.beans.support.PagedListHolder"
 		scope="session">
 	</bean>
-	<bean id="invoiceItem"
-		class="org.springframework.beans.support.PagedListHolder"
-		scope="session">
-	</bean>
 </beans>

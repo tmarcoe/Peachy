@@ -76,8 +76,8 @@ a:active {
 Layout styles
 ------------------------*/
 .container {
-	max-width: 50em;
-	margin: 0 auto;
+	max-width: 100em;
+	margin: 0;
 	padding: 0;
 }
 
@@ -334,4 +334,9 @@ table.dailyspecials td {
 {
 	
 	display: inline;
+}
+.invoiceItemDetails td
+{
+	padding: 1em;	
+	vertical-align: bottom;
 }

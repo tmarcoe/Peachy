@@ -16,14 +16,6 @@
 	
 </script>
 
-<script type="text/javascript" id="snipcart"
-	src="https://cdn.snipcart.com/scripts/snipcart.js"
-	data-api-key="MDc1NzE4OTYtODU2Mi00NWJiLTg0YzctNzZiMGE5ODUyY2JkNjM1ODgwMTIzNDIwNTMxODQz">
-	
-</script>
-<link id="snipcart-theme" type="text/css"
-    href="https://cdn.snipcart.com/themes/base/snipcart.min.css"
-    rel="stylesheet">
     
 <tiles:insertAttribute name="includes"></tiles:insertAttribute>
 
@@ -47,9 +39,8 @@
 	<div class="content">
 		<tiles:insertAttribute name="content"></tiles:insertAttribute>
 	</div>
-	<div class="footer">
+
 		<tiles:insertAttribute name="footer"></tiles:insertAttribute>
-	</div>
 
 
 </body>

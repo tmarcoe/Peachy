@@ -22,6 +22,7 @@
 					href="<c:url value='/j_spring_security_logout'/>">Sign Out</a></li>
 				<li><a href="mydonzalmart">My DonzalMart</a></li>
 				<li><a href="changepassword">Change password</a></li>
+				<li><a href="cart">View/Manage Shopping Cart</a>
 			</sec:authorize>
 			<li><a href="contactus">Contact Us</a></li>
 			<li><a href="aboutus">About Us</a></li>

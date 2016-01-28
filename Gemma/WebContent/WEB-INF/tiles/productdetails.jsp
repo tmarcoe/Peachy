@@ -8,39 +8,38 @@
 
 <sf:form id="details" method="post"
 	action="${pageContext.request.contextPath}/orderproduct"
-	commandName="inventory">
-	<c:choose>
-		<c:when test="${inventory.onSale == true}">
-			<c:set var="price" value="${inventory.discountPrice}" />
-		</c:when>
-		<c:otherwise>
-			<c:set var="price" value="${inventory.salePrice}" />
-		</c:otherwise>
-	</c:choose>
-	<table class="inventoryDetails">
+	commandName="invoiceItem">
+	<table class="invoiceItemDetails">
 		<thead>
-			<tr class="inventoryheader">
+			<tr class="invoiceItemheader">
 				<th>&nbsp;</th>
 				<th>Product Description</th>
 				<th>Price</th>
+				<th>Qty</th>
 			</tr>
 		</thead>
 		<tr class="detailrow">
 			<td><img alt="Image Not Available"
-				src="<c:url value='/static/images/products/${inventory.image}' />"
+				src="<c:url value='/static/images/products/${invoiceItem.image}' />"
 				width="120" height="140"></td>
 			<td class="name" width="600"><c:out
-					value="${inventory.description}"></c:out></td>
-			<td class="price"><c:out value="${price}"></c:out></td>
+					value="${invoiceItem.description}" /></td>
+			<td class="price"><c:out value="${invoiceItem.price}" /></td>
+			<td ><sf:input type="number" path="amount" step="1"
+					value="1" maxlength="2" size="2" /></td>
+		</tr>
+		<tr>
+			<td><input type="image" name="submit" width="50" 
+				height="50" src="<c:url value='/static/images/web/cart.ico' />" /><br>Add to Cart</td>
+			<td><sf:hidden path="productName" /></td>
+			<td><sf:hidden path="skuNum" /></td>
+			<td><sf:input type="hidden" path="amtInStock" /></td>
+			<td><sf:input type="hidden" path="weight" /></td>
+			<td><sf:input type="hidden" path="invoiceKey.invoiceNum" /></td>
+			<td><sf:input type="hidden" path="invoiceKey.itemNum" /></td>
+			<td><sf:input type="hidden" path="description" /></td>
+			<td><sf:input type="hidden" path="image" /></td>
+			<td><sf:input type="hidden" path="price" />
 		</tr>
 	</table>
-	<a href="#" class="snipcart-add-item"
-		data-item-id="${inventory.skuNum}"
-		data-item-name="${inventory.productName}" data-item-price="${price}"
-		data-item-weight="${inventory.weight}"
-		data-item-url="/productdetails"
-		data-item-description="${inventory.description}"> <img
-		alt="Add to Cart" src="<c:url value='/static/images/web/cart.ico' />"
-		width="50" height="60"><br>Add to Cart
-	</a>
 </sf:form>

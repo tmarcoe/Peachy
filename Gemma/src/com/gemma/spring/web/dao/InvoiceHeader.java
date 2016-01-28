@@ -6,6 +6,8 @@ package com.gemma.spring.web.dao;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 /**
@@ -15,15 +17,19 @@ import javax.persistence.Id;
 @Entity
 public class InvoiceHeader {
 	
-	@Id
-	private long invoiceNum;
+	@Id @GeneratedValue(strategy = GenerationType.AUTO)
+	private Integer invoiceNum;
 	private int userID;
-	private Date dateShipped;
 	private float shippingCost;
-	public long getInvoiceNum() {
+	private Date modified;
+	private Date processed;
+	private Date dateShipped;
+
+	
+	public Integer getInvoiceNum() {
 		return invoiceNum;
 	}
-	public void setInvoiceNum(long invoiceNum) {
+	public void setInvoiceNum(Integer invoiceNum) {
 		this.invoiceNum = invoiceNum;
 	}
 	public int getUserID() {
@@ -44,7 +50,17 @@ public class InvoiceHeader {
 	public void setShippingCost(float shippingCost) {
 		this.shippingCost = shippingCost;
 	}
-	
-	
+	public Date getModified() {
+		return modified;
+	}
+	public void setModified(Date modified) {
+		this.modified = modified;
+	}
+	public Date getProcessed() {
+		return processed;
+	}
+	public void setProcessed(Date processed) {
+		this.processed = processed;
+	}
 
 }
