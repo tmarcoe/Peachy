@@ -59,8 +59,9 @@ public class ShopController {
 	
 	@RequestMapping("/cart")
 	public String showCart(Principal principal, Model model) {
-		List<InvoiceItem> invoiceList = invoiceService.getInvoice(principal.getName());
-		if (invoiceList == null) {
+		UserProfile user = userProfileService.getUser(principal.getName());
+		InvoiceHeader header = invoiceService.getOpenOrder(user.getUserID());
+		if (header == null) {
 			inventoryList.setSource(inventoryService.listProducts());
 
 			inventoryList.setPageSize(4);
@@ -70,6 +71,7 @@ public class ShopController {
 			
 			return "products";
 		}
+		List<InvoiceItem> invoiceList = invoiceService.getInvoice(header);
 		model.addAttribute("invoiceList", invoiceList);
 
 		return "cart";
@@ -87,7 +89,7 @@ public class ShopController {
 	@RequestMapping("/orderproduct")
 	public String orderProduct(@ModelAttribute("invoiceItem")InvoiceItem item, Model model, Principal principal ) {
 		UserProfile user = userProfileService.getUser(principal.getName());
-		InvoiceHeader header = invoiceService.attachLineItem(user.getUserID());
+		InvoiceHeader header = invoiceService.getOpenOrder(user.getUserID());
 		if (header == null) {
 			header = new InvoiceHeader();
 			header.setModified(new Date());
@@ -97,8 +99,8 @@ public class ShopController {
 		item.setInvoiceNum(header.getInvoiceNum());
 		item = invoiceService.addLineItem(item);
 
-		List<InvoiceItem> invoiceList = invoiceService.getInvoice(principal.getName());
-		
+		List<InvoiceItem> invoiceList = invoiceService.getInvoice(header);
+
 		model.addAttribute("invoiceList", invoiceList);
 
 		

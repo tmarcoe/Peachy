@@ -36,7 +36,7 @@
 			<td><sf:input type="hidden" path="amtInStock" /></td>
 			<td><sf:input type="hidden" path="weight" /></td>
 			<td><sf:input type="hidden" path="invoiceKey.invoiceNum" /></td>
-			<td><sf:input type="hidden" path="invoiceKey.itemNum" /></td>
+			<td><sf:input type="hidden" path="invoiceKey.skuNum" /></td>
 			<td><sf:input type="hidden" path="description" /></td>
 			<td><sf:input type="hidden" path="image" /></td>
 			<td><sf:input type="hidden" path="price" />

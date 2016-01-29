@@ -9,7 +9,7 @@ public class Invoice implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	private Integer invoiceNum;
-	private Integer itemNum;
+	private String skuNum;
 	
 	public Integer getInvoiceNum() {
 		return invoiceNum;
@@ -17,11 +17,11 @@ public class Invoice implements Serializable{
 	public void setInvoiceNum(Integer invoiceNum) {
 		this.invoiceNum = invoiceNum;
 	}
-	public Integer getItemNum() {
-		return itemNum;
+	public String getSkuNum() {
+		return skuNum;
 	}
-	public void setItemNum(Integer itemNum) {
-		this.itemNum = itemNum;
+	public void setSkuNum(String skuNum) {
+		this.skuNum = skuNum;
 	}
-
+	
 }

@@ -12,7 +12,6 @@ public class InvoiceItem {
 	/*
 	 * The following is from the Iventory table
 	 */
-	private String skuNum;
 	private String productName;
 	private String description;
 	private String image;
@@ -26,7 +25,7 @@ public class InvoiceItem {
 	public InvoiceItem(Inventory inventory) {
 		super();
 		invoiceKey = new Invoice();
-		skuNum = inventory.getSkuNum();
+		invoiceKey.setSkuNum(inventory.getSkuNum());
 		productName = inventory.getProductName();
 		description = inventory.getDescription();
 		image = inventory.getImage();
@@ -48,14 +47,7 @@ public class InvoiceItem {
 	 * 
 	 */
 	public InvoiceItem() {
-	}
-	
-	public String getSkuNum() {
-		return skuNum;
-	}
-	public void setSkuNum(String skuNum) {
-		this.skuNum = skuNum;
-	}
+	}	
 	public String getProductName() {
 		return productName;
 	}
@@ -104,11 +96,11 @@ public class InvoiceItem {
 	public void setInvoiceNum(Integer invoiceNum) {
 		this.invoiceKey.setInvoiceNum(invoiceNum);
 	}
-	public Integer getItemNum() {
-		return invoiceKey.getItemNum();
+	public String getSkuNum() {
+		return invoiceKey.getSkuNum();
 	}
-	public void setItemNum(Integer itemNum) {
-		this.invoiceKey.setItemNum(itemNum); 
+	public void setSkuNum(String itemNum) {
+		this.invoiceKey.setSkuNum(itemNum);
 	}
 
 
