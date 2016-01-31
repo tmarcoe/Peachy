@@ -20,7 +20,7 @@
 			<sec:authorize access="isAuthenticated()">
 				<li><a class="logout"
 					href="<c:url value='/j_spring_security_logout'/>">Sign Out</a></li>
-				<li><a href="mydonzalmart">My DonzalMart</a></li>
+				<li><a href="mydonzalmart">My Profile</a></li>
 				<li><a href="changepassword">Change password</a></li>
 				<li><a href="cart">View/Manage Shopping Cart</a>
 			</sec:authorize>

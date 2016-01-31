@@ -55,6 +55,9 @@
 				<td colspan="4"><b>Total Price-------> <fmt:formatNumber
 							type="currency" currencySymbol="P" value="${total}" />
 				</b></td>
+				<td><a href="${pageContext.request.contextPath}/processcart" class="button">Check
+						Out</a></td>
+
 			</tr>
 		</tbody>
 	</table>

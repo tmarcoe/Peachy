@@ -1,5 +1,6 @@
 package com.gemma.spring.web.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,6 +58,12 @@ public class InvoiceService {
 	public void updateItem(InvoiceItem item) {
 		invoiceItemDao.updateItem(item);
 		
+	}
+
+
+	public void processShoppingCart(InvoiceHeader header, InvoiceItem item) {
+		header.setProcessed(new Date());
+		invoiceHeaderDao.updateHeader(header);
 	}
 
 

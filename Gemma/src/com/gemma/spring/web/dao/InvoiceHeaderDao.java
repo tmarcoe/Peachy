@@ -40,4 +40,8 @@ public class InvoiceHeaderDao {
 		return (InvoiceHeader) session().createQuery(hql).setInteger("invoiceNum", invoiceNum).uniqueResult();
 	}
 
+	public void updateHeader(InvoiceHeader header) {
+		session().update(header);
+	}
+
 }

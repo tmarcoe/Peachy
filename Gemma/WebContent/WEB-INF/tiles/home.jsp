@@ -5,7 +5,7 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <h2>Daily Specials</h2>
-
+<h6>To see a full list of products click the 'shop' link at the top of the page.</h6>
 <table class="dailyspecials">
 	<thead>
 		<tr>

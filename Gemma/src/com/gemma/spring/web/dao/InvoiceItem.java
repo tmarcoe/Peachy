@@ -31,9 +31,9 @@ public class InvoiceItem {
 		image = inventory.getImage();
 		amtInStock = inventory.getAmtInStock();
 		if (inventory.isOnSale() == true){
-			price = inventory.getSalePrice();
-		}else{
 			price = inventory.getDiscountPrice();
+		}else{
+			price = inventory.getSalePrice();
 		}
 		weight = inventory.getWeight();
 	}

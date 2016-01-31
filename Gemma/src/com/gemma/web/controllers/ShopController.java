@@ -45,8 +45,6 @@ public class ShopController {
 	@Autowired
 	private UserProfileService userProfileService;
 
-	private PagedListHolder<InvoiceItem> invoiceList;
-	
 	@RequestMapping(value="/products")
 	public String products(	@ModelAttribute("page") String page, Model model) {
 		inventoryList.setSource(inventoryService.listProducts());
@@ -56,82 +54,6 @@ public class ShopController {
 		model.addAttribute("inventoryList",inventoryList);
 	
 		return "products";
-	}
-	@RequestMapping("/editcart")
-	public String editCart(int invoiceNum, String skuNum, Model model) {
-		InvoiceItem item = invoiceService.getInvoiceItem(invoiceNum, skuNum);
-		
-		model.addAttribute("item", item);
-		
-		return "editcart";
-	}
-	
-	@RequestMapping("/saveitem")
-	public String saveInvoiceItem(@ModelAttribute("item") InvoiceItem item, Model model) {
-		int invoiceNum = item.getInvoiceNum();
-		invoiceService.updateItem(item);
-		InvoiceHeader header = invoiceService.getInvoiceHeader(invoiceNum);
-		if (header == null) {
-			inventoryList.setSource(inventoryService.listProducts());
-
-			inventoryList.setPageSize(4);
-			inventoryList.setPage(0);
-			model.addAttribute("inventoryList",inventoryList);
-		
-			return "nocart";
-		}
-		List<InvoiceItem> invoiceList = invoiceService.getInvoice(header);
-		InvoiceContainer invoice = new InvoiceContainer(header,invoiceList );
-		
-		model.addAttribute("invoice", invoice);
-		
-		return "cart";
-	}
-	
-	@RequestMapping("/deleteinvoiceitem")
-	public String deleteInvoiceItem(int invoiceNum, String skuNum, Model model){
-		invoiceService.deleteInvoiceItem(invoiceNum,skuNum);
-		InvoiceHeader header = invoiceService.getInvoiceHeader(invoiceNum);
-		if (header == null) {
-			inventoryList.setSource(inventoryService.listProducts());
-
-			inventoryList.setPageSize(4);
-			inventoryList.setPage(0);
-			model.addAttribute("inventoryList",inventoryList);
-		
-			return "nocart";
-		}
-		List<InvoiceItem> invoiceList = invoiceService.getInvoice(header);
-		InvoiceContainer invoice = new InvoiceContainer(header,invoiceList );
-		
-		model.addAttribute("invoice", invoice);
-
-		
-		return "cart";
-	}
-	
-	
-	@RequestMapping("/cart")
-	public String showCart(Principal principal, Model model) {
-		UserProfile user = userProfileService.getUser(principal.getName());
-		InvoiceHeader header = invoiceService.getOpenOrder(user.getUserID());
-		if (header == null) {
-			inventoryList.setSource(inventoryService.listProducts());
-
-			inventoryList.setPageSize(4);
-			inventoryList.setPage(0);
-			model.addAttribute("inventoryList",inventoryList);
-
-			
-			return "nocart";
-		}
-		List<InvoiceItem> invoiceList = invoiceService.getInvoice(header);
-		InvoiceContainer invoice = new InvoiceContainer(header,invoiceList );
-		
-		
-		model.addAttribute("invoice", invoice);
-		
-		return "cart";
 	}
 	
 	@RequestMapping(value="/productdetails", method=RequestMethod.GET)
@@ -196,40 +118,6 @@ public class ShopController {
 	        return new ModelAndView("products", "inventoryList", inventoryList);
 	    }
 	}
-	
-	@RequestMapping(value="/Invoicepaging", method=RequestMethod.GET)
-	public ModelAndView handleInvoiceRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		int pgNum;
-	    String keyword = request.getParameter("keyword");
-	    if (keyword != null) {
-	        if (!StringUtils.hasLength(keyword)) {
-	            return new ModelAndView("Error", "message", "Please enter a keyword to search for, then press the search button.");
-	        }
-
-	        inventoryList.setPageSize(4);
-	        request.getSession().setAttribute("SearchProductsController_productList", inventoryList);
-	        return new ModelAndView("products", "inventoryList", inventoryList);
-	    }
-	    else {
-	        String page = request.getParameter("page");
-	        
-	        if (inventoryList == null) {
-	            return new ModelAndView("Error", "message", "Your session has timed out. Please start over again.");
-	        }
-	        pgNum = isInteger(page);
-	        
-	        if ("next".equals(page)) {
-	        	inventoryList.nextPage();
-	        }
-	        else if ("prev".equals(page)) {
-	        	inventoryList.previousPage();
-	        }else if (pgNum != -1) {
-	        	inventoryList.setPage(pgNum);
-	        }
-	        return new ModelAndView("cart", "invoiceList", invoiceList);
-	    }
-	}
-
 	
 	private int isInteger(String s) {
 		int retInt;
