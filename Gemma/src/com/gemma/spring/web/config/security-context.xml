@@ -39,6 +39,10 @@
 		<security:intercept-url pattern="/updateuser" access="isAuthenticated()"/>
 		<security:intercept-url pattern="/orderproduct" access="isAuthenticated()"/>
 		<security:intercept-url pattern="/cart" access="isAuthenticated()"/>
+		<security:intercept-url pattern="/deleteinvoiceitem" access="isAuthenticated()"/>
+		<security:intercept-url pattern="/editcart" access="isAuthenticated()"/>
+		<security:intercept-url pattern="/saveitem" access="isAuthenticated()"/>
+		<security:intercept-url pattern="/nocart" access="isAuthenticated()"/>
 		<security:intercept-url pattern="/admin" access="hasRole('ROLE_ADMIN')"/>
 		<security:intercept-url pattern="/addinventory" access="hasRole('ROLE_ADMIN')"/>
 		<security:intercept-url pattern="/manageinventory" access="hasRole('ROLE_ADMIN')"/>

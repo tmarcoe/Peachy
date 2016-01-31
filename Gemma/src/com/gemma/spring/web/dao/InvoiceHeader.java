@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 /**
  * @author Timothy Marcoe
@@ -17,6 +18,7 @@ import javax.persistence.Id;
 @Entity
 public class InvoiceHeader {
 	
+
 	@Id @GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer invoiceNum;
 	private int userID;
@@ -25,7 +27,7 @@ public class InvoiceHeader {
 	private Date processed;
 	private Date dateShipped;
 
-	
+
 	public Integer getInvoiceNum() {
 		return invoiceNum;
 	}

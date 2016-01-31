@@ -39,4 +39,26 @@ public class InvoiceService {
 		return invoiceHeaderDao.getOpenOrder(userID);
 	}
 
+
+	public void deleteInvoiceItem(int invoiceNum, String skuNum) {
+		invoiceItemDao.deleteInvoiceItem(invoiceNum, skuNum);
+	}
+
+
+	public InvoiceHeader getInvoiceHeader(int invoiceNum) {
+		return invoiceHeaderDao.getInvoiceHeader(invoiceNum);
+	}
+
+	public InvoiceItem getInvoiceItem(int invoiceNum, String skuNum) {
+		return invoiceItemDao.getInvoiceItem(invoiceNum, skuNum);
+	}
+
+
+	public void updateItem(InvoiceItem item) {
+		invoiceItemDao.updateItem(item);
+		
+	}
+
+
+
 }

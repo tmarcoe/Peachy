@@ -33,4 +33,11 @@ public class InvoiceHeaderDao {
 		return header;
 	}
 
+	public InvoiceHeader getInvoiceHeader(int invoiceNum) {
+		String hql = "from InvoiceHeader where invoiceNum = :invoiceNum";
+		
+		
+		return (InvoiceHeader) session().createQuery(hql).setInteger("invoiceNum", invoiceNum).uniqueResult();
+	}
+
 }

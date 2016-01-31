@@ -8,7 +8,10 @@ import javax.persistence.Embeddable;
 public class Invoice implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
+	
 	private Integer invoiceNum;
+	
+	
 	private String skuNum;
 	
 	public Integer getInvoiceNum() {

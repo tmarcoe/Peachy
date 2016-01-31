@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.gemma.spring.web.dao.Inventory;
+import com.gemma.spring.web.dao.InvoiceContainer;
 import com.gemma.spring.web.dao.InvoiceHeader;
 import com.gemma.spring.web.dao.InvoiceItem;
 import com.gemma.spring.web.dao.UserProfile;
@@ -56,6 +57,59 @@ public class ShopController {
 	
 		return "products";
 	}
+	@RequestMapping("/editcart")
+	public String editCart(int invoiceNum, String skuNum, Model model) {
+		InvoiceItem item = invoiceService.getInvoiceItem(invoiceNum, skuNum);
+		
+		model.addAttribute("item", item);
+		
+		return "editcart";
+	}
+	
+	@RequestMapping("/saveitem")
+	public String saveInvoiceItem(@ModelAttribute("item") InvoiceItem item, Model model) {
+		int invoiceNum = item.getInvoiceNum();
+		invoiceService.updateItem(item);
+		InvoiceHeader header = invoiceService.getInvoiceHeader(invoiceNum);
+		if (header == null) {
+			inventoryList.setSource(inventoryService.listProducts());
+
+			inventoryList.setPageSize(4);
+			inventoryList.setPage(0);
+			model.addAttribute("inventoryList",inventoryList);
+		
+			return "nocart";
+		}
+		List<InvoiceItem> invoiceList = invoiceService.getInvoice(header);
+		InvoiceContainer invoice = new InvoiceContainer(header,invoiceList );
+		
+		model.addAttribute("invoice", invoice);
+		
+		return "cart";
+	}
+	
+	@RequestMapping("/deleteinvoiceitem")
+	public String deleteInvoiceItem(int invoiceNum, String skuNum, Model model){
+		invoiceService.deleteInvoiceItem(invoiceNum,skuNum);
+		InvoiceHeader header = invoiceService.getInvoiceHeader(invoiceNum);
+		if (header == null) {
+			inventoryList.setSource(inventoryService.listProducts());
+
+			inventoryList.setPageSize(4);
+			inventoryList.setPage(0);
+			model.addAttribute("inventoryList",inventoryList);
+		
+			return "nocart";
+		}
+		List<InvoiceItem> invoiceList = invoiceService.getInvoice(header);
+		InvoiceContainer invoice = new InvoiceContainer(header,invoiceList );
+		
+		model.addAttribute("invoice", invoice);
+
+		
+		return "cart";
+	}
+	
 	
 	@RequestMapping("/cart")
 	public String showCart(Principal principal, Model model) {
@@ -69,11 +123,14 @@ public class ShopController {
 			model.addAttribute("inventoryList",inventoryList);
 
 			
-			return "products";
+			return "nocart";
 		}
 		List<InvoiceItem> invoiceList = invoiceService.getInvoice(header);
-		model.addAttribute("invoiceList", invoiceList);
-
+		InvoiceContainer invoice = new InvoiceContainer(header,invoiceList );
+		
+		
+		model.addAttribute("invoice", invoice);
+		
 		return "cart";
 	}
 	
@@ -100,10 +157,10 @@ public class ShopController {
 		item = invoiceService.addLineItem(item);
 
 		List<InvoiceItem> invoiceList = invoiceService.getInvoice(header);
-
-		model.addAttribute("invoiceList", invoiceList);
-
+		InvoiceContainer invoice = new InvoiceContainer(header,invoiceList );
 		
+		
+		model.addAttribute("invoice", invoice);
 		return "cart";
 	}
 	

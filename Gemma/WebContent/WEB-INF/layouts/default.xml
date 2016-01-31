@@ -83,6 +83,18 @@
 		<put-attribute name="content" value="/WEB-INF/tiles/cart.jsp"></put-attribute>
 		<put-attribute name="footer" value="/WEB-INF/tiles/blank.jsp"></put-attribute>
 	</definition>
+	<definition name="editcart" extends="gemma.base">
+		<put-attribute name="heading_title" value="Invoice Item"></put-attribute>
+		<put-attribute name="title" value="Invoice Item"></put-attribute>
+		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/editcart.jsp"></put-attribute>
+	</definition>
+	<definition name="nocart" extends="gemma.base">
+		<put-attribute name="heading_title" value="No Cart"></put-attribute>
+		<put-attribute name="title" value="No Cart"></put-attribute>
+		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/nocart.jsp"></put-attribute>
+	</definition>
 	<definition name="addinventory" extends="gemma.base">
 		<put-attribute name="heading_title" value="Add New Products"></put-attribute>
 		<put-attribute name="title" value="Add New Products"></put-attribute>

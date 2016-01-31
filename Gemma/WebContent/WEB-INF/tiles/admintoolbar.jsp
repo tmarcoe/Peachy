@@ -14,7 +14,7 @@
 			<li><a href="home">Home</a></li>
 			<sec:authorize  access="hasRole('ROLE_ADMIN')" >
 				<li><a href="manageinventory">Manage Inventory</a></li>
-				<li><a href="https://app.snipcart.com/dashboard/account/settings">Dashboard</a></li>
+				<li><a href="manageaccount">Manage Accounts</a></li>
 				<li><a href="users">User Profiles</a></li>
 			</sec:authorize>
 		</ul>

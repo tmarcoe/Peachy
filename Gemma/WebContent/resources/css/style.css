@@ -340,3 +340,11 @@ table.dailyspecials td {
 	padding: 1em;	
 	vertical-align: bottom;
 }
+.invoicetable td
+{
+	text-align: center;	
+}
+.invoicedetail td
+{
+	padding: 2em;
+}

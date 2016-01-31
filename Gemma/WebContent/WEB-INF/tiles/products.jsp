@@ -23,13 +23,14 @@
 			</tr>
 		</thead>
 		<c:forEach var="inventory" items="${inventoryList.pageList}">
+			<fmt:formatNumber type="currency" currencySymbol="P" value="${inventory.salePrice}" var="saleprice"/>
+			<fmt:formatNumber type="currency" currencySymbol="P" value="${inventory.discountPrice}" var="discountprice"/>
 			<c:choose>
 				<c:when test="${inventory.onSale == true}">
-					<c:set var="saleprice" value="<s>${inventory.salePrice}</s>" />
-					<c:set var="discountprice" value="<b>${inventory.discountPrice}</b>" />
+					<c:set var="saleprice" value="<s>${saleprice}</s>" />
+					<c:set var="discountprice" value="<b>${discountprice}</b>" />
 				</c:when>
 				<c:otherwise>
-					<c:set var="saleprice" value="${inventory.salePrice}" />
 					<c:set var="discountprice" value="" />
 				</c:otherwise>
 			</c:choose>

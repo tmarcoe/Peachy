@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <h2>Daily Specials</h2>
 
 <table class="dailyspecials">
@@ -26,7 +26,7 @@
 			</a></td>
 			<td class="name" width="600"><c:out
 					value="${inventory.productName}"></c:out></td>
-			<td class="price">${price}</td>
+			<td class="price"><fmt:formatNumber type="currency" currencySymbol="P" value="${price}"/></td>
 		</tr>
 		<tr>
 		<!--<td colspan="3">________________________________________________________________________________________________________</td> -->
