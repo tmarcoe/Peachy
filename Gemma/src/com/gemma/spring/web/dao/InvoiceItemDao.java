@@ -23,7 +23,6 @@ public class InvoiceItemDao {
 		return sessionFactory.getCurrentSession();
 	}
 
-
 	public InvoiceItem addLineItem(InvoiceItem item) {
 		String hql = "from InvoiceItem where invoiceNum = :invoiceNum and skuNum = :skuNum";
 
@@ -84,5 +83,4 @@ public class InvoiceItemDao {
 	public void updateItem(InvoiceItem item) {
 		session().update(item);
 	}
-
 }

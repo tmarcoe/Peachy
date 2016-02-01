@@ -20,6 +20,7 @@ public class GeneralLedger {
 	@Id @GeneratedValue(strategy = GenerationType.AUTO)
 	private long entryNum;
 	private String accountNum;
+	private int userID;
 	private Date entryDate;
 	private String description;
 	private float debitAmt;
@@ -37,6 +38,12 @@ public class GeneralLedger {
 	}
 	public void setAccountNum(String accountNum) {
 		this.accountNum = accountNum;
+	}
+	public int getUserID() {
+		return userID;
+	}
+	public void setUserID(int userID) {
+		this.userID = userID;
 	}
 	public Date getEntryDate() {
 		return entryDate;

@@ -22,6 +22,7 @@ public class InvoiceHeader {
 	@Id @GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer invoiceNum;
 	private int userID;
+	private double total;
 	private float shippingCost;
 	private Date modified;
 	private Date processed;
@@ -39,6 +40,12 @@ public class InvoiceHeader {
 	}
 	public void setUserID(int userID) {
 		this.userID = userID;
+	}
+	public double getTotal() {
+		return total;
+	}
+	public void setTotal(double total) {
+		this.total = total;
 	}
 	public Date getDateShipped() {
 		return dateShipped;

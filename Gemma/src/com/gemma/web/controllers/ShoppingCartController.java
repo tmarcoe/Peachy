@@ -14,6 +14,7 @@ import com.gemma.spring.web.dao.InvoiceContainer;
 import com.gemma.spring.web.dao.InvoiceHeader;
 import com.gemma.spring.web.dao.InvoiceItem;
 import com.gemma.spring.web.dao.UserProfile;
+import com.gemma.spring.web.service.GeneralLedgerService;
 import com.gemma.spring.web.service.InvoiceService;
 import com.gemma.spring.web.service.UserProfileService;
 
@@ -26,6 +27,9 @@ public class ShoppingCartController {
 
 	@Autowired
 	private UserProfileService userProfileService;
+	
+	@Autowired
+	private GeneralLedgerService generalLedgerService;
 	
 	@RequestMapping("/saveitem")
 	public String saveInvoiceItem(@ModelAttribute("item") InvoiceItem item, Model model) {
@@ -89,8 +93,8 @@ public class ShoppingCartController {
 	public String processShoppingCart(@ModelAttribute("item") InvoiceItem item, Principal principal) {
 		UserProfile user = userProfileService.getUser(principal.getName());
 		InvoiceHeader header = invoiceService.getOpenOrder(user.getUserID());
-		invoiceService.processShoppingCart(header, item);
+		invoiceService.processShoppingCart(header);
 		
-		return "home";
+		return "thankyou";
 	}
 }

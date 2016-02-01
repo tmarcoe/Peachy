@@ -6,6 +6,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.gemma.spring.web.dao.GeneralLedger;
+import com.gemma.spring.web.dao.InventoryDao;
 import com.gemma.spring.web.dao.InvoiceHeader;
 import com.gemma.spring.web.dao.InvoiceHeaderDao;
 import com.gemma.spring.web.dao.InvoiceItem;
@@ -15,10 +17,16 @@ import com.gemma.spring.web.dao.InvoiceItemDao;
 public class InvoiceService {
 	
 	@Autowired
-	InvoiceHeaderDao invoiceHeaderDao;
+	private InvoiceHeaderDao invoiceHeaderDao;
 	
 	@Autowired
-	InvoiceItemDao invoiceItemDao;
+	private InvoiceItemDao invoiceItemDao;
+	
+	@Autowired
+	private InventoryDao inventoryDao;
+	
+	@Autowired
+	private GeneralLedgerService generalLedgerService;
 	
 	public List<InvoiceItem> getInvoice(InvoiceHeader header) {
 	
@@ -61,11 +69,28 @@ public class InvoiceService {
 	}
 
 
-	public void processShoppingCart(InvoiceHeader header, InvoiceItem item) {
+	public void processShoppingCart(InvoiceHeader header) {
 		header.setProcessed(new Date());
+		List<InvoiceItem> itemList = invoiceItemDao.getInvoice(header);
+		
+		float total = 0;
+		for(InvoiceItem item: itemList) {
+			total += (item.getAmount() * item.getPrice());
+			depleteInventory(item);
+			header.setTotal(total);
+		}
 		invoiceHeaderDao.updateHeader(header);
+		GeneralLedger ledger = new GeneralLedger();
+		ledger.setAccountNum("1000");
+		ledger.setUserID(header.getUserID());
+		ledger.setCreditAmt(total);
+		ledger.setDescription("Sales from the website");
+		generalLedgerService.addEntry(ledger);
 	}
 
+	private void depleteInventory(InvoiceItem item) {
+		inventoryDao.depleteInventory(item);
+	}
 
 
 }

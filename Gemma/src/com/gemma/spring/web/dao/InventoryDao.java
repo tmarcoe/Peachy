@@ -90,4 +90,9 @@ public class InventoryDao {
 
 		return container;
 	}
+
+	public void depleteInventory(InvoiceItem item) {
+		String hql = "update Inventory set amtInStock = amtInStock - :amount where skuNum = :skuNum";
+		session().createQuery(hql).setInteger("amount", item.getAmount()).setString("skuNum", item.getSkuNum()).executeUpdate();
+	}
 }
