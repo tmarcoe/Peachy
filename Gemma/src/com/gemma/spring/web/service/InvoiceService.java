@@ -28,6 +28,9 @@ public class InvoiceService {
 	@Autowired
 	private GeneralLedgerService generalLedgerService;
 	
+	@Autowired
+	private AccountingService accountingService;
+	
 	public List<InvoiceItem> getInvoice(InvoiceHeader header) {
 	
 		return invoiceItemDao.getInvoice(header);
@@ -81,11 +84,9 @@ public class InvoiceService {
 		}
 		invoiceHeaderDao.updateHeader(header);
 		GeneralLedger ledger = new GeneralLedger();
-		ledger.setAccountNum("1000");
 		ledger.setUserID(header.getUserID());
-		ledger.setCreditAmt(total);
 		ledger.setDescription("Sales from the website");
-		generalLedgerService.addEntry(ledger);
+		accountingService.transferFunds(ledger, "1000", "1004", header.getTotal());
 	}
 
 	private void depleteInventory(InvoiceItem item) {

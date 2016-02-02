@@ -64,4 +64,22 @@ public class ChartOfAccountsDao {
 		session().update(chartOfAccounts);
 		
 	}
+
+	public void debitAccount(String accountNum, double amount) {
+		String hql = "update ChartOfAccounts set accountBalance = accountBalance - :amount where accountNum = :accountNum";
+		session().createQuery(hql)
+				 .setDouble("amount", amount)
+				 .setString("accountNum", accountNum)
+				 .executeUpdate();
+	}
+
+	public void creditAccount(String accountNum, double amount) {
+		String hql = "update ChartOfAccounts set accountBalance = accountBalance + :amount where accountNum = :accountNum";
+		session().createQuery(hql)
+				 .setDouble("amount", amount)
+				 .setString("accountNum", accountNum)
+				 .executeUpdate();
+	}
+
+
 }

@@ -2,12 +2,14 @@ package com.gemma.spring.web.dao;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.validation.constraints.Min;
 
 @Entity
 public class InvoiceItem {
 	
 	@EmbeddedId
 	private Invoice invoiceKey;
+	@Min(value = 1)
 	private int amount;
 	/*
 	 * The following is from the Iventory table

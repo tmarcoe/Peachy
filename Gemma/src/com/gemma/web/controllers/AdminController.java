@@ -9,6 +9,8 @@ import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,19 +19,25 @@ import org.springframework.beans.support.PagedListHolder;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.gemma.spring.web.dao.ChartOfAccounts;
 import com.gemma.spring.web.dao.ChartOfAccountsContainer;
+import com.gemma.spring.web.dao.DatePicker;
+import com.gemma.spring.web.dao.GeneralLedger;
 import com.gemma.spring.web.dao.Inventory;
 import com.gemma.spring.web.dao.InventoryContainer;
 import com.gemma.spring.web.dao.UserProfile;
 import com.gemma.spring.web.service.ChartOfAccountsService;
 import com.gemma.spring.web.service.FileUpload;
+import com.gemma.spring.web.service.GeneralLedgerService;
 import com.gemma.spring.web.service.InventoryService;
 import com.gemma.spring.web.service.UserProfileService;
 
@@ -40,14 +48,6 @@ public class AdminController {
 
 	@Autowired
 	ServletContext servletContext;
-
-	@InitBinder
-	public void initBinder(WebDataBinder binder) {
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		dateFormat.setLenient(false);
-		binder.registerCustomEditor(Date.class, new CustomDateEditor(
-				dateFormat, false));
-	}
 
 	@Autowired
 	private InventoryService inventoryService;
@@ -62,7 +62,23 @@ public class AdminController {
 	private PagedListHolder<UserProfile> userList;
 	
 	@Autowired
+	private PagedListHolder<GeneralLedger> ledgerList;
+	
+	@Autowired
 	private FileUpload fileUpload;
+	
+	@Autowired
+	private GeneralLedgerService generalLedgerService;
+	
+	private SimpleDateFormat dateFormat;
+
+	@InitBinder
+	public void initBinder(WebDataBinder binder) {
+		dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		dateFormat.setLenient(false);
+		binder.registerCustomEditor(Date.class, new CustomDateEditor(
+				dateFormat, false));
+	}
 
 	/******************************************************************************
 	 * Admin Home Page
@@ -337,6 +353,77 @@ public class AdminController {
 			@ModelAttribute("userProfile") UserProfile userProfile, Model model) {
 		userProfileService.partialUpdate(userProfile);
 		return "users";
+	}
+/**************************************************************************************
+ * Misc admin tasks
+ * 
+ *************************************************************************************/
+
+	@RequestMapping("/datepicker")
+	public String pickDate(Model model) {
+		DatePicker datePicker = new DatePicker();
+		
+		model.addAttribute("datePicker", datePicker);
+		
+		return "datepicker";
+	}
+	
+	@RequestMapping("/generalledger")
+	public String viewGeneralLedger(@ModelAttribute("datePicker") DatePicker picker, Model model) {
+		picker.setSf(dateFormat);
+		ledgerList.setSource(generalLedgerService.getList(picker));
+		ledgerList.setPage(0);
+		ledgerList.setPageSize(26);
+
+		model.addAttribute("ledgerList", ledgerList);
+		
+		return "generalledger";
+	}
+	
+	@RequestMapping(value="/ledgerpaging", method=RequestMethod.GET)
+	public ModelAndView handleLedgerRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		int pgNum;
+	    String keyword = request.getParameter("keyword");
+	    if (keyword != null) {
+	        if (!StringUtils.hasLength(keyword)) {
+	            return new ModelAndView("Error", "message", "Please enter a keyword to search for, then press the search button.");
+	        }
+
+	        ledgerList.setPageSize(26);
+	        request.getSession().setAttribute("SearchProductsController_productList", ledgerList);
+	        return new ModelAndView("generalledger", "ledgerList", ledgerList);
+	    }
+	    else {
+	        String page = request.getParameter("page");
+	        
+	        if (ledgerList == null) {
+	            return new ModelAndView("Error", "message", "Your session has timed out. Please start over again.");
+	        }
+	        pgNum = isInteger(page);
+	        
+	        if ("next".equals(page)) {
+	        	ledgerList.nextPage();
+	        }
+	        else if ("prev".equals(page)) {
+	        	ledgerList.previousPage();
+	        }else if (pgNum != -1) {
+	        	ledgerList.setPage(pgNum);
+	        }
+	        return new ModelAndView("generalledger", "ledgerList", ledgerList);
+	    }
+	}
+	
+	private int isInteger(String s) {
+		int retInt;
+	    try { 
+	    	retInt = Integer.parseInt(s); 
+	    } catch(NumberFormatException e) { 
+	        return -1; 
+	    } catch(NullPointerException e) {
+	        return -1;
+	    }
+	    // only got here if we didn't return false
+	    return retInt;
 	}
 
 }

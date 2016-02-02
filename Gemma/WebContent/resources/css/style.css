@@ -355,4 +355,24 @@ table.dailyspecials td {
 {
 	padding: 2em;
 }
-
+.viewledger
+{
+	border-collapse: collapse;
+}
+.viewledger th
+{
+	background: #f5f3c2;
+}
+.viewledger tr:nth-child(odd)
+{
+	background: #dedbee;
+}
+.viewledger tr:nth-child(even)
+{
+	 background: #fbfbff;
+}
+table.viewledger td
+{
+	padding: 0 2em;
+	border: 1px solid black;
+}

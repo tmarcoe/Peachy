@@ -16,6 +16,7 @@
 				<li><a href="manageinventory">Manage Inventory</a></li>
 				<li><a href="manageaccount">Manage Accounts</a></li>
 				<li><a href="users">User Profiles</a></li>
+				<li><a href="datepicker">View General Ledger</a>
 			</sec:authorize>
 		</ul>
 	</div>

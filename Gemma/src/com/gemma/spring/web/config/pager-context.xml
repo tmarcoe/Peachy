@@ -16,4 +16,8 @@
 		class="org.springframework.beans.support.PagedListHolder"
 		scope="session">
 	</bean>
+	<bean id="ledgerList"
+		class="org.springframework.beans.support.PagedListHolder"
+		autowire="byName">
+	</bean>
 </beans>

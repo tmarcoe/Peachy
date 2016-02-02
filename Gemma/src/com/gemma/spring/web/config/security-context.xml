@@ -45,6 +45,9 @@
 		<security:intercept-url pattern="/nocart" access="isAuthenticated()"/>
 		<security:intercept-url pattern="/processcart" access="isAuthenticated()"/>
 		<security:intercept-url pattern="/thankyou" access="isAuthenticated()"/>
+		<security:intercept-url pattern="/datepicker" access="hasRole('ROLE_ADMIN')"/>
+		<security:intercept-url pattern="/generalledger" access="hasRole('ROLE_ADMIN')"/>
+		<security:intercept-url pattern="/ledgerpaging" access="hasRole('ROLE_ADMIN')"/>
 		<security:intercept-url pattern="/admin" access="hasRole('ROLE_ADMIN')"/>
 		<security:intercept-url pattern="/addinventory" access="hasRole('ROLE_ADMIN')"/>
 		<security:intercept-url pattern="/manageinventory" access="hasRole('ROLE_ADMIN')"/>

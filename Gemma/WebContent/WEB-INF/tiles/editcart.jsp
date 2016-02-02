@@ -18,7 +18,8 @@
 			<td>${item.productName}</td>
 			<td>${item.description}</td>
 			<td><fmt:formatNumber type="currency" currencySymbol="P" value="${item.price}"/> each</td>
-			<td><sf:input type="number" path="amount" min="1" width="10px"/>
+			<td><sf:input type="number" path="amount" min="1" maxlength="3" size="1"/></td>
+			<td><div class="error"><sf:errors path="amount"/></div></td>
 		</tr>
 		<tr>
 			<td><sf:input type="hidden" path="invoiceKey.invoiceNum" /></td>

@@ -8,12 +8,17 @@ import org.springframework.stereotype.Service;
 import com.gemma.spring.web.dao.ChartOfAccounts;
 import com.gemma.spring.web.dao.ChartOfAccountsContainer;
 import com.gemma.spring.web.dao.ChartOfAccountsDao;
+import com.gemma.spring.web.dao.GeneralLedger;
+import com.gemma.spring.web.dao.GeneralLedgerDao;
 
 @Service("chartOfAccountsService")
 public class ChartOfAccountsService {
 	
 	@Autowired
 	private ChartOfAccountsDao chartOfAccountsDao;
+	
+	@Autowired
+	private GeneralLedgerDao generalLedgerDao;
 	
 	public List<ChartOfAccounts> listAccounts() {
 		return chartOfAccountsDao.listAccounts();
@@ -51,6 +56,14 @@ public class ChartOfAccountsService {
 
 	public ChartOfAccounts getAccount(String detailKey) {
 		return chartOfAccountsDao.getAccount(detailKey);
+	}
+
+	public void creditAccount(String accountNum, double amount) {
+		chartOfAccountsDao.creditAccount(accountNum, amount);
+	}
+
+	public void debitAccount(String accountNum, double amount) {
+		chartOfAccountsDao.debitAccount(accountNum, amount);
 	}
 
 }

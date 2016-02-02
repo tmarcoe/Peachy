@@ -188,7 +188,18 @@
 		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/thankyou.jsp"></put-attribute>
 	</definition>
-
+	<definition name="generalledger" extends="gemma.base">
+		<put-attribute name="heading_title" value="General Ledger"></put-attribute>
+		<put-attribute name="title" value="General Ledger"></put-attribute>
+		<put-attribute name="toolbar" value="/WEB-INF/tiles/admintoolbar.jsp"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/generalledger.jsp"></put-attribute>
+	</definition>
+	<definition name="datepicker" extends="gemma.base">
+		<put-attribute name="heading_title" value="General Ledger Period"></put-attribute>
+		<put-attribute name="title" value="General Ledger Period"></put-attribute>
+		<put-attribute name="toolbar" value="/WEB-INF/tiles/admintoolbar.jsp"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/datepicker.jsp"></put-attribute>
+	</definition>
 </tiles-definitions>
 
 

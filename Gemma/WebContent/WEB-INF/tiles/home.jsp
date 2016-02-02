@@ -24,8 +24,7 @@
 					src="<c:url value='/static/images/products/${inventory.image}' />"
 					width="70" height="80">
 			</a></td>
-			<td class="name" width="600"><c:out
-					value="${inventory.productName}"></c:out></td>
+			<td class="name" width="600">${inventory.productName}</td>
 			<td class="price"><fmt:formatNumber type="currency" currencySymbol="P" value="${price}"/></td>
 		</tr>
 		<tr>
