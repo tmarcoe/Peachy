@@ -20,4 +20,8 @@
 		class="org.springframework.beans.support.PagedListHolder"
 		autowire="byName">
 	</bean>
+	<bean id="headerList"
+		class="org.springframework.beans.support.PagedListHolder"
+		autowire="byName">
+	</bean>
 </beans>

@@ -15,4 +15,5 @@
 		value="C:\\Users\\Timothy Marcoe\\WebSite Archive\\Gemma\\WebContent\\resources\\images\\products">
 	</property>
 	</bean>
+	<bean id="categories" class="com.gemma.web.beans.Categories"></bean>
 </beans>
