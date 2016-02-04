@@ -1,5 +1,7 @@
 package com.gemma.spring.web.dao;
 
+import java.util.List;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +44,13 @@ public class InvoiceHeaderDao {
 
 	public void updateHeader(InvoiceHeader header) {
 		session().update(header);
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<InvoiceHeader> getProcessedInvoices() {
+		String hql = "from InvoiceHeader where processed != null and dateShipped = null";
+		
+		return session().createQuery(hql).list();
 	}
 
 }

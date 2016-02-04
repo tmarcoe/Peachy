@@ -1,4 +1,4 @@
-package com.gemma.spring.web.dao;
+package com.gemma.web.beans;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

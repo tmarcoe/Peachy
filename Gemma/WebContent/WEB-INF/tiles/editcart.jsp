@@ -5,6 +5,7 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
 <sf:form method="post" commandName="item"
 	action="${pageContext.request.contextPath}/saveitem">
@@ -21,6 +22,7 @@
 			<td><sf:input type="number" path="amount" min="1" maxlength="3" size="1"/></td>
 			<td><div class="error"><sf:errors path="amount"/></div></td>
 		</tr>
+
 		<tr>
 			<td><sf:input type="hidden" path="invoiceKey.invoiceNum" /></td>
 			<td><sf:input type="hidden" path="invoiceKey.skuNum" /></td>
@@ -31,6 +33,7 @@
 			<td><sf:input type="hidden" path="amtInStock" /></td>
 			<td><sf:input type="hidden" path="weight" /></td>
 		</tr>
+
 		<tr>
 			<td><input type="submit" value="Save Item"/>
 		</tr>

@@ -94,4 +94,10 @@ public class InvoiceService {
 	}
 
 
+	public List<InvoiceHeader> getProcessedInvoices() {
+
+		return invoiceHeaderDao.getProcessedInvoices();
+	}
+
+
 }

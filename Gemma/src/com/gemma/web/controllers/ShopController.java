@@ -1,5 +1,6 @@
 package com.gemma.web.controllers;
 
+import java.io.Serializable;
 import java.security.Principal;
 import java.util.Date;
 import java.util.List;
@@ -25,14 +26,20 @@ import com.gemma.spring.web.dao.UserProfile;
 import com.gemma.spring.web.service.InventoryService;
 import com.gemma.spring.web.service.InvoiceService;
 import com.gemma.spring.web.service.UserProfileService;
+import com.gemma.web.beans.Categories;
 
 import org.springframework.util.StringUtils;
 
 
 @Controller
 @Scope(value="session")
-public class ShopController {
+public class ShopController implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Autowired
 	private InventoryService inventoryService;
 	
@@ -44,6 +51,9 @@ public class ShopController {
 	
 	@Autowired
 	private UserProfileService userProfileService;
+	
+	@Autowired
+	private Categories categories;
 
 	@RequestMapping(value="/products")
 	public String products(	@ModelAttribute("page") String page, Model model) {

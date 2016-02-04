@@ -1,1 +1,1 @@
-<h1> No items are left in your Shopping Cart</h1>
+<h1>Your shopping cart is empty</h1>

@@ -1,4 +1,4 @@
-package com.gemma.spring.web.service;
+package com.gemma.web.beans;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.multipart.MultipartFile;

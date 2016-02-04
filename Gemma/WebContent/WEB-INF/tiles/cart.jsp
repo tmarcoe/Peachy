@@ -42,22 +42,25 @@
 					<td><input type="text"
 						value="<fmt:formatNumber type='currency' currencySymbol='P' value='${pr}' />"
 						readonly="readonly" /></td>
-					<td><a href="#" onclick="rowRemoved(${i.index});"
-						class="removeAccount"><img alt="[Remove]"
-							src="<c:url value='/static/images/web/minus.png' />"></a></td>
-					<td>&nbsp;</td>
-					<td><a href="#" onclick="getDetail(${i.index});"
-						class="inventorydetail"><img alt="[Show Detail]"
-							src="<c:url value='/static/images/web/edit.png' />"></a></td>
+					<c:if test="${invoice.invoiceHeader.processed == null}">
+						<td><a href="#" onclick="rowRemoved(${i.index});"
+							class="removeAccount"><img alt="[Remove]"
+								src="<c:url value='/static/images/web/minus.png' />"></a></td>
+						<td>&nbsp;</td>
+						<td><a href="#" onclick="getDetail(${i.index});"
+							class="inventorydetail"><img alt="[Show Detail]"
+								src="<c:url value='/static/images/web/edit.png' />"></a></td>
+					</c:if>
 				</tr>
 			</c:forEach>
 			<tr>
 				<td colspan="4"><b>Total Price-------> <fmt:formatNumber
 							type="currency" currencySymbol="P" value="${total}" />
 				</b></td>
-				<td><a href="${pageContext.request.contextPath}/processcart" class="button">Check
-						Out</a></td>
-
+				<c:if test="${invoice.invoiceHeader.processed == null}">
+					<td><a href="${pageContext.request.contextPath}/processcart"
+						class="button">Check Out</a></td>
+				</c:if>
 			</tr>
 		</tbody>
 	</table>

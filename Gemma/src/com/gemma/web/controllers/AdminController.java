@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -30,20 +31,27 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.gemma.spring.web.dao.ChartOfAccounts;
 import com.gemma.spring.web.dao.ChartOfAccountsContainer;
-import com.gemma.spring.web.dao.DatePicker;
 import com.gemma.spring.web.dao.GeneralLedger;
 import com.gemma.spring.web.dao.Inventory;
 import com.gemma.spring.web.dao.InventoryContainer;
+import com.gemma.spring.web.dao.InvoiceHeader;
 import com.gemma.spring.web.dao.UserProfile;
 import com.gemma.spring.web.service.ChartOfAccountsService;
-import com.gemma.spring.web.service.FileUpload;
 import com.gemma.spring.web.service.GeneralLedgerService;
 import com.gemma.spring.web.service.InventoryService;
+import com.gemma.spring.web.service.InvoiceService;
 import com.gemma.spring.web.service.UserProfileService;
+import com.gemma.web.beans.DatePicker;
+import com.gemma.web.beans.FileUpload;
 
 @Controller
 @Scope(value = "session")
-public class AdminController {
+public class AdminController implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private final String filePath = "C:\\Users\\Timothy Marcoe\\WebSite Archive\\Gemma\\WebContent\\resources\\images\\products";
 
 	@Autowired
@@ -54,6 +62,9 @@ public class AdminController {
 
 	@Autowired
 	private ChartOfAccountsService chartOfAccountsService;
+	
+	@Autowired
+	private InvoiceService invoiceService;
 
 	@Autowired
 	private UserProfileService userProfileService;
@@ -63,6 +74,9 @@ public class AdminController {
 	
 	@Autowired
 	private PagedListHolder<GeneralLedger> ledgerList;
+	
+	@Autowired 
+	private PagedListHolder<InvoiceHeader> headerList;
 	
 	@Autowired
 	private FileUpload fileUpload;
@@ -84,7 +98,11 @@ public class AdminController {
 	 * Admin Home Page
 	 ******************************************************************************/
 	@RequestMapping("/admin")
-	public String showAdmin() {
+	public String showAdmin(Model model) {
+		headerList.setSource(invoiceService.getProcessedInvoices());
+		headerList.setPage(0);
+		headerList.setPageSize(20);
+		model.addAttribute("headerList", headerList);
 		return "admin";
 	}
 
@@ -425,5 +443,37 @@ public class AdminController {
 	    // only got here if we didn't return false
 	    return retInt;
 	}
+	@RequestMapping(value="/headerpaging", method=RequestMethod.GET)
+	public ModelAndView handleHeaderRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		int pgNum;
+	    String keyword = request.getParameter("keyword");
+	    if (keyword != null) {
+	        if (!StringUtils.hasLength(keyword)) {
+	            return new ModelAndView("Error", "message", "Please enter a keyword to search for, then press the search button.");
+	        }
 
+	        headerList.setPageSize(20);
+	        request.getSession().setAttribute("SearchProductsController_productList", headerList);
+	        return new ModelAndView("admin", "headerList", headerList);
+	    }
+	    else {
+	        String page = request.getParameter("page");
+	        
+	        if (headerList == null) {
+	            return new ModelAndView("Error", "message", "Your session has timed out. Please start over again.");
+	        }
+	        pgNum = isInteger(page);
+	        
+	        if ("next".equals(page)) {
+	        	headerList.nextPage();
+	        }
+	        else if ("prev".equals(page)) {
+	        	headerList.previousPage();
+	        }else if (pgNum != -1) {
+	        	headerList.setPage(pgNum);
+	        }
+	        return new ModelAndView("admin", "headerList", headerList);
+	    }
+	}
+	
 }

@@ -1,17 +1,23 @@
 package com.gemma.spring.web.service;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.gemma.spring.web.dao.DatePicker;
 import com.gemma.spring.web.dao.GeneralLedger;
 import com.gemma.spring.web.dao.GeneralLedgerDao;
+import com.gemma.web.beans.DatePicker;
 
 @Service("generalLedgerService")
-public class GeneralLedgerService {
+public class GeneralLedgerService implements Serializable{
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	
 	@Autowired
 	private GeneralLedgerDao generalLedgerDao;

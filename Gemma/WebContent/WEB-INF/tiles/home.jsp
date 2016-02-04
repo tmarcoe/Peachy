@@ -4,17 +4,23 @@
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<h2>Daily Specials</h2>
-<h6>To see a full list of products click the 'shop' link at the top of the page.</h6>
-<table class="dailyspecials">
-	<thead>
-		<tr>
-			<th>&nbsp;</th>
-			<th>Product Name</th>
-			<th>Now On Sale For...</th>
+<div class="pageheading">
+	<h2>Daily Specials</h2>
+</div>
 
-		</tr>
-	</thead>
+<table class="dailyspecials">
+
+	<caption>To see a full list of products click the 'shop' link
+		at the top of the page.</caption>
+	<tr>
+		<td>&nbsp;</td>
+	</tr>
+	<tr>
+		<th>&nbsp;</th>
+		<th>Product Name</th>
+		<th>Now On Sale For...</th>
+	</tr>
+
 	<c:forEach var="inventory" items="${inventory}">
 		<c:set var="price" value="${inventory.discountPrice}" />
 		<tr class="inventoryrow">
@@ -25,11 +31,12 @@
 					width="70" height="80">
 			</a></td>
 			<td class="name" width="600">${inventory.productName}</td>
-			<td class="price"><fmt:formatNumber type="currency" currencySymbol="P" value="${price}"/></td>
+			<td class="price"><fmt:formatNumber type="currency"
+					currencySymbol="P" value="${price}" /></td>
 		</tr>
 		<tr>
-		<!--<td colspan="3">________________________________________________________________________________________________________</td> -->
-		<td colspan="3"><hr /></td>
+			<!--<td colspan="3">________________________________________________________________________________________________________</td> -->
+			<td colspan="3"><hr /></td>
 		</tr>
 	</c:forEach>
 

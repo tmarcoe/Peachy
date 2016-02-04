@@ -35,7 +35,7 @@
 		var column = (row * 2);
 		var key = inputs[column].value;
 		    if (confirm("Are you sure you want to remove Account #" + inputs[column].value + " from Chart of Accounts?") == true) {
-		   		window.location.href = "/spring/deleteaccount?deleteKey=" + key;		    
+		   		window.location.href = "${pageContext.request.contextPath}/deleteaccount?deleteKey=" + key;		    
 		   	} 
 	}
 	function getDetail(row) {
@@ -43,7 +43,7 @@
   		var inputs = document.getElementById('listaccounts').getElementsByTagName('input');
 		var column = (row * 2);
 		var key = inputs[column].value;
-		window.location.href = "/spring/accountdetail?detailKey=" + key;	
+		window.location.href = "${pageContext.request.contextPath}/accountdetail?detailKey=" + key;	
 	}
  
  

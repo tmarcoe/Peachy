@@ -376,3 +376,32 @@ table.viewledger td
 	padding: 0 2em;
 	border: 1px solid black;
 }
+.viewheader td:nth-child(4)
+{
+	text-align: right;
+}
+div.pageheading
+{
+	color: #dfa620;
+}
+table.viewheader td
+{
+	padding: 0 2em;
+	border: 1px solid black;
+}
+.viewheader
+{
+	border-collapse: collapse;
+}
+.viewheader th
+{
+		background: #f5f3c2;
+}
+.viewheader tr:nth-child(odd)
+{
+	background: #dedbee;
+}
+.viewheader tr:nth-child(even)
+{
+	background: #fbfbff;
+}

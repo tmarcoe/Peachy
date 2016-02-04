@@ -200,6 +200,12 @@
 		<put-attribute name="toolbar" value="/WEB-INF/tiles/admintoolbar.jsp"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/datepicker.jsp"></put-attribute>
 	</definition>
+	<definition name="filepicker" extends="gemma.base">
+		<put-attribute name="heading_title" value="Pick an Output File"></put-attribute>
+		<put-attribute name="title" value="Output File"></put-attribute>
+		<put-attribute name="toolbar" value="/WEB-INF/tiles/admintoolbar.jsp"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/filepicker.jsp"></put-attribute>
+	</definition>
 </tiles-definitions>
 
 
