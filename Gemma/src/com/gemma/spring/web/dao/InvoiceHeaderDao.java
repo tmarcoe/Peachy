@@ -1,5 +1,6 @@
 package com.gemma.spring.web.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -52,5 +53,6 @@ public class InvoiceHeaderDao {
 		
 		return session().createQuery(hql).list();
 	}
+
 
 }

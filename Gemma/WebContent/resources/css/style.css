@@ -264,13 +264,6 @@ td:nth-child(1) {
 	text-align: right;
 }
 
-.mailing {
-	border-top: 50px;
-}
-
-.billing {
-	border-top: 50px;
-}
 
 #listaccounts {
 	border-collapse: collapse;
@@ -404,4 +397,9 @@ table.viewheader td
 .viewheader tr:nth-child(even)
 {
 	background: #fbfbff;
+}
+table.signup td
+{
+	padding: 0;
+	text-align: left;
 }

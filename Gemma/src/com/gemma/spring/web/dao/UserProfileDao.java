@@ -140,6 +140,12 @@ public class UserProfileDao {
 	public void updateProfile(UserProfile user) {
 		session().saveOrUpdate(user);
 	}
+
+	public UserProfile getUserByID(int userID) {
+		String hql = "from UserProfile where userID = :userID";
+		
+		return (UserProfile) session().createQuery(hql).setInteger("userID", userID).uniqueResult();
+	}
 	
 	
 }

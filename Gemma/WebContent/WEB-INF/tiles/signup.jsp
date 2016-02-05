@@ -8,156 +8,158 @@
 <sf:form id="details" method="post"
 	action="${pageContext.request.contextPath}/createprofile"
 	commandName="userProfile">
-	<div class="billing">
-		<table>
-			<thead>
-				<tr>
-					<th colspan="6">User Name</th>
-				</tr>
-			</thead>
+	<table class="signup">
+		<thead>
 			<tr>
-				<td>First Name:</td>
-				<td><sf:input type="text" class="control" path="firstname"
-						name="firstname" /></td>
-				<td>
-					<div class="error">
-						<sf:errors path="firstname"></sf:errors>
-					</div>
-				</td>
-				<td>Last Name:</td>
-				<td><sf:input type="text" class="control" path="lastname"
-						name="lastname" /></td>
-					<td><div class="error">
-						<sf:errors path="lastname"></sf:errors>
-					</div></td>
-				<td>Gender</td>
-				<td><sf:select path="maleFemale">
-						<option value="">--Select One--</option>
-						<option value="M">Male</option>
-						<option value="F">Female</option>
-				</sf:select></td>
+				<th colspan="4">User Information</th>
 			</tr>
-			<tr>
-				<td>&nbsp;</td>
-			</tr>
-			<thead>
-				<tr>
-					<th colspan="6">Address</th>
-				</tr>
-			</thead>
-			<tr>
-				<td>Address 1:</td>
-				<td><sf:input type="text" path="address1" class="control"
-						name="address1" /></td>
-				<td><div class="error">
-						<sf:errors path="address1"></sf:errors>
-					</div></td>
-				<td>Address 2:</td>
-				<td><sf:input type="text" path="address2" class="control"
-						name="address2" /></td>
-				<td><div class="error">
-						<sf:errors path="address2"></sf:errors>
-					</div></td>
-			</tr>
-			<tr>
-				<td>City :</td>
-				<td><sf:input type="text" path="city" class="control"
-						name="city" /></td>
-				<td><div class="error">
-						<sf:errors path="city"></sf:errors>
-					</div></td>
-				<td>State/Region:</td>
-				<td><sf:input type="text" path="region" class="control"
-						name="region" /></td>
-				<td><div class="error">
-						<sf:errors path="region"></sf:errors>
-					</div></td>
-			</tr>
-			<tr>
-				<td>Postal Code:</td>
-				<td><sf:input type="text" path="postalCode" class="control"
-						name="postalCode" /></td>
-				<td><div class="error">
-						<sf:errors path="postalCode"></sf:errors>
-					</div></td>
-				<td>Country:</td>
-				<td><sf:input type="text" path="country" class="control"
-						name="country" /></td>
-				<td><div class="error">
-						<sf:errors path="country"></sf:errors>
-					</div></td>
-			</tr>
-			<tr>
-				<td>&nbsp;</td>
-			</tr>
-			<thead>
-				<tr>
-					<th colspan="6">Contact Information</th>
-				</tr>
-			</thead>
+		</thead>
+		<tr>
+			<td>First Name:</td>
+			<td><sf:input type="text" class="control" path="firstname"
+					name="firstname" /></td>
+			<td>Last Name:</td>
+			<td><sf:input type="text" class="control" path="lastname"
+					name="lastname" /></td>
+			<td><sf:radiobutton path="maleFemale" value="M" />Male<sf:radiobutton
+					path="maleFemale" value="F" />Female</td>
 
-			<tr>
-				<td>Home Phone:</td>
-				<td><sf:input type="tel" path="homePhone" class="control"
-						name="homePhone" /></td>
-				<td><div class="error">
-						<sf:errors path="homePhone"></sf:errors>
-					</div></td>
-				<td>Cell Phone:</td>
-				<td><sf:input type="tel" path="cellPhone" class="control"
-						name="cellPhone" /></td>
-				<td><div class="error">
-						<sf:errors path="cellPhone"></sf:errors>
-					</div></td>
-				</tr>
-				<tr>
-				<td>E-Mail:</td>
-				<td><sf:input type="username" path="username" class="control"
-						name="username" /></td>
-				<td><div class="error">
-						<sf:errors path="username"></sf:errors>
-					</div></td>
-			</tr>
-			<tr>
-				<td>Password:</td>
-				<td><sf:input id="password" class="control" path="password"
-						name="password" type="password" /></td>
-					<td><div class="error">
-						<sf:errors path="password"></sf:errors>
-					</div></td>
-				<td>Confirm Password:</td>
-				<td><input id="confirmpass" class="control" name="confirmpass"
-					type="password" /></td>
-					<td><div id="matchpass"></div></td>
-			</tr>
-			<tr>
-				<td>&nbsp;</td>
-				<td>
-			</tr>
-			<tr>
-				<td>Monthly News Letter:</td>
-				<td><input type="hidden" value="on" name="_active" /> <sf:checkbox
-						class="control" path="monthlyMailing" /></td>
-			</tr>
-			<tr>
-				<td>Daily Specials:</td>
-				<td><input type="hidden" value="on" name="_active" /> <sf:checkbox
-						path="dailySpecials" class="control" /></td>
-			</tr>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+			<td>
+				<div class="error">
+					<sf:errors path="firstname" />
+				</div>
+			</td>
+			<td>&nbsp;</td>
+			<td><div class="error">
+					<sf:errors path="lastname" />
+				</div></td>
+		</tr>
+		<tr>
+			<td>Address 1:</td>
+			<td><sf:input type="text" path="address1" class="control"
+					name="address1" /></td>
+			<td>Address 2:</td>
+			<td><sf:input type="text" path="address2" class="control"
+					name="address2" /></td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+			<td><div class="error">
+					<sf:errors path="address1" />
+				</div></td>
+			<td>&nbsp;</td>
+			<td><div class="error">
+					<sf:errors path="address2" />
+				</div></td>
+		</tr>
+		<tr>
+			<td>City:</td>
+			<td><sf:input type="text" path="city" class="control"
+					name="city" /></td>
+			<td>State/Region:</td>
+			<td><sf:input type="text" path="region" class="control"
+					name="region" /></td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+			<td><div class="error">
+					<sf:errors path="city" />
+				</div></td>
+			<td>&nbsp;</td>
+			<td><div class="error">
+					<sf:errors path="region" />
+				</div></td>
+		</tr>
+		<tr>
+			<td>Postal Code:</td>
+			<td><sf:input type="text" path="postalCode" class="control"
+					name="postalCode" /></td>
+			<td>Country:</td>
+			<td><sf:input type="text" path="country" class="control"
+					name="country" /></td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+			<td><div class="error">
+					<sf:errors path="postalCode" />
+				</div></td>
+			<td>&nbsp;</td>
+			<td><div class="error">
+					<sf:errors path="country" />
+				</div></td>
+		</tr>
+		<tr>
+			<td>Home Phone:</td>
+			<td><sf:input type="tel" path="homePhone" class="control"
+					name="homePhone" /></td>
+			<td>Cell Phone:</td>
+			<td><sf:input type="tel" path="cellPhone" class="control"
+					name="cellPhone" /></td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+			<td><div class="error">
+					<sf:errors path="homePhone" />
+				</div></td>
+			<td>&nbsp;</td>
+			<td><div class="error">
+					<sf:errors path="cellPhone" />
+				</div></td>
+		</tr>
+		<tr>
+			<td>E-Mail:</td>
+			<td><sf:input type="username" path="username" class="control"
+					name="username" /></td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+			<td><div class="error">
+					<sf:errors path="username" />
+				</div></td>
+		</tr>
+		<tr>
+			<td>Password:</td>
+			<td><sf:input id="password" class="control" path="password"
+					name="password" type="password" /></td>
+			<td>Confirm:</td>
+			<td><input id="confirmpass" class="control" name="confirmpass"
+				type="password" /></td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+			<td><div class="error">
+					<sf:errors path="password" />
+				</div></td>
+			<td>&nbsp;</td>
+			<td><div id="matchpass"></div></td>
+		</tr>
+		<tr>
+			<td>Monthly News Letter:</td>
+			<td><input type="hidden" value="on" name="_active" /> <sf:checkbox
+					class="control" path="monthlyMailing" /></td>
+			<td>Daily Specials:</td>
+			<td><input type="hidden" value="on" name="_active" /> <sf:checkbox
+					path="dailySpecials" class="control" /></td>
+		</tr>
 
 
-			<tr>
-				<td>Shipping Info:</td>
-				<td><sf:textarea rows="5" cols="50" path="shippingInfo"
-						class="control" name="shippingInfo" /></td>
-				<td><div class="error">
-						<sf:errors path="shippingInfo"></sf:errors>
-					</div></td>
-			</tr>
-			<tr>
-				<td><input type="submit" value="Submit" /></td>
-			</tr>
+		<tr>
+			<td>Shipping Info:</td>
+			<td><sf:textarea rows="5" cols="50" path="shippingInfo"
+					class="control" name="shippingInfo" /></td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+			<td><div class="error">
+					<sf:errors path="shippingInfo" />
+				</div></td>
+		</tr>
+		<tr>
+			<td><input type="submit" value="Submit" /></td>
+		</tr>
 
-		</table>
-	</div>
+	</table>
 </sf:form>

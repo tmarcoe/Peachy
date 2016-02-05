@@ -1,11 +1,18 @@
 package com.gemma.web.controllers;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.Serializable;
+import java.io.Writer;
 import java.security.Principal;
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +25,9 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.supercsv.io.CsvBeanWriter;
+import org.supercsv.io.ICsvBeanWriter;
+import org.supercsv.prefs.CsvPreference;
 
 import com.gemma.spring.web.dao.InvoiceContainer;
 import com.gemma.spring.web.dao.InvoiceHeader;
@@ -36,6 +46,8 @@ public class ShoppingCartController implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 4725326820861092920L;
+	private static final String OUTPATH = "C:\\Repository\\";
+	private static final String TAB = "\t";
 
 	@Autowired
 	private InvoiceService invoiceService;
@@ -139,5 +151,47 @@ public class ShoppingCartController implements Serializable {
 		model.addAttribute("filePrint", filePrint);
 			
 		return "filepicker";
+	}
+	@RequestMapping("/processorders")
+	public String processOrders() throws IOException{
+
+		String[] label = {"firstname","lastname","address1","address2","city","region","postalCode","country"};
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddhhmm");
+		String fileName = OUTPATH + sdf.format(new Date()) + ".csv";
+		Writer hdr = new FileWriter(fileName);
+		CsvBeanWriter csvWriter = new CsvBeanWriter(hdr, CsvPreference.STANDARD_PREFERENCE);
+		
+		List<InvoiceHeader> headers = invoiceService.getProcessedInvoices();
+		csvWriter.writeHeader(label);
+		for(InvoiceHeader header: headers) {
+			UserProfile user = userProfileService.getUserByID(header.getUserID());
+			csvWriter.write(user,label);
+			csvWriter.writeComment("Invoice # - " + String.format("%06d",header.getInvoiceNum()));
+			Writer inv = new FileWriter(OUTPATH + String.format("%06d",header.getInvoiceNum()) + ".inv");
+			List<InvoiceItem> invoices = invoiceService.getInvoice(header);
+			String invoiceHeading = user.getFirstname() + " " + user.getLastname() + "\n" +
+									user.getaddress1()  + "\n" +
+									user.getaddress2()  + "\n" +
+									user.getcity()      + "," +
+									user.getregion()    + " " +
+									user.getpostalCode()+ " " +
+									user.getcountry()   + "\n" +
+									"Invoice # " + String.format("%06d", header.getInvoiceNum()) + "\n\n";
+			inv.write(invoiceHeading);
+			double total = 0;
+			for (InvoiceItem invoice: invoices) {
+				double price = invoice.getAmount() * invoice.getPrice();
+				total += price;
+				inv.write(String.format("%s\t%d\t$%.2f\n", invoice.getProductName(), invoice.getAmount(), price));
+			}
+			inv.write("Total -> " + String.format("$%.2f\n", total));
+			inv.close();
+			header.setDateShipped(new Date());
+			invoiceService.updateHeader(header);
+		}
+		csvWriter.close();
+
+		
+		return "admin";
 	}
 }

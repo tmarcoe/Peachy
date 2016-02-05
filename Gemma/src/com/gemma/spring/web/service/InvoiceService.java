@@ -99,5 +99,8 @@ public class InvoiceService {
 		return invoiceHeaderDao.getProcessedInvoices();
 	}
 
+	public void updateHeader(InvoiceHeader header) {
+		invoiceHeaderDao.updateHeader(header);
+	}
 
 }

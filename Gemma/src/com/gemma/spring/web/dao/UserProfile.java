@@ -178,6 +178,4 @@ public class UserProfile {
 		this.dateAdded = dateAdded;
 	}
 	
-	
-	
 }

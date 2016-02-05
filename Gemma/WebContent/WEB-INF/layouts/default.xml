@@ -24,7 +24,7 @@
 	<definition name="signup" extends="gemma.base">
 		<put-attribute name="includes" value="/WEB-INF/tiles/signupscript.jsp"></put-attribute>
 		<put-attribute name="heading_title" value="Signup"></put-attribute>
-		<put-attribute name="title" value="Gemma's Home Page"></put-attribute>
+		<put-attribute name="title" value="Signup"></put-attribute>
 		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/signup.jsp"></put-attribute>
 

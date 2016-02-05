@@ -59,4 +59,9 @@ public class UserProfileService {
 		userProfileDao.updateProfile(user);
 		
 	}
+
+	public UserProfile getUserByID(int userID) {
+		
+		return userProfileDao.getUserByID(userID);
+	}
 }
