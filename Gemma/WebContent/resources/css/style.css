@@ -403,3 +403,14 @@ table.signup td
 	padding: 0;
 	text-align: left;
 }
+
+table.catlist td
+{
+	text-align: center;
+	font-size: 20px;
+}
+table.catlist
+{
+    margin-left:auto; 
+    margin-right:auto;
+}

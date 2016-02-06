@@ -12,6 +12,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.gemma.web.beans.Categories;
+
 @Repository
 @Transactional
 @Component("inventoryDao")
@@ -48,7 +50,7 @@ public class InventoryDao {
 	public List<Inventory> listProducts(String category, String subCategory) {
 		Criteria crit = session().createCriteria(Inventory.class);
 		crit.add(Restrictions.eq("category", category));
-		crit.add(Restrictions.eq("subcategory", subCategory));
+		crit.add(Restrictions.eq("subCategory", subCategory));
 		
 		return crit.list();
 	}
@@ -94,5 +96,18 @@ public class InventoryDao {
 	public void depleteInventory(InvoiceItem item) {
 		String hql = "update Inventory set amtInStock = amtInStock - :amount where skuNum = :skuNum";
 		session().createQuery(hql).setInteger("amount", item.getAmount()).setString("skuNum", item.getSkuNum()).executeUpdate();
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<String> getCategory() {
+		String hql = "select DISTINCT category FROM Inventory";
+		return session().createQuery(hql).list();
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<String> getSubCategory(String category) {
+		String hql = "select DISTINCT subCategory FROM Inventory where category = :category";
+		
+		return session().createSQLQuery(hql).setString("category", category).list();
 	}
 }

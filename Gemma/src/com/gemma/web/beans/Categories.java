@@ -1,11 +1,13 @@
 package com.gemma.web.beans;
 
-import org.springframework.context.annotation.Configuration;
+import java.io.Serializable;
 
-@Configuration
-public class Categories {
+
+public class Categories implements Serializable {
+	private static final long serialVersionUID = 1L;
 	private String category;
 	private String subCategory;
+	
 	public String getCategory() {
 		return category;
 	}

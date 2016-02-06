@@ -57,11 +57,26 @@ public class ShopController implements Serializable {
 
 	@RequestMapping(value="/products")
 	public String products(	@ModelAttribute("page") String page, Model model) {
-		inventoryList.setSource(inventoryService.listProducts());
+		if (categories.getCategory() == null) {			
+			categories.setCategory("");
+		}
+		if (categories.getSubCategory() == null) {
+			categories.setSubCategory("");
+		}
+
+		if (categories.getCategory().length() == 0) {
+			inventoryList.setSource(inventoryService.listProducts());
+		}else if (categories.getSubCategory().length() == 0){
+
+			inventoryList.setSource(inventoryService.listProducts(categories.getCategory()));
+		}else{
+			inventoryList.setSource(inventoryService.listProducts(categories.getCategory(), categories.getSubCategory()));
+		}
 
 		inventoryList.setPageSize(4);
 		inventoryList.setPage(0);
 		model.addAttribute("inventoryList",inventoryList);
+		model.addAttribute("categories", categories);
 	
 		return "products";
 	}
@@ -94,6 +109,58 @@ public class ShopController implements Serializable {
 		
 		model.addAttribute("invoice", invoice);
 		return "cart";
+	}
+	
+	@RequestMapping("/pickcategory")
+	public String pickCategory(Model model) {
+		List<String> catList = inventoryService.getCategory();
+		
+		model.addAttribute("catList", catList);
+		
+		return "pickcategory";
+	}
+	@RequestMapping("/setcategory")
+	public String setCategory(@ModelAttribute("cat") String cat, Model model){
+		categories.setCategory("");
+		categories.setSubCategory("");
+		if (cat.length()== 0) {
+			inventoryList.setSource(inventoryService.listProducts());
+
+			inventoryList.setPageSize(4);
+			inventoryList.setPage(0);
+			model.addAttribute("inventoryList",inventoryList);
+
+			return "products";
+		}
+		categories.setCategory(cat);
+		List<String> catList = inventoryService.getSubCategory(categories.getCategory());
+		model.addAttribute("catList", catList);
+
+		return "picksubcategory";
+	}
+	
+	
+	@RequestMapping("/setsubcategory")
+	public String setSubCategory(@ModelAttribute("cat") String cat, Model model){
+		categories.setSubCategory("");
+		if (cat.length()== 0) {
+			inventoryList.setSource(inventoryService.listProducts(categories.getCategory()));
+
+			inventoryList.setPageSize(4);
+			inventoryList.setPage(0);
+			model.addAttribute("inventoryList",inventoryList);
+			model.addAttribute("categories", categories);
+			return "products";
+		}
+		categories.setSubCategory(cat);
+		inventoryList.setSource(inventoryService.listProducts(categories.getCategory(), categories.getSubCategory()));
+
+		inventoryList.setPageSize(4);
+		inventoryList.setPage(0);
+		model.addAttribute("inventoryList",inventoryList);
+		model.addAttribute("categories", categories);
+		
+		return "products";
 	}
 	
 	@RequestMapping(value="/paging", method=RequestMethod.GET)

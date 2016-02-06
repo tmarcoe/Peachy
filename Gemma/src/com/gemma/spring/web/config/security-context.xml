@@ -43,6 +43,10 @@
 		<security:intercept-url pattern="/editcart" access="isAuthenticated()"/>
 		<security:intercept-url pattern="/saveitem" access="isAuthenticated()"/>
 		<security:intercept-url pattern="/nocart" access="isAuthenticated()"/>
+		<security:intercept-url pattern="/pickcategory" access="isAuthenticated()"/>
+		<security:intercept-url pattern="/setcategory" access="isAuthenticated()"/>
+		<security:intercept-url pattern="/picksubcategory" access="isAuthenticated()"/>
+		<security:intercept-url pattern="/setsubcategory" access="isAuthenticated()"/>
 		<security:intercept-url pattern="/processcart" access="isAuthenticated()"/>
 		<security:intercept-url pattern="/thankyou" access="isAuthenticated()"/>
 		<security:intercept-url pattern="/filepicker" access="hasRole('ROLE_ADMIN')"/>

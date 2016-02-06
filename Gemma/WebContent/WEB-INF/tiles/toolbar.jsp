@@ -13,6 +13,7 @@
 		<ul class="nav">
 			<li><a href="home">Home</a></li>
 			<li><a href="products">Shop</a></li>
+			<li><a href="pickcategory">Filter by Category</a></li>
 			<sec:authorize access="!isAuthenticated()">
 				<li><a href="login">Sign In</a></li>
 				<li><a href="signup">Sign Up</a></li>
@@ -22,7 +23,7 @@
 					href="<c:url value='/j_spring_security_logout'/>">Sign Out</a></li>
 				<li><a href="mydonzalmart">My Profile</a></li>
 				<li><a href="changepassword">Change password</a></li>
-				<li><a href="cart">View/Manage Shopping Cart</a>
+				<li><a href="cart">View/Manage Shopping Cart</a></li>
 			</sec:authorize>
 			<li><a href="contactus">Contact Us</a></li>
 			<li><a href="aboutus">About Us</a></li>

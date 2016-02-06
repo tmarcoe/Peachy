@@ -1,18 +1,14 @@
 package com.gemma.web.controllers;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Serializable;
 import java.io.Writer;
 import java.security.Principal;
-import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +22,6 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.supercsv.io.CsvBeanWriter;
-import org.supercsv.io.ICsvBeanWriter;
 import org.supercsv.prefs.CsvPreference;
 
 import com.gemma.spring.web.dao.InvoiceContainer;
@@ -36,6 +31,7 @@ import com.gemma.spring.web.dao.UserProfile;
 import com.gemma.spring.web.service.GeneralLedgerService;
 import com.gemma.spring.web.service.InvoiceService;
 import com.gemma.spring.web.service.UserProfileService;
+import com.gemma.web.beans.AddressLabel;
 import com.gemma.web.beans.FileUpload;
 
 @Controller
@@ -47,7 +43,7 @@ public class ShoppingCartController implements Serializable {
 	 */
 	private static final long serialVersionUID = 4725326820861092920L;
 	private static final String OUTPATH = "C:\\Repository\\";
-	private static final String TAB = "\t";
+
 
 	@Autowired
 	private InvoiceService invoiceService;
@@ -154,8 +150,9 @@ public class ShoppingCartController implements Serializable {
 	}
 	@RequestMapping("/processorders")
 	public String processOrders() throws IOException{
+		AddressLabel lbl = new AddressLabel();
 
-		String[] label = {"firstname","lastname","address1","address2","city","region","postalCode","country"};
+		String[] label = {"firstname","lastname","address1","address2","city","region","postalCode","country","invoiceNum"};
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddhhmm");
 		String fileName = OUTPATH + sdf.format(new Date()) + ".csv";
 		Writer hdr = new FileWriter(fileName);
@@ -165,8 +162,17 @@ public class ShoppingCartController implements Serializable {
 		csvWriter.writeHeader(label);
 		for(InvoiceHeader header: headers) {
 			UserProfile user = userProfileService.getUserByID(header.getUserID());
-			csvWriter.write(user,label);
-			csvWriter.writeComment("Invoice # - " + String.format("%06d",header.getInvoiceNum()));
+			lbl.setFirstname(user.getFirstname());
+			lbl.setLastname(user.getLastname());
+			lbl.setAddress1(user.getaddress1());
+			lbl.setAddress2(user.getaddress2());
+			lbl.setCity(user.getcity());
+			lbl.setRegion(user.getregion());
+			lbl.setPostalCode(lbl.getPostalCode());
+			lbl.setCountry(user.getcountry());
+			lbl.setInvoiceNum(String.format("%06d", header.getInvoiceNum()));
+			csvWriter.write(lbl,label);
+
 			Writer inv = new FileWriter(OUTPATH + String.format("%06d",header.getInvoiceNum()) + ".inv");
 			List<InvoiceItem> invoices = invoiceService.getInvoice(header);
 			String invoiceHeading = user.getFirstname() + " " + user.getLastname() + "\n" +

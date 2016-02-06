@@ -8,7 +8,13 @@
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@taglib prefix="pg" uri="http://pagination/pagination-spring3.tld"%>
 
-<h2>Products</h2>
+<c:if test="${categories.getCategory().length()>0}">
+	<h6>Category -> ${categories.getCategory()}</h6>
+</c:if>
+<c:if test="${categories.getSubCategory().length()>0}">
+	<h6>Subcategory -> ${categories.getSubCategory()}</h6>
+</c:if>
+
 
 <form:form id="pgform" method="post" modelAttribute="pparam"
 	action="${pageLink}">
@@ -23,8 +29,10 @@
 			</tr>
 		</thead>
 		<c:forEach var="inventory" items="${inventoryList.pageList}">
-			<fmt:formatNumber type="currency" currencySymbol="P" value="${inventory.salePrice}" var="saleprice"/>
-			<fmt:formatNumber type="currency" currencySymbol="P" value="${inventory.discountPrice}" var="discountprice"/>
+			<fmt:formatNumber type="currency" currencySymbol="P"
+				value="${inventory.salePrice}" var="saleprice" />
+			<fmt:formatNumber type="currency" currencySymbol="P"
+				value="${inventory.discountPrice}" var="discountprice" />
 			<c:choose>
 				<c:when test="${inventory.onSale == true}">
 					<c:set var="saleprice" value="<s>${saleprice}</s>" />
@@ -36,7 +44,8 @@
 			</c:choose>
 
 			<tr>
-				<td><a href="productdetails?skuNum=${inventory.skuNum}"> <img alt="Image Not Available"
+				<td><a href="productdetails?skuNum=${inventory.skuNum}"> <img
+						alt="Image Not Available"
 						src="${pageContext.request.contextPath}/static/images/products/${inventory.image}"
 						height="70" width="70">
 				</a></td>
@@ -45,9 +54,9 @@
 				<td>${discountprice}</td>
 			</tr>
 			<tr>
-			<td colspan="4">
-			<hr />
-			</td>
+				<td colspan="4">
+					<hr />
+				</td>
 			</tr>
 		</c:forEach>
 
@@ -55,26 +64,28 @@
 
 
 </form:form>
-<div class="paging">
-	<c:if test="${inventoryList.isFirstPage()==false}">
-		<a href="paging?page=prev"><img alt="[Prev]"
-			src="<c:url value='/static/images/web/button_prev.gif'/>"></a>
-	</c:if>
-	<c:forEach begin="1" end="${inventoryList.getPageCount()}" var="i">
+<c:if test="${inventoryList.getPageCount()>1}">
+	<div class="paging">
+		<c:if test="${inventoryList.isFirstPage()==false}">
+			<a href="paging?page=prev"><img alt="[Prev]"
+				src="<c:url value='/static/images/web/button_prev.gif'/>"></a>
+		</c:if>
+		<c:forEach begin="1" end="${inventoryList.getPageCount()}" var="i">
 
-		<c:choose>
-			<c:when test="${(i-1)!=inventoryList.getPage()}">
-				<a href="paging?page=${i-1}"><span class="paging"><c:out
-							value="${i}" /></span></a>
-			</c:when>
-			<c:otherwise>
-				<span class="paging"><c:out value="${i}" /></span>
-			</c:otherwise>
-		</c:choose>
-	</c:forEach>
-	<%--For displaying Next link --%>
-	<c:if test="${inventoryList.isLastPage()==false}">
-		<a href="paging?page=next"><img alt="[Next]"
-			src="<c:url value='/static/images/web/button_next.gif'/>"></a>
-	</c:if>
-</div>
+			<c:choose>
+				<c:when test="${(i-1)!=inventoryList.getPage()}">
+					<a href="paging?page=${i-1}"><span class="paging"><c:out
+								value="${i}" /></span></a>
+				</c:when>
+				<c:otherwise>
+					<span class="paging"><c:out value="${i}" /></span>
+				</c:otherwise>
+			</c:choose>
+		</c:forEach>
+		<%--For displaying Next link --%>
+		<c:if test="${inventoryList.isLastPage()==false}">
+			<a href="paging?page=next"><img alt="[Next]"
+				src="<c:url value='/static/images/web/button_next.gif'/>"></a>
+		</c:if>
+	</div>
+</c:if>
