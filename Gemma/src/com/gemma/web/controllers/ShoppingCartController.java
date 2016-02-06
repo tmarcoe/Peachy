@@ -182,9 +182,9 @@ public class ShoppingCartController implements Serializable {
 			for (InvoiceItem invoice: invoices) {
 				double price = invoice.getAmount() * invoice.getPrice();
 				total += price;
-				inv.write(String.format("%s\t%d\t$%.2f\n", invoice.getProductName(), invoice.getAmount(), price));
+				inv.write(String.format("%s\t%d\tP%.2f\n", invoice.getProductName(), invoice.getAmount(), price));
 			}
-			inv.write("Total -> " + String.format("$%.2f\n", total));
+			inv.write("Total -> " + String.format("P%.2f\n", total));
 			inv.close();
 			header.setDateShipped(new Date());
 			invoiceService.updateHeader(header);

@@ -58,12 +58,12 @@ public class ChartOfAccountsService {
 		return chartOfAccountsDao.getAccount(detailKey);
 	}
 
-	public void creditAccount(String accountNum, double amount) {
-		chartOfAccountsDao.creditAccount(accountNum, amount);
+	public void creditAccount(ChartOfAccounts accounts, double amount) {
+		chartOfAccountsDao.creditAccount(accounts, amount);
 	}
 
-	public void debitAccount(String accountNum, double amount) {
-		chartOfAccountsDao.debitAccount(accountNum, amount);
+	public void debitAccount(ChartOfAccounts accounts, double amount) {
+		chartOfAccountsDao.debitAccount(accounts, amount);
 	}
 
 }

@@ -65,19 +65,25 @@ public class ChartOfAccountsDao {
 		
 	}
 
-	public void debitAccount(String accountNum, double amount) {
+	public void debitAccount(ChartOfAccounts accounts, double amount) {
+		if(accounts.isDebitAccount() == true) {
+			amount *= -1;
+		}
 		String hql = "update ChartOfAccounts set accountBalance = accountBalance - :amount where accountNum = :accountNum";
 		session().createQuery(hql)
 				 .setDouble("amount", amount)
-				 .setString("accountNum", accountNum)
+				 .setString("accountNum", accounts.getAccountNum())
 				 .executeUpdate();
 	}
 
-	public void creditAccount(String accountNum, double amount) {
+	public void creditAccount(ChartOfAccounts accounts, double amount) {
+		if(accounts.isDebitAccount() == true) {
+			amount *= -1;
+		}
 		String hql = "update ChartOfAccounts set accountBalance = accountBalance + :amount where accountNum = :accountNum";
 		session().createQuery(hql)
 				 .setDouble("amount", amount)
-				 .setString("accountNum", accountNum)
+				 .setString("accountNum", accounts.getAccountNum())
 				 .executeUpdate();
 	}
 

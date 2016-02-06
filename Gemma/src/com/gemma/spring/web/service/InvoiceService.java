@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.gemma.spring.web.dao.ChartOfAccounts;
 import com.gemma.spring.web.dao.GeneralLedger;
 import com.gemma.spring.web.dao.InventoryDao;
 import com.gemma.spring.web.dao.InvoiceHeader;
@@ -30,6 +31,9 @@ public class InvoiceService {
 	
 	@Autowired
 	private AccountingService accountingService;
+	
+	@Autowired
+	ChartOfAccountsService chartOfAccountsService;
 	
 	public List<InvoiceItem> getInvoice(InvoiceHeader header) {
 	
@@ -86,7 +90,9 @@ public class InvoiceService {
 		GeneralLedger ledger = new GeneralLedger();
 		ledger.setUserID(header.getUserID());
 		ledger.setDescription("Sales from the website");
-		accountingService.transferFunds(ledger, "1000", "1004", header.getTotal());
+		ChartOfAccounts from = chartOfAccountsService.getAccount("1000");
+		ChartOfAccounts to = chartOfAccountsService.getAccount("1004");
+		accountingService.transferFunds(ledger, from, to, header.getTotal());
 	}
 
 	private void depleteInventory(InvoiceItem item) {
