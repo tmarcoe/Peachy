@@ -50,8 +50,9 @@ public class InvoiceHeaderDao {
 	@SuppressWarnings("unchecked")
 	public List<InvoiceHeader> getProcessedInvoices() {
 		String hql = "from InvoiceHeader where processed != null and dateShipped = null";
+		List<InvoiceHeader> headers = session().createQuery(hql).list();
 		
-		return session().createQuery(hql).list();
+		return headers;
 	}
 
 

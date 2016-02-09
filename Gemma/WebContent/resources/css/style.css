@@ -340,13 +340,36 @@ table.dailyspecials td {
 	padding: 1em;	
 	vertical-align: bottom;
 }
-.invoicetable td
-{
-	text-align: center;	
-}
 .invoicedetail td
 {
 	padding: 2em;
+}
+.invoicetable 
+{
+	border-collapse: collapse;
+}
+.invoicetable td
+{
+	text-align: right;	
+	padding: 0 1em;
+
+}
+table.invoicetable tr:nth-child(odd)
+{
+	background: #dedbee;
+}
+table.invoicetable tr:nth-child(even)
+{
+	background: #fbfbff;
+}
+table.invoicetable th
+{
+	background: #f5f3c2;
+}
+tfoot.footer td 
+{
+	background: #bfd8e6;
+	color: #000000;
 }
 .viewledger
 {

@@ -15,6 +15,7 @@
 	</definition>
 
 	<definition name="home" extends="gemma.base">
+		<put-attribute name="includes" value="/WEB-INF/tiles/welcomescript.jsp"></put-attribute>
 		<put-attribute name="title" value="DonzalMart"></put-attribute>
 		<put-attribute name="heading_title" value="Welcome to DonzalMart"></put-attribute>
 		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
@@ -120,7 +121,6 @@
 		<put-attribute name="toolbar" value="/WEB-INF/tiles/admintoolbar.jsp"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/uploadfile.jsp"></put-attribute>
 	</definition>
-
 	<definition name="loggedout" extends="gemma.base">
 		<put-attribute name="heading_title" value="We will miss you"></put-attribute>
 		<put-attribute name="title" value="logged out"></put-attribute>
@@ -175,7 +175,6 @@
 		<put-attribute name="toolbar" value="/WEB-INF/tiles/admintoolbar.jsp"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/userdetails.jsp"></put-attribute>
 	</definition>
-
 	<definition name="mydonzalmart" extends="gemma.base">
 		<put-attribute name="heading_title" value="My DonzalMart"></put-attribute>
 		<put-attribute name="title" value="User Details"></put-attribute>

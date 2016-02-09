@@ -11,10 +11,15 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.gemma.spring.web.service.InventoryService;
+
 @Transactional
 @Repository
 @Component("InvoiceItemDao")
 public class InvoiceItemDao {
+	
+	@Autowired 
+	private InventoryDao inventoryDao;
 	
 	@Autowired
 	private SessionFactory sessionFactory;
@@ -83,4 +88,20 @@ public class InvoiceItemDao {
 	public void updateItem(InvoiceItem item) {
 		session().update(item);
 	}
+
+	public double totalShoppingCart(InvoiceHeader header) {
+
+		double total = 0;
+		double tax = 0;
+		
+		List<InvoiceItem> invoiceItems = getInvoice(header);
+		for(InvoiceItem item: invoiceItems) {
+			Inventory product = inventoryDao.getItem(item.getSkuNum());
+			total += item.getPrice() * item.getAmount();
+			tax += product.getTaxAmt() * item.getAmount();
+
+		}
+		return total + tax;
+	}
+
 }

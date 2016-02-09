@@ -80,19 +80,18 @@ public class InvoiceService {
 		header.setProcessed(new Date());
 		List<InvoiceItem> itemList = invoiceItemDao.getInvoice(header);
 		
-		float total = 0;
+		double total = 0;
+		double totalTax = 0;
 		for(InvoiceItem item: itemList) {
 			total += (item.getAmount() * item.getPrice());
+			totalTax += (item.getAmount() * item.getTax());
 			depleteInventory(item);
 			header.setTotal(total);
+			header.setTotalTax(totalTax);
 		}
 		invoiceHeaderDao.updateHeader(header);
 		GeneralLedger ledger = new GeneralLedger();
-		ledger.setUserID(header.getUserID());
-		ledger.setDescription("Sales from the website");
-		ChartOfAccounts from = chartOfAccountsService.getAccount("1000");
-		ChartOfAccounts to = chartOfAccountsService.getAccount("1004");
-		accountingService.transferFunds(ledger, from, to, header.getTotal());
+		accountingService.processSales(ledger, header);
 	}
 
 	private void depleteInventory(InvoiceItem item) {
@@ -107,6 +106,11 @@ public class InvoiceService {
 
 	public void updateHeader(InvoiceHeader header) {
 		invoiceHeaderDao.updateHeader(header);
+	}
+
+
+	public double totalShoppingCart(InvoiceHeader header) {
+		return invoiceItemDao.totalShoppingCart(header);
 	}
 
 }

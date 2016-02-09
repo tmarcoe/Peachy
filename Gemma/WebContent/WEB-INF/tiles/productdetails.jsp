@@ -4,7 +4,7 @@
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <sf:form id="details" method="post"
 	action="${pageContext.request.contextPath}/orderproduct"
@@ -24,7 +24,7 @@
 				width="120" height="140"></td>
 			<td class="name" width="600"><c:out
 					value="${invoiceItem.description}" /></td>
-			<td class="price"><c:out value="${invoiceItem.price}" /></td>
+			<td class="price"><fmt:formatNumber type='currency' currencySymbol='P' value='${invoiceItem.price}' /></td>
 			<td ><sf:input type="number" path="amount" step="1"
 					min="1" value="1" maxlength="2" size="2" /></td>
 		</tr>
@@ -39,7 +39,8 @@
 			<td><sf:input type="hidden" path="invoiceKey.skuNum" /></td>
 			<td><sf:input type="hidden" path="description" /></td>
 			<td><sf:input type="hidden" path="image" /></td>
-			<td><sf:input type="hidden" path="price" />
+			<td><sf:input type="hidden" path="price" /></td>
+			<td><sf:input type="hidden" path="tax" /><td>
 		</tr>
 	</table>
 </sf:form>

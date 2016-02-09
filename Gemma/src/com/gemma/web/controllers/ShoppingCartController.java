@@ -133,10 +133,12 @@ public class ShoppingCartController implements Serializable {
 	}
 	
 	@RequestMapping("/processcart")
-	public String processShoppingCart(@ModelAttribute("item") InvoiceItem item, Principal principal) {
+	public String processShoppingCart(@ModelAttribute("item") InvoiceItem item, Principal principal, Model model) {
 		UserProfile user = userProfileService.getUser(principal.getName());
 		InvoiceHeader header = invoiceService.getOpenOrder(user.getUserID());
 		invoiceService.processShoppingCart(header);
+
+		model.addAttribute("invoiceHeader", header);
 		
 		return "thankyou";
 	}
@@ -185,12 +187,17 @@ public class ShoppingCartController implements Serializable {
 									"Invoice # " + String.format("%06d", header.getInvoiceNum()) + "\n\n";
 			inv.write(invoiceHeading);
 			double total = 0;
+			double totalTax = 0;
 			for (InvoiceItem invoice: invoices) {
 				double price = invoice.getAmount() * invoice.getPrice();
+				double tax = invoice.getAmount() * invoice.getTax();
 				total += price;
+				totalTax += tax;
 				inv.write(String.format("%s\t%d\tP%.2f\n", invoice.getProductName(), invoice.getAmount(), price));
 			}
-			inv.write("Total -> " + String.format("P%.2f\n", total));
+			inv.write("Subtotal -> " + String.format("P%.2f\n", total));
+			inv.write("Tax      -> " + String.format("P%.2f\n", totalTax));
+			inv.write("Total    -> " + String.format("P%.2f\n", total + totalTax));
 			inv.close();
 			header.setDateShipped(new Date());
 			invoiceService.updateHeader(header);

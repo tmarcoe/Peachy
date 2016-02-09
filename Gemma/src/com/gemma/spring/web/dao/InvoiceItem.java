@@ -18,6 +18,7 @@ public class InvoiceItem {
 	private String description;
 	private String image;
 	private float price;
+	private float tax;
 	private int amtInStock;
 	private float weight;
 
@@ -37,6 +38,7 @@ public class InvoiceItem {
 		}else{
 			price = inventory.getSalePrice();
 		}
+		tax = inventory.getTaxAmt();
 		weight = inventory.getWeight();
 	}
 	public Invoice getInvoiceKey() {
@@ -79,6 +81,12 @@ public class InvoiceItem {
 	}
 	public void setPrice(float price) {
 		this.price = price;
+	}
+	public float getTax() {
+		return tax;
+	}
+	public void setTax(float tax) {
+		this.tax = tax;
 	}
 	public int getAmtInStock() {
 		return amtInStock;

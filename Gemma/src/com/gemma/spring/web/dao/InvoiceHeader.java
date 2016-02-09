@@ -23,6 +23,7 @@ public class InvoiceHeader {
 	private Integer invoiceNum;
 	private int userID;
 	private double total;
+	private double totalTax;
 	private float shippingCost;
 	private Date modified;
 	private Date processed;
@@ -47,6 +48,12 @@ public class InvoiceHeader {
 	public void setTotal(double total) {
 		this.total = total;
 	}
+	public double getTotalTax() {
+		return totalTax;
+	}
+	public void setTotalTax(double totalTax) {
+		this.totalTax = totalTax;
+	}
 	public Date getDateShipped() {
 		return dateShipped;
 	}
@@ -70,6 +77,14 @@ public class InvoiceHeader {
 	}
 	public void setProcessed(Date processed) {
 		this.processed = processed;
+	}
+	@Override
+	public String toString() {
+		return "InvoiceHeader [invoiceNum=" + invoiceNum + ", userID=" + userID
+				+ ", total=" + total + ", totalTax=" + totalTax
+				+ ", shippingCost=" + shippingCost + ", modified=" + modified
+				+ ", processed=" + processed + ", dateShipped=" + dateShipped
+				+ "]";
 	}
 
 }

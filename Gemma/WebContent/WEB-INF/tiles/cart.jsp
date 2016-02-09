@@ -6,6 +6,7 @@
 <sf:form modelAttribute="invoiceList" method="get">
 	<c:set var="total" scope="session" value="0" />
 	<c:set var="pr" scope="session" value="0" />
+	<c:set var="ttax" scope="session" value="0" />
 	<h1>
 		Invoice #
 		<fmt:formatNumber type="number"
@@ -22,6 +23,7 @@
 				<th>Product Name</th>
 				<th>Quantity</th>
 				<th>Price</th>
+				<th>Tax</th>
 			</tr>
 		</thead>
 
@@ -29,19 +31,21 @@
 			<c:forEach var="item" items="${invoice.invoiceList}" varStatus="i"
 				begin="0">
 				<c:set var="pr" value="${item.price * item.amount}" />
+				<c:set var="tx" value="${item.tax * item.amount}" />
 				<c:set var="total" value="${total + pr}" />
+				<c:set var="ttax" value="${ttax + tx}" />
 				<tr>
 					<td><fmt:formatNumber type="number" minIntegerDigits="2"
 							groupingUsed="false" value="${i.index + 1}" /></td>
 					<td><input type="hidden" value="${item.invoiceNum}" /></td>
 					<td><input type="hidden" value="${item.skuNum}"></td>
-					<td><input type="text" value="${item.productName}"
-						readonly="readonly" /></td>
-					<td><input type="number" value="${item.amount}"
-						readonly="readonly" /></td>
-					<td><input type="text"
-						value="<fmt:formatNumber type='currency' currencySymbol='P' value='${pr}' />"
-						readonly="readonly" /></td>
+
+					<td>${item.productName}</td>
+					<td>${item.amount}</td>
+					<td><fmt:formatNumber type='currency' currencySymbol='P'
+							value='${pr}' /></td>
+					<td><fmt:formatNumber type='currency' currencySymbol='P'
+							value='${tx}' /></td>
 					<c:if test="${invoice.invoiceHeader.processed == null}">
 						<td><a href="#" onclick="rowRemoved(${i.index});"
 							class="removeAccount"><img alt="[Remove]"
@@ -53,16 +57,45 @@
 					</c:if>
 				</tr>
 			</c:forEach>
+		</tbody>
+		<tfoot class="footer">
 			<tr>
-				<td colspan="4"><b>Total Price-------> <fmt:formatNumber
-							type="currency" currencySymbol="P" value="${total}" />
-				</b></td>
+				<td><b>Subtotal -------> </b></td>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+				<td><fmt:formatNumber type="currency" currencySymbol="P"
+						value="${total}" /></td>
+			</tr>
+			<tr>
+				<td><b>Total Tax -------></b></td>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+				<td><fmt:formatNumber type="currency" currencySymbol="P"
+						value="${ttax}" /></td>
+			</tr>
+			<tr>
+				<td><b>Total -------></b></td>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+				<td><fmt:formatNumber type="currency" currencySymbol="P"
+						value="${total + ttax}" /></td>
+			</tr>
+			<tr>
 				<c:if test="${invoice.invoiceHeader.processed == null}">
 					<td><a href="${pageContext.request.contextPath}/processcart"
 						class="button">Check Out</a></td>
 				</c:if>
 			</tr>
-		</tbody>
+		</tfoot>
 	</table>
 
 </sf:form>
@@ -71,12 +104,12 @@
 	function rowRemoved(row) {
 
   		var inputs = document.getElementById('listinvoice').getElementsByTagName('input');
-		var column = (row * 5);
+		var column = (row * 2);
 
 		var invoiceNum = inputs[column].value;
 		var skuNum = inputs[column + 1].value;
 	
-		    if (confirm("Are you sure you want to remove '" + inputs[column + 2].value + "' from the shopping cart?") == true) {
+		    if (confirm("Are you sure you want to remove SKU number '" + inputs[column + 1].value + "' from the shopping cart?") == true) {
 		   		window.location.href = "${pageContext.request.contextPath}/deleteinvoiceitem?invoiceNum=" + invoiceNum + "&skuNum=" + skuNum;		    
 		   	} 
 	}
@@ -84,7 +117,7 @@
 
 		var inputs = document.getElementById('listinvoice')
 				.getElementsByTagName('input');
-		var column = (row * 5);
+		var column = (row * 2);
 		var invoiceNum = inputs[column].value;
 		var skuNum = inputs[column + 1].value;
 		window.location.href = "${pageContext.request.contextPath}/editcart?invoiceNum="

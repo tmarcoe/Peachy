@@ -29,6 +29,7 @@
 			<td><sf:input type="hidden" path="productName" /></td>
 			<td><sf:input type="hidden" path="description" /></td>
 			<td><sf:input type="hidden" path="image" /></td>
+			<td><sf:input type="hidden" path="tax"/>
 			<td><sf:input type="hidden" path="price" /></td>
 			<td><sf:input type="hidden" path="amtInStock" /></td>
 			<td><sf:input type="hidden" path="weight" /></td>
