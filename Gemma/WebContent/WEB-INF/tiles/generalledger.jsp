@@ -54,7 +54,7 @@
 		<c:forEach begin="1" end="${ledgerList.getPageCount()}" var="i">
 
 			<c:choose>
-				<c:when test="${(i-1)!=ledgerList.getPage()}">
+				<c:when test="${(i-1)!= ledgerList.getPage()}">
 					<a href="ledgerpaging?page=${i-1}"><span class="paging"><c:out
 								value="${i}" /></span></a>
 				</c:when>

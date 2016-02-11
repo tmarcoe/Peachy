@@ -62,6 +62,7 @@
 		<security:intercept-url pattern="/headerpaging" access="hasRole('ROLE_ADMIN')"/>
 		<security:intercept-url pattern="/addinventory" access="hasRole('ROLE_ADMIN')"/>
 		<security:intercept-url pattern="/manageinventory" access="hasRole('ROLE_ADMIN')"/>
+		<security:intercept-url pattern="/productpaging" access="hasRole('ROLE_ADMIN')"/>
 		<security:intercept-url pattern="/inventorydetails" access="hasRole('ROLE_ADMIN')"/>
 		<security:intercept-url pattern="/saveinventory" access="hasRole('ROLE_ADMIN')"/>
 		<security:intercept-url pattern="/productadded" access="hasRole('ROLE_ADMIN')"/>
@@ -76,6 +77,7 @@
 		<security:intercept-url pattern="/accountdetail" access="hasRole('ROLE_ADMIN')"/>
 		<security:intercept-url pattern="/saveaccount" access="hasRole('ROLE_ADMIN')"/>
 		<security:intercept-url pattern="/users" access="hasRole('ROLE_ADMIN')"/>
+		<security:intercept-url pattern="/userpaging" access="hasRole('ROLE_ADMIN')"/>
 		<security:intercept-url pattern="/saveuser" access="hasRole('ROLE_ADMIN')"/>
 		<security:intercept-url pattern="/**" access="denyAll" />
 		<security:form-login login-page="/login"

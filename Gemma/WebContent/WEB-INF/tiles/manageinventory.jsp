@@ -19,7 +19,7 @@
 
 		<tbody>
 
-			<c:forEach items="${inventory}" var="item" varStatus="i" begin="0">
+			<c:forEach items="${inventory.pageList}" var="item" varStatus="i" begin="0">
 				<tr class="account">
 					<td>${item.productName}</td>
 					<td>${item.onSale}</td>
@@ -39,7 +39,31 @@
 
 	<a href="${pageContext.request.contextPath}/uploadfile">Add Product</a>&nbsp;&nbsp;
 	</sf:form>
+<c:if test="${inventory.getPageCount() > 1}">
+	<div class="paging">
+		<c:if test="${inventory.isFirstPage()==false}">
+			<a href="productpaging?page=prev"><img alt="[Prev]"
+				src="<c:url value='/static/images/web/button_prev.gif'/>"></a>
+		</c:if>
+		<c:forEach begin="1" end="${inventory.getPageCount()}" var="i">
 
+			<c:choose>
+				<c:when test="${(i-1)!= inventory.getPage()}">
+					<a href="productpaging?page=${i-1}"><span class="paging"><c:out
+								value="${i}" /></span></a>
+				</c:when>
+				<c:otherwise>
+					<span class="paging"><c:out value="${i}" /></span>
+				</c:otherwise>
+			</c:choose>
+		</c:forEach>
+		<%--For displaying Next link --%>
+		<c:if test="${inventory.isLastPage()==false}">
+			<a href="productpaging?page=next"><img alt="[Next]"
+				src="<c:url value='/static/images/web/button_next.gif'/>"></a>
+		</c:if>
+	</div>
+</c:if>
 <script type="text/javascript">
 	function rowRemoved(row) {
 		

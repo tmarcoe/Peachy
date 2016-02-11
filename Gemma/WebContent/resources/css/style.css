@@ -524,3 +524,8 @@ table.userstable th
 {
 	background: #f5f3c2;
 }
+table.productlist td
+{
+	padding: 0 .5em;
+	vertical-align: text-bottom;
+}

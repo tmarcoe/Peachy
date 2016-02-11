@@ -81,6 +81,9 @@ public class AdminController implements Serializable {
 	private PagedListHolder<InvoiceHeader> headerList;
 	
 	@Autowired
+	private PagedListHolder<Inventory> adminInventoryList;
+	
+	@Autowired
 	private FileUpload fileUpload;
 	
 	@Autowired
@@ -196,8 +199,10 @@ public class AdminController implements Serializable {
 
 	@RequestMapping("/manageinventory")
 	public String showManageInventory(Model model) {
-		List<Inventory> inventory = inventoryService.listProducts();
-		model.addAttribute("inventory", inventory);
+		adminInventoryList.setSource(inventoryService.listProducts());
+		adminInventoryList.setPage(0);
+		adminInventoryList.setPageSize(15);
+		model.addAttribute("inventory", adminInventoryList);
 
 		return "manageinventory";
 	}
@@ -208,8 +213,10 @@ public class AdminController implements Serializable {
 
 		inventoryService.update(inventory);
 
-		InventoryContainer container = inventoryService.getContainer();
-		model.addAttribute("inventoryContainer1", container);
+		adminInventoryList.setSource(inventoryService.listProducts());
+		adminInventoryList.setPage(0);
+		adminInventoryList.setPageSize(15);
+		model.addAttribute("inventory", adminInventoryList);
 
 		return "manageinventory";
 	}
@@ -305,9 +312,8 @@ public class AdminController implements Serializable {
 	public String saveAccount(ChartOfAccounts chartOfAccounts, Model model) {
 		chartOfAccountsService.update(chartOfAccounts);
 
-		ChartOfAccountsContainer accounts = chartOfAccountsService
-				.getContainer();
-		model.addAttribute("chartOfAccountsContainer1", accounts);
+		List<ChartOfAccounts> accounts = chartOfAccountsService.listAccounts();
+		model.addAttribute("accounts", accounts);
 
 		return "manageaccount";
 	}
@@ -341,7 +347,7 @@ public class AdminController implements Serializable {
 	@RequestMapping("/users")
 	public String showUsers(@ModelAttribute("page") String page, Model model) {
 		userList.setSource(userProfileService.getAllUsers());
-		userList.setPageSize(15);
+		userList.setPageSize(10);
 		userList.setPage(0);
 
 		model.addAttribute("userList", userList);
@@ -392,6 +398,7 @@ public class AdminController implements Serializable {
 	
 	@RequestMapping("/generalledger")
 	public String viewGeneralLedger(@ModelAttribute("datePicker") DatePicker picker, Model model) {
+
 		picker.setSf(dateFormat);
 		ledgerList.setSource(generalLedgerService.getList(picker));
 		ledgerList.setPage(0);
@@ -401,17 +408,87 @@ public class AdminController implements Serializable {
 		
 		return "generalledger";
 	}
-	
-	@RequestMapping(value="/ledgerpaging", method=RequestMethod.GET)
-	public ModelAndView handleLedgerRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	@RequestMapping(value="/userpaging", method=RequestMethod.GET)
+	public ModelAndView handleUserRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		int pgNum;
-	    String keyword = request.getParameter("keyword");
+		String keyword = request.getParameter("keyword");
+	
+
 	    if (keyword != null) {
 	        if (!StringUtils.hasLength(keyword)) {
 	            return new ModelAndView("Error", "message", "Please enter a keyword to search for, then press the search button.");
 	        }
 
-	        ledgerList.setPageSize(26);
+	        request.getSession().setAttribute("SearchProductsController_productList", adminInventoryList);
+	        return new ModelAndView("users", "userList", userList);
+	    }
+	    else {
+	        String page = request.getParameter("page");
+	        
+	        if (userList == null) {
+	            return new ModelAndView("Error", "message", "Your session has timed out. Please start over again.");
+	        }
+	        pgNum = isInteger(page);
+	        
+	        if ("next".equals(page)) {
+	        	userList.nextPage();
+	        }
+	        else if ("prev".equals(page)) {
+	        	userList.previousPage();
+	        }else if (pgNum != -1) {
+	        	userList.setPage(pgNum);
+	        }
+	        return new ModelAndView("users", "userList", userList);
+	    }
+	}
+	
+	@RequestMapping(value="/productpaging", method=RequestMethod.GET)
+	public ModelAndView handleProductRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		int pgNum;
+		String keyword = request.getParameter("keyword");
+	
+
+	    if (keyword != null) {
+	        if (!StringUtils.hasLength(keyword)) {
+	            return new ModelAndView("Error", "message", "Please enter a keyword to search for, then press the search button.");
+	        }
+
+	        request.getSession().setAttribute("SearchProductsController_productList", adminInventoryList);
+	        return new ModelAndView("manageinventory", "inventory", adminInventoryList);
+	    }
+	    else {
+	        String page = request.getParameter("page");
+	        
+	        if (adminInventoryList == null) {
+	            return new ModelAndView("Error", "message", "Your session has timed out. Please start over again.");
+	        }
+	        pgNum = isInteger(page);
+	        
+	        if ("next".equals(page)) {
+	        	adminInventoryList.nextPage();
+	        }
+	        else if ("prev".equals(page)) {
+	        	adminInventoryList.previousPage();
+	        }else if (pgNum != -1) {
+	        	adminInventoryList.setPage(pgNum);
+	        }
+	        return new ModelAndView("manageinventory", "inventory", adminInventoryList);
+	    }
+	}
+	
+	
+	@RequestMapping(value="/ledgerpaging", method=RequestMethod.GET)
+	public ModelAndView handleLedgerRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		int pgNum;
+		String keyword = request.getParameter("keyword");
+	
+
+	    if (keyword != null) {
+	        if (!StringUtils.hasLength(keyword)) {
+	            return new ModelAndView("Error", "message", "Please enter a keyword to search for, then press the search button.");
+	        }
+
+	        ledgerList.setPageSize(25);
 	        request.getSession().setAttribute("SearchProductsController_productList", ledgerList);
 	        return new ModelAndView("generalledger", "ledgerList", ledgerList);
 	    }

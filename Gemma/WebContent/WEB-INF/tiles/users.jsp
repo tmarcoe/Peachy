@@ -55,14 +55,14 @@
 <div class="paging">
 	<c:if test="${userList.getPageCount()>1}">
 		<c:if test="${userList.isFirstPage()==false}">
-			<a href="paging?page=prev"><img alt="[Prev]"
+			<a href="userpaging?page=prev"><img alt="[Prev]"
 				src="<c:url value='/static/images/web/button_prev.gif'/>"></a>
 		</c:if>
 		<c:forEach begin="1" end="${userList.getPageCount()}" var="i">
 
 			<c:choose>
 				<c:when test="${(i-1)!=userList.getPage()}">
-					<a href="paging?page=${i-1}"><span class="paging"><c:out
+					<a href="userpaging?page=${i-1}"><span class="paging"><c:out
 								value="${i}" /></span></a>
 				</c:when>
 				<c:otherwise>
@@ -72,7 +72,7 @@
 		</c:forEach>
 		<%--For displaying Next link --%>
 		<c:if test="${userList.isLastPage()==false}">
-			<a href="paging?page=next"><img alt="[Next]"
+			<a href="userpaging?page=next"><img alt="[Next]"
 				src="<c:url value='/static/images/web/button_next.gif'/>"></a>
 		</c:if>
 	</c:if>

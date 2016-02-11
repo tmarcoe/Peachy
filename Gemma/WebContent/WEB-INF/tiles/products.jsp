@@ -18,7 +18,7 @@
 
 <form:form id="pgform" method="post" modelAttribute="pparam"
 	action="${pageLink}">
-	<table class="inventorytable">
+	<table class="productlist">
 
 		<thead>
 			<tr>
@@ -47,7 +47,7 @@
 				<td><a href="productdetails?skuNum=${inventory.skuNum}"> <img
 						alt="Image Not Available"
 						src="${pageContext.request.contextPath}/static/images/products/${inventory.image}"
-						height="70" width="70">
+						height="60" width="60">
 				</a></td>
 				<td width="600">${inventory.productName}</td>
 				<td>${saleprice}</td>

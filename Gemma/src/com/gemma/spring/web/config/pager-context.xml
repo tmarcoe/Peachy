@@ -24,4 +24,8 @@
 		class="org.springframework.beans.support.PagedListHolder"
 		autowire="byName">
 	</bean>
+	<bean id="adminInventoryList"
+		class="org.springframework.beans.support.PagedListHolder"
+		autowire="byName">
+	</bean>
 </beans>
