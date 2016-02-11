@@ -66,4 +66,9 @@ public class InventoryService implements Serializable {
 	public List<String> getSubCategory(String category) {
 		return inventoryDao.getSubCategory(category);
 	}
+
+	public List<Inventory> getReplenishList(int min) {
+		return inventoryDao.getReplenishList(min);
+	}
+
 }

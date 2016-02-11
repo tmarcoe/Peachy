@@ -3,32 +3,41 @@
 <%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form"%>
 
 
-<sf:form modelAttribute="inventoryContainer1" method="get">
- 	<table  class="inventorytable" id="listinventory">
-    	<thead>
-        	<tr>
-             	<th>SKU Number</th>
-             	<th>Product Name</th>
+<sf:form modelAttribute="inventory" method="get">
+	<table class="inventorytable" id="listinventory">
+		<thead>
+			<tr>
+				<th>Product Name</th>
+				<th>On Sale?</th>
+				<th>&nbsp;</th>
+				<th>&nbsp;</th>
+				<th>Delete</th>
+				<th>&nbsp;</th>
+				<th>Edit</th>
 			</tr>
 		</thead>
 
-		<tbody >
+		<tbody>
 
-			<c:forEach items="${inventoryContainer1.inventoryList}" var="inventoryList" varStatus="i" begin="0" > 
-				<tr class="account">    
-					<td><sf:input type="text" path="inventoryList[${i.index}].skuNum" readonly = "true"/></td>
-					<td><sf:input type="text " path="inventoryList[${i.index}].productName" readonly = "true"/></td>
-					<td><a href="#" onclick="rowRemoved(${i.index});" class="removeAccount"><img alt="[Remove]" 
-					src="<c:url value='/static/images/web/delete.gif' />" /></a></td>
+			<c:forEach items="${inventory}" var="item" varStatus="i" begin="0">
+				<tr class="account">
+					<td>${item.productName}</td>
+					<td>${item.onSale}</td>
+					<td><input type="hidden" value="${item.skuNum}" /></td>
+					<td><input type="hidden" value="${item.productName}" /></td>
+					<td><a href="#" onclick="rowRemoved(${i.index});"
+						class="removeAccount"><img alt="[Remove]"
+							src="<c:url value='/static/images/web/button.gif' />" /></a></td>
 					<td>&nbsp;</td>
-					<td><a href="#" onclick="inventoryDetail(${i.index});" class="inventorydetail"><img alt="[Show Details]" 
-					src="<c:url value='/static/images/web/details.gif' />" /></a>
+					<td><a href="#" onclick="inventoryDetail(${i.index});"
+						class="inventorydetail"><img alt="[Show Details]"
+							src="<c:url value='/static/images/web/button.gif' />" /></a>
 				</tr>
 			</c:forEach>
 		</tbody>
 	</table>
 
-    <a href="${pageContext.request.contextPath}/uploadfile">Add Product</a>&nbsp;&nbsp;
+	<a href="${pageContext.request.contextPath}/uploadfile">Add Product</a>&nbsp;&nbsp;
 	</sf:form>
 
 <script type="text/javascript">

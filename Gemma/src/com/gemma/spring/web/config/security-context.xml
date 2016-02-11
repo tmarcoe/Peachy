@@ -49,6 +49,9 @@
 		<security:intercept-url pattern="/setsubcategory" access="isAuthenticated()"/>
 		<security:intercept-url pattern="/processcart" access="isAuthenticated()"/>
 		<security:intercept-url pattern="/thankyou" access="isAuthenticated()"/>
+		<security:intercept-url pattern="/stockshelves" access="hasRole('ROLE_ADMIN')"/>
+		<security:intercept-url pattern="/replenish" access="hasRole('ROLE_ADMIN')"/>
+		<security:intercept-url pattern="/orderinventory" access="hasRole('ROLE_ADMIN')"/>
 		<security:intercept-url pattern="/filepicker" access="hasRole('ROLE_ADMIN')"/>
 		<security:intercept-url pattern="/processorders" access="hasRole('ROLE_ADMIN')"/>
 		<security:intercept-url pattern="/viewcart" access="hasRole('ROLE_ADMIN')"/>

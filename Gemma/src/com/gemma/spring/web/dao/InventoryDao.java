@@ -1,5 +1,6 @@
 package com.gemma.spring.web.dao;
 
+import java.io.Serializable;
 import java.util.List;
 
 import org.hibernate.Criteria;
@@ -18,6 +19,7 @@ import com.gemma.web.beans.Categories;
 @Transactional
 @Component("inventoryDao")
 public class InventoryDao {
+
 	
 	@Autowired
 	private SessionFactory sessionFactory;
@@ -109,5 +111,11 @@ public class InventoryDao {
 		String hql = "select DISTINCT subCategory FROM Inventory where category = :category";
 		
 		return session().createSQLQuery(hql).setString("category", category).list();
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<Inventory> getReplenishList(int min) {
+		String hql = "from Inventory where amtInStock < :amtInStock";
+		return session().createQuery(hql).setInteger("amtInStock", min).list();
 	}
 }

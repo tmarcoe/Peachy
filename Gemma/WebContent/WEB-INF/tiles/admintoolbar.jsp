@@ -14,6 +14,7 @@
 			<li><a href="home">Home</a></li>
 			<sec:authorize  access="hasRole('ROLE_ADMIN')" >
 				<li><a href="manageinventory">Manage Inventory</a></li>
+				<li><a href="orderinventory" >Order Inventory</a></li>
 				<li><a href="manageaccount">Manage Accounts</a></li>
 				<li><a href="users">User Profiles</a></li>
 				<li><a href="datepicker">View General Ledger</a>

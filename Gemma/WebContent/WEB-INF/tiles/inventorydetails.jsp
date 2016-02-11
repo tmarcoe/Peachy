@@ -6,7 +6,7 @@
 <sf:form id="details" method="post"
 	action="${pageContext.request.contextPath}/inventorysaved"
 	commandName="inventory">
-	<table  class="inventorytable">
+	<table  class="inventorydetails">
 		<thead>
 			<tr>
 				<th class="inventoryheader" colspan="5" >Products</th>

@@ -9,18 +9,25 @@
         	<tr>
             	<th>Number</th>
              	<th>Name</th>
+             	<th>&nbsp;</th>
+             	<th>&nbsp;</th>
+             	<th>Delete</th>
+             	<th>&nbsp;</th>
+             	<th>Edit</th>
 			</tr>
 		</thead>
 
 		<tbody >
 
-			<c:forEach items="${chartOfAccountsContainer1.accountsList}" var="accountsList" varStatus="i" begin="0" > 
+			<c:forEach items="${accounts}" var="item" varStatus="i" begin="0" > 
 				<tr class="account" >    
-					<td><sf:input type="text" path="accountsList[${i.index}].accountNum" id="accountNum${i.index}" readonly = "true"/></td>
-					<td><sf:input type="text " path="accountsList[${i.index}].accountName" id="accountName${i.index}" readonly = "true"/></td>
-					<td><a href="#" onclick="rowRemoved(${i.index});" class="removeAccount"><img alt="[Remove]" src="<c:url value='/static/images/web/delete.gif' />"></a></td>
+					<td>${item.accountNum}</td>
+					<td>${item.accountName}</td>
+					<td><input type="hidden" value="${item.accountNum}" /></td>
+					<td><input type="hidden" value="${item.accountName}" /></td>
+					<td><a href="#" onclick="rowRemoved(${i.index});" class="removeAccount"><img alt="[Remove]" src="<c:url value='/static/images/web/button.gif' />"></a></td>
 					<td>&nbsp;</td>
-					<td><a href="#" onclick="getDetail(${i.index});" class="inventorydetail"><img alt="[Show Detail]" src="<c:url value='/static/images/web/details.gif' />"></a></td>
+					<td><a href="#" onclick="getDetail(${i.index});" class="inventorydetail"><img alt="[Show Detail]" src="<c:url value='/static/images/web/button.gif' />"></a></td>
 				</tr>
 			</c:forEach>
 		</tbody>

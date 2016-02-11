@@ -9,7 +9,7 @@
 <sf:form id="details" method="post"
 	action="${pageContext.request.contextPath}/orderproduct"
 	commandName="invoiceItem">
-	<table class="invoiceItemDetails">
+	<table class="productdetails">
 		<thead>
 			<tr class="invoiceItemheader">
 				<th>&nbsp;</th>

@@ -205,6 +205,18 @@
 		<put-attribute name="toolbar" value="/WEB-INF/tiles/admintoolbar.jsp"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/filepicker.jsp"></put-attribute>
 	</definition>
+	<definition name="orderinventory" extends="gemma.base">
+		<put-attribute name="heading_title" value="Products to Replenish"></put-attribute>
+		<put-attribute name="title" value="Replenish Product"></put-attribute>
+		<put-attribute name="toolbar" value="/WEB-INF/tiles/admintoolbar.jsp"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/orderinventory.jsp"></put-attribute>
+	</definition>
+	<definition name="replenish" extends="gemma.base">
+		<put-attribute name="heading_title" value="Replenish Stock"></put-attribute>
+		<put-attribute name="title" value="Replenish Stock"></put-attribute>
+		<put-attribute name="toolbar" value="/WEB-INF/tiles/admintoolbar.jsp"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/replenish.jsp"></put-attribute>
+	</definition>
 	<definition name="pickcategory" extends="gemma.base">
 		<put-attribute name="heading_title" value="Pick a Category"></put-attribute>
 		<put-attribute name="title" value="Category"></put-attribute>

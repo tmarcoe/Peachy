@@ -36,6 +36,7 @@ import com.gemma.spring.web.dao.Inventory;
 import com.gemma.spring.web.dao.InventoryContainer;
 import com.gemma.spring.web.dao.InvoiceHeader;
 import com.gemma.spring.web.dao.UserProfile;
+import com.gemma.spring.web.service.AccountingService;
 import com.gemma.spring.web.service.ChartOfAccountsService;
 import com.gemma.spring.web.service.GeneralLedgerService;
 import com.gemma.spring.web.service.InventoryService;
@@ -43,6 +44,7 @@ import com.gemma.spring.web.service.InvoiceService;
 import com.gemma.spring.web.service.UserProfileService;
 import com.gemma.web.beans.DatePicker;
 import com.gemma.web.beans.FileUpload;
+import com.gemma.web.beans.Order;
 
 @Controller
 @Scope(value = "session")
@@ -83,6 +85,9 @@ public class AdminController implements Serializable {
 	
 	@Autowired
 	private GeneralLedgerService generalLedgerService;
+	
+	@Autowired
+	private AccountingService accountingService;
 	
 	private SimpleDateFormat dateFormat;
 
@@ -191,8 +196,8 @@ public class AdminController implements Serializable {
 
 	@RequestMapping("/manageinventory")
 	public String showManageInventory(Model model) {
-		InventoryContainer container = inventoryService.getContainer();
-		model.addAttribute("inventoryContainer1", container);
+		List<Inventory> inventory = inventoryService.listProducts();
+		model.addAttribute("inventory", inventory);
 
 		return "manageinventory";
 	}
@@ -239,10 +244,9 @@ public class AdminController implements Serializable {
 
 	@RequestMapping("/manageaccount")
 	public String showMangeAccounts(Model model) {
-		ChartOfAccountsContainer accounts = chartOfAccountsService
-				.getContainer();
+		List<ChartOfAccounts> accounts = chartOfAccountsService.listAccounts();
 
-		if (accounts.getAccountsList().size() == 0) {
+		if (accounts.size() == 0) {
 			ChartOfAccounts chartOfAccounts = new ChartOfAccounts();
 			model.addAttribute("chartOfAccounts", chartOfAccounts);
 
@@ -250,7 +254,7 @@ public class AdminController implements Serializable {
 		}
 		String deleteKey = new String("");
 
-		model.addAttribute("chartOfAccountsContainer1", accounts);
+		model.addAttribute("accounts", accounts);
 		model.addAttribute("deleteKey", deleteKey);
 
 		return "manageaccount";
@@ -391,7 +395,7 @@ public class AdminController implements Serializable {
 		picker.setSf(dateFormat);
 		ledgerList.setSource(generalLedgerService.getList(picker));
 		ledgerList.setPage(0);
-		ledgerList.setPageSize(26);
+		ledgerList.setPageSize(25);
 
 		model.addAttribute("ledgerList", ledgerList);
 		
@@ -443,6 +447,34 @@ public class AdminController implements Serializable {
 	    // only got here if we didn't return false
 	    return retInt;
 	}
+	@RequestMapping("/orderinventory")
+	public String orderInventory(Model model) {
+		int min = 100;
+		List<Inventory> orderList = inventoryService.getReplenishList(min);
+		model.addAttribute("orderList", orderList);
+		
+		return "orderinventory";
+	}
+	@RequestMapping("/stockshelves")
+	public String stockShelves(@ModelAttribute("/stockshelves") Order order, Model model) {
+		order.setInventory(inventoryService.getItem(order.getInventory().getSkuNum()));
+		accountingService.purchaseInventory(order);
+		int min = 100;
+		List<Inventory> orderList = inventoryService.getReplenishList(min);
+		model.addAttribute("orderList", orderList);
+		
+		return "orderinventory";
+	}
+	
+	@RequestMapping("/replenish")
+	public String replenishStock(@ModelAttribute("sku") String skuNum, Model model) {
+		Inventory inventory = inventoryService.getItem(skuNum);
+		Order order = new Order(inventory);
+		model.addAttribute("order", order);
+		
+		return "replenish";
+	}
+	
 	@RequestMapping(value="/headerpaging", method=RequestMethod.GET)
 	public ModelAndView handleHeaderRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		int pgNum;

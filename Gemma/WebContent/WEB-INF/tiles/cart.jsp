@@ -90,10 +90,26 @@
 						value="${total + ttax}" /></td>
 			</tr>
 			<tr>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+			</tr>
+			<tr>
 				<c:if test="${invoice.invoiceHeader.processed == null}">
 					<td><a href="${pageContext.request.contextPath}/processcart"
 						class="button">Check Out</a></td>
 				</c:if>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+				<td><a href="${pageContext.request.contextPath}/products"
+						class="button" >Continue Shopping</a></td>
 			</tr>
 		</tfoot>
 	</table>

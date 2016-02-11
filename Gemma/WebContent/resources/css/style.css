@@ -301,17 +301,8 @@ table.inventoryDetails td {
 	padding: 20px;
 }
 
-table.inventorytable td{
-	padding: 0 20px;
-}
-
 table.dailyspecials td {
 	padding: 0 20px;
-}
-
-.accounttable, th, tr, td {
-	padding: 0;
-	font-size: 14px;
 }
 
 .addaccount {
@@ -343,28 +334,6 @@ table.dailyspecials td {
 .invoicedetail td
 {
 	padding: 2em;
-}
-.invoicetable 
-{
-	border-collapse: collapse;
-}
-.invoicetable td
-{
-	text-align: right;	
-	padding: 0 1em;
-
-}
-table.invoicetable tr:nth-child(odd)
-{
-	background: #dedbee;
-}
-table.invoicetable tr:nth-child(even)
-{
-	background: #fbfbff;
-}
-table.invoicetable th
-{
-	background: #f5f3c2;
 }
 tfoot.footer td 
 {
@@ -436,4 +405,122 @@ table.catlist
 {
     margin-left:auto; 
     margin-right:auto;
+}
+
+
+
+.ordertable 
+{
+	border-collapse: collapse;
+}
+.ordertable td
+{
+	text-align: right;	
+	padding: 0 1em;
+
+}
+table.ordertable tr:nth-child(odd)
+{
+	background: #dedbee;
+}
+table.ordertable tr:nth-child(even)
+{
+	background: #fbfbff;
+}
+table.ordertable th
+{
+	background: #f5f3c2;
+}
+
+.invoicetable 
+{
+	border-collapse: collapse;
+}
+.invoicetable td
+{
+	text-align: right;	
+	padding: 0 1em;
+
+}
+table.invoicetable tr:nth-child(odd)
+{
+	background: #dedbee;
+}
+table.invoicetable tr:nth-child(even)
+{
+	background: #fbfbff;
+}
+table.invoicetable th
+{
+	background: #f5f3c2;
+}
+
+.inventorytable 
+{
+	border-collapse: collapse;
+}
+.inventorytable td
+{
+	text-align: right;	
+	padding: 0 1em;
+}
+table.inventorytable tr:nth-child(odd)
+{
+	background: #dedbee;
+}
+table.inventorytable tr:nth-child(even)
+{
+	background: #fbfbff;
+}
+table.inventorytable th
+{
+	background: #f5f3c2;
+}
+table.productdetails
+{
+	padding: 0 1em;
+}
+
+.accounttable 
+{
+	border-collapse: collapse;
+}
+.accounttable td
+{
+	text-align: right;	
+	padding: 0 1em;
+}
+table.accounttable tr:nth-child(odd)
+{
+	background: #dedbee;
+}
+table.accounttable tr:nth-child(even)
+{
+	background: #fbfbff;
+}
+table.accounttable th
+{
+	background: #f5f3c2;
+}
+
+.userstable 
+{
+	border-collapse: collapse;
+}
+.userstable td
+{
+	text-align: right;	
+	padding: 0 1em;
+}
+table.userstable tr:nth-child(odd)
+{
+	background: #dedbee;
+}
+table.userstable tr:nth-child(even)
+{
+	background: #fbfbff;
+}
+table.userstable th
+{
+	background: #f5f3c2;
 }

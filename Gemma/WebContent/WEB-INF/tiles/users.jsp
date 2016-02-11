@@ -20,26 +20,31 @@
 				<th>Last Name</th>
 				<th>Email</th>
 				<th>userID</th>
+				<th>&nbsp;</th>
+				<th>&nbsp;</th>
+				<th>&nbsp;</th>
+				<th>Delete</th>
+				<th>&nbsp;</th>
+				<th>Edit</th>
 			</tr>
 		</thead>
 		<c:forEach var="user" items="${userList.pageList}" varStatus="i"
 			begin="0">
 			<tr>
-				<td><input type="text" value="${user.firstname}"
-					readonly="readonly"></td>
-				<td><input type="text" value="${user.lastname}"
-					readonly="readonly"></td>
-				<td><input type="text" value="${user.username}"
-					readonly="readonly"></td>
-				<td><input type="text" value="${user.userID}"
-					readonly="readonly"></td>
+				<td>${user.firstname}</td>
+				<td>${user.lastname}</td>
+				<td>${user.username}</td>
+				<td>${user.userID}</td>
+				<td><input type="hidden" value="${user.username}" /></td>
+				<td><input type="hidden" value="${user.firstname}" /></td>
+				<td><input type="hidden" value="${user.lastname}" /></td>
 				<td><a href="#" onclick="rowRemoved(${i.index});"
 					class="removeAccount"><img alt="[Remove]"
-						src="<c:url value='/static/images/web/delete.gif' />"></a></td>
+						src="<c:url value='/static/images/web/button.gif' />"></a></td>
 				<td>&nbsp;</td>
 				<td><a href="#" onclick="getDetail(${i.index});"
 					class="inventorydetail"><img alt="[Show Detail]"
-						src="<c:url value='/static/images/web/details.gif' />"></a></td>
+						src="<c:url value='/static/images/web/button.gif' />"></a></td>
 			</tr>
 		</c:forEach>
 
@@ -77,10 +82,10 @@
 
 		var inputs = document.getElementById('listusers').getElementsByTagName(
 				'input');
-		var column = (row * 4);
-		var key = inputs[column + 2].value;
+		var column = (row * 3);
+		var key = inputs[column].value;
 		if (confirm("Are you sure you want to remove "
-				+ inputs[column].value + " " + inputs[column + 1].value + " from User Profiles?") == true) {
+				+ inputs[column + 1].value + " " + inputs[column + 2].value + " from User Profiles?") == true) {
 			window.location.href = "${pageContext.request.contextPath}/deleteuser?deleteKey="
 					+ key;
 		}
@@ -90,8 +95,8 @@
 
 		var inputs = document.getElementById('listusers')
 				.getElementsByTagName('input');
-		var column = (row * 4);
-		var key = inputs[column + 2].value;
+		var column = (row * 3);
+		var key = inputs[column].value;
 		window.location.href = "${pageContext.request.contextPath}/userdetails?detailKey="
 				+ key;
 	}

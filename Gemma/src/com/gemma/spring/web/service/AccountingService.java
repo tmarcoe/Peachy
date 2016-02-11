@@ -5,8 +5,9 @@ import org.springframework.stereotype.Service;
 
 import com.gemma.spring.web.dao.ChartOfAccounts;
 import com.gemma.spring.web.dao.GeneralLedger;
+import com.gemma.spring.web.dao.Inventory;
 import com.gemma.spring.web.dao.InvoiceHeader;
-import com.gemma.spring.web.dao.InvoiceItem;
+import com.gemma.web.beans.Order;
 
 @Service("accountingService")
 public class AccountingService {
@@ -17,6 +18,8 @@ public class AccountingService {
 	@Autowired
 	private ChartOfAccountsService chartOfAccountsService;
 
+	@Autowired 
+	InventoryService inventoryService;
 	
 	
 	
@@ -60,7 +63,25 @@ public class AccountingService {
 		ledger.setDescription("Agreed upon per sale price for creating the website.");
 		generalLedgerService.addEntry(ledger);
 	}
-
+	public void purchaseInventory(Order order) {
+		GeneralLedger ledger = new GeneralLedger();
+		ChartOfAccounts cash = chartOfAccountsService.getAccount("1000");
+		chartOfAccountsService.creditAccount(cash, order.getPrice() + order.getTax());
+		ledger.setAccountNum(cash.getAccountNum());
+		ledger.setCreditAmt((float) (order.getPrice() + order.getTax()));
+		ledger.setDescription("Purchase of inventory (SKU #" + order.getInventory().getSkuNum() +")");
+		generalLedgerService.addEntry(ledger);
+		ledger.setCreditAmt(0);
+		ChartOfAccounts purchase = chartOfAccountsService.getAccount("1003");
+		chartOfAccountsService.debitAccount(purchase, order.getPrice() + order.getTax());
+		ledger.setAccountNum(purchase.getAccountNum());
+		ledger.setDebitAmt((float) (order.getPrice() + order.getTax()));
+		ledger.setDescription("Purchase of inventory (SKU #" + order.getInventory().getSkuNum() +")");
+		generalLedgerService.addEntry(ledger);
+		Inventory inventory = order.getInventory();
+		inventory.setAmtInStock(inventory.getAmtInStock() + order.getAmount());
+		inventoryService.update(inventory);
+	}
 
 
 }
