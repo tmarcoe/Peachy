@@ -39,7 +39,7 @@ public class UserProfileDao {
 	}
 	
 	public boolean delete(String username) {
-		Query query = session().createQuery("delete from Offer where username=:username");
+		Query query = session().createQuery("delete from UserProfile where username=:username");
 		query.setString("username", username);
 		return query.executeUpdate() == 1;
 	}

@@ -1,6 +1,5 @@
 package com.gemma.spring.web.dao;
 
-import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 
@@ -8,7 +7,6 @@ import java.util.List;
 
 
 
-import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;

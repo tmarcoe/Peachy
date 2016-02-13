@@ -7,12 +7,12 @@
 	</configSuffixes>
 	<enableImports><![CDATA[false]]></enableImports>
 	<configs>
-		<config>test/com/caveofprogramming/spring/web/test/config/datasource.xml</config>
 		<config>src/com/gemma/spring/web/config/dao-context.xml</config>
 		<config>src/com/gemma/spring/web/config/security-context.xml</config>
 		<config>src/com/gemma/spring/web/config/service-context.xml</config>
 		<config>WebContent/WEB-INF/gemma-servlet.xml</config>
 		<config>src/com/gemma/spring/web/config/pager-context.xml</config>
+		<config>test/com/gemma/spring/web/test/config/datasource.xml</config>
 	</configs>
 	<autoconfigs>
 	</autoconfigs>

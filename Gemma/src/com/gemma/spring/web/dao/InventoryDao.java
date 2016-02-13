@@ -1,6 +1,5 @@
 package com.gemma.spring.web.dao;
 
-import java.io.Serializable;
 import java.util.List;
 
 import org.hibernate.Criteria;
@@ -12,8 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-
-import com.gemma.web.beans.Categories;
 
 @Repository
 @Transactional
