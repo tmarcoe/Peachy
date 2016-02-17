@@ -8,6 +8,23 @@ public class Categories implements Serializable {
 	private String category;
 	private String subCategory;
 	
+	public Categories() {
+		this.category = "";
+		this.subCategory = "";
+	}
+	
+	public Categories(String category) {
+
+		this.category = category;
+		this.subCategory = "";
+	}
+
+	public Categories(String category, String subCategory) {
+
+		this.category = category;
+		this.subCategory = subCategory;
+	}
+
 	public String getCategory() {
 		return category;
 	}

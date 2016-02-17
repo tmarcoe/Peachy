@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import com.gemma.spring.web.dao.ChartOfAccounts;
 import com.gemma.spring.web.dao.ChartOfAccountsContainer;
 import com.gemma.spring.web.dao.ChartOfAccountsDao;
-import com.gemma.spring.web.dao.GeneralLedger;
 import com.gemma.spring.web.dao.GeneralLedgerDao;
 
 @Service("chartOfAccountsService")

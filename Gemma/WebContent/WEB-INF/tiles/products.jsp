@@ -9,10 +9,10 @@
 <%@taglib prefix="pg" uri="http://pagination/pagination-spring3.tld"%>
 
 <c:if test="${categories.getCategory().length()>0}">
-	<h6>Category -> ${categories.getCategory()}</h6>
+	<h5>Category -> ${categories.getCategory()}</h5>
 </c:if>
 <c:if test="${categories.getSubCategory().length()>0}">
-	<h6>Subcategory -> ${categories.getSubCategory()}</h6>
+	<h5>Subcategory -> ${categories.getSubCategory()}</h5>
 </c:if>
 
 

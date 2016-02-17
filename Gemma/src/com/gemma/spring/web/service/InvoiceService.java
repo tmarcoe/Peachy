@@ -6,7 +6,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.gemma.spring.web.dao.ChartOfAccounts;
 import com.gemma.spring.web.dao.GeneralLedger;
 import com.gemma.spring.web.dao.InventoryDao;
 import com.gemma.spring.web.dao.InvoiceHeader;

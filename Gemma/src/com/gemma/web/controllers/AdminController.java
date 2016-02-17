@@ -71,7 +71,6 @@ public class AdminController implements Serializable {
 	@Autowired
 	private UserProfileService userProfileService;
 
-	@Autowired
 	private PagedListHolder<UserProfile> userList;
 	
 	@Autowired
@@ -199,7 +198,8 @@ public class AdminController implements Serializable {
 
 	@RequestMapping("/manageinventory")
 	public String showManageInventory(Model model) {
-		adminInventoryList.setSource(inventoryService.listProducts());
+		
+		adminInventoryList = inventoryService.getPagedList();
 		adminInventoryList.setPage(0);
 		adminInventoryList.setPageSize(15);
 		model.addAttribute("inventory", adminInventoryList);
@@ -209,11 +209,11 @@ public class AdminController implements Serializable {
 
 	@RequestMapping("/inventorysaved")
 	public String inventorySaved(
-			@ModelAttribute("Inventory") Inventory inventory, Model model) {
+			@ModelAttribute("inventory") Inventory inventory, Model model) {
 
 		inventoryService.update(inventory);
 
-		adminInventoryList.setSource(inventoryService.listProducts());
+		adminInventoryList = inventoryService.getPagedList();
 		adminInventoryList.setPage(0);
 		adminInventoryList.setPageSize(15);
 		model.addAttribute("inventory", adminInventoryList);
@@ -346,7 +346,7 @@ public class AdminController implements Serializable {
 	 **************************************************************************************************/
 	@RequestMapping("/users")
 	public String showUsers(@ModelAttribute("page") String page, Model model) {
-		userList.setSource(userProfileService.getAllUsers());
+		userList = userProfileService.getPagedList();
 		userList.setPageSize(10);
 		userList.setPage(0);
 
@@ -400,7 +400,7 @@ public class AdminController implements Serializable {
 	public String viewGeneralLedger(@ModelAttribute("datePicker") DatePicker picker, Model model) {
 
 		picker.setSf(dateFormat);
-		ledgerList.setSource(generalLedgerService.getList(picker));
+		ledgerList = generalLedgerService.getPagedList(picker);
 		ledgerList.setPage(0);
 		ledgerList.setPageSize(25);
 

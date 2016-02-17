@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.support.PagedListHolder;
 import org.springframework.stereotype.Service;
 
 import com.gemma.spring.web.dao.UserProfile;
@@ -32,6 +33,9 @@ public class UserProfileService {
 	public List<UserProfile> getAllUsers(){
 		
 		return userProfileDao.getAllUsers();
+	}
+	public PagedListHolder<UserProfile> getPagedList() {
+		return new PagedListHolder<UserProfile>(getAllUsers());
 	}
 	
 	public boolean delete(String username) {

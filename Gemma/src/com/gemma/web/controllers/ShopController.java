@@ -34,10 +34,6 @@ import org.springframework.util.StringUtils;
 @Controller
 @Scope(value="session")
 public class ShopController implements Serializable {
-	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
@@ -52,27 +48,15 @@ public class ShopController implements Serializable {
 	@Autowired
 	private UserProfileService userProfileService;
 	
-	@Autowired
-	private Categories categories;
+	private Categories categories = null;
 
 	@RequestMapping(value="/products")
-	public String products(	@ModelAttribute("page") String page, Model model) {
-		if (categories.getCategory() == null) {			
-			categories.setCategory("");
+	public String products(Model model) {
+		if (categories == null) {
+			categories = new Categories();
 		}
-		if (categories.getSubCategory() == null) {
-			categories.setSubCategory("");
-		}
-
-		if (categories.getCategory().length() == 0) {
-			inventoryList.setSource(inventoryService.listProducts());
-		}else if (categories.getSubCategory().length() == 0){
-
-			inventoryList.setSource(inventoryService.listProducts(categories.getCategory()));
-		}else{
-			inventoryList.setSource(inventoryService.listProducts(categories.getCategory(), categories.getSubCategory()));
-		}
-
+		
+		inventoryList = inventoryService.getPagedList(categories);
 		inventoryList.setPageSize(4);
 		inventoryList.setPage(0);
 		model.addAttribute("inventoryList",inventoryList);
@@ -121,11 +105,15 @@ public class ShopController implements Serializable {
 	}
 	@RequestMapping("/setcategory")
 	public String setCategory(@ModelAttribute("cat") String cat, Model model){
-		categories.setCategory("");
-		categories.setSubCategory("");
-		if (cat.length()== 0) {
-			inventoryList.setSource(inventoryService.listProducts());
 
+		if (categories == null) {
+			categories = new Categories();
+		}
+
+		if (cat.length()== 0) {
+			categories.setCategory("");
+			categories.setSubCategory("");
+			inventoryList = inventoryService.getPagedList(categories);
 			inventoryList.setPageSize(4);
 			inventoryList.setPage(0);
 			model.addAttribute("inventoryList",inventoryList);
@@ -133,6 +121,7 @@ public class ShopController implements Serializable {
 			return "products";
 		}
 		categories.setCategory(cat);
+		categories.setSubCategory("");
 		List<String> catList = inventoryService.getSubCategory(categories.getCategory());
 		model.addAttribute("catList", catList);
 
@@ -142,18 +131,8 @@ public class ShopController implements Serializable {
 	
 	@RequestMapping("/setsubcategory")
 	public String setSubCategory(@ModelAttribute("cat") String cat, Model model){
-		categories.setSubCategory("");
-		if (cat.length()== 0) {
-			inventoryList.setSource(inventoryService.listProducts(categories.getCategory()));
-
-			inventoryList.setPageSize(4);
-			inventoryList.setPage(0);
-			model.addAttribute("inventoryList",inventoryList);
-			model.addAttribute("categories", categories);
-			return "products";
-		}
 		categories.setSubCategory(cat);
-		inventoryList.setSource(inventoryService.listProducts(categories.getCategory(), categories.getSubCategory()));
+		inventoryList = inventoryService.getPagedList(categories);
 
 		inventoryList.setPageSize(4);
 		inventoryList.setPage(0);
@@ -192,6 +171,7 @@ public class ShopController implements Serializable {
 	        }else if (pgNum != -1) {
 	        	inventoryList.setPage(pgNum);
 	        }
+	        request.setAttribute("categories", categories);
 	        return new ModelAndView("products", "inventoryList", inventoryList);
 	    }
 	}

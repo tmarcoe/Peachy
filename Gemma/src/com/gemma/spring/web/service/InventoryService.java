@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.support.PagedListHolder;
 import org.springframework.stereotype.Service;
 
 import com.gemma.spring.web.dao.Inventory;
@@ -70,5 +71,24 @@ public class InventoryService implements Serializable {
 	public List<Inventory> getReplenishList(int min) {
 		return inventoryDao.getReplenishList(min);
 	}
+	
+	public PagedListHolder<Inventory> getPagedList(Categories categories) {
+		PagedListHolder<Inventory> listHolder;
+		
+		if (categories.getCategory().length() == 0) {
+			listHolder = new PagedListHolder<Inventory>(listProducts());
+		}else if (categories.getSubCategory().length() == 0) {
+			listHolder = new PagedListHolder<Inventory>(listProducts(categories.getCategory()));
+		}else{
+			listHolder = new PagedListHolder<Inventory>(listProducts(categories.getCategory(), categories.getSubCategory()));
+		}
+		
+		return listHolder;
+	}
 
+	public PagedListHolder<Inventory> getPagedList() {
+		return new PagedListHolder<Inventory>(listProducts());
+	}
+
+	
 }

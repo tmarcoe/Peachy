@@ -58,9 +58,9 @@
 				</tr>
 			</c:forEach>
 		</tbody>
-		<tfoot class="footer">
+		<tfoot class="tablefooter">
 			<tr>
-				<td><b>Subtotal -------> </b></td>
+				<td>Subtotal -------></td>
 				<td>&nbsp;</td>
 				<td>&nbsp;</td>
 				<td>&nbsp;</td>
@@ -70,7 +70,7 @@
 						value="${total}" /></td>
 			</tr>
 			<tr>
-				<td><b>Total Tax -------></b></td>
+				<td>Total Tax -------></td>
 				<td>&nbsp;</td>
 				<td>&nbsp;</td>
 				<td>&nbsp;</td>
@@ -80,7 +80,7 @@
 						value="${ttax}" /></td>
 			</tr>
 			<tr>
-				<td><b>Total -------></b></td>
+				<td>Total -------></td>
 				<td>&nbsp;</td>
 				<td>&nbsp;</td>
 				<td>&nbsp;</td>
@@ -102,7 +102,6 @@
 				<c:if test="${invoice.invoiceHeader.processed == null}">
 					<td><a href="${pageContext.request.contextPath}/processcart"
 						class="button">Check Out</a></td>
-				</c:if>
 				<td>&nbsp;</td>
 				<td>&nbsp;</td>
 				<td>&nbsp;</td>
@@ -110,6 +109,7 @@
 				<td>&nbsp;</td>
 				<td><a href="${pageContext.request.contextPath}/products"
 						class="button" >Continue Shopping</a></td>
+				</c:if>
 			</tr>
 		</tfoot>
 	</table>

@@ -303,6 +303,7 @@ table.inventoryDetails td {
 
 table.dailyspecials td {
 	padding: 0 20px;
+	vertical-align: text-bottom;
 }
 
 .addaccount {
@@ -335,10 +336,12 @@ table.dailyspecials td {
 {
 	padding: 2em;
 }
-tfoot.footer td 
+tfoot.tablefooter td 
 {
 	background: #bfd8e6;
 	color: #000000;
+	font-size: 12px;
+	font-weight: 900;
 }
 .viewledger
 {
@@ -476,9 +479,10 @@ table.inventorytable th
 {
 	background: #f5f3c2;
 }
-table.productdetails
+table.productdetails td
 {
 	padding: 0 1em;
+	vertical-align: text-bottom;
 }
 
 .accounttable 
