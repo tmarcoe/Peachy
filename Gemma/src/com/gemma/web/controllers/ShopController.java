@@ -60,7 +60,8 @@ public class ShopController implements Serializable {
 		inventoryList.setPageSize(4);
 		inventoryList.setPage(0);
 		model.addAttribute("inventoryList",inventoryList);
-		model.addAttribute("categories", categories);
+
+		model.addAttribute("filter", buildFilter(categories));
 	
 		return "products";
 	}
@@ -137,7 +138,8 @@ public class ShopController implements Serializable {
 		inventoryList.setPageSize(4);
 		inventoryList.setPage(0);
 		model.addAttribute("inventoryList",inventoryList);
-		model.addAttribute("categories", categories);
+		
+		model.addAttribute("filter", buildFilter(categories));
 		
 		return "products";
 	}
@@ -171,11 +173,23 @@ public class ShopController implements Serializable {
 	        }else if (pgNum != -1) {
 	        	inventoryList.setPage(pgNum);
 	        }
-	        request.setAttribute("categories", categories);
+	        
+	        request.setAttribute("filter", buildFilter(categories));
 	        return new ModelAndView("products", "inventoryList", inventoryList);
 	    }
 	}
-	
+	private String buildFilter(Categories categories) {
+		String filter = "";
+		
+		if (categories.getCategory().length() > 0) {
+			filter = "Category: " + categories.getCategory();
+		}
+		if (categories.getSubCategory().length() > 0) {
+			filter = filter + " >> Sub Category: " + categories.getSubCategory();
+		}
+		
+		return filter;
+	}
 	private int isInteger(String s) {
 		int retInt;
 	    try { 
