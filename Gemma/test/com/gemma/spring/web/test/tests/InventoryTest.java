@@ -15,14 +15,14 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.gemma.spring.web.dao.Inventory;
-import com.gemma.spring.web.dao.InventoryDao;
-import com.gemma.spring.web.dao.InvoiceItem;
+import com.gemma.web.dao.Inventory;
+import com.gemma.web.dao.InventoryDao;
+import com.gemma.web.dao.InvoiceItem;
 
 @ActiveProfiles("dev")
 @ContextConfiguration(locations = {
-		"classpath:com/gemma/spring/web/config/dao-context.xml",
-		"classpath:com/gemma/spring/web/config/security-context.xml",
+		"classpath:com/gemma/web/config/dao-context.xml",
+		"classpath:com/gemma/web/config/security-context.xml",
 		"classpath:com/gemma/spring/web/test/config/datasource.xml" })
 @RunWith(SpringJUnit4ClassRunner.class)
 public class InventoryTest {

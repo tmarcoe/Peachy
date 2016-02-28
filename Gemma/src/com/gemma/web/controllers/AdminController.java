@@ -29,22 +29,25 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.gemma.spring.web.dao.ChartOfAccounts;
-import com.gemma.spring.web.dao.ChartOfAccountsContainer;
-import com.gemma.spring.web.dao.GeneralLedger;
-import com.gemma.spring.web.dao.Inventory;
-import com.gemma.spring.web.dao.InventoryContainer;
-import com.gemma.spring.web.dao.InvoiceHeader;
-import com.gemma.spring.web.dao.UserProfile;
-import com.gemma.spring.web.service.AccountingService;
-import com.gemma.spring.web.service.ChartOfAccountsService;
-import com.gemma.spring.web.service.GeneralLedgerService;
-import com.gemma.spring.web.service.InventoryService;
-import com.gemma.spring.web.service.InvoiceService;
-import com.gemma.spring.web.service.UserProfileService;
+import com.gemma.web.beans.BeansHelper;
 import com.gemma.web.beans.DatePicker;
+import com.gemma.web.beans.FileLocations;
 import com.gemma.web.beans.FileUpload;
+import com.gemma.web.beans.InventoryParams;
 import com.gemma.web.beans.Order;
+import com.gemma.web.dao.ChartOfAccounts;
+import com.gemma.web.dao.ChartOfAccountsContainer;
+import com.gemma.web.dao.GeneralLedger;
+import com.gemma.web.dao.Inventory;
+import com.gemma.web.dao.InventoryContainer;
+import com.gemma.web.dao.InvoiceHeader;
+import com.gemma.web.dao.UserProfile;
+import com.gemma.web.service.AccountingService;
+import com.gemma.web.service.ChartOfAccountsService;
+import com.gemma.web.service.GeneralLedgerService;
+import com.gemma.web.service.InventoryService;
+import com.gemma.web.service.InvoiceService;
+import com.gemma.web.service.UserProfileService;
 
 @Controller
 @Scope(value = "session")
@@ -54,10 +57,8 @@ public class AdminController implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private final String filePath = "C:\\Users\\Timothy Marcoe\\WebSite Archive\\Gemma\\WebContent\\resources\\images\\products";
-
 	@Autowired
-	ServletContext servletContext;
+	private ServletContext servletContext;
 
 	@Autowired
 	private InventoryService inventoryService;
@@ -92,7 +93,7 @@ public class AdminController implements Serializable {
 	private AccountingService accountingService;
 	
 	private SimpleDateFormat dateFormat;
-
+	
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
 		dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -136,8 +137,10 @@ public class AdminController implements Serializable {
 		
 		try {
 			InputStream is = fileUpload.getFile().getInputStream();
+			BeansHelper bean = new BeansHelper();
 
-			File f1 = new File(filePath);
+			FileLocations loc = (FileLocations) bean.getBean("file-context.xml", "fileLocations");
+			File f1 = new File(loc.getImageLoc());
 
 			file = File.createTempFile("img", ".png", f1);
 
@@ -161,6 +164,8 @@ public class AdminController implements Serializable {
 
 		model.addAttribute("inventory", inventory);
 
+		
+		
 		return "addinventory";
 	}
 
@@ -225,8 +230,11 @@ public class AdminController implements Serializable {
 	public String deleteInventory(
 			@ModelAttribute("deleteKey") String deleteKey, Model model) {
 		Inventory inventory = inventoryService.getItem(deleteKey);
+		BeansHelper bean = new BeansHelper();
+
+		FileLocations loc = (FileLocations) bean.getBean("file-context.xml", "fileLocations");
 		
-		File file = new File(filePath + "\\" + inventory.getImage());
+		File file = new File(loc.getImageLoc() + "\\" + inventory.getImage());
 		file.delete();
 
 		inventoryService.delete(deleteKey);
@@ -245,6 +253,38 @@ public class AdminController implements Serializable {
 		return "manageinventory";
 	}
 
+	@RequestMapping("/orderinventory")
+	public String orderInventory(Model model) {
+		
+		BeansHelper bean = new BeansHelper();
+		InventoryParams inventoryParams = (InventoryParams) bean.getBean("accounting-config.xml","inventoryParams");
+		List<Inventory> orderList = inventoryService.getReplenishList(inventoryParams.getMinInventory());
+		model.addAttribute("orderList", orderList);
+		
+		return "orderinventory";
+	}
+	
+	@RequestMapping("/stockshelves")
+	public String stockShelves(@ModelAttribute("order") Order order, Model model) {
+		order.setInventory(inventoryService.getItem(order.getInventory().getSkuNum()));
+		accountingService.purchaseInventory(order);
+		BeansHelper bean = new BeansHelper();
+		InventoryParams inventoryParams = (InventoryParams) bean.getBean("accounting-config.xml","inventoryParams");
+		List<Inventory> orderList = inventoryService.getReplenishList(inventoryParams.getMinInventory());
+		model.addAttribute("orderList", orderList);
+		
+		return "orderinventory";
+	}
+	
+	@RequestMapping("/replenish")
+	public String replenishStock(@ModelAttribute("sku") String skuNum, Model model) {
+		Inventory inventory = inventoryService.getItem(skuNum);
+		Order order = new Order(inventory);
+		model.addAttribute("order", order);
+		
+		return "replenish";
+	}
+	
 	/****************************************************************************************
 	 * Manage Accounts
 	 ****************************************************************************************/
@@ -383,7 +423,7 @@ public class AdminController implements Serializable {
 		return "users";
 	}
 /**************************************************************************************
- * Misc admin tasks
+ * General Ledger
  * 
  *************************************************************************************/
 
@@ -408,6 +448,12 @@ public class AdminController implements Serializable {
 		
 		return "generalledger";
 	}
+
+/*********************************************************************************************************************
+ * Pageination Handlers
+ * 
+ ********************************************************************************************************************/
+	
 	@RequestMapping(value="/userpaging", method=RequestMethod.GET)
 	public ModelAndView handleUserRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		int pgNum;
@@ -512,46 +558,6 @@ public class AdminController implements Serializable {
 	    }
 	}
 	
-	private int isInteger(String s) {
-		int retInt;
-	    try { 
-	    	retInt = Integer.parseInt(s); 
-	    } catch(NumberFormatException e) { 
-	        return -1; 
-	    } catch(NullPointerException e) {
-	        return -1;
-	    }
-	    // only got here if we didn't return false
-	    return retInt;
-	}
-	@RequestMapping("/orderinventory")
-	public String orderInventory(Model model) {
-		int min = 100;
-		List<Inventory> orderList = inventoryService.getReplenishList(min);
-		model.addAttribute("orderList", orderList);
-		
-		return "orderinventory";
-	}
-	@RequestMapping("/stockshelves")
-	public String stockShelves(@ModelAttribute("/stockshelves") Order order, Model model) {
-		order.setInventory(inventoryService.getItem(order.getInventory().getSkuNum()));
-		accountingService.purchaseInventory(order);
-		int min = 100;
-		List<Inventory> orderList = inventoryService.getReplenishList(min);
-		model.addAttribute("orderList", orderList);
-		
-		return "orderinventory";
-	}
-	
-	@RequestMapping("/replenish")
-	public String replenishStock(@ModelAttribute("sku") String skuNum, Model model) {
-		Inventory inventory = inventoryService.getItem(skuNum);
-		Order order = new Order(inventory);
-		model.addAttribute("order", order);
-		
-		return "replenish";
-	}
-	
 	@RequestMapping(value="/headerpaging", method=RequestMethod.GET)
 	public ModelAndView handleHeaderRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		int pgNum;
@@ -584,5 +590,21 @@ public class AdminController implements Serializable {
 	        return new ModelAndView("admin", "headerList", headerList);
 	    }
 	}
+/**************************************************************************************************************************************
+ * Used for both detecting a number, and converting to a number. If this routine returns a -1, the input parameter was not a number.
+ * 
+ **************************************************************************************************************************************/
 	
+	private int isInteger(String s) {
+		int retInt;
+	    try { 
+	    	retInt = Integer.parseInt(s); 
+	    } catch(NumberFormatException e) { 
+	        return -1; 
+	    } catch(NullPointerException e) {
+	        return -1;
+	    }
+	    // only got here if we didn't return false
+	    return retInt;
+	}
 }

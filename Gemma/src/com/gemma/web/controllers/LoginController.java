@@ -13,8 +13,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.gemma.spring.web.dao.UserProfile;
-import com.gemma.spring.web.service.UserProfileService;
+import com.gemma.web.dao.UserProfile;
+import com.gemma.web.service.UserProfileService;
 
 
 @Controller

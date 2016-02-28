@@ -20,14 +20,14 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.gemma.spring.web.dao.UserProfile;
-import com.gemma.spring.web.dao.UserProfileDao;
+import com.gemma.web.dao.UserProfile;
+import com.gemma.web.dao.UserProfileDao;
 
 
 @ActiveProfiles("dev")
 @ContextConfiguration(locations = {
-		"classpath:com/gemma/spring/web/config/dao-context.xml",
-		"classpath:com/gemma/spring/web/config/security-context.xml",
+		"classpath:com/gemma/web/config/dao-context.xml",
+		"classpath:com/gemma/web/config/security-context.xml",
 		"classpath:com/gemma/spring/web/test/config/datasource.xml" })
 @RunWith(SpringJUnit4ClassRunner.class)
 public class UserProfileTest {

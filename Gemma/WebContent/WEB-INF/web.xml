@@ -36,10 +36,11 @@
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>
-		classpath:com/gemma/spring/web/config/dao-context.xml
-		classpath:com/gemma/spring/web/config/service-context.xml
-		classpath:com/gemma/spring/web/config/security-context.xml
-		classpath:com/gemma/spring/web/config/pager-context.xml
+		classpath:com/gemma/web/config/dao-context.xml
+		classpath:com/gemma/web/config/service-context.xml
+		classpath:com/gemma/web/config/security-context.xml
+		classpath:com/gemma/web/config/pager-context.xml
+		classpath:com/gemma/web/config/accounting-config.xml
 		</param-value>
 	</context-param>
 	<context-param>

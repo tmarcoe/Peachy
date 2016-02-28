@@ -20,7 +20,7 @@
 	<bean id="messageSource"
 		class="org.springframework.context.support.ResourceBundleMessageSource">
 		<property name="basename"
-			value="com.gemma.spring.web.messages.messages"></property>
+			value="com.gemma.web.messages.messages"></property>
 	</bean>
 
 	<bean id="tilesViewResolver"

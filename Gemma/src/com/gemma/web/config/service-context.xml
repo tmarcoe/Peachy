@@ -9,4 +9,12 @@
 	<context:annotation-config></context:annotation-config>
 	<context:component-scan base-package="com.gemma.web.service">
 	</context:component-scan>
+	<bean id="fileUpload"
+		class="com.gemma.web.beans.FileUpload">
+	<property name="filePath"
+		value="C:\\Users\\Timothy Marcoe\\WebSite Archive\\Gemma\\WebContent\\resources\\images\\products">
+	</property>
+	</bean>
+	<bean id="categories" class="com.gemma.web.beans.Categories"></bean>
+	
 </beans>

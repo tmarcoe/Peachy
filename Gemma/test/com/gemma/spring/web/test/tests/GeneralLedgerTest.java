@@ -17,13 +17,13 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.gemma.spring.web.dao.GeneralLedger;
-import com.gemma.spring.web.dao.GeneralLedgerDao;
+import com.gemma.web.dao.GeneralLedger;
+import com.gemma.web.dao.GeneralLedgerDao;
 
 @ActiveProfiles("dev")
 @ContextConfiguration(locations = {
-		"classpath:com/gemma/spring/web/config/dao-context.xml",
-		"classpath:com/gemma/spring/web/config/security-context.xml",
+		"classpath:com/gemma/web/config/dao-context.xml",
+		"classpath:com/gemma/web/config/security-context.xml",
 		"classpath:com/gemma/spring/web/test/config/datasource.xml" })
 @RunWith(SpringJUnit4ClassRunner.class)
 public class GeneralLedgerTest {

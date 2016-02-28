@@ -16,13 +16,13 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.gemma.spring.web.dao.ChartOfAccounts;
-import com.gemma.spring.web.dao.ChartOfAccountsDao;
+import com.gemma.web.dao.ChartOfAccounts;
+import com.gemma.web.dao.ChartOfAccountsDao;
 
 @ActiveProfiles("dev")
 @ContextConfiguration(locations = {
-		"classpath:com/gemma/spring/web/config/dao-context.xml",
-		"classpath:com/gemma/spring/web/config/security-context.xml",
+		"classpath:com/gemma/web/config/dao-context.xml",
+		"classpath:com/gemma/web/config/security-context.xml",
 		"classpath:com/gemma/spring/web/test/config/datasource.xml" })
 @RunWith(SpringJUnit4ClassRunner.class)
 public class ChartOfAccountsTest {

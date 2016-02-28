@@ -1,6 +1,6 @@
 package com.gemma.web.beans;
 
-import com.gemma.spring.web.dao.Inventory;
+import com.gemma.web.dao.Inventory;
 
 public class Order {
 	private Inventory inventory;

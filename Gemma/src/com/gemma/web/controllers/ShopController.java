@@ -18,15 +18,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.gemma.spring.web.dao.Inventory;
-import com.gemma.spring.web.dao.InvoiceContainer;
-import com.gemma.spring.web.dao.InvoiceHeader;
-import com.gemma.spring.web.dao.InvoiceItem;
-import com.gemma.spring.web.dao.UserProfile;
-import com.gemma.spring.web.service.InventoryService;
-import com.gemma.spring.web.service.InvoiceService;
-import com.gemma.spring.web.service.UserProfileService;
 import com.gemma.web.beans.Categories;
+import com.gemma.web.dao.Inventory;
+import com.gemma.web.dao.InvoiceContainer;
+import com.gemma.web.dao.InvoiceHeader;
+import com.gemma.web.dao.InvoiceItem;
+import com.gemma.web.dao.UserProfile;
+import com.gemma.web.service.InventoryService;
+import com.gemma.web.service.InvoiceService;
+import com.gemma.web.service.UserProfileService;
 
 import org.springframework.util.StringUtils;
 

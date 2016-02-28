@@ -24,15 +24,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.supercsv.io.CsvBeanWriter;
 import org.supercsv.prefs.CsvPreference;
 
-import com.gemma.spring.web.dao.InvoiceContainer;
-import com.gemma.spring.web.dao.InvoiceHeader;
-import com.gemma.spring.web.dao.InvoiceItem;
-import com.gemma.spring.web.dao.UserProfile;
-import com.gemma.spring.web.service.GeneralLedgerService;
-import com.gemma.spring.web.service.InvoiceService;
-import com.gemma.spring.web.service.UserProfileService;
 import com.gemma.web.beans.AddressLabel;
+import com.gemma.web.beans.BeansHelper;
+import com.gemma.web.beans.FileLocations;
 import com.gemma.web.beans.FileUpload;
+import com.gemma.web.dao.InvoiceContainer;
+import com.gemma.web.dao.InvoiceHeader;
+import com.gemma.web.dao.InvoiceItem;
+import com.gemma.web.dao.UserProfile;
+import com.gemma.web.service.GeneralLedgerService;
+import com.gemma.web.service.InvoiceService;
+import com.gemma.web.service.UserProfileService;
 
 @Controller
 @Scope(value="session")
@@ -42,7 +44,7 @@ public class ShoppingCartController implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 4725326820861092920L;
-	private static final String OUTPATH = "C:\\Repository\\";
+//	private static final String OUTPATH = "C:\\Repository\\";
 
 
 	@Autowired
@@ -156,7 +158,9 @@ public class ShoppingCartController implements Serializable {
 
 		String[] label = {"firstname","lastname","address1","address2","city","region","postalCode","country","invoiceNum"};
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddhhmm");
-		String fileName = OUTPATH + sdf.format(new Date()) + ".csv";
+		BeansHelper bean = new BeansHelper();
+		FileLocations loc = (FileLocations) bean.getBean("file-context.xml", "fileLocations");
+		String fileName = loc.getOutPath() + sdf.format(new Date()) + ".csv";
 		Writer hdr = new FileWriter(fileName);
 		CsvBeanWriter csvWriter = new CsvBeanWriter(hdr, CsvPreference.STANDARD_PREFERENCE);
 		
@@ -175,7 +179,7 @@ public class ShoppingCartController implements Serializable {
 			lbl.setInvoiceNum(String.format("%06d", header.getInvoiceNum()));
 			csvWriter.write(lbl,label);
 
-			Writer inv = new FileWriter(OUTPATH + String.format("%06d",header.getInvoiceNum()) + ".inv");
+			Writer inv = new FileWriter(loc.getOutPath() + String.format("%06d",header.getInvoiceNum()) + ".inv");
 			List<InvoiceItem> invoices = invoiceService.getInvoice(header);
 			String invoiceHeading = user.getFirstname() + " " + user.getLastname() + "\n" +
 									user.getaddress1()  + "\n" +
