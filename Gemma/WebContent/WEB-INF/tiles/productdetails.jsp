@@ -21,7 +21,7 @@
 		<tr class="detailrow">
 			<td><img alt="Image Not Available"
 				src="<c:url value='/static/images/products/${invoiceItem.image}' />"
-				width="120" height="140"></td>
+				width="120" ></td>
 			<td class="name" width="600"><c:out
 					value="${invoiceItem.description}" /></td>
 			<td class="price"><fmt:formatNumber type='currency' currencySymbol='P' value='${invoiceItem.price}' /></td>

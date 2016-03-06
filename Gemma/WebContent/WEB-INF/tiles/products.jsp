@@ -42,7 +42,7 @@
 				<td><a href="productdetails?skuNum=${inventory.skuNum}"> <img
 						alt="Image Not Available"
 						src="${pageContext.request.contextPath}/static/images/products/${inventory.image}"
-						height="60" width="60">
+						width="30">
 				</a></td>
 				<td width="600">${inventory.productName}</td>
 				<td>${saleprice}</td>

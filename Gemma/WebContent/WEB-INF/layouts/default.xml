@@ -59,11 +59,11 @@
 		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/error.jsp"></put-attribute>
 	</definition>
-	<definition name="denied" extends="gemma.base">
-		<put-attribute name="heading_title" value="You can't go here"></put-attribute>
-		<put-attribute name="title" value="denied"></put-attribute>
+	<definition name="blocked" extends="gemma.base">
+		<put-attribute name="heading_title" value="Access Denied"></put-attribute>
+		<put-attribute name="title" value="Blocked"></put-attribute>
 		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
-		<put-attribute name="content" value="/WEB-INF/tiles/denied.jsp"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/blocked.jsp"></put-attribute>
 	</definition>
 	<definition name="products" extends="gemma.base">
 		<put-attribute name="heading_title" value="Shop"></put-attribute>

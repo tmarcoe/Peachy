@@ -24,6 +24,7 @@
 		<security:intercept-url pattern="/signup" access="permitAll"/>
 		<security:intercept-url pattern="/error" access="permitAll"/>
 		<security:intercept-url pattern="/loggedout" access="permitAll"/>
+		<security:intercept-url pattern="/blocked" access="permitAll"/>
 		<security:intercept-url pattern="/denied" access="permitAll"/>
 		<security:intercept-url pattern="/createprofile" access="permitAll"/>
 		<security:intercept-url pattern="/contactus" access="permitAll"/>
@@ -83,7 +84,7 @@
 		<security:form-login login-page="/login"
 			authentication-failure-url="/login?error=true" />
 		<security:logout logout-success-url="/loggedout" />
-		<security:access-denied-handler error-page="/error" />
+		<security:access-denied-handler error-page="/blocked" />
 		<security:remember-me key="gemmaAppKey"
 			user-service-ref="jdbcUserService" />
 	</security:http>

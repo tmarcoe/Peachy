@@ -28,7 +28,7 @@
 				href="${pageContext.request.contextPath}/productdetails?skuNum=${inventory.skuNum}">
 					<img alt="Image Not Available"
 					src="<c:url value='/static/images/products/${inventory.image}' />"
-					width="70" height="80">
+					width="50" >
 			</a></td>
 			<td class="name" width="600">${inventory.productName}</td>
 			<td class="price"><fmt:formatNumber type="currency"
