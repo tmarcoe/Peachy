@@ -22,6 +22,25 @@ public class GeneralLedgerService implements Serializable{
 		generalLedgerDao.addEntry(ledger);
 	
 	}
+	
+	public void ledger(char type, double amount, String account, String desc) {
+		GeneralLedger ledger = new GeneralLedger();
+		
+		switch (type) {
+		case 'C':
+			ledger.setCreditAmt((float) amount);
+			ledger.setDebitAmt(0);
+			break;
+			
+		case 'D':
+			ledger.setDebitAmt((float) amount);
+			ledger.setCreditAmt(0);
+			break;
+		}
+		ledger.setAccountNum(account);
+		ledger.setDescription(desc);
+		addEntry(ledger);
+	}
 
 	public List<GeneralLedger> getList() {
 		
