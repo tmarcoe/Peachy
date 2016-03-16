@@ -86,6 +86,13 @@ public class ChartOfAccountsDao {
 				 .setString("accountNum", accounts.getAccountNum())
 				 .executeUpdate();
 	}
+	
+	public ChartOfAccounts getAccout(String account) {
+
+		Criteria crit = session().createCriteria(ChartOfAccounts.class);
+		crit.add(Restrictions.eq("accountNum", account));
+		return (ChartOfAccounts) crit.uniqueResult();
+	}
 
 
 }

@@ -1,6 +1,7 @@
 package com.gemma.web.service;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,31 +21,27 @@ public class GeneralLedgerService implements Serializable{
 	
 	public void addEntry(GeneralLedger ledger) {
 		generalLedgerDao.addEntry(ledger);
-	
 	}
 	
 	public void ledger(char type, double amount, String account, String desc) {
-		GeneralLedger ledger = new GeneralLedger();
+		Float debitAmt = (float) 0;
+		Float creditAmt = (float) 0;
 		
 		switch (type) {
 		case 'C':
-			ledger.setCreditAmt((float) amount);
-			ledger.setDebitAmt(0);
+			creditAmt = (float) amount;
 			break;
 			
 		case 'D':
-			ledger.setDebitAmt((float) amount);
-			ledger.setCreditAmt(0);
+			debitAmt = (float) amount;
 			break;
 		}
-		ledger.setAccountNum(account);
-		ledger.setDescription(desc);
+		
+		GeneralLedger ledger = new GeneralLedger(account, 0, new Date(), desc, debitAmt, creditAmt);
 		addEntry(ledger);
 	}
 
 	public List<GeneralLedger> getList() {
-		
-		
 		return generalLedgerDao.getList();
 	}
 

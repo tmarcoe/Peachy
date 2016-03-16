@@ -61,7 +61,17 @@ public class ChartOfAccountsService {
 		chartOfAccountsDao.creditAccount(accounts, amount);
 	}
 
+	public void creditAccount(String account, double amount) {
+		ChartOfAccounts accounts = chartOfAccountsDao.getAccount(account);
+		chartOfAccountsDao.creditAccount(accounts, amount);
+	}
+
 	public void debitAccount(ChartOfAccounts accounts, double amount) {
+		chartOfAccountsDao.debitAccount(accounts, amount);
+	}
+
+	public void debitAccount(String account, double amount) {
+		ChartOfAccounts accounts = chartOfAccountsDao.getAccount(account);
 		chartOfAccountsDao.debitAccount(accounts, amount);
 	}
 

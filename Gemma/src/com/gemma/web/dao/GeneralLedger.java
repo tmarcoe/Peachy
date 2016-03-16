@@ -26,7 +26,21 @@ public class GeneralLedger {
 	private float debitAmt;
 	private float creditAmt;
 	
+	public GeneralLedger(String accountNum, int userID, Date entryDate,
+			String description, float debitAmt, float creditAmt) {
+		super();
+		this.accountNum = accountNum;
+		this.userID = userID;
+		this.entryDate = entryDate;
+		this.description = description;
+		this.debitAmt = debitAmt;
+		this.creditAmt = creditAmt;
+	}
 	
+	public GeneralLedger() {
+		super();
+	}
+
 	public long getEntryNum() {
 		return entryNum;
 	}

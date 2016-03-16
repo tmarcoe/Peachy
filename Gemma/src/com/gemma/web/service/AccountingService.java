@@ -8,6 +8,8 @@ import com.gemma.web.dao.ChartOfAccounts;
 import com.gemma.web.dao.GeneralLedger;
 import com.gemma.web.dao.Inventory;
 import com.gemma.web.dao.InvoiceHeader;
+import com.gemma.web.ftl_helper.Fetal;
+import com.gemma.web.ftl_helper.Transaction;
 
 @Service("accountingService")
 public class AccountingService {
@@ -35,6 +37,17 @@ public class AccountingService {
 		generalLedgerService.addEntry(ledger);
 	}
 	
+	public void processSales(InvoiceHeader header) {
+		Transaction trans = new Transaction();
+		final String fileName = "purchase.trans";
+		Fetal fetal = new Fetal();
+		trans.setAmount(header.getTotal());
+		trans.setTax(header.getTotalTax());
+		trans.setDescription("Internet Sales");
+		
+		fetal.start(trans, fileName);
+	}
+/*	
 	public void processSales(GeneralLedger ledger, InvoiceHeader header) {
 		ChartOfAccounts cash = chartOfAccountsService.getAccount("1000");
 		double eleanor = (header.getTotal() * .02);
@@ -63,6 +76,7 @@ public class AccountingService {
 		ledger.setDescription("Agreed upon per sale price for creating the website.");
 		generalLedgerService.addEntry(ledger);
 	}
+*/
 	public void purchaseInventory(Order order) {
 		GeneralLedger ledger = new GeneralLedger();
 		ChartOfAccounts cash = chartOfAccountsService.getAccount("1000");

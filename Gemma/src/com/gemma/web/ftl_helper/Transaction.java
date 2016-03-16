@@ -97,15 +97,15 @@ public class Transaction {
 	}
 	
 	public void credit(Double amount, String account) {
-		System.out.printf("credit( %.02f, %s)\n",amount, account);
+		chartOfAccountsService.creditAccount(account, amount);
 	}
 	
 	public void debit(Double amount, String account) {
-		System.out.printf("debit( %.02f, %s)\n",amount, account);
+		chartOfAccountsService.debitAccount(account, amount);
 	}
 
 	public void ledger(char type, Double amount, String account, String description) {
-		System.out.printf("ledger(%c, %.02f, %s, %s)\n", type, amount, account, description);
+		generalLedgerService.ledger(type, amount, account, description);
 	}
 
 }

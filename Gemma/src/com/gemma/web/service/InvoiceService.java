@@ -6,7 +6,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.gemma.web.dao.GeneralLedger;
 import com.gemma.web.dao.InventoryDao;
 import com.gemma.web.dao.InvoiceHeader;
 import com.gemma.web.dao.InvoiceHeaderDao;
@@ -89,8 +88,8 @@ public class InvoiceService {
 			header.setTotalTax(totalTax);
 		}
 		invoiceHeaderDao.updateHeader(header);
-		GeneralLedger ledger = new GeneralLedger();
-		accountingService.processSales(ledger, header);
+
+		accountingService.processSales(header);
 	}
 
 	private void depleteInventory(InvoiceItem item) {
