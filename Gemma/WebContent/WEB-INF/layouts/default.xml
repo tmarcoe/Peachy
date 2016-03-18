@@ -15,7 +15,7 @@
 	</definition>
 
 	<definition name="home" extends="gemma.base">
-		<put-attribute name="includes" value="/WEB-INF/tiles/welcomescript.jsp"></put-attribute>
+		<put-attribute name="includes" value=""></put-attribute>
 		<put-attribute name="title" value="DonzalMart"></put-attribute>
 		<put-attribute name="heading_title" value="Welcome to DonzalMart"></put-attribute>
 		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>

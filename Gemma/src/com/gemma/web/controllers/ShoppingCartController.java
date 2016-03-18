@@ -39,10 +39,6 @@ import com.gemma.web.service.UserProfileService;
 @Controller
 @Scope(value="session")
 public class ShoppingCartController implements Serializable {
-	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 4725326820861092920L;
 //	private static final String OUTPATH = "C:\\Repository\\";
 

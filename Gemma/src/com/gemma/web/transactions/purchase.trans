@@ -1,33 +1,40 @@
-begin
-	double commisionPercentage = 0.2;
+ /********************************************************
+  * Internet sales
+  ********************************************************/
 
-	string cash = "1000";
-	string sales = "1009";
-	string taxAcc = "1010";
-	string commision = "1011";
+begin
+	double commisionPercentage = 0.2; // Fixed percentage on commision
+
+	string cash = "1000";		// Cash account
+	string sales = "1009";		// Sales account
+	string taxAcc = "1010";		// Sales Tax account
+	string commision = "1011";	// Sales commision account
 	
-	double amt = getAmount;
-	double tax = getTax;
-	double commAmt = amt * commisionPercentage;
-	double total  = amt + tax;
+	double amt = getAmount;		// Amount without tax
+	double tax = getTax;		// Sales tax
+	double commAmt = amt * commisionPercentage; // Commisiion amount
+	double total  = amt + tax;	// Amount + tax
 	
+	/****************************************************************
+	 * These are the various descriptions for the ledger
+	 *****************************************************************/
 	string desc = getDescription;
 	string cashDesc = desc + " total with tax";
 	string salesDesc = desc + " without tax, and minus commision";
 	string commDesc = desc + " commision";
 	string taxDesc = desc + " tax";
 			
-	debit(total, cash);
-	ledger(D, total, cash, cashDesc);
+	debit(total, cash);					// Debit Case
+	ledger(D, total, cash, cashDesc);	// Ledger it
 	
-	amt = amt - commAmt;
-	credit(amt, sales);
-	ledger(C, amt, sales, salesDesc);
+	amt = amt - commAmt;				// Subtract out the commision
+	credit(amt, sales);					// Credit sales the amount
+	ledger(C, amt, sales, salesDesc);	// Ledger it
 	
-	credit(commAmt, commision);
-	ledger(C, commAmt, commision, commDesc);
+	credit(commAmt, commision);			// Credit the commision amount
+	ledger(C, commAmt, commision, commDesc);	// Ledger it
 	
-	credit(tax, taxAcc);
-	ledger(C, tax, taxAcc, taxDesc);
+	credit(tax, taxAcc);				// Credit tax
+	ledger(C, tax, taxAcc, taxDesc);	// Ledger it
 	
 end

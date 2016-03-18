@@ -26,7 +26,7 @@
 					value="${invoiceItem.description}" /></td>
 			<td class="price"><fmt:formatNumber type='currency' currencySymbol='P' value='${invoiceItem.price}' /></td>
 			<td ><sf:input type="number" path="amount" step="1"
-					min="1" value="1" maxlength="2" size="2" /></td>
+					min="1" value="1" maxlength="3" size="2" /></td>
 		</tr>
 		<tr>
 			<td><input type="image" name="submit" width="50" 

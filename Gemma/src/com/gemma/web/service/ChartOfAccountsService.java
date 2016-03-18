@@ -8,17 +8,14 @@ import org.springframework.stereotype.Service;
 import com.gemma.web.dao.ChartOfAccounts;
 import com.gemma.web.dao.ChartOfAccountsContainer;
 import com.gemma.web.dao.ChartOfAccountsDao;
-import com.gemma.web.dao.GeneralLedgerDao;
+
 
 @Service("chartOfAccountsService")
 public class ChartOfAccountsService {
 	
 	@Autowired
 	private ChartOfAccountsDao chartOfAccountsDao;
-	
-	@Autowired
-	private GeneralLedgerDao generalLedgerDao;
-	
+
 	public List<ChartOfAccounts> listAccounts() {
 		return chartOfAccountsDao.listAccounts();
 	}

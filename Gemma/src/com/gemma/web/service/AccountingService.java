@@ -1,15 +1,24 @@
 package com.gemma.web.service;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.Reader;
+
+import org.antlr.v4.runtime.ANTLRInputStream;
+import org.antlr.v4.runtime.CommonTokenStream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ftl.antlr.FtlLexer;
+import com.ftl.antlr.FtlParser;
+import com.ftl.antlr.FtlParser.TransactionContext;
 import com.gemma.web.beans.Order;
 import com.gemma.web.dao.ChartOfAccounts;
 import com.gemma.web.dao.GeneralLedger;
 import com.gemma.web.dao.Inventory;
 import com.gemma.web.dao.InvoiceHeader;
-import com.gemma.web.ftl_helper.Fetal;
-import com.gemma.web.ftl_helper.Transaction;
 
 @Service("accountingService")
 public class AccountingService {
@@ -23,60 +32,19 @@ public class AccountingService {
 	@Autowired 
 	InventoryService inventoryService;
 	
-	
-	
-	public void transferFunds(GeneralLedger ledger, ChartOfAccounts from, ChartOfAccounts to, double amount ) {
-		chartOfAccountsService.debitAccount(from, amount);
-		ledger.setAccountNum(from.getAccountNum());
-		ledger.setDebitAmt((float) amount);
-		generalLedgerService.addEntry(ledger);
-		chartOfAccountsService.creditAccount(to, amount);
-		ledger.setAccountNum(to.getAccountNum());
-		ledger.setDebitAmt(0);
-		ledger.setCreditAmt((float) amount);
-		generalLedgerService.addEntry(ledger);
-	}
+	@Autowired
+	TransactionService transactionService;
 	
 	public void processSales(InvoiceHeader header) {
-		Transaction trans = new Transaction();
-		final String fileName = "purchase.trans";
-		Fetal fetal = new Fetal();
-		trans.setAmount(header.getTotal());
-		trans.setTax(header.getTotalTax());
-		trans.setDescription("Internet Sales");
+
+		transactionService.setAmount(header.getTotal());
+		transactionService.setTax(header.getTotalTax());
+		transactionService.setDescription("Internet Sales");
+
+		start("purchase.trans");
 		
-		fetal.start(trans, fileName);
 	}
-/*	
-	public void processSales(GeneralLedger ledger, InvoiceHeader header) {
-		ChartOfAccounts cash = chartOfAccountsService.getAccount("1000");
-		double eleanor = (header.getTotal() * .02);
-		chartOfAccountsService.debitAccount(cash, (header.getTotal() + header.getTotalTax()));
-		ledger.setAccountNum(cash.getAccountNum());
-		ledger.setDebitAmt((float) (header.getTotal() + header.getTotalTax()));
-		ledger.setDescription("From Internet Sales");
-		generalLedgerService.addEntry(ledger);
-		ledger.setDebitAmt(0);
-		ChartOfAccounts sales = chartOfAccountsService.getAccount("1009");
-		chartOfAccountsService.creditAccount(sales, (header.getTotal() - eleanor));
-		ledger.setAccountNum(sales.getAccountNum());
-		ledger.setCreditAmt((float) (header.getTotal() - eleanor));
-		ledger.setDescription("Net Sales amount minus agreed upon payment");
-		generalLedgerService.addEntry(ledger);
-		ChartOfAccounts tax = chartOfAccountsService.getAccount("1010");
-		chartOfAccountsService.creditAccount(tax, header.getTotalTax());
-		ledger.setAccountNum(tax.getAccountNum());
-		ledger.setCreditAmt((float) header.getTotalTax());
-		ledger.setDescription("Tax from internet sales.");
-		generalLedgerService.addEntry(ledger);
-		ChartOfAccounts ate = chartOfAccountsService.getAccount("1011");
-		chartOfAccountsService.creditAccount(ate, eleanor);
-		ledger.setAccountNum(ate.getAccountNum());
-		ledger.setCreditAmt((float) eleanor);
-		ledger.setDescription("Agreed upon per sale price for creating the website.");
-		generalLedgerService.addEntry(ledger);
-	}
-*/
+
 	public void purchaseInventory(Order order) {
 		GeneralLedger ledger = new GeneralLedger();
 		ChartOfAccounts cash = chartOfAccountsService.getAccount("1000");
@@ -97,5 +65,46 @@ public class AccountingService {
 		inventoryService.update(inventory);
 	}
 
+	public void start(String fileName) {
+		final String filePath = "C:/Users/Timothy Marcoe/WebSite Archive/Gemma/src/com/gemma/web/transactions/";
+
+		File file = new File(filePath + fileName);
+		Reader read = null;
+		try {
+			read = new FileReader(file);
+		} catch (FileNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+        try {
+			loadRule(read);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        
+	}
+
+	public void loadRule(Reader read ) throws IOException {
+
+		ANTLRInputStream in = new ANTLRInputStream(read);        
+		FtlLexer lexer = new FtlLexer(in);
+        CommonTokenStream tokens = new CommonTokenStream(lexer);
+        FtlParser parser = new FtlParser(tokens);
+        @SuppressWarnings("unused")
+		TransactionContext context = parser.transaction(transactionService);
+	}
+	
+	public void ledger(char type, Double amount, String account, String description) {
+		generalLedgerService.ledger(type, amount, account, description);
+	}
+	
+	public void debit(String account, Double amount) {
+		chartOfAccountsService.debitAccount(account, amount);
+	}
+	
+	public void credit(String account, Double amount) {
+		chartOfAccountsService.creditAccount(account, amount);
+	}
 
 }

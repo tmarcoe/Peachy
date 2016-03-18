@@ -58,10 +58,10 @@
 		<tr>
 			<td>City:</td>
 			<td><sf:input type="text" path="city" class="control"
-					name="city" value="Surigao City" readonly="true" /></td>
+					name="city" /></td>
 			<td>State/Region:</td>
 			<td><sf:input type="text" path="region" class="control"
-					name="region" value="Surigao Del Norte" readonly="true" /></td>
+					name="region" /></td>
 		</tr>
 		<tr>
 			<td>&nbsp;</td>
@@ -79,7 +79,7 @@
 					name="postalCode" /></td>
 			<td>Country:</td>
 			<td><sf:input type="text" path="country" class="control"
-					name="country" value="Philippines" readonly="true" /></td>
+					name="country" /></td>
 		</tr>
 		<tr>
 			<td>&nbsp;</td>
