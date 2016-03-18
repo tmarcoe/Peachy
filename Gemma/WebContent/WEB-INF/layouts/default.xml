@@ -99,26 +99,26 @@
 	<definition name="addinventory" extends="gemma.base">
 		<put-attribute name="heading_title" value="Add New Products"></put-attribute>
 		<put-attribute name="title" value="Add New Products"></put-attribute>
-		<put-attribute name="toolbar" value="/WEB-INF/tiles/admintoolbar.jsp"></put-attribute>
+		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/addinventory.jsp"></put-attribute>
 	</definition>
 	<definition name="manageinventory" extends="gemma.base">
 		<put-attribute name="heading_title" value="Manage Products"></put-attribute>
 		<put-attribute name="title" value="Manage Products"></put-attribute>
-		<put-attribute name="toolbar" value="/WEB-INF/tiles/admintoolbar.jsp"></put-attribute>
+		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/manageinventory.jsp"></put-attribute>
 	</definition>
 	<definition name="inventorydetails" extends="gemma.base">
 		<put-attribute name="heading_title" value="Inventory Details"></put-attribute>
 		<put-attribute name="title" value="Inventory Details"></put-attribute>
-		<put-attribute name="toolbar" value="/WEB-INF/tiles/admintoolbar.jsp"></put-attribute>
+		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
 		<put-attribute name="content"
 			value="/WEB-INF/tiles/inventorydetails.jsp"></put-attribute>
 	</definition>
 	<definition name="uploadfile" extends="gemma.base">
 		<put-attribute name="heading_title" value="Upload Product Image"></put-attribute>
 		<put-attribute name="title" value="Upload Image"></put-attribute>
-		<put-attribute name="toolbar" value="/WEB-INF/tiles/admintoolbar.jsp"></put-attribute>
+		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/uploadfile.jsp"></put-attribute>
 	</definition>
 	<definition name="loggedout" extends="gemma.base">
@@ -142,37 +142,37 @@
 	<definition name="admin" extends="gemma.base">
 		<put-attribute name="heading_title" value="Admin"></put-attribute>
 		<put-attribute name="title" value="Admin"></put-attribute>
-		<put-attribute name="toolbar" value="/WEB-INF/tiles/admintoolbar.jsp"></put-attribute>
+		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/admin.jsp"></put-attribute>
 	</definition>
 	<definition name="manageaccount" extends="gemma.base">
 		<put-attribute name="heading_title" value="Manage Accounts"></put-attribute>
 		<put-attribute name="title" value="Manage Accounts"></put-attribute>
-		<put-attribute name="toolbar" value="/WEB-INF/tiles/admintoolbar.jsp"></put-attribute>
+		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/manageaccount.jsp"></put-attribute>
 	</definition>
 	<definition name="addaccount" extends="gemma.base">
 		<put-attribute name="heading_title" value="Add an Account"></put-attribute>
 		<put-attribute name="title" value="Add an Account"></put-attribute>
-		<put-attribute name="toolbar" value="/WEB-INF/tiles/admintoolbar.jsp"></put-attribute>
+		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/addaccount.jsp"></put-attribute>
 	</definition>
 	<definition name="accountdetail" extends="gemma.base">
 		<put-attribute name="heading_title" value="Account Detail"></put-attribute>
 		<put-attribute name="title" value="Account Detail"></put-attribute>
-		<put-attribute name="toolbar" value="/WEB-INF/tiles/admintoolbar.jsp"></put-attribute>
+		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/accountdetail.jsp"></put-attribute>
 	</definition>
 	<definition name="users" extends="gemma.base">
 		<put-attribute name="heading_title" value="User Profiles"></put-attribute>
 		<put-attribute name="title" value="User Profiles"></put-attribute>
-		<put-attribute name="toolbar" value="/WEB-INF/tiles/admintoolbar.jsp"></put-attribute>
+		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/users.jsp"></put-attribute>
 	</definition>
 	<definition name="userdetails" extends="gemma.base">
 		<put-attribute name="heading_title" value="User Details"></put-attribute>
 		<put-attribute name="title" value="User Details"></put-attribute>
-		<put-attribute name="toolbar" value="/WEB-INF/tiles/admintoolbar.jsp"></put-attribute>
+		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/userdetails.jsp"></put-attribute>
 	</definition>
 	<definition name="mydonzalmart" extends="gemma.base">
@@ -196,25 +196,25 @@
 	<definition name="datepicker" extends="gemma.base">
 		<put-attribute name="heading_title" value="General Ledger Period"></put-attribute>
 		<put-attribute name="title" value="General Ledger Period"></put-attribute>
-		<put-attribute name="toolbar" value="/WEB-INF/tiles/admintoolbar.jsp"></put-attribute>
+		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/datepicker.jsp"></put-attribute>
 	</definition>
 	<definition name="filepicker" extends="gemma.base">
 		<put-attribute name="heading_title" value="Pick an Output File"></put-attribute>
 		<put-attribute name="title" value="Output File"></put-attribute>
-		<put-attribute name="toolbar" value="/WEB-INF/tiles/admintoolbar.jsp"></put-attribute>
+		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/filepicker.jsp"></put-attribute>
 	</definition>
 	<definition name="orderinventory" extends="gemma.base">
 		<put-attribute name="heading_title" value="Products to Replenish"></put-attribute>
 		<put-attribute name="title" value="Replenish Product"></put-attribute>
-		<put-attribute name="toolbar" value="/WEB-INF/tiles/admintoolbar.jsp"></put-attribute>
+		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/orderinventory.jsp"></put-attribute>
 	</definition>
 	<definition name="replenish" extends="gemma.base">
 		<put-attribute name="heading_title" value="Replenish Stock"></put-attribute>
 		<put-attribute name="title" value="Replenish Stock"></put-attribute>
-		<put-attribute name="toolbar" value="/WEB-INF/tiles/admintoolbar.jsp"></put-attribute>
+		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/replenish.jsp"></put-attribute>
 	</definition>
 	<definition name="pickcategory" extends="gemma.base">

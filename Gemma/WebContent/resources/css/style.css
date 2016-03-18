@@ -107,7 +107,9 @@ Layout styles
 	margin: 0;
 	font-size: 12px;
 }
-
+.menu-items {
+	float: right;
+}
 .content {
 	padding: 1em 1.25em;
 	background-color: #fff;
@@ -160,6 +162,47 @@ Nav
 }
 
 .nav a:active {
+	color: white;
+	background-color: red;
+}
+
+.side-menu {
+	margin: 0;
+	padding: 0;
+	list-style: circle;
+}
+.side-menu li {
+	display: block;
+	margin: 0;
+}
+
+.side-menu a {
+	display: block;
+	padding: 0em 1.25em;
+	color: #fff;
+	text-decoration: none;
+	border-bottom: 1px solid gray;
+}
+
+.side-menu a:link {
+	color: #f0c575;
+}
+
+.side-menu a:visited {
+	color: #db9717;
+}
+
+.side-menu a:focus {
+	color: black;
+	background-color: white;
+}
+
+.side-menu a:hover {
+	color: white;
+	background-color: green;
+}
+
+.side-menu a:active {
 	color: white;
 	background-color: red;
 }
@@ -532,4 +575,19 @@ table.productlist td
 {
 	padding: 0 .5em;
 	vertical-align: text-bottom;
+}
+
+fieldset {
+	float: left;
+	display: block;
+    margin-left: 2px;
+    margin-right: 2px;
+    padding-top: 0.35em;
+    padding-bottom: 0.625em;
+    padding-left: 0.75em;
+    padding-right: 0.75em;
+    border: 4px ridge #808080;
+}
+.printorders {
+	float: center;
 }
