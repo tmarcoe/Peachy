@@ -111,8 +111,8 @@ public class InventoryDao {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<Inventory> getReplenishList(int min) {
-		String hql = "from Inventory where amtInStock < :amtInStock";
-		return session().createQuery(hql).setInteger("amtInStock", min).list();
+	public List<Inventory> getReplenishList() {
+		String hql = "from Inventory where amtInStock < minQuantity";
+		return session().createQuery(hql).list();
 	}
 }

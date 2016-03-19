@@ -68,8 +68,8 @@ public class InventoryService implements Serializable {
 		return inventoryDao.getSubCategory(category);
 	}
 
-	public List<Inventory> getReplenishList(int min) {
-		return inventoryDao.getReplenishList(min);
+	public List<Inventory> getReplenishList() {
+		return inventoryDao.getReplenishList();
 	}
 	
 	public PagedListHolder<Inventory> getPagedList(Categories categories) {

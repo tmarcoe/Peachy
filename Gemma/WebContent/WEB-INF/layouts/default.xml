@@ -115,6 +115,18 @@
 		<put-attribute name="content"
 			value="/WEB-INF/tiles/inventorydetails.jsp"></put-attribute>
 	</definition>
+	<definition name="admininventory" extends="gemma.base">
+		<put-attribute name="heading_title" value="Inventory Tasks"></put-attribute>
+		<put-attribute name="title" value="Inventory Tasks"></put-attribute>
+		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/admininventory.jsp"></put-attribute>
+	</definition>
+	<definition name="singleitem" extends="gemma.base">
+		<put-attribute name="heading_title" value="Restock Single Item"></put-attribute>
+		<put-attribute name="title" value="Restock Single Item"></put-attribute>
+		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/singleitem.jsp"></put-attribute>
+	</definition>
 	<definition name="uploadfile" extends="gemma.base">
 		<put-attribute name="heading_title" value="Upload Product Image"></put-attribute>
 		<put-attribute name="title" value="Upload Image"></put-attribute>

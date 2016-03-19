@@ -1,5 +1,6 @@
 package com.gemma.web.dao;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -7,6 +8,9 @@ import java.util.List;
 
 
 
+
+
+import org.apache.commons.lang.time.DateUtils;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +33,9 @@ public class GeneralLedgerDao {
 	}
 
 	public void addEntry(GeneralLedger ledger) {
-		ledger.setEntryDate(new Date());
+		Date today = DateUtils.truncate(new Date(), Calendar.DATE);
+		
+		ledger.setEntryDate(today);
 		session().save(ledger);
 	}
 

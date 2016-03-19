@@ -41,7 +41,9 @@
 			<td><sf:input path="amtInStock" name="amtInStock" class="control" type="number" /></td>
 			<td>&nbsp;</td>
 			<td>Amount Committed:</td>
-			<td><sf:input path="amtCommitted" name="amtCommitted" class="control" type="text" /></td>
+			<td><sf:input path="amtCommitted" name="amtCommitted" class="control" type="number" /></td>
+			<td>Minimum Quantity:</td>
+			<td><sf:input path="minQuantity" name="minQuantity" class="control" type="number" />
 		</tr>
 		<tr>
 			<td>&nbsp;</td><td><div class="error"><sf:errors path="amtInStock"></sf:errors></div></td>

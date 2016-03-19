@@ -13,14 +13,14 @@
 			<td>&nbsp;</td>
 			<td>In Stock:</td>
 			<td>${order.inventory.amtInStock}</td>
+			<td>Minimum Stock:</td>
+			<td>${order.inventory.minQuantity}</td>
 		</tr>
 		<tr>
 			<td>Amount to Add:</td>
 			<td><sf:input type="number" path="amount"/></td>
-			<td>&nbsp;</td>
 			<td>Order Price:</td>
 			<td><sf:input type="number" path="price"/></td>
-			<td>&nbsp;</td>
 			<td>Order Tax</td>
 			<td><sf:input type="number" path="tax"/></td>
 		</tr>

@@ -124,6 +124,20 @@ public class AdminController implements Serializable {
 		return "uploadfile";
 	}
 
+	@RequestMapping("/admininventory")
+	public String inventoryMainPage() {
+		return "admininventory";
+	}
+	
+	@RequestMapping("/singleitem")
+	public String restockSingleItem(Model model) {
+		String inventoryKey ="";
+		
+		model.addAttribute("sku", inventoryKey);
+		
+		return "singleitem";
+	}
+	
 	@RequestMapping("/addinventory")
 	public String addInventory(
 			@ModelAttribute("fileUpload") FileUpload fileUpload, Model model, BindingResult result){
@@ -255,10 +269,7 @@ public class AdminController implements Serializable {
 
 	@RequestMapping("/orderinventory")
 	public String orderInventory(Model model) {
-		
-		BeansHelper bean = new BeansHelper();
-		InventoryParams inventoryParams = (InventoryParams) bean.getBean("accounting-config.xml","inventoryParams");
-		List<Inventory> orderList = inventoryService.getReplenishList(inventoryParams.getMinInventory());
+		List<Inventory> orderList = inventoryService.getReplenishList();
 		model.addAttribute("orderList", orderList);
 		
 		return "orderinventory";
@@ -268,9 +279,7 @@ public class AdminController implements Serializable {
 	public String stockShelves(@ModelAttribute("order") Order order, Model model) {
 		order.setInventory(inventoryService.getItem(order.getInventory().getSkuNum()));
 		accountingService.purchaseInventory(order);
-		BeansHelper bean = new BeansHelper();
-		InventoryParams inventoryParams = (InventoryParams) bean.getBean("accounting-config.xml","inventoryParams");
-		List<Inventory> orderList = inventoryService.getReplenishList(inventoryParams.getMinInventory());
+		List<Inventory> orderList = inventoryService.getReplenishList();
 		model.addAttribute("orderList", orderList);
 		
 		return "orderinventory";
@@ -279,6 +288,16 @@ public class AdminController implements Serializable {
 	@RequestMapping("/replenish")
 	public String replenishStock(@ModelAttribute("sku") String skuNum, Model model) {
 		Inventory inventory = inventoryService.getItem(skuNum);
+		
+		if (inventory == null) {			
+			String inventoryKey ="";
+			String error = "Invalid product code.";
+			
+			model.addAttribute("sku", inventoryKey);
+			model.addAttribute("error", error);
+			
+			return "singleitem";
+		}
 		Order order = new Order(inventory);
 		model.addAttribute("order", order);
 		

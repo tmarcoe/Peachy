@@ -24,6 +24,7 @@ public class Inventory {
 	private String subCategory;
 	private int amtInStock;
 	private int amtCommitted;
+	private int minQuantity;
 	private float salePrice;
 	private float discountPrice;
 	private float taxAmt;
@@ -81,6 +82,12 @@ public class Inventory {
 	}
 	public void setAmtCommitted(int amtCommitted) {
 		this.amtCommitted = amtCommitted;
+	}
+	public int getMinQuantity() {
+		return minQuantity;
+	}
+	public void setMinQuantity(int minQuantity) {
+		this.minQuantity = minQuantity;
 	}
 	public float getSalePrice() {
 		return salePrice;
