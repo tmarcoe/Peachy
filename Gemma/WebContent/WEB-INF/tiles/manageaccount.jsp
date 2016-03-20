@@ -3,7 +3,7 @@
 <%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form"%>
 
 
-<sf:form action="${pageContext.request.contextPath}/saveaccounts" modelAttribute="chartOfAccountsContainer1" method="get" id="accountsListForm" name="manageAccounts">
+<sf:form action="${pageContext.request.contextPath}/accountdetail" modelAttribute="chartOfAccountsContainer1" method="get" id="accountsListForm" name="manageAccounts">
  	<table  class="accounttable" id = "listaccounts" >
     	<thead>
         	<tr>

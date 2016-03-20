@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import com.gemma.web.beans.Categories;
 import com.gemma.web.dao.Inventory;
-import com.gemma.web.dao.InventoryContainer;
 import com.gemma.web.dao.InventoryDao;
 
 @Service("inventoryService")
@@ -52,12 +51,6 @@ public class InventoryService implements Serializable {
 	
 	public Inventory getItem(String skuNum) {
 		return inventoryDao.getItem(skuNum);
-	}
-	
-	public InventoryContainer getContainer(){
-		InventoryContainer container = inventoryDao.getContainer();
-		
-		return container;
 	}
 	
 	public List<String> getCategory() {

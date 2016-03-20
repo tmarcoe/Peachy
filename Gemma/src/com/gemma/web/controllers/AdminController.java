@@ -33,13 +33,11 @@ import com.gemma.web.beans.BeansHelper;
 import com.gemma.web.beans.DatePicker;
 import com.gemma.web.beans.FileLocations;
 import com.gemma.web.beans.FileUpload;
-import com.gemma.web.beans.InventoryParams;
 import com.gemma.web.beans.Order;
 import com.gemma.web.dao.ChartOfAccounts;
 import com.gemma.web.dao.ChartOfAccountsContainer;
 import com.gemma.web.dao.GeneralLedger;
 import com.gemma.web.dao.Inventory;
-import com.gemma.web.dao.InventoryContainer;
 import com.gemma.web.dao.InvoiceHeader;
 import com.gemma.web.dao.UserProfile;
 import com.gemma.web.service.AccountingService;
@@ -200,10 +198,12 @@ public class AdminController implements Serializable {
 		}
 
 		inventoryService.create(inventory);
-		List<Inventory> invlist = inventoryService.listSaleItems();
-		model.addAttribute("inventory", invlist);
+		adminInventoryList = inventoryService.getPagedList();
+		adminInventoryList.setPage(0);
+		adminInventoryList.setPageSize(15);
+		model.addAttribute("inventory", adminInventoryList);
 
-		return "home";
+		return "manageinventory";
 	}
 
 	@RequestMapping("/inventorydetails")
@@ -253,17 +253,10 @@ public class AdminController implements Serializable {
 
 		inventoryService.delete(deleteKey);
 
-		InventoryContainer container = inventoryService.getContainer();
-		model.addAttribute("inventoryContainer1", container);
+		adminInventoryList = inventoryService.getPagedList();
+		adminInventoryList.setPageSize(15);
+		model.addAttribute("inventory", adminInventoryList);
 
-		return "manageinventory";
-	}
-
-	@RequestMapping("/saveinventory")
-	public String saveOrUpdateInventory(InventoryContainer inventory,
-			Model model) {
-		List<Inventory> inventoryList = inventory.getInventoryList();
-		inventoryService.saveOrUpdate(inventoryList);
 		return "manageinventory";
 	}
 
@@ -349,23 +342,6 @@ public class AdminController implements Serializable {
 		return "manageaccount";
 	}
 
-	@RequestMapping("/saveaccounts")
-	public String saveAccounts(ChartOfAccountsContainer accounts, Model model) {
-		List<ChartOfAccounts> accountsList = accounts.getAccountsList();
-		chartOfAccountsService.update(accountsList);
-
-		accounts.setAccountsList(chartOfAccountsService.listAccounts());
-		if (accounts.getAccountsList().size() == 0) {
-			ChartOfAccounts chartOfAccounts = new ChartOfAccounts();
-			model.addAttribute("chartOfAccounts", chartOfAccounts);
-
-			return "addaccount";
-		}
-
-		model.addAttribute("chartOfAccountsContainer1", accounts);
-
-		return "manageaccount";
-	}
 
 	@RequestMapping("/saveaccount")
 	public String saveAccount(ChartOfAccounts chartOfAccounts, Model model) {

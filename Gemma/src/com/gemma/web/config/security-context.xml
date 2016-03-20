@@ -76,7 +76,6 @@
 		<security:intercept-url pattern="/addaccount" access="hasRole('ROLE_ADMIN')"/>
 		<security:intercept-url pattern="/submitaddaccount" access="hasRole('ROLE_ADMIN')"/>
 		<security:intercept-url pattern="/deleteaccount" access="hasRole('ROLE_ADMIN')"/>
-		<security:intercept-url pattern="/saveaccounts" access="hasRole('ROLE_ADMIN')"/>
 		<security:intercept-url pattern="/accountdetail" access="hasRole('ROLE_ADMIN')"/>
 		<security:intercept-url pattern="/saveaccount" access="hasRole('ROLE_ADMIN')"/>
 		<security:intercept-url pattern="/users" access="hasRole('ROLE_ADMIN')"/>

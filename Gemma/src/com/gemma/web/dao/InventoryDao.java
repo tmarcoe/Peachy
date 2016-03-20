@@ -85,13 +85,6 @@ public class InventoryDao {
 		return (Inventory) crit.uniqueResult();
 	}
 
-	public InventoryContainer getContainer() {
-		InventoryContainer container = new InventoryContainer();
-		container.setInventoryList(listProducts());
-
-		return container;
-	}
-
 	public void depleteInventory(InvoiceItem item) {
 		String hql = "update Inventory set amtInStock = amtInStock - :amount where skuNum = :skuNum";
 		session().createQuery(hql).setInteger("amount", item.getAmount()).setString("skuNum", item.getSkuNum()).executeUpdate();
