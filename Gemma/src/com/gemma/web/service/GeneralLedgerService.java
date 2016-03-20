@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.support.PagedListHolder;
 import org.springframework.stereotype.Service;
 
+import com.gemma.web.beans.Audit;
 import com.gemma.web.beans.DatePicker;
 import com.gemma.web.dao.GeneralLedger;
 import com.gemma.web.dao.GeneralLedgerDao;
@@ -52,4 +53,5 @@ public class GeneralLedgerService implements Serializable{
 	public PagedListHolder<GeneralLedger> getPagedList(DatePicker picker) {
 		return new PagedListHolder<GeneralLedger>(getList(picker));
 	}
+	
 }

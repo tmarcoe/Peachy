@@ -21,8 +21,12 @@ import com.gemma.web.dao.ChartOfAccountsDao;
 
 @ActiveProfiles("dev")
 @ContextConfiguration(locations = {
+		"classpath:com/gemma/web/config/accounting-config.xml",
 		"classpath:com/gemma/web/config/dao-context.xml",
+		"classpath:com/gemma/web/config/file-context.xml",
+		"classpath:com/gemma/web/config/pager-context.xml",
 		"classpath:com/gemma/web/config/security-context.xml",
+		"classpath:com/gemma/web/config/service-context.xml",
 		"classpath:com/gemma/spring/web/test/config/datasource.xml" })
 @RunWith(SpringJUnit4ClassRunner.class)
 public class ChartOfAccountsTest {

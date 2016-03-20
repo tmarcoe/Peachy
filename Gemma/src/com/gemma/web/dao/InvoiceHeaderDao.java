@@ -1,5 +1,6 @@
 package com.gemma.web.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -9,10 +10,21 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.gemma.web.service.AccountingService;
+
 @Transactional
 @Repository
 @Component("InvoiceHeaderDao")
 public class InvoiceHeaderDao {
+	
+	@Autowired
+	InvoiceItemDao invoiceItemDao;
+	
+	@Autowired
+	AccountingService accountingService;
+	
+	@Autowired
+	InventoryDao inventoryDao;
 	
 	@Autowired
 	private SessionFactory sessionFactory;
@@ -42,6 +54,13 @@ public class InvoiceHeaderDao {
 		return (InvoiceHeader) session().createQuery(hql).setInteger("invoiceNum", invoiceNum).uniqueResult();
 	}
 
+	@SuppressWarnings("unchecked")
+	public List<InvoiceHeader> getAllInvoiceHeaders() {
+		String hql = "from InvoiceHeader where processed = null and dateShipped = null";
+
+		return session().createQuery(hql).list();
+	}
+
 	public void updateHeader(InvoiceHeader header) {
 		session().update(header);
 	}
@@ -52,6 +71,27 @@ public class InvoiceHeaderDao {
 		List<InvoiceHeader> headers = session().createQuery(hql).list();
 		
 		return headers;
+	}
+
+	public List<InvoiceHeader> getInvoiceHeader() {
+		return null;
+	}
+	public void processShoppingCart(InvoiceHeader header) {
+		header.setProcessed(new Date());
+		List<InvoiceItem> itemList = invoiceItemDao.getInvoice(header);
+		
+		double total = 0;
+		double totalTax = 0;
+		for(InvoiceItem item: itemList) {
+			total += (item.getAmount() * item.getPrice());
+			totalTax += (item.getAmount() * item.getTax());
+			inventoryDao.depleteInventory(item);
+			header.setTotal(total);
+			header.setTotalTax(totalTax);
+		}
+		updateHeader(header);
+
+		accountingService.processSales(header);
 	}
 
 

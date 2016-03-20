@@ -82,9 +82,6 @@ public class AdminController implements Serializable {
 	private PagedListHolder<Inventory> adminInventoryList;
 	
 	@Autowired
-	private FileUpload fileUpload;
-	
-	@Autowired
 	private GeneralLedgerService generalLedgerService;
 	
 	@Autowired
@@ -117,6 +114,7 @@ public class AdminController implements Serializable {
 	 ******************************************************************************/
 	@RequestMapping("/uploadfile")
 	public String showUploadFile(Model model) {
+		FileUpload fileUpload = new FileUpload();
 		model.addAttribute("fileUpload", fileUpload);
 
 		return "uploadfile";

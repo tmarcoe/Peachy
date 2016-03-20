@@ -75,24 +75,10 @@ public class InvoiceService {
 
 
 	public void processShoppingCart(InvoiceHeader header) {
-		header.setProcessed(new Date());
-		List<InvoiceItem> itemList = invoiceItemDao.getInvoice(header);
-		
-		double total = 0;
-		double totalTax = 0;
-		for(InvoiceItem item: itemList) {
-			total += (item.getAmount() * item.getPrice());
-			totalTax += (item.getAmount() * item.getTax());
-			depleteInventory(item);
-			header.setTotal(total);
-			header.setTotalTax(totalTax);
-		}
-		invoiceHeaderDao.updateHeader(header);
-
-		accountingService.processSales(header);
+		invoiceHeaderDao.processShoppingCart(header);
 	}
 
-	private void depleteInventory(InvoiceItem item) {
+	public void depleteInventory(InvoiceItem item) {
 		inventoryDao.depleteInventory(item);
 	}
 
@@ -109,6 +95,10 @@ public class InvoiceService {
 
 	public double totalShoppingCart(InvoiceHeader header) {
 		return invoiceItemDao.totalShoppingCart(header);
+	}
+	
+	public List<InvoiceHeader> getAllInvoiceHeaders() {
+		return invoiceHeaderDao.getAllInvoiceHeaders();
 	}
 
 }
