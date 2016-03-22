@@ -31,15 +31,6 @@ statement
 	| keyword ';'
 	;
 	
-expression returns [String name, Object obj] 
-	: lValue '=' rValue
-	{
-		$name = $lValue.text;
-		$obj = $rValue.obj;
-		trans.assignVariable($name, $obj);
-	}
-	;
-
 amount returns [Double amt]
 	:	literal
 	{
@@ -77,10 +68,20 @@ lValue
 	: variable
 	;
 
+expression returns [String name, Object obj] 
+	: lValue '=' rValue
+	{
+		$name = $lValue.text;
+		$obj = $rValue.obj;
+		trans.assignVariable($name, $obj);
+	}
+	;
+
 rValue returns [Object obj]
 	@init{
 		Object rh;
 		Object lh;
+		String op;
 	}
 	:	variable
 	{
@@ -94,32 +95,15 @@ rValue returns [Object obj]
 	{
 		$obj = $keywordAssignment.obj;
 	}
-	|	lVal operand rVal
+	|	lVal operand rVal 
 	{
 				
 		lh = $lVal.obj;
 		rh = $rVal.obj;
-		
-		switch ($operand.text) {
-		case "+":
-			$obj = om.addObject(lh, rh);
-			break;
-		
-		case "-":
-			$obj = om.subObject(lh, rh);
-			break;
-			
-		case "*":
-			$obj = om.multObject(lh, rh);
-			break;
-			
-		case "/":
-			$obj = om.divObject(lh, rh);
-			break;
-		}
-		
+		op = $operand.text;
+
+		$obj = om.getExpression(lh, op, rh);		
 	}
-	|   expression (operand rValue)*
 	;
 	
 rVal returns [Object obj]
@@ -130,6 +114,10 @@ rVal returns [Object obj]
 	| variable
 	{
 		$obj = trans.getValue($variable.text);
+	}
+	| '(' rValue ')'
+	{
+		$obj = $rValue.obj;
 	}
 	;
 
