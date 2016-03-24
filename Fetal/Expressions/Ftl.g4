@@ -210,6 +210,14 @@ keywordAssignment returns [Object obj]
 	{
 		$obj = (String) trans.getDescription();
 	}
+	|	GetFromAccount
+	{
+		$obj = trans.getFromAccount();
+	}
+	|	GetToAccount
+	{
+		$obj = trans.getToAccount();
+	}
 	;
 
 keyword
@@ -244,6 +252,8 @@ Ledger			: 'ledger';
 GetAmount		: 'getAmount';
 GetTax			: 'getTax';
 GetDescription	: 'getDescription';
+GetFromAccount	: 'getFromAccount';
+GetToAccount	: 'getToAccount';
 
 BOOLEAN       : 'boolean';
 CHAR          : 'char';
