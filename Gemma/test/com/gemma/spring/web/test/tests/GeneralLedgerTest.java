@@ -20,6 +20,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.gemma.web.beans.Audit;
+import com.gemma.web.dao.ChartOfAccounts;
+import com.gemma.web.dao.ChartOfAccountsDao;
 import com.gemma.web.dao.GeneralLedger;
 import com.gemma.web.dao.GeneralLedgerDao;
 import com.gemma.web.dao.InvoiceHeader;
@@ -41,6 +43,9 @@ public class GeneralLedgerTest {
 
 	@Autowired
 	private SessionFactory sessionFactory;
+	
+	@Autowired
+	private ChartOfAccountsDao chartOfAccountsDao;
 
 	@Autowired
 	private GeneralLedgerDao generalLedgerDao;
@@ -92,6 +97,22 @@ public class GeneralLedgerTest {
 			   "(54, 1, '15216', 'Pale Pilsen', 'San Miguel Pale Pilsen beer.', 'img8363452072949527142.png', 50, 1, 100, 0)," +
 			   "(55, 1, '01788500011', 'Slap ''ya Momma Cajun Spices', 'Slap ya mama Cajun spices (extra hot).', 'img2420448772141923689.png', 55, 1, 100, 0);";
 
+	private String resetAccounts = "INSERT INTO `chartofaccounts` (`accountNum`," + 
+			   " `Description`, `accountBalance`, `accountName`," + 
+			   " `debitAccount`) VALUES" + 
+			   "('1000', 'This Account is used for cash.', 0, 'Cash Account', b'1')," +
+			   "('1001', 'This account is for Expense', 0, 'Expenses', b'1')," +
+			   "('1002', 'This account is for assets', 0, 'Assets', b'1')," +
+			   "('1003', 'This account is for purchasing inventory', 0, 'Inventory', b'0')," +
+			   "('1004', 'This account is for revenues', 0, 'Revenues', b'0')," +
+			   "('1005', 'This account is for losses', 0, 'Losses', b'1')," +
+			   "('1006', 'This account is for gains', 0, 'Gains', b'0')," +
+			   "('1007', 'This account is for income', 0, 'Income', b'0')," +
+			   "('1008', 'This account is for Liabilities', 0, 'Liabilities', b'0')," +
+			   "('1009', 'Account for Sales', 0, 'Sales', b'0')," +
+			   "('1010', 'Account for Sales Tax', 0, 'Sales Tax', b'0')," +
+			   "('1011', 'This Account is for sale commision', 0, 'Per Sale Reembersement', b'0');";
+
 
 
 	
@@ -111,13 +132,42 @@ public class GeneralLedgerTest {
 		JdbcTemplate jdbc = new JdbcTemplate(dataSource);
 		jdbc.execute(initHeader);
 		jdbc.execute(initItems);
+		jdbc.execute("delete from chartofaccounts");
+		jdbc.execute(resetAccounts);
+		
 		List<InvoiceHeader> headers = invoiceHeaderDao.getAllInvoiceHeaders();
 		
 		for(InvoiceHeader item: headers) {
 			invoiceHeaderDao.processShoppingCart(item);
 		}
 		Audit audit = generalLedgerDao.getAudit();
+
 		assertEquals(audit.getCreditColumn(), audit.getDebitColumn(), .01);
+		ChartOfAccounts account = chartOfAccountsDao.getAccout("1000");
+		Double total = (double) account.getAccountBalance();
+		assertEquals(total, audit.getDebitColumn(), 01);
+		Double tax = 0.0;
+		
+		List<GeneralLedger> ledgerEntrys = generalLedgerDao.getList();
+		for(GeneralLedger item: ledgerEntrys) {
+			if ("1010".equals(item.getAccountNum())) {
+				tax += item.getCreditAmt();
+			}
+		}
+		account = chartOfAccountsDao.getAccout("1010");
+		assertEquals(tax, (Float) account.getAccountBalance(), .01);
+		Double commision = 0.0;
+		
+		for(GeneralLedger item: ledgerEntrys) {
+			if ("1011".equals(item.getAccountNum())) {
+				commision += item.getCreditAmt();
+			}
+		}
+		account = chartOfAccountsDao.getAccout("1011");
+		assertEquals(commision, (Float) account.getAccountBalance(), .01);
+		
+		account = chartOfAccountsDao.getAccout("1009");
+		assertEquals(total - (tax + commision), account.getAccountBalance(), .01);
 	}
 
 

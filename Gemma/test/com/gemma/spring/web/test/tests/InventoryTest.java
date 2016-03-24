@@ -121,6 +121,25 @@ public class InventoryTest {
 	}
 	
 	@Test
+	public void testReplenish() {
+		Inventory inventory = inventoryDao.getItem("4002309006567");
+		List<Inventory> invList = inventoryDao.getReplenishList();
+		assertEquals(0, invList.size());
+		
+		inventory.setAmtInStock(9);
+		inventoryDao.update(inventory);
+		 invList = inventoryDao.getReplenishList();
+		
+		assertEquals(1, invList.size());
+		inventory = inventoryDao.getItem("4002309006567");
+		inventory.setAmtInStock(100);
+		inventoryDao.update(inventory);
+		
+		invList = inventoryDao.getReplenishList();
+		assertEquals(0, invList.size());
+	}
+	
+	@Test
 	public void testSaleItems() {
 		List<Inventory> inv = inventoryDao.listSaleItems();
 		assertEquals(3, inv.size());

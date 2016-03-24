@@ -15,8 +15,6 @@ import com.ftl.antlr.FtlLexer;
 import com.ftl.antlr.FtlParser;
 import com.ftl.antlr.FtlParser.TransactionContext;
 import com.gemma.web.beans.Order;
-import com.gemma.web.dao.ChartOfAccounts;
-import com.gemma.web.dao.GeneralLedger;
 import com.gemma.web.dao.Inventory;
 import com.gemma.web.dao.InvoiceHeader;
 
@@ -44,25 +42,17 @@ public class AccountingService {
 		start("purchase.trans");
 		
 	}
-
+	
 	public void purchaseInventory(Order order) {
-		GeneralLedger ledger = new GeneralLedger();
-		ChartOfAccounts cash = chartOfAccountsService.getAccount("1000");
-		chartOfAccountsService.creditAccount(cash, order.getPrice() + order.getTax());
-		ledger.setAccountNum(cash.getAccountNum());
-		ledger.setCreditAmt((float) (order.getPrice() + order.getTax()));
-		ledger.setDescription("Purchase of inventory (SKU #" + order.getInventory().getSkuNum() +")");
-		generalLedgerService.addEntry(ledger);
-		ledger.setCreditAmt(0);
-		ChartOfAccounts purchase = chartOfAccountsService.getAccount("1003");
-		chartOfAccountsService.debitAccount(purchase, order.getPrice() + order.getTax());
-		ledger.setAccountNum(purchase.getAccountNum());
-		ledger.setDebitAmt((float) (order.getPrice() + order.getTax()));
-		ledger.setDescription("Purchase of inventory (SKU #" + order.getInventory().getSkuNum() +")");
-		generalLedgerService.addEntry(ledger);
+		transactionService.setAmount(order.getPrice());
+		transactionService.setTax(order.getTax());
+		transactionService.setDescription("Purchase of inventory (SKU #" + order.getInventory().getSkuNum() +")");		
+		start("inventory.trans");
+		
 		Inventory inventory = order.getInventory();
 		inventory.setAmtInStock(inventory.getAmtInStock() + order.getAmount());
 		inventoryService.update(inventory);
+
 	}
 
 	public void start(String fileName) {

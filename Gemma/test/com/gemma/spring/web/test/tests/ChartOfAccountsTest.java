@@ -18,6 +18,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.gemma.web.dao.ChartOfAccounts;
 import com.gemma.web.dao.ChartOfAccountsDao;
+import com.gemma.web.dao.InventoryDao;
 
 @ActiveProfiles("dev")
 @ContextConfiguration(locations = {
@@ -33,6 +34,9 @@ public class ChartOfAccountsTest {
 
 	@Autowired
 	private ChartOfAccountsDao chartOfAccountsDao;
+	
+	@Autowired
+	private InventoryDao inventoryDao;
 
 	@Autowired
 	private DataSource dataSource;
@@ -43,24 +47,31 @@ public class ChartOfAccountsTest {
 		String resetAccounts = "INSERT INTO `chartofaccounts` (`accountNum`," + 
 							   " `Description`, `accountBalance`, `accountName`," + 
 							   " `debitAccount`) VALUES" + 
-							   "('1000', 'This Account is used for cash.', 100, 'Cash Account', b'1')," +
-							   "('1001', 'This account is for Expense', 100, 'Expenses', b'1')," +
-							   "('1002', 'This account is for assets', 100, 'Assets', b'1')," +
-							   "('1003', 'This account is for purchasing inventory', 100, 'Inventory', b'0')," +
-							   "('1004', 'This account is for revenues', 100, 'Revenues', b'0')," +
-							   "('1005', 'This account is for losses', 100, 'Losses', b'1')," +
-							   "('1006', 'This account is for gains', 100, 'Gains', b'0')," +
-							   "('1007', 'This account is for income', 100, 'Income', b'0')," +
-							   "('1008', 'This account is for Liabilities', 100, 'Liabilities', b'0')," +
-							   "('1009', 'Account for Sales', 100, 'Sales', b'0')," +
-							   "('1010', 'Account for Sales Tax', 100, 'Sales Tax', b'0')," +
-							   "('1011', '', 100, 'Per Sale Reembersement', b'0');";
+							   "('1000', 'This Account is used for cash.', 0, 'Cash Account', b'1')," +
+							   "('1001', 'This account is for Expense', 0, 'Expenses', b'1')," +
+							   "('1002', 'This account is for assets', 0, 'Assets', b'1')," +
+							   "('1003', 'This account is for purchasing inventory', 0, 'Inventory', b'0')," +
+							   "('1004', 'This account is for revenues', 0, 'Revenues', b'0')," +
+							   "('1005', 'This account is for losses', 0, 'Losses', b'1')," +
+							   "('1006', 'This account is for gains', 0, 'Gains', b'0')," +
+							   "('1007', 'This account is for income', 0, 'Income', b'0')," +
+							   "('1008', 'This account is for Liabilities', 0, 'Liabilities', b'0')," +
+							   "('1009', 'Account for Sales', 0, 'Sales', b'0')," +
+							   "('1010', 'Account for Sales Tax', 0, 'Sales Tax', b'0')," +
+							   "('1011', 'This Account is for sale commision', 0, 'Per Sale Reembersement', b'0');";
 		
 		jdbc.execute("delete from generalledger");
 		jdbc.execute("delete from invoiceheader");
 		jdbc.execute("delete from invoiceitem");
 		jdbc.execute("delete from chartofaccounts");
 		jdbc.execute(resetAccounts);		
+	}
+	@Test
+	public void testAccountAudit() {
+		JdbcTemplate jdbc = new JdbcTemplate(dataSource);
+		
+		jdbc.execute("update inventory set amtInStock = minQuantity");
+		
 	}
 	
 	@Test
@@ -89,10 +100,10 @@ public class ChartOfAccountsTest {
 		assertEquals("Sales", sales.getAccountName());
 		chartOfAccountsDao.debitAccount(cash, 50);
 		cash = chartOfAccountsDao.getAccount("1000");
-		assertEquals(150, cash.getAccountBalance(), .01);
+		assertEquals(50, cash.getAccountBalance(), .01);
 		chartOfAccountsDao.creditAccount(sales, 50);
 		sales = chartOfAccountsDao.getAccount("1009");
-		assertEquals(150, sales.getAccountBalance(), .01);
+		assertEquals(50, sales.getAccountBalance(), .01);
 	}
 	
 
