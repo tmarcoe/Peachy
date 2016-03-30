@@ -24,6 +24,9 @@
 				<th>Quantity</th>
 				<th>Price</th>
 				<th>Tax</th>
+				<th>Delete</th>
+				<th>&nbsp;</th>
+				<th>Edit</th>
 			</tr>
 		</thead>
 
@@ -49,11 +52,11 @@
 					<c:if test="${invoice.invoiceHeader.processed == null}">
 						<td><a href="#" onclick="rowRemoved(${i.index});"
 							class="removeAccount"><img alt="[Remove]"
-								src="<c:url value='/static/images/web/minus.png' />"></a></td>
+								src="<c:url value='/static/images/web/delete.jpg' />"></a></td>
 						<td>&nbsp;</td>
 						<td><a href="#" onclick="getDetail(${i.index});"
 							class="inventorydetail"><img alt="[Show Detail]"
-								src="<c:url value='/static/images/web/edit.png' />"></a></td>
+								src="<c:url value='/static/images/web/edit.jpg' />"></a></td>
 					</c:if>
 				</tr>
 			</c:forEach>

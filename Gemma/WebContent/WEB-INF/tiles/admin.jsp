@@ -21,6 +21,7 @@
 							<th>Date</th>
 							<th>User #</th>
 							<th>Total</th>
+							<th>View Cart</th>
 						</tr>
 					</thead>
 					<c:forEach var="item" items="${headerList.pageList}">
@@ -32,7 +33,9 @@
 							<td>${stdate}</td>
 							<td>${userID}</td>
 							<td>${total}</td>
-							<td><a href="viewcart?invoiceNum=${item.invoiceNum}">[View]</a></td>
+							<td><a href="viewcart?invoiceNum=${item.invoiceNum}"><img
+									alt="[View]"
+									src="<c:url value='/static/images/web/edit.jpg' />"></a></td>
 						</tr>
 
 					</c:forEach>
@@ -40,26 +43,28 @@
 				<input type="submit" value="Process Orders" />
 			</form:form>
 			<div class="paging">
-				<c:if test="${headerList.isFirstPage()==false}">
-					<a href="headerpaging?page=prev"><img alt="[Prev]"
-						src="<c:url value='/static/images/web/button_prev.gif'/>"></a>
-				</c:if>
-				<c:forEach begin="1" end="${headerList.getPageCount()}" var="i">
+				<c:if test="${headerList.getPageCount()> 1}">
+					<c:if test="${headerList.isFirstPage()==false}">
+						<a href="headerpaging?page=prev"><img alt="[Prev]"
+							src="<c:url value='/static/images/web/button_prev.gif'/>"></a>
+					</c:if>
+					<c:forEach begin="1" end="${headerList.getPageCount()}" var="i">
 
-					<c:choose>
-						<c:when test="${(i-1)!= headerList.getPage()}">
-							<a href="headerpaging?page=${i-1}"><span class="paging"><c:out
-										value="${i}" /></span></a>
-						</c:when>
-						<c:otherwise>
-							<span class="paging"><c:out value="${i}" /></span>
-						</c:otherwise>
-					</c:choose>
-				</c:forEach>
-				<%--For displaying Next link --%>
-				<c:if test="${headerList.isLastPage()==false}">
-					<a href="headerpaging?page=next"><img alt="[Next]"
-						src="<c:url value='/static/images/web/button_next.gif'/>"></a>
+						<c:choose>
+							<c:when test="${(i-1)!= headerList.getPage()}">
+								<a href="headerpaging?page=${i-1}"><span class="paging"><c:out
+											value="${i}" /></span></a>
+							</c:when>
+							<c:otherwise>
+								<span class="paging"><c:out value="${i}" /></span>
+							</c:otherwise>
+						</c:choose>
+					</c:forEach>
+					<%--For displaying Next link --%>
+					<c:if test="${headerList.isLastPage()==false}">
+						<a href="headerpaging?page=next"><img alt="[Next]"
+							src="<c:url value='/static/images/web/button_next.gif'/>"></a>
+					</c:if>
 				</c:if>
 			</div>
 		</c:when>

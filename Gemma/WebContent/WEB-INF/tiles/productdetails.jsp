@@ -30,7 +30,7 @@
 		</tr>
 		<tr>
 			<td><input type="image" name="submit" width="50" 
-				height="50" src="<c:url value='/static/images/web/cart.ico' />" /><br>Add to Cart</td>
+				height="50" src="<c:url value='/static/images/web/Website-Shopping-Cart.jpg' />" /><br>Add to Cart</td>
 			<td><sf:hidden path="productName" /></td>
 			<td><sf:hidden path="skuNum" /></td>
 			<td><sf:input type="hidden" path="amtInStock" /></td>

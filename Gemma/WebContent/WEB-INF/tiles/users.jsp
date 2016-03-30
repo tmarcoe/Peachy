@@ -40,11 +40,11 @@
 				<td><input type="hidden" value="${user.lastname}" /></td>
 				<td><a href="#" onclick="rowRemoved(${i.index});"
 					class="removeAccount"><img alt="[Remove]"
-						src="<c:url value='/static/images/web/button.gif' />"></a></td>
+						src="<c:url value='/static/images/web/delete.jpg' />"></a></td>
 				<td>&nbsp;</td>
 				<td><a href="#" onclick="getDetail(${i.index});"
 					class="inventorydetail"><img alt="[Show Detail]"
-						src="<c:url value='/static/images/web/button.gif' />"></a></td>
+						src="<c:url value='/static/images/web/edit.jpg' />"></a></td>
 			</tr>
 		</c:forEach>
 
