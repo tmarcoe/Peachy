@@ -26,9 +26,9 @@ endStatement
 
     
 statement
-	: decarationStatement ';'
-	| expression ';'
-	| keyword ';'
+	: decarationStatement SEMI
+	| expression SEMI
+	| keyword SEMI
 	;
 	
 amount returns [Double amt]
@@ -75,6 +75,20 @@ expression returns [String name, Object obj]
 		$obj = $rValue.obj;
 		trans.assignVariable($name, $obj);
 	}
+	|	lValue assignmentOperator rValue
+	{
+		String op = $assignmentOperator.text.substring(0, $assignmentOperator.text.length() - 1 );
+		$obj = trans.getValue($lValue.text);
+		
+		$obj = om.getExpression($obj, op, $rValue.obj);
+		trans.assignVariable($lValue.text, $obj);
+	}
+	| lValue '=' '(' rValue ')'
+	{
+		$name = $lValue.text;
+		$obj = $rValue.obj;
+		trans.assignVariable($name, $obj);
+	}
 	;
 
 rValue returns [Object obj]
@@ -103,6 +117,25 @@ rValue returns [Object obj]
 		op = $operand.text;
 
 		$obj = om.getExpression(lh, op, rh);		
+	}
+	| lVal (operand rVal)+
+	{
+		$obj = $lVal.obj;
+		
+		for (int i=1; i < this.getContext().getChildCount(); i +=2 ) {
+			
+			RValContext rv = (RValContext) this.getContext().getChild(i+1);
+			$obj = om.getExpression($obj, this.getContext().getChild(i).getText(), rv.obj);
+
+		}
+	}
+	| rVal operand lVal
+	{
+		rh = $rVal.obj;
+		lh = $lVal.obj;
+		op = $operand.text;
+		
+		$obj = om.getExpression(rh, op, lh);
 	}
 	;
 	
@@ -218,6 +251,14 @@ keywordAssignment returns [Object obj]
 	{
 		$obj = trans.getToAccount();
 	}
+	;
+	
+assignmentOperator
+	:	'+='
+	|	'-='
+	|	'*='
+	|	'/='
+	|	'%='
 	;
 
 keyword
