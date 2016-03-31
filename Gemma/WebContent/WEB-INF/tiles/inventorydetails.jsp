@@ -7,11 +7,6 @@
 	action="${pageContext.request.contextPath}/inventorysaved"
 	commandName="inventory">
 	<table  class="inventorydetails">
-		<thead>
-			<tr>
-				<th class="inventoryheader" colspan="5" >Products</th>
-			</tr>
-		</thead>
 		<tr>
 			<td>SKU Number:</td>
 			<td><sf:input path="skuNum" name="skuNum" class="control" type="text" readonly = "true" /></td>

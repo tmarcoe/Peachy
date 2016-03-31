@@ -15,6 +15,6 @@ public class ErrorHandler {
 	
 	@ExceptionHandler(AccessDeniedException.class)
 	public String handleAccessException(AccessDeniedException ex) {
-		return "denied";
+		return "blocked";
 	}
 }

@@ -7,12 +7,12 @@
 	<c:set var="total" scope="session" value="0" />
 	<c:set var="pr" scope="session" value="0" />
 	<c:set var="ttax" scope="session" value="0" />
-	<h1>
+	<h3>
 		Invoice #
 		<fmt:formatNumber type="number"
 			value="${invoice.invoiceHeader.invoiceNum}" minIntegerDigits="6"
 			groupingUsed="false" />
-	</h1>
+	</h3>
 	<table class="invoicetable" id="listinvoice">
 
 		<thead>
@@ -24,9 +24,11 @@
 				<th>Quantity</th>
 				<th>Price</th>
 				<th>Tax</th>
-				<th>Delete</th>
-				<th>&nbsp;</th>
-				<th>Edit</th>
+				<c:if test="${invoice.invoiceHeader.processed == null}">
+					<th>Delete</th>
+					<th>&nbsp;</th>
+					<th>Edit</th>
+				</c:if>
 			</tr>
 		</thead>
 
@@ -71,6 +73,12 @@
 				<td>&nbsp;</td>
 				<td><fmt:formatNumber type="currency" currencySymbol="P"
 						value="${total}" /></td>
+
+				<c:if test="${invoice.invoiceHeader.processed == null}">
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+				</c:if>
 			</tr>
 			<tr>
 				<td>Total Tax -------></td>
@@ -81,6 +89,11 @@
 				<td>&nbsp;</td>
 				<td><fmt:formatNumber type="currency" currencySymbol="P"
 						value="${ttax}" /></td>
+				<c:if test="${invoice.invoiceHeader.processed == null}">
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+				</c:if>
 			</tr>
 			<tr>
 				<td>Total -------></td>
@@ -91,32 +104,55 @@
 				<td>&nbsp;</td>
 				<td><fmt:formatNumber type="currency" currencySymbol="P"
 						value="${total + ttax}" /></td>
-			</tr>
-			<tr>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-			</tr>
-			<tr>
 				<c:if test="${invoice.invoiceHeader.processed == null}">
-					<td><a href="${pageContext.request.contextPath}/processcart"
-						class="button">Check Out</a></td>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-				<td><a href="${pageContext.request.contextPath}/products"
-						class="button" >Continue Shopping</a></td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
 				</c:if>
 			</tr>
+			<c:if test="${invoice.invoiceHeader.processed == null}">
+				<tr>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+				</tr>
+				<tr>
+					<td><a href="${pageContext.request.contextPath}/processcart"
+						class="button">Check Out</a></td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td><a href="${pageContext.request.contextPath}/products"
+						class="button">Continue Shopping</a></td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+				</tr>
+				<tr>
+					<td>Print this page for your records</td>
+					<td><input type="button" onClick="window.print()"
+						value="Print" /></td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+				</tr>
+			</c:if>
 		</tfoot>
 	</table>
-
 </sf:form>
 
 <script type="text/javascript">
