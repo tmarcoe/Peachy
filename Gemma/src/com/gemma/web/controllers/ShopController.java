@@ -2,17 +2,23 @@ package com.gemma.web.controllers;
 
 import java.io.Serializable;
 import java.security.Principal;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.beans.support.PagedListHolder;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -20,21 +26,28 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.gemma.web.beans.Categories;
 import com.gemma.web.dao.Inventory;
+import com.gemma.web.dao.Invoice;
 import com.gemma.web.dao.InvoiceContainer;
 import com.gemma.web.dao.InvoiceHeader;
 import com.gemma.web.dao.InvoiceItem;
+import com.gemma.web.dao.Returns;
 import com.gemma.web.dao.UserProfile;
 import com.gemma.web.service.InventoryService;
 import com.gemma.web.service.InvoiceService;
+import com.gemma.web.service.ReturnsService;
 import com.gemma.web.service.UserProfileService;
 
 import org.springframework.util.StringUtils;
+import org.springframework.validation.BindingResult;
 
 
 @Controller
 @Scope(value="session")
 public class ShopController implements Serializable {
 	private static final long serialVersionUID = 1L;
+	
+	@Autowired
+	private ReturnsService returnsService;
 
 	@Autowired
 	private InventoryService inventoryService;
@@ -50,6 +63,16 @@ public class ShopController implements Serializable {
 	
 	private Categories categories = null;
 
+	private SimpleDateFormat dateFormat;
+	
+	@InitBinder
+	public void initBinder(WebDataBinder binder) {
+		dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		dateFormat.setLenient(false);
+		binder.registerCustomEditor(Date.class, new CustomDateEditor(
+				dateFormat, false));
+	}
+	
 	@RequestMapping(value="/products")
 	public String products(Model model) {
 		if (categories == null) {
@@ -144,6 +167,49 @@ public class ShopController implements Serializable {
 		return "products";
 	}
 	
+	@RequestMapping("/returns-getlookup")
+	public String returnsLookup(Model model) {
+		Returns returns = new Returns();
+		
+		model.addAttribute("returns", returns);
+		
+		return "returns-getlookup";
+	}
+	
+	@RequestMapping("/returns-submit")
+	public String returnsSubmit(@Valid @ModelAttribute("returns") Returns returns, Model model, BindingResult result) {
+		InvoiceItem invoice = invoiceService.getInvoiceItem(returns.getInvoiceNum(), returns.getSkuNum());
+		if (invoice == null) {
+			result.rejectValue("invoiceNum","NotFound.returns.invoiceNum");
+			return "returns-getlookup";
+		}
+		InvoiceHeader header = invoiceService.getInvoiceHeader(returns.getInvoiceNum());
+		if (returns.getAmtReturned() > invoice.getAmount()) {
+			result.rejectValue("amtReturned","Amount.returns.amtReturned");
+			return "returns-getlookup";
+		}
+		returns.setPurchasePrice((double) (invoice.getPrice() * returns.getAmtReturned()));
+		returns.setPurchaseTax((double) (invoice.getTax() * returns.getAmtReturned()));
+		returns.setDatePurchased(header.getProcessed());
+		
+		model.addAttribute("returns", returns);
+		
+		return "returns-submit";
+	}
+	
+	@RequestMapping("/returns-save")
+	public String returnsSave(@ModelAttribute("returns") Returns returns, Model model) {
+		
+		returns.setDateReturned(new Date());
+		
+		returnsService.create(returns);
+		
+		List<Inventory> inventory = inventoryService.listSaleItems();
+		model.addAttribute("inventory",inventory);
+		
+		return "home";
+	}
+
 	@RequestMapping(value="/paging", method=RequestMethod.GET)
 	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		int pgNum;

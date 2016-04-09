@@ -591,3 +591,14 @@ fieldset {
 .printorders {
 	float: center;
 }
+table.returns td {
+	font-weight: bold;
+	text-align: left;
+	padding-right: 2em;
+	
+}
+
+.returns th {
+	padding-right: 2em;
+	text-align: left;
+}

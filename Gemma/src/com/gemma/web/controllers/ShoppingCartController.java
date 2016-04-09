@@ -193,7 +193,7 @@ public class ShoppingCartController implements Serializable {
 				double tax = invoice.getAmount() * invoice.getTax();
 				total += price;
 				totalTax += tax;
-				inv.write(String.format("%s\t%d\tP%.2f\n", invoice.getProductName(), invoice.getAmount(), price));
+				inv.write(String.format("%s\t%d\tP%.2f [SKU - %s]\n", invoice.getProductName(), invoice.getAmount(), price, invoice.getSkuNum()));
 			}
 			inv.write("Subtotal -> " + String.format("P%.2f\n", total));
 			inv.write("Tax      -> " + String.format("P%.2f\n", totalTax));

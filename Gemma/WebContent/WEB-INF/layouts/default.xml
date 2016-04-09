@@ -241,6 +241,18 @@
 		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/picksubcategory.jsp"></put-attribute>
 	</definition>
+	<definition name="returns-getlookup" extends="gemma.base">
+		<put-attribute name="heading_title" value="Invoice Number and product number"></put-attribute>
+		<put-attribute name="title" value="Returns"></put-attribute>
+		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/returns-getlookup.jsp"></put-attribute>
+	</definition>
+	<definition name="returns-submit" extends="gemma.base">
+		<put-attribute name="heading_title" value="Item Details"></put-attribute>
+		<put-attribute name="title" value="Returns Submit"></put-attribute>
+		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/returns-submit.jsp"></put-attribute>
+	</definition>
 </tiles-definitions>
 
 
