@@ -7,6 +7,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 @Entity
 public class Returns {
 	
@@ -14,13 +16,17 @@ public class Returns {
 	private int rmaId;
 	private Integer invoiceNum;
 	private String skuNum;
+	private String username;
 	private Double purchasePrice;
 	private Double purchaseTax;
 	private Integer amtReturned;
 	private Date datePurchased;
 	private Date dateReturned;
 	private Date dateProcessed;
+	@NotBlank
 	private String reason;
+	private String decision;
+	private String reasonForDecision;
 	private boolean returnToStock;
 		
 	public int getRmaId() {
@@ -45,6 +51,14 @@ public class Returns {
 
 	public void setSkuNum(String skuNum) {
 		this.skuNum = skuNum;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public Double getPurchasePrice() {
@@ -101,6 +115,22 @@ public class Returns {
 
 	public void setReason(String reason) {
 		this.reason = reason;
+	}
+
+	public String getDecision() {
+		return decision;
+	}
+
+	public void setDecision(String decision) {
+		this.decision = decision;
+	}
+
+	public String getReasonForDecision() {
+		return reasonForDecision;
+	}
+
+	public void setReasonForDecision(String reasonForDecision) {
+		this.reasonForDecision = reasonForDecision;
 	}
 
 	public boolean isReturnToStock() {

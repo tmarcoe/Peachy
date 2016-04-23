@@ -6,15 +6,13 @@
 	action="${pageContext.request.contextPath}/returns-save"
 	commandName="returns">
 	<table class="returns">
-		<thead>
-			<tr>
-				<th>Invoice #</th>
-				<th>SKU #</th>
-				<th>Refund</th>
-				<th># of Items</th>
-				<th>Date Purchased</th>
-			</tr>
-		</thead>
+		<tr>
+			<th>Invoice #</th>
+			<th>SKU #</th>
+			<th>Refund</th>
+			<th># of Items</th>
+			<th>Date Purchased</th>
+		</tr>
 		<tr>
 			<td><fmt:formatNumber type="number" pattern="000000"
 					value="${returns.invoiceNum}" /></td>
@@ -30,10 +28,9 @@
 	<sf:hidden path="purchasePrice" />
 	<sf:hidden path="purchaseTax" />
 	<sf:hidden path="amtReturned" />
-
 	<sf:input type="hidden" path="datePurchased" />
 
-	<table>
+	<table class="returns">
 		<tr><th>&nbsp;</th></tr>
 		<tr>
 			<th>Reason for Return</th>

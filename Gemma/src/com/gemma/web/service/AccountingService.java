@@ -11,12 +11,15 @@ import org.antlr.v4.runtime.CommonTokenStream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ftl.antlr.FtlLexer;
-import com.ftl.antlr.FtlParser;
-import com.ftl.antlr.FtlParser.TransactionContext;
+import com.ftl.derived.FetalLexer;
+import com.ftl.derived.FetalParser;
+import com.ftl.derived.FetalParser.TransactionContext;
 import com.gemma.web.beans.Order;
 import com.gemma.web.dao.Inventory;
 import com.gemma.web.dao.InvoiceHeader;
+import com.gemma.web.dao.InvoiceItem;
+import com.gemma.web.dao.InvoiceItemDao;
+import com.gemma.web.dao.Returns;
 
 @Service("accountingService")
 public class AccountingService {
@@ -28,10 +31,14 @@ public class AccountingService {
 	private ChartOfAccountsService chartOfAccountsService;
 
 	@Autowired 
-	InventoryService inventoryService;
+	private InventoryService inventoryService;
 	
 	@Autowired
-	TransactionService transactionService;
+	private TransactionService transactionService;
+	
+	@Autowired
+	private InvoiceItemDao invoiceItemDao;
+	
 	
 	public void processSales(InvoiceHeader header) {
 
@@ -53,6 +60,22 @@ public class AccountingService {
 		inventory.setAmtInStock(inventory.getAmtInStock() + order.getAmount());
 		inventoryService.update(inventory);
 
+	}
+	
+	public void returnMerchandise(Returns returns) {
+		if ("D".equalsIgnoreCase(returns.getDecision())) {
+			InvoiceItem item = invoiceItemDao.getInvoiceItem(returns.getInvoiceNum(), returns.getSkuNum());
+			item.setAmount(item.getAmount() + returns.getAmtReturned());
+			invoiceItemDao.updateItem(item);
+		} else if ("A".equals(returns.getDecision())) {
+			transactionService.setAmount(returns.getPurchasePrice());
+			transactionService.setTax(returns.getPurchaseTax());
+			transactionService.setDescription("Return of Merchandise");
+			start("returns.trans");
+			if ( returns.isReturnToStock() == true ) {
+				inventoryService.stockInventory(returns.getSkuNum(), returns.getAmtReturned());
+			}
+		}
 	}
 
 	public void start(String fileName) {
@@ -78,9 +101,9 @@ public class AccountingService {
 	public void loadRule(Reader read ) throws IOException {
 
 		ANTLRInputStream in = new ANTLRInputStream(read);        
-		FtlLexer lexer = new FtlLexer(in);
+		FetalLexer lexer = new FetalLexer(in);
         CommonTokenStream tokens = new CommonTokenStream(lexer);
-        FtlParser parser = new FtlParser(tokens);
+        FetalParser parser = new FetalParser(tokens);
         @SuppressWarnings("unused")
 		TransactionContext context = parser.transaction(transactionService);
 	}

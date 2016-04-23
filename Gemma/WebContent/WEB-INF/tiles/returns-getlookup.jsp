@@ -21,11 +21,19 @@
 			<td><div class="error"><sf:errors path="skuNum" /></div></td>
 			<td><div class="error"><sf:errors path="amtReturned" /></div></td>
 		</tr>
+	</table>
+	<table>
 		<tr>
-			<td><b>Reason</b></td>
+			<th>Reason</th>
+		</tr>
+		<tr>
+			<td><sf:textarea path="reason" rows="10" cols="50"/></td>
+		</tr>
+		<tr>
+			<td><div class="error"><sf:errors path="reason" /></div></td>
+		</tr>
+		<tr>
+			<td><input type="submit" value="Submit" /></td>
 		</tr>
 	</table>
-	
-	<sf:textarea path="reason" rows="10" cols="50"/>
-	<input type="submit" value="Submit" />
 </sf:form>

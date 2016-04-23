@@ -7,15 +7,11 @@ import org.springframework.stereotype.Service;
 
 import com.gemma.web.dao.InventoryDao;
 import com.gemma.web.dao.InvoiceHeader;
-import com.gemma.web.dao.InvoiceHeaderDao;
 import com.gemma.web.dao.InvoiceItem;
 import com.gemma.web.dao.InvoiceItemDao;
 
 @Service("invoiceService")
 public class InvoiceService {
-	
-	@Autowired
-	private InvoiceHeaderDao invoiceHeaderDao;
 	
 	@Autowired
 	private InvoiceItemDao invoiceItemDao;
@@ -38,28 +34,13 @@ public class InvoiceService {
 	}
 
 
-	public InvoiceHeader createHeader(InvoiceHeader header) {
-		return invoiceHeaderDao.createHeader(header);
-	}
-
 	public InvoiceItem addLineItem(InvoiceItem item) {
 		
 		return invoiceItemDao.addLineItem(item);
 	}
 
-	public InvoiceHeader getOpenOrder(int userID) {
-		
-		return invoiceHeaderDao.getOpenOrder(userID);
-	}
-
-
 	public void deleteInvoiceItem(int invoiceNum, String skuNum) {
 		invoiceItemDao.deleteInvoiceItem(invoiceNum, skuNum);
-	}
-
-
-	public InvoiceHeader getInvoiceHeader(int invoiceNum) {
-		return invoiceHeaderDao.getInvoiceHeader(invoiceNum);
 	}
 
 	public InvoiceItem getInvoiceItem(int invoiceNum, String skuNum) {
@@ -73,31 +54,12 @@ public class InvoiceService {
 	}
 
 
-	public void processShoppingCart(InvoiceHeader header) {
-		invoiceHeaderDao.processShoppingCart(header);
-	}
-
 	public void depleteInventory(InvoiceItem item) {
 		inventoryDao.depleteInventory(item);
-	}
-
-
-	public List<InvoiceHeader> getProcessedInvoices() {
-
-		return invoiceHeaderDao.getProcessedInvoices();
-	}
-
-	public void updateHeader(InvoiceHeader header) {
-		invoiceHeaderDao.updateHeader(header);
 	}
 
 
 	public double totalShoppingCart(InvoiceHeader header) {
 		return invoiceItemDao.totalShoppingCart(header);
 	}
-	
-	public List<InvoiceHeader> getAllInvoiceHeaders() {
-		return invoiceHeaderDao.getAllInvoiceHeaders();
-	}
-
 }

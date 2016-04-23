@@ -3,7 +3,7 @@
   ********************************************************/
 
 begin
-	double commisionPercentage = 0.2; // Fixed percentage on commision
+	double commisionPercentage = 20.0%; // Fixed percentage on commision
 
 	string cash = "1000";		// Cash account
 	string sales = "1009";		// Sales account
@@ -27,7 +27,7 @@ begin
 	debit(total, cash);					// Debit Case
 	ledger(D, total, cash, cashDesc);	// Ledger it
 	
-	amt = amt - commAmt;				// Subtract out the commision
+	amt -= commAmt;					// Subtract out the commision
 	credit(amt, sales);					// Credit sales the amount
 	ledger(C, amt, sales, salesDesc);	// Ledger it
 	

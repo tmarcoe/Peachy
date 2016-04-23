@@ -72,7 +72,8 @@ public class InvoiceItemDao {
 
 
 	public InvoiceItem getInvoiceItem(int invoiceNum, String skuNum) {
-		String hql = "from InvoiceItem where invoiceNum = :invoiceNum and skuNum = :skuNum";
+		String hql = "FROM InvoiceItem WHERE invoiceNum = :invoiceNum AND skuNum = :skuNum";
+		
 		
 		return (InvoiceItem) session().createQuery(hql)
 									  .setInteger("invoiceNum", invoiceNum)

@@ -248,10 +248,34 @@
 		<put-attribute name="content" value="/WEB-INF/tiles/returns-getlookup.jsp"></put-attribute>
 	</definition>
 	<definition name="returns-submit" extends="gemma.base">
-		<put-attribute name="heading_title" value="Item Details"></put-attribute>
+		<put-attribute name="heading_title" value="Submit Returns"></put-attribute>
 		<put-attribute name="title" value="Returns Submit"></put-attribute>
 		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/returns-submit.jsp"></put-attribute>
+	</definition>
+	<definition name="returns-list" extends="gemma.base">
+		<put-attribute name="heading_title" value="Returns for Approval"></put-attribute>
+		<put-attribute name="title" value="Returns List"></put-attribute>
+		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/returns-list.jsp"></put-attribute>
+	</definition>
+	<definition name="returns-approve" extends="gemma.base">
+		<put-attribute name="heading_title" value="Approve RMA"></put-attribute>
+		<put-attribute name="title" value="RMA"></put-attribute>
+		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/returns-approve.jsp"></put-attribute>
+	</definition>
+	<definition name="returns-getrma" extends="gemma.base">
+		<put-attribute name="heading_title" value="For Your Records"></put-attribute>
+		<put-attribute name="title" value="For Your Records"></put-attribute>
+		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/returns-getrma.jsp"></put-attribute>
+	</definition>
+	<definition name="returns-status" extends="gemma.base">
+		<put-attribute name="heading_title" value="Returns Status"></put-attribute>
+		<put-attribute name="title" value="Returns Status"></put-attribute>
+		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/returns-status.jsp"></put-attribute>
 	</definition>
 </tiles-definitions>
 

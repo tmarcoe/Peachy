@@ -39,12 +39,15 @@ import com.gemma.web.dao.ChartOfAccountsContainer;
 import com.gemma.web.dao.GeneralLedger;
 import com.gemma.web.dao.Inventory;
 import com.gemma.web.dao.InvoiceHeader;
+import com.gemma.web.dao.Returns;
 import com.gemma.web.dao.UserProfile;
 import com.gemma.web.service.AccountingService;
 import com.gemma.web.service.ChartOfAccountsService;
 import com.gemma.web.service.GeneralLedgerService;
 import com.gemma.web.service.InventoryService;
+import com.gemma.web.service.InvoiceHeaderService;
 import com.gemma.web.service.InvoiceService;
+import com.gemma.web.service.ReturnsService;
 import com.gemma.web.service.UserProfileService;
 
 @Controller
@@ -60,6 +63,9 @@ public class AdminController implements Serializable {
 
 	@Autowired
 	private InventoryService inventoryService;
+	
+	@Autowired
+	private InvoiceHeaderService invoiceHeaderService;
 
 	@Autowired
 	private ChartOfAccountsService chartOfAccountsService;
@@ -78,6 +84,8 @@ public class AdminController implements Serializable {
 	@Autowired 
 	private PagedListHolder<InvoiceHeader> headerList;
 	
+	private PagedListHolder<Returns> returnsList;
+	
 	@Autowired
 	private PagedListHolder<Inventory> adminInventoryList;
 	
@@ -86,6 +94,9 @@ public class AdminController implements Serializable {
 	
 	@Autowired
 	private AccountingService accountingService;
+	
+	@Autowired
+	private ReturnsService returnsService;
 	
 	private SimpleDateFormat dateFormat;
 	
@@ -102,7 +113,7 @@ public class AdminController implements Serializable {
 	 ******************************************************************************/
 	@RequestMapping("/admin")
 	public String showAdmin(Model model) {
-		headerList.setSource(invoiceService.getProcessedInvoices());
+		headerList.setSource(invoiceHeaderService.getProcessedInvoices());
 		headerList.setPage(0);
 		headerList.setPageSize(10);
 		model.addAttribute("headerList", headerList);
@@ -415,6 +426,43 @@ public class AdminController implements Serializable {
 		userProfileService.partialUpdate(userProfile);
 		return "users";
 	}
+/************************************************************************************
+ * Returns
+ *************************************************************************************/
+	
+	@RequestMapping("/returns-list")
+	public String showReturns(Model model) {
+		
+		returnsList = returnsService.getReturnsList();
+
+		model.addAttribute("returnsList", returnsList);
+		
+		return "returns-list";
+	}
+	
+	@RequestMapping("/returns-approve")
+	public String approveReturns(@ModelAttribute("rmaId") Integer rmaId, Model model) {
+		Returns returns = returnsService.getRma(rmaId);
+		
+		model.addAttribute("returns", returns);
+		
+		return "returns-approve";
+	}
+	
+	@RequestMapping("/returns-update")
+	public String saveReturns(@ModelAttribute("returns") Returns returns, Model model) {
+		
+		returns.setDateProcessed(new Date());
+		
+		returnsService.update(returns);
+		accountingService.returnMerchandise(returns);
+		
+		returnsList = returnsService.getReturnsList();
+
+		model.addAttribute("returnsList", returnsList);
+		
+		return "returns-list";
+	}
 /**************************************************************************************
  * General Ledger
  * 
@@ -446,6 +494,39 @@ public class AdminController implements Serializable {
  * Pageination Handlers
  * 
  ********************************************************************************************************************/
+	
+	@RequestMapping(value="/returnspaging", method=RequestMethod.GET)
+	public ModelAndView handleReturnsRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		int pgNum;
+	    String keyword = request.getParameter("keyword");
+	    if (keyword != null) {
+	        if (!StringUtils.hasLength(keyword)) {
+	            return new ModelAndView("Error", "message", "Please enter a keyword to search for, then press the search button.");
+	        }
+
+	        returnsList.setPageSize(20);
+	        request.getSession().setAttribute("SearchProductsController_productList", headerList);
+	        return new ModelAndView("returns-list", "returnsList", returnsList);
+	    }
+	    else {
+	        String page = request.getParameter("page");
+	        
+	        if (returnsList == null) {
+	            return new ModelAndView("Error", "message", "Your session has timed out. Please start over again.");
+	        }
+	        pgNum = isInteger(page);
+	        
+	        if ("next".equals(page)) {
+	        	returnsList.nextPage();
+	        }
+	        else if ("prev".equals(page)) {
+	        	returnsList.previousPage();
+	        }else if (pgNum != -1) {
+	        	returnsList.setPage(pgNum);
+	        }
+	        return new ModelAndView("returns-list", "returnsList", returnsList);
+	    }
+	}
 	
 	@RequestMapping(value="/userpaging", method=RequestMethod.GET)
 	public ModelAndView handleUserRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {

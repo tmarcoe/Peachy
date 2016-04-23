@@ -3,7 +3,7 @@ package com.gemma.web.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ftl.transaction.Transaction;
+import com.ftl.helper.Transaction;
 
 @Service("transactionServiceService")
 public class TransactionService extends Transaction {

@@ -83,5 +83,11 @@ public class InventoryService implements Serializable {
 		return new PagedListHolder<Inventory>(listProducts());
 	}
 
+	public void stockInventory(String skuNum, Integer amtReturned) {
+		Inventory inventory = getItem(skuNum);
+		inventory.setAmtInStock(inventory.getAmtInStock() + amtReturned);
+		update(inventory);
+	}
+
 	
 }

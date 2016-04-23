@@ -1,0 +1,20 @@
+/****************************************************************
+ * Sales Returns
+ ****************************************************************/
+ begin
+ 	string	cash = "1000";
+ 	string	returns = "1012";
+ 
+ 	double	salesAmt = getAmount;
+ 	double	taxAmt = getTax;
+ 	string reason = getDescription;
+ 	double total = salesAmt + taxAmt;
+ 	
+ 	debit(total, cash);
+ 	ledger(D, total, cash, reason);
+ 	
+ 	credit(total, returns);
+ 	ledger(C, total, returns, reason);
+ end
+ 	
+ 	

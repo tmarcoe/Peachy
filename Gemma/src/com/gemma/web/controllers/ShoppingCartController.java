@@ -33,6 +33,7 @@ import com.gemma.web.dao.InvoiceHeader;
 import com.gemma.web.dao.InvoiceItem;
 import com.gemma.web.dao.UserProfile;
 import com.gemma.web.service.GeneralLedgerService;
+import com.gemma.web.service.InvoiceHeaderService;
 import com.gemma.web.service.InvoiceService;
 import com.gemma.web.service.UserProfileService;
 
@@ -45,6 +46,9 @@ public class ShoppingCartController implements Serializable {
 
 	@Autowired
 	private InvoiceService invoiceService;
+	
+	@Autowired
+	private InvoiceHeaderService invoiceHeaderService;
 
 	@Autowired
 	private UserProfileService userProfileService;
@@ -66,7 +70,7 @@ public class ShoppingCartController implements Serializable {
 		}
 		int invoiceNum = item.getInvoiceNum();
 		invoiceService.updateItem(item);
-		InvoiceHeader header = invoiceService.getInvoiceHeader(invoiceNum);
+		InvoiceHeader header = invoiceHeaderService.getInvoiceHeader(invoiceNum);
 		if (header == null) {
 			return "nocart";
 		}
@@ -81,7 +85,7 @@ public class ShoppingCartController implements Serializable {
 	@RequestMapping("/deleteinvoiceitem")
 	public String deleteInvoiceItem(int invoiceNum, String skuNum, Model model){
 		invoiceService.deleteInvoiceItem(invoiceNum,skuNum);
-		InvoiceHeader header = invoiceService.getInvoiceHeader(invoiceNum);
+		InvoiceHeader header = invoiceHeaderService.getInvoiceHeader(invoiceNum);
 		if (header == null) {
 			return "nocart";
 		}
@@ -98,7 +102,7 @@ public class ShoppingCartController implements Serializable {
 	@RequestMapping("/cart")
 	public String showCart(Principal principal, Model model) {
 		UserProfile user = userProfileService.getUser(principal.getName());
-		InvoiceHeader header = invoiceService.getOpenOrder(user.getUserID());
+		InvoiceHeader header = invoiceHeaderService.getOpenOrder(user.getUserID());
 		if (header == null) {
 			return "nocart";
 		}
@@ -112,7 +116,7 @@ public class ShoppingCartController implements Serializable {
 	}
 	@RequestMapping("/viewcart")
 	public String viewCart(@ModelAttribute("invoiceNum") int invoiceNum, Model model ) {
-		InvoiceHeader header = invoiceService.getInvoiceHeader(invoiceNum);
+		InvoiceHeader header = invoiceHeaderService.getInvoiceHeader(invoiceNum);
 		List<InvoiceItem> invoiceList = invoiceService.getInvoice(header);
 		InvoiceContainer invoice = new InvoiceContainer(header,invoiceList );
 
@@ -133,8 +137,8 @@ public class ShoppingCartController implements Serializable {
 	@RequestMapping("/processcart")
 	public String processShoppingCart(@ModelAttribute("item") InvoiceItem item, Principal principal, Model model) {
 		UserProfile user = userProfileService.getUser(principal.getName());
-		InvoiceHeader header = invoiceService.getOpenOrder(user.getUserID());
-		invoiceService.processShoppingCart(header);
+		InvoiceHeader header = invoiceHeaderService.getOpenOrder(user.getUserID());
+		invoiceHeaderService.processShoppingCart(header);
 
 		model.addAttribute("invoiceHeader", header);
 		
@@ -160,7 +164,7 @@ public class ShoppingCartController implements Serializable {
 		Writer hdr = new FileWriter(fileName);
 		CsvBeanWriter csvWriter = new CsvBeanWriter(hdr, CsvPreference.STANDARD_PREFERENCE);
 		
-		List<InvoiceHeader> headers = invoiceService.getProcessedInvoices();
+		List<InvoiceHeader> headers = invoiceHeaderService.getProcessedInvoices();
 		csvWriter.writeHeader(label);
 		for(InvoiceHeader header: headers) {
 			UserProfile user = userProfileService.getUserByID(header.getUserID());
@@ -200,7 +204,7 @@ public class ShoppingCartController implements Serializable {
 			inv.write("Total    -> " + String.format("P%.2f\n", total + totalTax));
 			inv.close();
 			header.setDateShipped(new Date());
-			invoiceService.updateHeader(header);
+			invoiceHeaderService.updateHeader(header);
 		}
 		csvWriter.close();
 

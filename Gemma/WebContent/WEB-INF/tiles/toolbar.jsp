@@ -15,6 +15,7 @@
 			<li><a href="products">Shop</a></li>
 			<li><a href="pickcategory">Filter by Category</a></li>
 			<li><a href="returns-getlookup">Returns</a></li>
+			<li><a href="returns-status">Returns Status</a></li>
 			<sec:authorize access="!isAuthenticated()">
 				<li><a href="login">Sign In</a></li>
 				<li><a href="signup">Sign Up</a></li>

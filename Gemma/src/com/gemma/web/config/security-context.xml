@@ -53,6 +53,12 @@
 		<security:intercept-url pattern="/returns-getlookup" access="isAuthenticated()"/>
 		<security:intercept-url pattern="/returns-submit" access="isAuthenticated()"/>
 		<security:intercept-url pattern="/returns-save" access="isAuthenticated()"/>
+		<security:intercept-url pattern="/returns-getrma" access="isAuthenticated()"/>
+		<security:intercept-url pattern="/returns-status" access="isAuthenticated()"/>
+		<security:intercept-url pattern="/returnsstatuspaging" access="isAuthenticated()"/>
+		<security:intercept-url pattern="/returns-list" access="hasRole('ROLE_ADMIN')"/>
+		<security:intercept-url pattern="/returns-approve" access="hasRole('ROLE_ADMIN')"/>
+		<security:intercept-url pattern="/returns-update" access="hasRole('ROLE_ADMIN')"/>
 		<security:intercept-url pattern="/stockshelves" access="hasRole('ROLE_ADMIN')"/>
 		<security:intercept-url pattern="/replenish" access="hasRole('ROLE_ADMIN')"/>
 		<security:intercept-url pattern="/orderinventory" access="hasRole('ROLE_ADMIN')"/>
