@@ -8,18 +8,22 @@ import java.io.Reader;
 
 import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CommonTokenStream;
+import org.antlr.v4.runtime.RecognitionException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ftl.derived.FetalLexer;
 import com.ftl.derived.FetalParser;
 import com.ftl.derived.FetalParser.TransactionContext;
+import com.ftl.helper.BailErrorStrategy;
+import com.ftl.helper.UserDefinedException;
 import com.gemma.web.beans.Order;
 import com.gemma.web.dao.Inventory;
 import com.gemma.web.dao.InvoiceHeader;
 import com.gemma.web.dao.InvoiceItem;
 import com.gemma.web.dao.InvoiceItemDao;
 import com.gemma.web.dao.Returns;
+import com.gemma.web.exceptions.FetalExceptions;
 
 @Service("accountingService")
 public class AccountingService {
@@ -104,8 +108,15 @@ public class AccountingService {
 		FetalLexer lexer = new FetalLexer(in);
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         FetalParser parser = new FetalParser(tokens);
-        @SuppressWarnings("unused")
-		TransactionContext context = parser.transaction(transactionService);
+        parser.removeErrorListeners(); // remove ConsoleErrorListener
+        parser.addErrorListener(new FetalExceptions()); // add ours
+        parser.setErrorHandler(new BailErrorStrategy());
+       try {
+		@SuppressWarnings("unused")
+			TransactionContext context = parser.transaction(transactionService);
+       } catch (RecognitionException | UserDefinedException e) {
+			transactionService.commitTrans();
+       }
 	}
 	
 	public void ledger(char type, Double amount, String account, String description) {

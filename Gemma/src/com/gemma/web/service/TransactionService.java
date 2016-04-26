@@ -1,5 +1,7 @@
 package com.gemma.web.service;
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,6 +12,13 @@ public class TransactionService extends Transaction {
 		
 	@Autowired
 	private AccountingService accountingService;
+	
+	@Autowired
+	private SessionFactory sessionFactory;
+	
+	public Session session() {
+		return sessionFactory.getCurrentSession();
+	}
 	
 	@Override
 	public void credit(Double amount, String account) {
@@ -29,5 +38,16 @@ public class TransactionService extends Transaction {
 
 		accountingService.ledger(type, amount, account, description);
 	}
+
+	@Override
+	public void beginTrans() {
+		session().beginTransaction();
+	}
+	
+	@Override
+	public void commitTrans() {
+		session().getTransaction().commit();
+	}
+
 
 }

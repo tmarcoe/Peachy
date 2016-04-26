@@ -13,7 +13,7 @@ begin
 	double amt = getAmount;		// Amount without tax
 	double tax = getTax;		// Sales tax
 	double commAmt = amt * commisionPercentage; // Commisiion amount
-	double total  = amt + tax;	// Amount + tax
+	double total = amt + tax;	// Amount + tax
 	
 	/****************************************************************
 	 * These are the various descriptions for the ledger
