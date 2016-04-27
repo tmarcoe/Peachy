@@ -8,14 +8,15 @@ import java.io.Reader;
 
 import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CommonTokenStream;
+import org.antlr.v4.runtime.NoViableAltException;
 import org.antlr.v4.runtime.RecognitionException;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ftl.derived.FetalLexer;
 import com.ftl.derived.FetalParser;
 import com.ftl.derived.FetalParser.TransactionContext;
-import com.ftl.helper.BailErrorStrategy;
 import com.ftl.helper.UserDefinedException;
 import com.gemma.web.beans.Order;
 import com.gemma.web.dao.Inventory;
@@ -23,6 +24,7 @@ import com.gemma.web.dao.InvoiceHeader;
 import com.gemma.web.dao.InvoiceItem;
 import com.gemma.web.dao.InvoiceItemDao;
 import com.gemma.web.dao.Returns;
+import com.gemma.web.exceptions.BailErrorStrategy;
 import com.gemma.web.exceptions.FetalExceptions;
 
 @Service("accountingService")
@@ -43,6 +45,7 @@ public class AccountingService {
 	@Autowired
 	private InvoiceItemDao invoiceItemDao;
 	
+	private static Logger logger = Logger.getLogger(AccountingService.class.getName());
 	
 	public void processSales(InvoiceHeader header) {
 
@@ -55,6 +58,7 @@ public class AccountingService {
 	}
 	
 	public void purchaseInventory(Order order) {
+		logger.info("Begin Purchase");
 		transactionService.setAmount(order.getPrice());
 		transactionService.setTax(order.getTax());
 		transactionService.setDescription("Purchase of inventory (SKU #" + order.getInventory().getSkuNum() +")");		
@@ -63,7 +67,7 @@ public class AccountingService {
 		Inventory inventory = order.getInventory();
 		inventory.setAmtInStock(inventory.getAmtInStock() + order.getAmount());
 		inventoryService.update(inventory);
-
+		logger.info("End Purchase");
 	}
 	
 	public void returnMerchandise(Returns returns) {
@@ -84,22 +88,21 @@ public class AccountingService {
 
 	public void start(String fileName) {
 		final String filePath = "C:/Users/Timothy Marcoe/WebSite Archive/Gemma/src/com/gemma/web/transactions/";
+		logger.info("Loading Transaction '" + filePath + fileName + "'.");
 
 		File file = new File(filePath + fileName);
 		Reader read = null;
 		try {
 			read = new FileReader(file);
-		} catch (FileNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+		} catch (StackOverflowError | FileNotFoundException e1) {
+			logger.error(filePath + fileName + " not found");
 		}
         try {
 			loadRule(read);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		} catch (StackOverflowError | IOException | NoViableAltException e) {
+			logger.error("The transaction did not finish");
 		}
-        
+      logger.info("Finished with Transaction.");  
 	}
 
 	public void loadRule(Reader read ) throws IOException {
@@ -114,8 +117,10 @@ public class AccountingService {
        try {
 		@SuppressWarnings("unused")
 			TransactionContext context = parser.transaction(transactionService);
-       } catch (RecognitionException | UserDefinedException e) {
+       } catch (StackOverflowError | RecognitionException | UserDefinedException e) {
 			transactionService.commitTrans();
+			logger.warn("Transaction did not exit normally.");
+			
        }
 	}
 	
