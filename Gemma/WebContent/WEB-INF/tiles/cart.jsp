@@ -128,7 +128,7 @@
 						class="button">Check Out</a></td>
 					<td>&nbsp;</td>
 					<td>&nbsp;</td>
-					<td>&nbsp;</td>
+					<td><a href="${pageContext.request.contextPath}/cancelsale" class="button" >Cancel Order</a></td>
 					<td>&nbsp;</td>
 					<td>&nbsp;</td>
 					<td><a href="${pageContext.request.contextPath}/products"

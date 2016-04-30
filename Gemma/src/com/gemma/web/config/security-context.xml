@@ -34,12 +34,12 @@
 		<security:intercept-url pattern="/paging" access="isAuthenticated()"/>
 		<security:intercept-url pattern="/userdetails" access="isAuthenticated()"/>
 		<security:intercept-url pattern="/mydonzalmart" access="isAuthenticated()"/>
-		<security:intercept-url pattern="/userdetails" access="isAuthenticated()"/>
 		<security:intercept-url pattern="/changepassword" access="isAuthenticated()"/>
 		<security:intercept-url pattern="/passwordchanged" access="isAuthenticated()"/>
 		<security:intercept-url pattern="/updateuser" access="isAuthenticated()"/>
 		<security:intercept-url pattern="/orderproduct" access="isAuthenticated()"/>
 		<security:intercept-url pattern="/cart" access="isAuthenticated()"/>
+		<security:intercept-url pattern="/cancelsale" access="isAuthenticated()"/>
 		<security:intercept-url pattern="/deleteinvoiceitem" access="isAuthenticated()"/>
 		<security:intercept-url pattern="/editcart" access="isAuthenticated()"/>
 		<security:intercept-url pattern="/saveitem" access="isAuthenticated()"/>
@@ -56,6 +56,7 @@
 		<security:intercept-url pattern="/returns-getrma" access="isAuthenticated()"/>
 		<security:intercept-url pattern="/returns-status" access="isAuthenticated()"/>
 		<security:intercept-url pattern="/returnsstatuspaging" access="isAuthenticated()"/>
+		<security:intercept-url pattern="/deleteuser" access="hasRole('ROLE_ADMIN')"/>
 		<security:intercept-url pattern="/returns-list" access="hasRole('ROLE_ADMIN')"/>
 		<security:intercept-url pattern="/returns-approve" access="hasRole('ROLE_ADMIN')"/>
 		<security:intercept-url pattern="/returns-update" access="hasRole('ROLE_ADMIN')"/>

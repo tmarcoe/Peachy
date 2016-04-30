@@ -16,8 +16,6 @@ public class HomeController {
 	@Autowired
 	private InventoryService inventoryService;
 	
-
-	
 	@RequestMapping("/home")
 	public String showRoot(Model model) {
 		List<Inventory> inventory = inventoryService.listSaleItems();

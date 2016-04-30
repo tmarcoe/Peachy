@@ -62,4 +62,9 @@ public class InvoiceService {
 	public double totalShoppingCart(InvoiceHeader header) {
 		return invoiceItemDao.totalShoppingCart(header);
 	}
+
+
+	public void deleteInvoice(InvoiceHeader header) {
+		invoiceItemDao.deleteInvoice(header);
+	}
 }

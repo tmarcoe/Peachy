@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.beans.support.PagedListHolder;
@@ -98,6 +99,8 @@ public class AdminController implements Serializable {
 	@Autowired
 	private ReturnsService returnsService;
 	
+	private static Logger logger = Logger.getLogger(AccountingService.class.getName());
+	
 	private SimpleDateFormat dateFormat;
 	
 	@InitBinder
@@ -113,6 +116,7 @@ public class AdminController implements Serializable {
 	 ******************************************************************************/
 	@RequestMapping("/admin")
 	public String showAdmin(Model model) {
+
 		headerList.setSource(invoiceHeaderService.getProcessedInvoices());
 		headerList.setPage(0);
 		headerList.setPageSize(10);
@@ -125,6 +129,7 @@ public class AdminController implements Serializable {
 	 ******************************************************************************/
 	@RequestMapping("/uploadfile")
 	public String showUploadFile(Model model) {
+
 		FileUpload fileUpload = new FileUpload();
 		model.addAttribute("fileUpload", fileUpload);
 
@@ -133,6 +138,7 @@ public class AdminController implements Serializable {
 
 	@RequestMapping("/admininventory")
 	public String inventoryMainPage() {
+
 		return "admininventory";
 	}
 	
@@ -141,6 +147,7 @@ public class AdminController implements Serializable {
 		String inventoryKey ="";
 		
 		model.addAttribute("sku", inventoryKey);
+
 		
 		return "singleitem";
 	}
@@ -149,6 +156,7 @@ public class AdminController implements Serializable {
 	public String addInventory(
 			@ModelAttribute("fileUpload") FileUpload fileUpload, Model model, BindingResult result){
 		File file = null;
+
 		String contentType = fileUpload.getFile().getContentType();
 
 		if (!contentType.equals("image/png")) {
@@ -180,6 +188,7 @@ public class AdminController implements Serializable {
 		}catch(IllegalStateException s){
 			result.rejectValue("file", "IllegalStateException.fileUpload.file", s.getMessage());
 		}
+		logger.info("'" + file.getPath() + file.getName() + "' has been created.");
 		Inventory inventory = new Inventory();
 		inventory.setImage(file.getName());
 
@@ -207,6 +216,7 @@ public class AdminController implements Serializable {
 		}
 
 		inventoryService.create(inventory);
+		logger.info("New inventory item added.");
 		adminInventoryList = inventoryService.getPagedList();
 		adminInventoryList.setPage(0);
 		adminInventoryList.setPageSize(15);
@@ -218,6 +228,7 @@ public class AdminController implements Serializable {
 	@RequestMapping("/inventorydetails")
 	public String showInventoryDetails(
 			@ModelAttribute("InventoryKey") String inventoryKey, Model model) {
+		
 		Inventory inventory = inventoryService.getItem(inventoryKey);
 		model.addAttribute("inventory", inventory);
 
@@ -240,6 +251,7 @@ public class AdminController implements Serializable {
 			@ModelAttribute("inventory") Inventory inventory, Model model) {
 
 		inventoryService.update(inventory);
+		logger.info("'" + inventory.getSkuNum() + "' has been updated.");
 
 		adminInventoryList = inventoryService.getPagedList();
 		adminInventoryList.setPage(0);
@@ -259,9 +271,10 @@ public class AdminController implements Serializable {
 		
 		File file = new File(loc.getImageLoc() + "\\" + inventory.getImage());
 		file.delete();
+		logger.info("File: " + loc.getImageLoc() + "\\" + inventory.getImage() + " is deleted." );
 
 		inventoryService.delete(deleteKey);
-
+		logger.info("Item '" + deleteKey + "' is deleted.");
 		adminInventoryList = inventoryService.getPagedList();
 		adminInventoryList.setPageSize(15);
 		model.addAttribute("inventory", adminInventoryList);
@@ -271,6 +284,7 @@ public class AdminController implements Serializable {
 
 	@RequestMapping("/orderinventory")
 	public String orderInventory(Model model) {
+
 		List<Inventory> orderList = inventoryService.getReplenishList();
 		model.addAttribute("orderList", orderList);
 		
@@ -279,8 +293,11 @@ public class AdminController implements Serializable {
 	
 	@RequestMapping("/stockshelves")
 	public String stockShelves(@ModelAttribute("order") Order order, Model model) {
+		
 		order.setInventory(inventoryService.getItem(order.getInventory().getSkuNum()));
 		accountingService.purchaseInventory(order);
+		
+		logger.info("'" + order.getInventory().getSkuNum() + "' has been purchased.");
 		List<Inventory> orderList = inventoryService.getReplenishList();
 		model.addAttribute("orderList", orderList);
 		
@@ -344,9 +361,13 @@ public class AdminController implements Serializable {
 		}
 
 		chartOfAccountsService.create(chartOfAccounts);
-		ChartOfAccountsContainer container = chartOfAccountsService
-				.getContainer();
-		model.addAttribute("chartOfAccountsContainer1", container);
+		logger.info("'" + chartOfAccounts.getAccountNum() + "' has been created." );
+		List<ChartOfAccounts> accounts = chartOfAccountsService.listAccounts();
+
+		String deleteKey = new String("");
+
+		model.addAttribute("accounts", accounts);
+		model.addAttribute("deleteKey", deleteKey);
 
 		return "manageaccount";
 	}
@@ -355,6 +376,7 @@ public class AdminController implements Serializable {
 	@RequestMapping("/saveaccount")
 	public String saveAccount(ChartOfAccounts chartOfAccounts, Model model) {
 		chartOfAccountsService.update(chartOfAccounts);
+		logger.info("Account # '" + chartOfAccounts.getAccountNum() + "' has been updated.");
 
 		List<ChartOfAccounts> accounts = chartOfAccountsService.listAccounts();
 		model.addAttribute("accounts", accounts);
@@ -367,10 +389,21 @@ public class AdminController implements Serializable {
 			Model model) {
 
 		chartOfAccountsService.delete(deleteKey);
+		
+		logger.info("Account # '" + deleteKey + "' has been deleted.");
 
-		ChartOfAccountsContainer container = chartOfAccountsService
-				.getContainer();
-		model.addAttribute("chartOfAccountsContainer1", container);
+		List<ChartOfAccounts> accounts = chartOfAccountsService.listAccounts();
+
+		if (accounts.size() == 0) {
+			ChartOfAccounts chartOfAccounts = new ChartOfAccounts();
+			model.addAttribute("chartOfAccounts", chartOfAccounts);
+
+			return "addaccount";
+		}
+		deleteKey = new String("");
+
+		model.addAttribute("accounts", accounts);
+		model.addAttribute("deleteKey", deleteKey);
 
 		return "manageaccount";
 	}
@@ -405,6 +438,13 @@ public class AdminController implements Serializable {
 			Model model) {
 
 		userProfileService.delete(deleteKey);
+		logger.info("User: '" + deleteKey + "' Deleted");
+		userList = userProfileService.getPagedList();
+		userList.setPageSize(10);
+		userList.setPage(0);
+
+		model.addAttribute("userList", userList);
+		
 
 		return "users";
 	}

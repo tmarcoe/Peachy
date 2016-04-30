@@ -20,7 +20,7 @@ method="post" commandName="chartOfAccounts">
 			</tr>
 			<tr>
 				<td>Account Name:</td>
-				<td><sf:input class="control" type="text" path="accountName" name="accountName" /></td>
+				<td><sf:input type="text" path="accountName" /></td>
 				<td><div class="error"><sf:errors path="accountName"></sf:errors></div>
 			</tr>
 			<tr>
@@ -36,7 +36,8 @@ method="post" commandName="chartOfAccounts">
 			</tr>
 			<tr>
 				<td>Debit Account:</td>
-				<td><input type="checkbox" name="debitAccount"></td>
+				<td><input type="hidden" value="on" name="_active"/>
+			<sf:checkbox path="debitAccount" class="control" /></td>
 			</tr>
 			<tr>
 				<td>Add/Update Account:</td>

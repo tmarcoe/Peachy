@@ -11,7 +11,7 @@
 <table class="dailyspecials">
 
 	<caption>To see a full list of products click the 'shop' link
-		at the top of the page, or click 'Filter By Category'.</caption>
+		at the top of the page.</caption>
 	<tr>
 		<td>&nbsp;</td>
 	</tr>

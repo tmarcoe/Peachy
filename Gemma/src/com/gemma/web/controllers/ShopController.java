@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.beans.support.PagedListHolder;
@@ -30,6 +31,7 @@ import com.gemma.web.dao.InvoiceHeader;
 import com.gemma.web.dao.InvoiceItem;
 import com.gemma.web.dao.Returns;
 import com.gemma.web.dao.UserProfile;
+import com.gemma.web.service.AccountingService;
 import com.gemma.web.service.InventoryService;
 import com.gemma.web.service.InvoiceHeaderService;
 import com.gemma.web.service.InvoiceService;
@@ -44,6 +46,8 @@ import org.springframework.validation.BindingResult;
 @Scope(value="session")
 public class ShopController implements Serializable {
 	private static final long serialVersionUID = 1L;
+	
+	private static Logger logger = Logger.getLogger(AccountingService.class.getName());
 	
 	@Autowired
 	private ReturnsService returnsService;
@@ -114,6 +118,7 @@ public class ShopController implements Serializable {
 		}
 		item.setInvoiceNum(header.getInvoiceNum());
 		item = invoiceService.addLineItem(item);
+		logger.info("'" + item.getSkuNum() + "' was just added to the shopping cart.");
 
 		List<InvoiceItem> invoiceList = invoiceService.getInvoice(header);
 		InvoiceContainer invoice = new InvoiceContainer(header,invoiceList );
@@ -213,6 +218,7 @@ public class ShopController implements Serializable {
 		returns.setUsername(principal.getName());
 		
 		returnsService.create(returns);
+		logger.info(" RMA # '" + returns.getRmaId() + "' has been created.");
 		
 		model.addAttribute("returns", returns);
 		

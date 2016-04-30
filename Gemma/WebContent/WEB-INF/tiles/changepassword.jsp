@@ -10,13 +10,7 @@
 	commandName="userProfile">
 	<div class="billing">
 		<table>
-			<thead>
-				<tr>
-					<th colspan="3">Enter the New Password</th>
-				</tr>
-			</thead>
-			<tr>
-			</tr>
+			<caption>Enter the New Password for : ${userProfile.username}</caption>
 			<tr>
 				<td>Password:</td>
 				<td><sf:input id="password" class="control" path="password"

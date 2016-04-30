@@ -101,4 +101,15 @@ public class InvoiceItemDao {
 		return total + tax;
 	}
 
+	public void deleteInvoice(InvoiceHeader header) {
+		String deleteInvoice = "DELETE FROM InvoiceItem where invoiceNum = :invoiceNum";
+		String deleteHeader = "DELETE FROM InvoiceHeader where invoiceNum = :invoiceNum";
+		
+		session().beginTransaction();
+		session().createQuery(deleteInvoice).setInteger("invoiceNum", header.getInvoiceNum()).executeUpdate();
+		session().createQuery(deleteHeader).setInteger("invoiceNum", header.getInvoiceNum()).executeUpdate();
+		session().getTransaction().commit();
+		
+	}
+
 }

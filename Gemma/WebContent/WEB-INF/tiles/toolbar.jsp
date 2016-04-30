@@ -12,10 +12,12 @@
 	<div class="container">
 		<ul class="nav">
 			<li><a href="home">Home</a></li>
-			<li><a href="products">Shop</a></li>
-			<li><a href="pickcategory">Filter by Category</a></li>
-			<li><a href="returns-getlookup">Returns</a></li>
-			<li><a href="returns-status">Returns Status</a></li>
+			<!-- <li><a href="products">Shop</a></li> -->
+			<li><a href="pickcategory">Shop</a></li>
+			<!-- The following 2 links are used when returns are allowed
+				 Comment out the links if returns are not allowed -->
+			<!-- <li><a href="returns-getlookup">Returns</a></li>
+			<li><a href="returns-status">Returns Status</a></li>  -->
 			<sec:authorize access="!isAuthenticated()">
 				<li><a href="login">Sign In</a></li>
 				<li><a href="signup">Sign Up</a></li>

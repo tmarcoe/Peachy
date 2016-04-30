@@ -1,23 +1,35 @@
-<table>
-	<caption>Eleanor Marcoe</caption>
+<table class="contact">
+	<caption>Eleanor Marcoe (CEO)</caption>
 	<tr>
-		<td>Email:</td>
-		<td>eleanormarcoe11@gmail.com</td>
+		<th>Email:</th>
+		<td>eleanordonzal@gmail.com</td>
 	</tr>
 	<tr>
-		<td>Phone Number:</td>
+		<th>Phone Number:</th>
 		<td>+63 917 395 2227</td>
 	</tr>
 </table>
 <p />
-<table>
-<caption>Gemma Donzal</caption>
+<table class="contact">
+<caption>Sweetchie Donzal (VP of Sales)</caption>
 	<tr>
-		<td>Email:</td>
-		<td>gemma@gemma.com</td>
+		<th>Email:</th>
+		<td>sweetchiedonzal@yahoo.com</td>
 	</tr>
 	<tr>
-		<td>Phone Number:</td>
-		<td>+63 928 157 1771</td>
+		<th>Phone Number:</th>
+		<td>+63 935 241 9019</td>
+	</tr>
+</table>
+<p />
+<table class="contact">
+<caption>Timothy Marcoe (CIO)</caption>
+	<tr>
+		<th>Email:</th>
+		<td>tmtmarcoe80@gmail.com</td>
+	</tr>
+	<tr>
+		<th>Phone Number:</th>
+		<td>+63 939 503 9015</td>
 	</tr>
 </table>

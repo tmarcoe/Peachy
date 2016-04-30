@@ -79,7 +79,6 @@
 </div>
 <script type="text/javascript">
 	function rowRemoved(row) {
-
 		var inputs = document.getElementById('listusers').getElementsByTagName(
 				'input');
 		var column = (row * 3);
@@ -92,7 +91,6 @@
 	}
 
 	function getDetail(row) {
-
 		var inputs = document.getElementById('listusers')
 				.getElementsByTagName('input');
 		var column = (row * 3);

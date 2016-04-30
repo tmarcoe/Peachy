@@ -11,6 +11,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.context.annotation.Scope;
@@ -28,11 +29,14 @@ import com.gemma.web.beans.AddressLabel;
 import com.gemma.web.beans.BeansHelper;
 import com.gemma.web.beans.FileLocations;
 import com.gemma.web.beans.FileUpload;
+import com.gemma.web.dao.Inventory;
 import com.gemma.web.dao.InvoiceContainer;
 import com.gemma.web.dao.InvoiceHeader;
 import com.gemma.web.dao.InvoiceItem;
 import com.gemma.web.dao.UserProfile;
+import com.gemma.web.service.AccountingService;
 import com.gemma.web.service.GeneralLedgerService;
+import com.gemma.web.service.InventoryService;
 import com.gemma.web.service.InvoiceHeaderService;
 import com.gemma.web.service.InvoiceService;
 import com.gemma.web.service.UserProfileService;
@@ -41,14 +45,17 @@ import com.gemma.web.service.UserProfileService;
 @Scope(value="session")
 public class ShoppingCartController implements Serializable {
 	private static final long serialVersionUID = 4725326820861092920L;
-//	private static final String OUTPATH = "C:\\Repository\\";
 
-
+	private static Logger logger = Logger.getLogger(AccountingService.class.getName());
+	
 	@Autowired
 	private InvoiceService invoiceService;
 	
 	@Autowired
 	private InvoiceHeaderService invoiceHeaderService;
+	
+	@Autowired
+	private InventoryService inventoryService;
 
 	@Autowired
 	private UserProfileService userProfileService;
@@ -81,10 +88,21 @@ public class ShoppingCartController implements Serializable {
 		
 		return "cart";
 	}
-	
+	@RequestMapping("/cancelsale")
+	public String cancelSale(Principal principal, Model model) {
+		UserProfile user = userProfileService.getUser(principal.getName());
+		InvoiceHeader header = invoiceHeaderService.getOpenOrder(user.getUserID());
+		invoiceService.deleteInvoice(header);
+		
+		List<Inventory> inventory = inventoryService.listSaleItems();
+		model.addAttribute("inventory",inventory);
+		
+		return "home";
+	}
 	@RequestMapping("/deleteinvoiceitem")
 	public String deleteInvoiceItem(int invoiceNum, String skuNum, Model model){
 		invoiceService.deleteInvoiceItem(invoiceNum,skuNum);
+		logger.info(String.format("'%s' has been removed from invoice # '%08d'.", skuNum, invoiceNum));
 		InvoiceHeader header = invoiceHeaderService.getInvoiceHeader(invoiceNum);
 		if (header == null) {
 			return "nocart";
@@ -139,7 +157,7 @@ public class ShoppingCartController implements Serializable {
 		UserProfile user = userProfileService.getUser(principal.getName());
 		InvoiceHeader header = invoiceHeaderService.getOpenOrder(user.getUserID());
 		invoiceHeaderService.processShoppingCart(header);
-
+		logger.info("Processing shopping cart.");
 		model.addAttribute("invoiceHeader", header);
 		
 		return "thankyou";
@@ -207,7 +225,6 @@ public class ShoppingCartController implements Serializable {
 			invoiceHeaderService.updateHeader(header);
 		}
 		csvWriter.close();
-
 		
 		return "admin";
 	}

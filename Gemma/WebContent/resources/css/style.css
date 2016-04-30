@@ -57,6 +57,7 @@ a.button {
     appearance: button;
 
     text-decoration: none;
+    font-size: 12px;
     color: initial;
 }
 a:link {
@@ -653,4 +654,9 @@ table.returns-status td, th {
 	text-align: left;
 	padding: 0 2.5em;	
 	
+}
+.contact caption {
+	font-weight: bold;
+	font-size: 18px;
+	padding: 1em;
 }

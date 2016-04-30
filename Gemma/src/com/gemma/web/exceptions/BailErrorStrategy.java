@@ -1,13 +1,11 @@
 package com.gemma.web.exceptions;
 
 import org.antlr.v4.runtime.DefaultErrorStrategy;
-import org.antlr.v4.runtime.InputMismatchException;
 import org.antlr.v4.runtime.Parser;
 import org.antlr.v4.runtime.RecognitionException;
 import org.antlr.v4.runtime.Token;
 
 import com.ftl.derived.FetalParser;
-import com.ftl.helper.UserDefinedException;
 
 public class BailErrorStrategy extends DefaultErrorStrategy {
 
@@ -18,7 +16,7 @@ public class BailErrorStrategy extends DefaultErrorStrategy {
 	 */
 	@Override
 	public void recover(Parser recognizer, RecognitionException e) {
-		//throw new RuntimeException(e);
+		throw new RuntimeException(e);
 	}
 
 	/**

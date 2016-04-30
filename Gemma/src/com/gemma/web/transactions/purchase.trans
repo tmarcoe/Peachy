@@ -24,7 +24,7 @@ begin
 	string commDesc = desc + " commision";
 	string taxDesc = desc + " tax";
 			
-	debit(amt, cash);					// Debit Cash
+	debit(total, cash);					// Debit Cash
 	ledger(D, total, cash, cashDesc);	// Ledger it
 	
 	amt -= commAmt;						// Subtract out the commision
@@ -36,4 +36,5 @@ begin
 	
 	credit(tax, taxAcc);				// Credit tax
 	ledger(C, tax, taxAcc, taxDesc);	// Ledger it
+	
 end

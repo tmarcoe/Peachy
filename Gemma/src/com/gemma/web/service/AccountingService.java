@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
+import java.io.Serializable;
 
 import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -28,8 +29,9 @@ import com.gemma.web.exceptions.BailErrorStrategy;
 import com.gemma.web.exceptions.FetalExceptions;
 
 @Service("accountingService")
-public class AccountingService {
-	
+public class AccountingService implements Serializable {
+	private static final long serialVersionUID = 1L;
+
 	@Autowired
 	private GeneralLedgerService generalLedgerService;
 	

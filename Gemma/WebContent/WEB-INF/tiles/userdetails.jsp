@@ -159,7 +159,7 @@
 	</table>
 	<sf:hidden path="password" />
 	<sf:hidden path="userID" />
-
+	<sf:hidden path="dateAdded"/>
 	<sec:authorize access="!hasRole('ROLE_ADMIN')">
 		<sf:hidden path="enabled" />
 		<sf:hidden path="authority" />
