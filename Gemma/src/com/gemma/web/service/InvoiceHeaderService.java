@@ -1,7 +1,9 @@
 package com.gemma.web.service;
 
+import java.io.IOException;
 import java.util.List;
 
+import org.antlr.v4.runtime.RecognitionException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,7 +30,7 @@ public class InvoiceHeaderService {
 		return invoiceHeaderDao.getInvoiceHeader(invoiceNum);
 	}
 
-	public void processShoppingCart(InvoiceHeader header) {
+	public void processShoppingCart(InvoiceHeader header) throws RecognitionException, IOException, RuntimeException {
 		invoiceHeaderDao.processShoppingCart(header);
 	}
 

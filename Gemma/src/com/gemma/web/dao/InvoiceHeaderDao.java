@@ -1,8 +1,10 @@
 package com.gemma.web.dao;
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
+import org.antlr.v4.runtime.RecognitionException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,7 +78,7 @@ public class InvoiceHeaderDao {
 	public List<InvoiceHeader> getInvoiceHeader() {
 		return null;
 	}
-	public void processShoppingCart(InvoiceHeader header) {
+	public void processShoppingCart(InvoiceHeader header) throws RecognitionException, IOException, RuntimeException {
 		header.setProcessed(new Date());
 		List<InvoiceItem> itemList = invoiceItemDao.getInvoice(header);
 		

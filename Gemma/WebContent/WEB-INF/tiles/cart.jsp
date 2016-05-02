@@ -124,21 +124,19 @@
 					<td>&nbsp;</td>
 				</tr>
 				<tr>
-					<td><a href="${pageContext.request.contextPath}/processcart"
-						class="button">Check Out</a></td>
+					<td><input type="button" value="Check Out" onclick="followLink('/processcart')" /></td>
 					<td>&nbsp;</td>
 					<td>&nbsp;</td>
-					<td><a href="${pageContext.request.contextPath}/cancelsale" class="button" >Cancel Order</a></td>
+					<td><input type="button" Value="Cancel Order" onclick="cancel()" /></td>
 					<td>&nbsp;</td>
 					<td>&nbsp;</td>
-					<td><a href="${pageContext.request.contextPath}/products"
-						class="button">Continue Shopping</a></td>
+					<td><input type="button" value="Continue Shopping" onclick="followLink('/pickcategory')" /></td>
 					<td>&nbsp;</td>
 					<td>&nbsp;</td>
 					<td>&nbsp;</td>
 				</tr>
 				<tr>
-					<td>Print this page for your records</td>
+					<td>Print this page for your records  </td>
 					<td><input type="button" onClick="window.print()"
 						value="Print" /></td>
 					<td>&nbsp;</td>
@@ -179,4 +177,12 @@
 				+ invoiceNum + "&skuNum=" + skuNum;
 	}
 	
+	function followLink(link) {
+		window.location.href = "${pageContext.request.contextPath}" + link;
+	}
+	function cancel() {
+		 if (confirm("Are you sure you want to cancel this order?") == true) {
+		   		window.location.href = "${pageContext.request.contextPath}/cancelsale";		    
+		   	} 		
+	}
 </script>

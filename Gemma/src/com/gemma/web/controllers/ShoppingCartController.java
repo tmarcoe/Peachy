@@ -156,7 +156,11 @@ public class ShoppingCartController implements Serializable {
 	public String processShoppingCart(@ModelAttribute("item") InvoiceItem item, Principal principal, Model model) {
 		UserProfile user = userProfileService.getUser(principal.getName());
 		InvoiceHeader header = invoiceHeaderService.getOpenOrder(user.getUserID());
-		invoiceHeaderService.processShoppingCart(header);
+		try {
+			invoiceHeaderService.processShoppingCart(header);
+		} catch (IOException | RuntimeException e) {
+			return "error";
+		}
 		logger.info("Processing shopping cart.");
 		model.addAttribute("invoiceHeader", header);
 		

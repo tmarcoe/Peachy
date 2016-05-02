@@ -14,5 +14,8 @@
 		value="C:\Users\Timothy Marcoe\WebSite Archive\Gemma\WebContent\resources\images\products">
 	</property>
 	<property name="outPath" value="C:\Repository\"></property>
+	<property name="transactionPath"
+		value="C:\Users\Timothy Marcoe\WebSite Archive\Gemma\src\com\gemma\web\transactions\">
+	</property>
 	</bean>
 </beans>

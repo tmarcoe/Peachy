@@ -2,10 +2,12 @@ package com.gemma.spring.web.test.tests;
 
 import static org.junit.Assert.assertEquals;
 
+import java.io.IOException;
 import java.util.List;
 
 import javax.sql.DataSource;
 
+import org.antlr.v4.runtime.RecognitionException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.junit.Before;
@@ -126,7 +128,7 @@ public class GeneralLedgerTest {
 	
 
 	@Test
-	public void testAudit() {
+	public void testAudit() throws RecognitionException, IOException, RuntimeException {
 		JdbcTemplate jdbc = new JdbcTemplate(dataSource);
 		jdbc.execute(initHeader);
 		jdbc.execute(initItems);

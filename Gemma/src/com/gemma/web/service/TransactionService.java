@@ -1,15 +1,30 @@
 package com.gemma.web.service;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.Reader;
 import java.util.List;
 
+import org.antlr.v4.runtime.ANTLRInputStream;
+import org.antlr.v4.runtime.CommonTokenStream;
+import org.antlr.v4.runtime.RecognitionException;
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ftl.derived.FetalLexer;
+import com.ftl.derived.FetalParser;
+import com.ftl.derived.FetalParser.TransactionContext;
 import com.ftl.helper.Transaction;
 import com.ftl.helper.Variable;
+import com.gemma.web.beans.BeansHelper;
+import com.gemma.web.beans.FileLocations;
+import com.gemma.web.exceptions.BailErrorStrategy;
+import com.gemma.web.exceptions.FetalExceptions;
 
 @Service("transactionServiceService")
 public class TransactionService extends Transaction {
@@ -24,6 +39,7 @@ public class TransactionService extends Transaction {
 	public Session session() {
 		return sessionFactory.getCurrentSession();
 	}
+	final String filePath = "C:/Users/Timothy Marcoe/Fetal Archive/git/Fetal Workbench/src/com/ftl/transactions/";
 	
 	@Override
 	public void credit(Double amount, String account) {
@@ -69,6 +85,31 @@ public class TransactionService extends Transaction {
 			logger.info(String.format("%s %s = %s\n", var.getType(), var.getName(), var.getValue()));
 		}
 	}
+	
+	@SuppressWarnings("unused")
+	@Override
+	public void loadRule(String rule) throws IOException, RecognitionException, RuntimeException {
+		
+		BeansHelper bean = new BeansHelper();
+		FileLocations fi = (FileLocations) bean.getBean("file-context.xml", "fileLocations");
 
+		File file = new File(fi.getTransactionPath() + rule);
+		Reader read = null;
+		try {
+			read = new FileReader(file);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+
+		ANTLRInputStream in = new ANTLRInputStream(read);        
+		FetalLexer lexer = new FetalLexer(in);
+        CommonTokenStream tokens = new CommonTokenStream(lexer);
+        FetalParser parser = new FetalParser(tokens);
+        
+        parser.removeErrorListeners(); // remove ConsoleErrorListener
+        parser.addErrorListener(new FetalExceptions()); // add ours
+        parser.setErrorHandler(new BailErrorStrategy());
+       	TransactionContext context = parser.transaction(this);
+	}
 
 }

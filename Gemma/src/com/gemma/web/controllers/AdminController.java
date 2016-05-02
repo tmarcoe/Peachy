@@ -36,7 +36,6 @@ import com.gemma.web.beans.FileLocations;
 import com.gemma.web.beans.FileUpload;
 import com.gemma.web.beans.Order;
 import com.gemma.web.dao.ChartOfAccounts;
-import com.gemma.web.dao.ChartOfAccountsContainer;
 import com.gemma.web.dao.GeneralLedger;
 import com.gemma.web.dao.Inventory;
 import com.gemma.web.dao.InvoiceHeader;
@@ -295,7 +294,11 @@ public class AdminController implements Serializable {
 	public String stockShelves(@ModelAttribute("order") Order order, Model model) {
 		
 		order.setInventory(inventoryService.getItem(order.getInventory().getSkuNum()));
-		accountingService.purchaseInventory(order);
+		try {
+			accountingService.purchaseInventory(order);
+		} catch (IOException | RuntimeException e) {
+			return "error";
+		}
 		
 		logger.info("'" + order.getInventory().getSkuNum() + "' has been purchased.");
 		List<Inventory> orderList = inventoryService.getReplenishList();
@@ -495,7 +498,11 @@ public class AdminController implements Serializable {
 		returns.setDateProcessed(new Date());
 		
 		returnsService.update(returns);
-		accountingService.returnMerchandise(returns);
+		try {
+			accountingService.returnMerchandise(returns);
+		} catch (IOException | RuntimeException e) {
+			return "error";
+		}
 		
 		returnsList = returnsService.getReturnsList();
 
