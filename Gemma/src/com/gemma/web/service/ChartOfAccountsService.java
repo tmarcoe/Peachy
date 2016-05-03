@@ -71,5 +71,9 @@ public class ChartOfAccountsService {
 		ChartOfAccounts accounts = chartOfAccountsDao.getAccount(account);
 		chartOfAccountsDao.debitAccount(accounts, amount);
 	}
+	
+	public boolean exists(String key) {
+		return chartOfAccountsDao.exists(key);
+	}
 
 }

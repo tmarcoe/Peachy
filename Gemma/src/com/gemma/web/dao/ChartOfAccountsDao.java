@@ -94,5 +94,10 @@ public class ChartOfAccountsDao {
 		return (ChartOfAccounts) crit.uniqueResult();
 	}
 
+	public boolean exists(String key) {
+
+		return (getAccount(key) != null);
+	}
+
 
 }

@@ -360,9 +360,12 @@ public class AdminController implements Serializable {
 	public String submitAddAccount(@Valid ChartOfAccounts chartOfAccounts,
 			Model model, BindingResult result) {
 		if (result.hasErrors()) {
-			return "manageaccount";
+			return "addaccount";
 		}
-
+		if (chartOfAccountsService.exists(chartOfAccounts.getAccountNum()) == true){
+			result.rejectValue("accountNum", "DuplicateKey.chartOfAccounts.accountNum");
+			return "addaccount";
+		}
 		chartOfAccountsService.create(chartOfAccounts);
 		logger.info("'" + chartOfAccounts.getAccountNum() + "' has been created." );
 		List<ChartOfAccounts> accounts = chartOfAccountsService.listAccounts();

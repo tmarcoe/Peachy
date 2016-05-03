@@ -19,7 +19,6 @@ public class ChartOfAccounts {
 	@Id
 	@NotBlank
 	private String accountNum;
-	@Size(min=5, max=255)
 	private String accountName;
 	private float accountBalance;
 	private boolean debitAccount;
