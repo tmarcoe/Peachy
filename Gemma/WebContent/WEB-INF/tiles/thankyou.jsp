@@ -5,5 +5,5 @@
 
 <fmt:formatNumber type='currency' currencySymbol='P' value='${invoiceHeader.total + invoiceHeader.totalTax}' var='total'/>
 
-<h6>Your Total order is ${total}</h6>
+<h6>Your Total order is ${total}. This includes tax.</h6>
 <h6>We appreciate your business. Your order is on it's way.</h6>

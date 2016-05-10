@@ -18,7 +18,7 @@
 			<td><sf:input type="date" path="end"  format="yyyy-MM-dd" /></td>
 		</tr>
 		<tr>
-			<td><input type="submit"></td>
+			<td><input type="submit" value="View Ledger" ></td>
 		</tr>
 	</table>
 </sf:form>

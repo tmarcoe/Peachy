@@ -40,8 +40,7 @@ method="post" commandName="chartOfAccounts">
 			<sf:checkbox path="debitAccount" class="control" /></td>
 			</tr>
 			<tr>
-				<td>Add/Update Account:</td>
-				<td><input type="submit" value="submit" /></td>
+				<td><input type="submit" value="Update Account" /></td>
 			</tr>
 		</table>
 	</div>
