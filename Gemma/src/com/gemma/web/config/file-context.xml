@@ -17,5 +17,9 @@
 	<property name="transactionPath"
 		value="C:\Users\Timothy Marcoe\WebSite Archive\Gemma\src\com\gemma\web\transactions\">
 	</property>
+	<property name="paymentConfig"
+		value="C:\Users\Timothy Marcoe\WebSite Archive\Gemma\src\">
+	</property>
 	</bean>
+	
 </beans>

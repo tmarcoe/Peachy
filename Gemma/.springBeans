@@ -9,7 +9,6 @@
 	<configs>
 		<config>WebContent/WEB-INF/gemma-servlet.xml</config>
 		<config>test/com/gemma/spring/web/test/config/datasource.xml</config>
-		<config>src/com/gemma/web/config/accounting-config.xml</config>
 		<config>src/com/gemma/web/config/dao-context.xml</config>
 		<config>src/com/gemma/web/config/pager-context.xml</config>
 		<config>src/com/gemma/web/config/security-context.xml</config>

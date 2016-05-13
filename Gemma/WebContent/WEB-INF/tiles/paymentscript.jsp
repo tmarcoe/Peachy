@@ -1,0 +1,1 @@
+<script src="https://js.braintreegateway.com/js/braintree-2.24.0.min.js"></script>

@@ -1,9 +1,11 @@
 package com.gemma.web.controllers;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Serializable;
 import java.io.Writer;
+import java.math.BigDecimal;
 import java.security.Principal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -25,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.supercsv.io.CsvBeanWriter;
 import org.supercsv.prefs.CsvPreference;
 
+import com.braintreegateway.BraintreeGateway;
 import com.gemma.web.beans.AddressLabel;
 import com.gemma.web.beans.BeansHelper;
 import com.gemma.web.beans.FileLocations;
@@ -34,6 +37,9 @@ import com.gemma.web.dao.InvoiceContainer;
 import com.gemma.web.dao.InvoiceHeader;
 import com.gemma.web.dao.InvoiceItem;
 import com.gemma.web.dao.UserProfile;
+import com.gemma.web.payment.BraintreeGatewayFactory;
+import com.gemma.web.payment.Checkout;
+import com.gemma.web.payment.Payment;
 import com.gemma.web.service.AccountingService;
 import com.gemma.web.service.GeneralLedgerService;
 import com.gemma.web.service.InventoryService;
@@ -45,8 +51,8 @@ import com.gemma.web.service.UserProfileService;
 @Scope(value="session")
 public class ShoppingCartController implements Serializable {
 	private static final long serialVersionUID = 4725326820861092920L;
-
 	private static Logger logger = Logger.getLogger(AccountingService.class.getName());
+	private BraintreeGateway gateway;
 	
 	@Autowired
 	private InvoiceService invoiceService;
@@ -62,6 +68,9 @@ public class ShoppingCartController implements Serializable {
 	
 	@Autowired
 	private GeneralLedgerService generalLedgerService;
+	
+	@Autowired
+	private FileLocations fileLocations;
 	
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
@@ -142,6 +151,16 @@ public class ShoppingCartController implements Serializable {
 		
 		return "cart";
 	}
+	@RequestMapping("/pcinfo")
+	public String processPayment(Model model) {
+		Payment payment = new Payment();
+	    gateway = BraintreeGatewayFactory.fromConfigFile(new File(fileLocations.getPaymentConfig() + "/braintree.properties"));
+
+		model.addAttribute("clientToken", gateway.clientToken().generate());
+		model.addAttribute("payment", payment);
+		
+		return "pcinfo";
+	}
 	
 	@RequestMapping("/editcart")
 	public String editCart(int invoiceNum, String skuNum, Model model) {
@@ -153,9 +172,13 @@ public class ShoppingCartController implements Serializable {
 	}
 	
 	@RequestMapping("/processcart")
-	public String processShoppingCart(@ModelAttribute("item") InvoiceItem item, Principal principal, Model model) {
+	public String processShoppingCart(@ModelAttribute("payment_method_nonce") String nonce, 
+									  Principal principal, Model model) {
+		
 		UserProfile user = userProfileService.getUser(principal.getName());
 		InvoiceHeader header = invoiceHeaderService.getOpenOrder(user.getUserID());
+		Checkout checkout = new Checkout();
+		
 		try {
 			invoiceHeaderService.processShoppingCart(header);
 		} catch (IOException | RuntimeException e) {
@@ -163,9 +186,12 @@ public class ShoppingCartController implements Serializable {
 		}
 		logger.info("Processing shopping cart.");
 		model.addAttribute("invoiceHeader", header);
+		BigDecimal total = BigDecimal.valueOf(header.getTotal() + header.getTotalTax() + header.getShippingCost());
+		checkout.postForm( total, nonce);
 		
 		return "thankyou";
 	}
+	
 	@RequestMapping("/filepicker")
 	public String filePicker(Model model){
 		FileUpload filePrint = new FileUpload();

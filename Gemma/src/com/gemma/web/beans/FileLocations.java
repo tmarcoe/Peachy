@@ -4,6 +4,7 @@ public class FileLocations {
 	private String imageLoc;
 	private String outPath;
 	private String transactionPath;
+	private String paymentConfig;
 
 	public String getImageLoc() {
 		return imageLoc;
@@ -27,6 +28,14 @@ public class FileLocations {
 
 	public void setTransactionPath(String transactionPath) {
 		this.transactionPath = transactionPath;
+	}
+
+	public String getPaymentConfig() {
+		return paymentConfig;
+	}
+
+	public void setPaymentConfig(String paymentConfig) {
+		this.paymentConfig = paymentConfig;
 	}
 
 }

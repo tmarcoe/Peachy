@@ -660,3 +660,16 @@ table.returns-status td, th {
 	font-size: 18px;
 	padding: 1em;
 }
+.pcinfoTable td, th{
+	text-align: left;
+	padding: .75em 4em 0 0;
+		
+}
+.pcinfoCaption {
+	padding: 1em;
+	font-size: 28px;
+	text-shadow: 2px 2px 4px #bda8a4;
+}
+.pcinfoTable td:nth-child(1){
+	text-align: left;
+}

@@ -41,7 +41,6 @@
 		classpath:com/gemma/web/config/security-context.xml
 		classpath:com/gemma/web/config/file-context.xml
 		classpath:com/gemma/web/config/pager-context.xml
-		classpath:com/gemma/web/config/accounting-config.xml
 		</param-value>
 	</context-param>
 	<context-param>

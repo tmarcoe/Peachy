@@ -56,6 +56,7 @@
 		<security:intercept-url pattern="/returns-getrma" access="isAuthenticated()"/>
 		<security:intercept-url pattern="/returns-status" access="isAuthenticated()"/>
 		<security:intercept-url pattern="/returnsstatuspaging" access="isAuthenticated()"/>
+		<security:intercept-url pattern="/pcinfo" access="isAuthenticated()"/>
 		<security:intercept-url pattern="/deleteuser" access="hasRole('ROLE_ADMIN')"/>
 		<security:intercept-url pattern="/returns-list" access="hasRole('ROLE_ADMIN')"/>
 		<security:intercept-url pattern="/returns-approve" access="hasRole('ROLE_ADMIN')"/>

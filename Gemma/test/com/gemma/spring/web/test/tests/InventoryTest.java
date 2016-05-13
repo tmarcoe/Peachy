@@ -21,7 +21,6 @@ import com.gemma.web.dao.InvoiceItem;
 
 @ActiveProfiles("dev")
 @ContextConfiguration(locations = {
-		"classpath:com/gemma/web/config/accounting-config.xml",
 		"classpath:com/gemma/web/config/dao-context.xml",
 		"classpath:com/gemma/web/config/file-context.xml",
 		"classpath:com/gemma/web/config/pager-context.xml",

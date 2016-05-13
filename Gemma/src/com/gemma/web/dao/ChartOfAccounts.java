@@ -5,8 +5,6 @@ package com.gemma.web.dao;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.validation.constraints.Size;
-
 import org.hibernate.validator.constraints.NotBlank;
 
 /**
@@ -19,6 +17,7 @@ public class ChartOfAccounts {
 	@Id
 	@NotBlank
 	private String accountNum;
+	@NotBlank
 	private String accountName;
 	private float accountBalance;
 	private boolean debitAccount;
