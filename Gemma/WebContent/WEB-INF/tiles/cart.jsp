@@ -96,6 +96,21 @@
 				</c:if>
 			</tr>
 			<tr>
+				<td>POD Charge ------></td>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+				<td><fmt:formatNumber type="currency" currencySymbol="P"
+						value="${invoice.invoiceHeader.addedCharges}" /></td>
+				<c:if test="${invoice.invoiceHeader.processed == null}">
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+				</c:if>
+			</tr>
+			<tr>
 				<td>Total -------></td>
 				<td>&nbsp;</td>
 				<td>&nbsp;</td>
@@ -103,7 +118,7 @@
 				<td>&nbsp;</td>
 				<td>&nbsp;</td>
 				<td><fmt:formatNumber type="currency" currencySymbol="P"
-						value="${total + ttax}" /></td>
+						value="${total + ttax + invoice.invoiceHeader.addedCharges}" /></td>
 				<c:if test="${invoice.invoiceHeader.processed == null}">
 					<td>&nbsp;</td>
 					<td>&nbsp;</td>
@@ -128,15 +143,16 @@
 						onclick="followLink('/pcinfo')" /></td>
 					<td>&nbsp;</td>
 					<td>&nbsp;</td>
+					<td><input type="button" Value="Payment On Delivery"
+						onclick="pod()" /></td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
 					<td><input type="button" Value="Cancel Order"
 						onclick="cancel()" /></td>
 					<td>&nbsp;</td>
 					<td>&nbsp;</td>
 					<td><input type="button" value="Continue Shopping"
 						onclick="followLink('/pickcategory')" /></td>
-					<td>&nbsp;</td>
-					<td>&nbsp;</td>
-					<td>&nbsp;</td>
 				</tr>
 				<tr>
 					<td>Print this page for your records</td>
@@ -154,6 +170,7 @@
 			</c:if>
 		</tfoot>
 	</table>
+	<img src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/cc-badges-ppmcvdam.png" alt="Buy now with PayPal" />
 </sf:form>
 <script type="text/javascript">
 	function rowRemoved(row) {
@@ -186,5 +203,10 @@
 		 if (confirm("Are you sure you want to cancel this order?") == true) {
 		   		window.location.href = "${pageContext.request.contextPath}/cancelsale";		    
 		   	} 		
+	}
+	function pod() {
+		if(confirm("For POD's a 10% handling fee will be added to your order.") == true ) {
+			window.location.href = "${pageContext.request.contextPath}/pod";
+		}
 	}
 </script>

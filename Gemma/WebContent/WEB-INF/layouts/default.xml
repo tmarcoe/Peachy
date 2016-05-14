@@ -278,12 +278,16 @@
 		<put-attribute name="content" value="/WEB-INF/tiles/returns-status.jsp"></put-attribute>
 	</definition>
 	<definition name="pcinfo" extends="gemma.base">
-		<put-attribute name="includes" value="paymentscript.jsp"></put-attribute>
 		<put-attribute name="heading_title" value="Please Enter Your Payment Information"></put-attribute>
 		<put-attribute name="title" value="Payment Information"></put-attribute>
-		<put-attribute name="header" value="/WEB-INF/tiles/paymentheader.jsp"></put-attribute>
 		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/pcinfo.jsp"></put-attribute>
+	</definition>
+	<definition name="pcdenied" extends="gemma.base">
+		<put-attribute name="heading_title" value="Payment Method Denied"></put-attribute>
+		<put-attribute name="title" value="Denied"></put-attribute>
+		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/pcdenied.jsp"></put-attribute>
 	</definition>
 </tiles-definitions>
 

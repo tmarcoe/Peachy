@@ -24,6 +24,8 @@ public class InvoiceHeader {
 	private double total;
 	private double totalTax;
 	private float shippingCost;
+	private double addedCharges;
+	private boolean pod;
 	private Date modified;
 	private Date processed;
 	private Date dateShipped;
@@ -64,6 +66,18 @@ public class InvoiceHeader {
 	}
 	public void setShippingCost(float shippingCost) {
 		this.shippingCost = shippingCost;
+	}
+	public double getAddedCharges() {
+		return addedCharges;
+	}
+	public void setAddedCharges(double addedCharges) {
+		this.addedCharges = addedCharges;
+	}
+	public boolean isPod() {
+		return pod;
+	}
+	public void setPod(boolean pod) {
+		this.pod = pod;
 	}
 	public Date getModified() {
 		return modified;

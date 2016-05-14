@@ -29,6 +29,7 @@
 		<security:intercept-url pattern="/createprofile" access="permitAll"/>
 		<security:intercept-url pattern="/contactus" access="permitAll"/>
 		<security:intercept-url pattern="/aboutus" access="permitAll"/>
+		<security:intercept-url pattern="/favicon.ico" access="permitAll"/>
 		<security:intercept-url pattern="/products" access="isAuthenticated()"/>
 		<security:intercept-url pattern="/productdetails" access="isAuthenticated()"/>
 		<security:intercept-url pattern="/paging" access="isAuthenticated()"/>
@@ -57,6 +58,8 @@
 		<security:intercept-url pattern="/returns-status" access="isAuthenticated()"/>
 		<security:intercept-url pattern="/returnsstatuspaging" access="isAuthenticated()"/>
 		<security:intercept-url pattern="/pcinfo" access="isAuthenticated()"/>
+		<security:intercept-url pattern="/pcdenied" access="isAuthenticated()"/>
+		<security:intercept-url pattern="/pod" access="isAuthenticated()"/>
 		<security:intercept-url pattern="/deleteuser" access="hasRole('ROLE_ADMIN')"/>
 		<security:intercept-url pattern="/returns-list" access="hasRole('ROLE_ADMIN')"/>
 		<security:intercept-url pattern="/returns-approve" access="hasRole('ROLE_ADMIN')"/>

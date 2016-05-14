@@ -11,11 +11,12 @@ begin
 	string commision = "1011";	// Sales commision account
 	
 	double amt = getAmount;		// Amount without tax
+	amt += getAddedCharges;
 	double tax = getTax;		// Sales tax
 	double commAmt = amt * commisionPercentage; // Commisiion amount
 	double total = amt + tax;	// Amount + tax
 
-	
+
 	/****************************************************************
 	 * These are the various descriptions for the ledger
 	 *****************************************************************/

@@ -48,6 +48,9 @@ public class InvoiceHeaderService {
 		return invoiceHeaderDao.getAllInvoiceHeaders();
 	}
 
+	public InvoiceHeader totalHeader(InvoiceHeader header) {
+		return invoiceHeaderDao.totalHeader(header);
+	}
 
 
 

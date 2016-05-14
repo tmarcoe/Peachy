@@ -1,6 +1,5 @@
 package com.gemma.web.payment;
 
-import java.io.File;
 import java.math.BigDecimal;
 import java.util.Arrays;
 
@@ -17,7 +16,6 @@ import org.springframework.ui.Model;
 
 
 public class Checkout {
-	private static BraintreeGateway gateway = BraintreeGatewayFactory.fromConfigFile(new File("braintree.properties"));
 	private static Logger logger = Logger.getLogger(Checkout.class.getName());
 	
      private Status[] TRANSACTION_SUCCESS_STATUSES = new Status[] {
@@ -31,12 +29,23 @@ public class Checkout {
      };
 
 
-    public boolean postForm(BigDecimal amount, String nonce) {
+    public boolean postForm(Payment payment, BraintreeGateway gateway, BigDecimal amount, String nonce) {
 
         TransactionRequest request = new TransactionRequest()
-            .amount(amount)
-            .paymentMethodNonce(nonce)
-            .options()
+            	.amount(amount)
+            	.paymentMethodNonce(nonce)
+            	.billingAddress()
+            		.firstName(payment.getFirstName())
+            		.lastName(payment.getLastName())
+            		.streetAddress(payment.getAddress1())
+            		.extendedAddress(payment.getAddress2())
+            		.locality(payment.getCity())
+            		.region(payment.getRegion())
+            		.countryName(payment.getCountry())
+            		.done()
+            	.options()
+            	.storeInVault(payment.isSaveInfo())
+            	.addBillingAddressToPaymentMethod(payment.isSaveInfo())
                 .submitForSettlement(true)
                 .done();
 
@@ -45,6 +54,7 @@ public class Checkout {
         if (result.isSuccess()) {    
             return true;
         } else if (result.getTransaction() != null) {
+        	logger.error(result.getMessage());
             return false;
         } else {
             String errorString = "";
@@ -56,7 +66,7 @@ public class Checkout {
         return false;
     }
 
-    public String getTransaction(String transactionId, Model model) {
+    public String getTransaction(BraintreeGateway gateway, String transactionId, Model model) {
         Transaction transaction;
         CreditCard creditCard;
         Customer customer;

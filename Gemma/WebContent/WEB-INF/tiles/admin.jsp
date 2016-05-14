@@ -26,7 +26,7 @@
 					</thead>
 					<c:forEach var="item" items="${headerList.pageList}">
 						<fmt:formatNumber type="currency" currencySymbol="P"
-							value="${item.total}" var="total" />
+							value="${item.total + item.totalTax + item.shippingCost + item.addedCharges}" var="total" />
 						<fmt:formatDate value="${item.modified}" var="stdate" />
 						<tr>
 							<td>${item.invoiceNum}</td>

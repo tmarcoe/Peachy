@@ -39,6 +39,8 @@ public class AccountingService implements Serializable {
 	public void processSales(InvoiceHeader header) throws RecognitionException, IOException, RuntimeException {
 
 		transactionService.setAmount(header.getTotal());
+		transactionService.setAddedCharges(header.getAddedCharges());
+		transactionService.setShipCharges(header.getShippingCost());
 		transactionService.setTax(header.getTotalTax());
 		transactionService.setDescription("Internet Sales");
 

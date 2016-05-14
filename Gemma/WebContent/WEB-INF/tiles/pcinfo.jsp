@@ -2,46 +2,72 @@
 <%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/static/script/demo.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/static/script/jquery.lettering-0.6.1.min.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/static/script/jquery-2.1.4.min.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/static/script/response.js"></script>
 
 <div class="wrapper">
 	<div class="checkout container">
+		<sf:form id="payment-form" method="post"
+			action="${pageContext.request.contextPath}/processcart"
+			commandName="payment">
+			<table class="pcinfoTable">
+				<tr>
+					<td>First Name</td>
+					<td>Last Name</td>
+					<td>Address 1</td>
+					<td>Address 2</td>
+				</tr>
+				<tr>
+					<td><sf:input type="text" path="firstName" /></td>
+					<td><sf:input type="text" path="lastName" /></td>
+					<td><sf:input type="text" path="address1" /></td>
+					<td><sf:input type="text" path="address2" /></td>
+				</tr>
+				<tr>
+					<td>City</td>
+					<td>Region</td>
+					<td>Country</td>
+				</tr>
+				<tr>
+					<td><sf:input type="text" path="city" /></td>
+					<td><sf:input type="text" path="region" /></td>
+					<td><sf:input type="text" path="country"/>
+					<td>Save Payment Card? </td>
+					<td><input type="hidden" value="on" name="_active"/>
+					<sf:checkbox path="saveInfo" /></td>
+				</tr>
+			</table>
 
-		<header>
-			<h1>
-				Hi, <br />Let's test a transaction
-			</h1>
-			<p>Make a test payment with Braintree using PayPal or a card</p>
-		</header>
-
-		<form id="payment-form" method="post" action="/processcart">
 			<section>
 				<div class="bt-drop-in-wrapper">
 					<div id="bt-dropin"></div>
 				</div>
-
-				<label for="amount"> <span class="input-label">Amount</span>
-						<input id="amount" name="amount" type="tel" min="1"
-							placeholder="Amount" value="10" />
-				</label>
 			</section>
 			<button class="button" type="submit">
-				<span>Test Transaction</span>
+				<span><img src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/buy-logo-small.png" alt="Buy now with PayPal" /></span>
 			</button>
-		</form>
+			<input id="cToken" type="hidden" value="${clientToken}" />
+		</sf:form>
 	</div>
 </div>
-
 <script src="https://js.braintreegateway.com/v2/braintree.js"></script>
-<script type="text/javascript">
-    /*<![CDATA[*/
-    alert("Here");
-    var checkout = new Demo({
-      formID: 'payment-form'
-    })
 
-    var client_token = ${clientToken};
-    braintree.setup(client_token, "dropin", {
-      container: "bt-dropin"
-    });
-    /*]]>*/
-  </script>
+<script type="text/javascript">
+	/*<![CDATA[*/
+	var checkout = new Demo({
+		formID : 'payment-form'
+	});
+	var input = document.getElementById("cToken");
+	var client_token = input.value;
+
+	braintree.setup(client_token, "dropin", {
+		container : "bt-dropin"
+	});
+	/*]]>*/
+</script>

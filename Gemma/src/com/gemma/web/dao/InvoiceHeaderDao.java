@@ -79,21 +79,34 @@ public class InvoiceHeaderDao {
 		return null;
 	}
 	public void processShoppingCart(InvoiceHeader header) throws RecognitionException, IOException, RuntimeException {
+
+		List<InvoiceItem> itemList = invoiceItemDao.getInvoice(header);
+		
+		for(InvoiceItem item: itemList) {
+			inventoryDao.depleteInventory(item);
+		}
+
+		accountingService.processSales(header);
 		header.setProcessed(new Date());
+		updateHeader(header);
+
+	}
+
+	public InvoiceHeader totalHeader(InvoiceHeader header) {
 		List<InvoiceItem> itemList = invoiceItemDao.getInvoice(header);
 		
 		double total = 0;
 		double totalTax = 0;
+
 		for(InvoiceItem item: itemList) {
 			total += (item.getAmount() * item.getPrice());
 			totalTax += (item.getAmount() * item.getTax());
-			inventoryDao.depleteInventory(item);
+
 			header.setTotal(total);
 			header.setTotalTax(totalTax);
 		}
-		updateHeader(header);
-
-		accountingService.processSales(header);
+		
+		return header;
 	}
 
 

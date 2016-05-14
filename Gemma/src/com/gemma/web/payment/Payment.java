@@ -12,11 +12,7 @@ public class Payment {
 	private String	region;
 	private String	postal;
 	private String	country;
-	private String	paymentMethod;
-	private String	paymentNum;
-	private String	expiresMonth;
-	private String	expiresYear;
-	private String	cvc;
+	private boolean saveInfo;
 	
 	
 	public Integer getUserId() {
@@ -73,35 +69,12 @@ public class Payment {
 	public void setCountry(String country) {
 		this.country = country;
 	}
-	public String getPaymentMethod() {
-		return paymentMethod;
+	public boolean isSaveInfo() {
+		return saveInfo;
 	}
-	public void setPaymentMethod(String paymentMethod) {
-		this.paymentMethod = paymentMethod;
+	public void setSaveInfo(boolean saveInfo) {
+		this.saveInfo = saveInfo;
 	}
-	public String getPaymentNum() {
-		return paymentNum;
-	}
-	public void setPaymentNum(String paymentNum) {
-		this.paymentNum = paymentNum;
-	}
-	public String getExpiresMonth() {
-		return expiresMonth;
-	}
-	public void setExpiresMonth(String expiresMonth) {
-		this.expiresMonth = expiresMonth;
-	}
-	public String getExpiresYear() {
-		return expiresYear;
-	}
-	public void setExpiresYear(String expiresYear) {
-		this.expiresYear = expiresYear;
-	}
-	public String getCvc() {
-		return cvc;
-	}
-	public void setCvc(String cvc) {
-		this.cvc = cvc;
-	}
-
+	
+	
 }

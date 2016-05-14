@@ -28,6 +28,7 @@ import org.supercsv.io.CsvBeanWriter;
 import org.supercsv.prefs.CsvPreference;
 
 import com.braintreegateway.BraintreeGateway;
+import com.braintreegateway.ClientTokenRequest;
 import com.gemma.web.beans.AddressLabel;
 import com.gemma.web.beans.BeansHelper;
 import com.gemma.web.beans.FileLocations;
@@ -152,12 +153,16 @@ public class ShoppingCartController implements Serializable {
 		return "cart";
 	}
 	@RequestMapping("/pcinfo")
-	public String processPayment(Model model) {
+	public String processPayment(Principal principal, Model model) {
 		Payment payment = new Payment();
 	    gateway = BraintreeGatewayFactory.fromConfigFile(new File(fileLocations.getPaymentConfig() + "/braintree.properties"));
-
-		model.addAttribute("clientToken", gateway.clientToken().generate());
+	    @SuppressWarnings("unused")
+		ClientTokenRequest clientTokenRequest = new ClientTokenRequest()
+	    							.customerId(principal.getName());
+	    
 		model.addAttribute("payment", payment);
+		model.addAttribute("clientToken", gateway.clientToken().generate());
+
 		
 		return "pcinfo";
 	}
@@ -171,25 +176,54 @@ public class ShoppingCartController implements Serializable {
 		return "editcart";
 	}
 	
+	@RequestMapping("/pod")
+	public String paymentOnDelivery(Principal principal, Model model) {
+		UserProfile user = userProfileService.getUser(principal.getName());
+		InvoiceHeader header = invoiceHeaderService.getOpenOrder(user.getUserID());
+		header = invoiceHeaderService.totalHeader(header);
+		header.setPod(true);
+		header.setAddedCharges((header.getTotal() * .1));
+
+		try {
+			logger.info("Processing shopping cart.");
+			invoiceHeaderService.processShoppingCart(header);
+		} catch (IOException | RuntimeException e) {
+			return "error";
+		}
+		
+		model.addAttribute("invoiceHeader", header);
+		
+		return "thankyou";
+	}
 	@RequestMapping("/processcart")
-	public String processShoppingCart(@ModelAttribute("payment_method_nonce") String nonce, 
+	public String processShoppingCart(@ModelAttribute("payment") Payment payment,
+									  @ModelAttribute("payment_method_nonce") String nonce, 
 									  Principal principal, Model model) {
 		
 		UserProfile user = userProfileService.getUser(principal.getName());
 		InvoiceHeader header = invoiceHeaderService.getOpenOrder(user.getUserID());
 		Checkout checkout = new Checkout();
-		
-		try {
-			invoiceHeaderService.processShoppingCart(header);
-		} catch (IOException | RuntimeException e) {
-			return "error";
-		}
-		logger.info("Processing shopping cart.");
-		model.addAttribute("invoiceHeader", header);
+		header = invoiceHeaderService.totalHeader(header);
 		BigDecimal total = BigDecimal.valueOf(header.getTotal() + header.getTotalTax() + header.getShippingCost());
-		checkout.postForm( total, nonce);
+		if (checkout.postForm(payment, gateway, total, nonce) == true) {
+			try {
+				logger.info("Processing shopping cart.");
+				invoiceHeaderService.processShoppingCart(header);
+			} catch (IOException | RuntimeException e) {
+				return "error";
+			}
+		}else{
+			return "pcdenied";
+		}
+		model.addAttribute("invoiceHeader", header);
+
 		
 		return "thankyou";
+	}
+	
+	@RequestMapping("/pcdenied")
+	public String showPcDenied() {
+		return "pcdenied";
 	}
 	
 	@RequestMapping("/filepicker")
