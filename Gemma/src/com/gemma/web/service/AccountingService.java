@@ -89,4 +89,28 @@ public class AccountingService implements Serializable {
 		chartOfAccountsService.creditAccount(account, amount);
 	}
 
+	public void processPod(InvoiceHeader header) throws RecognitionException, IOException, RuntimeException {
+		
+		transactionService.setAmount(header.getTotal());
+		transactionService.setTax(header.getTotalTax());
+		transactionService.setAddedCharges(header.getAddedCharges());
+		transactionService.setShipCharges(header.getShippingCost());
+		transactionService.setDescription("Update POD Sale upon notification of product delivery.");
+		
+		transactionService.loadRule("podcomplete.trans");
+	}
+
+	public void podPurchase(InvoiceHeader header) throws RecognitionException, IOException, RuntimeException {
+		
+			transactionService.setAmount(header.getTotal());
+			transactionService.setAddedCharges(header.getAddedCharges());
+			transactionService.setShipCharges(header.getShippingCost());
+			transactionService.setTax(header.getTotalTax());
+			transactionService.setDescription("Internet Sales");
+
+			transactionService.loadRule("podpurchase.trans");
+			
+	}
+
+
 }

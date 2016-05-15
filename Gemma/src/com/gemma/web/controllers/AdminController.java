@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
+import org.antlr.v4.runtime.RecognitionException;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -539,7 +540,74 @@ public class AdminController implements Serializable {
 		
 		return "generalledger";
 	}
-
+/*******************************************************************************************************************
+ * POD
+ *******************************************************************************************************************/
+	@RequestMapping("/podnotify")
+	public String podNotify(Model model) {
+		String invNum = "";
+		
+		model.addAttribute("invNum", invNum);
+		
+		return "podnotify";
+	}
+	
+	@RequestMapping("/podconfirm")
+	public String podConfirm(@ModelAttribute("invNum") String invNum, Model model, BindingResult result) {
+		if ("".compareTo(invNum) == 0) {
+			
+			headerList.setSource(invoiceHeaderService.getProcessedInvoices());
+			headerList.setPage(0);
+			headerList.setPageSize(10);
+			model.addAttribute("headerList", headerList);
+			
+			return "admin";
+		}
+		InvoiceHeader header = invoiceHeaderService.getInvoiceHeader(Integer.valueOf(invNum));
+		if (header == null ) {
+			String errMsg = "Invoice not found";
+			
+			model.addAttribute("errMsg", errMsg);
+			model.addAttribute("invNum", invNum);
+			
+			return "podnotify";
+		}
+		if (header.isPod() == false) {
+			
+			String errMsg = "This invoice is not available for processing.";
+			
+			model.addAttribute("errMsg", errMsg);
+			model.addAttribute("invNum", invNum);
+			
+			return "podnotify";
+		}
+		if (header.getDateShipped() == null) {
+			
+			String errMsg = "This invoice has not shipped yet.";
+			
+			model.addAttribute("errMsg", errMsg);
+			model.addAttribute("invNum", invNum);
+			
+			return "podnotify";
+		}
+		
+		model.addAttribute("invHeader", header);
+		
+		return "podconfirm";
+	}
+	@RequestMapping("/podsave")
+	public String podSave(@ModelAttribute("header") InvoiceHeader header, Model model ) throws RecognitionException, IOException, RuntimeException {
+		accountingService.processPod(header);
+		header.setPod(false);
+		invoiceHeaderService.updateHeader(header);
+		
+		headerList.setSource(invoiceHeaderService.getProcessedInvoices());
+		headerList.setPage(0);
+		headerList.setPageSize(10);
+		model.addAttribute("headerList", headerList);
+		
+		return "admin";
+	}
 /*********************************************************************************************************************
  * Pageination Handlers
  * 

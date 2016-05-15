@@ -82,11 +82,11 @@ public class InvoiceHeaderDao {
 
 		List<InvoiceItem> itemList = invoiceItemDao.getInvoice(header);
 		
+		accountingService.processSales(header);
 		for(InvoiceItem item: itemList) {
 			inventoryDao.depleteInventory(item);
 		}
 
-		accountingService.processSales(header);
 		header.setProcessed(new Date());
 		updateHeader(header);
 
@@ -109,5 +109,17 @@ public class InvoiceHeaderDao {
 		return header;
 	}
 
+	public void podProcessShoppingCart(InvoiceHeader header) throws RecognitionException, IOException, RuntimeException {
+		List<InvoiceItem> itemList = invoiceItemDao.getInvoice(header);
+		
+		accountingService.podPurchase(header);
+		for(InvoiceItem item: itemList) {
+			inventoryDao.depleteInventory(item);
+		}
+
+		header.setProcessed(new Date());
+		updateHeader(header);
+		
+	}
 
 }

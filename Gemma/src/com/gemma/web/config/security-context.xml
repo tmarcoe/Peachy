@@ -95,6 +95,9 @@
 		<security:intercept-url pattern="/users" access="hasRole('ROLE_ADMIN')"/>
 		<security:intercept-url pattern="/userpaging" access="hasRole('ROLE_ADMIN')"/>
 		<security:intercept-url pattern="/saveuser" access="hasRole('ROLE_ADMIN')"/>
+		<security:intercept-url pattern="/podnotify" access="hasRole('ROLE_ADMIN')"/>
+		<security:intercept-url pattern="/podconfirm" access="hasRole('ROLE_ADMIN')"/>
+		<security:intercept-url pattern="/podsave" access="hasRole('ROLE_ADMIN')"/>
 		<security:intercept-url pattern="/**" access="denyAll" />
 		<security:form-login login-page="/login"
 			authentication-failure-url="/login?error=true" />

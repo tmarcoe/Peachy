@@ -180,13 +180,16 @@ public class ShoppingCartController implements Serializable {
 	public String paymentOnDelivery(Principal principal, Model model) {
 		UserProfile user = userProfileService.getUser(principal.getName());
 		InvoiceHeader header = invoiceHeaderService.getOpenOrder(user.getUserID());
+		if (header == null) {
+			return "nocart";
+		}
 		header = invoiceHeaderService.totalHeader(header);
 		header.setPod(true);
 		header.setAddedCharges((header.getTotal() * .1));
 
 		try {
 			logger.info("Processing shopping cart.");
-			invoiceHeaderService.processShoppingCart(header);
+			invoiceHeaderService.podProcessShoppingCart(header);
 		} catch (IOException | RuntimeException e) {
 			return "error";
 		}
@@ -204,6 +207,7 @@ public class ShoppingCartController implements Serializable {
 		InvoiceHeader header = invoiceHeaderService.getOpenOrder(user.getUserID());
 		Checkout checkout = new Checkout();
 		header = invoiceHeaderService.totalHeader(header);
+		header.setUserID(user.getUserID());
 		BigDecimal total = BigDecimal.valueOf(header.getTotal() + header.getTotalTax() + header.getShippingCost());
 		if (checkout.postForm(payment, gateway, total, nonce) == true) {
 			try {
@@ -241,8 +245,7 @@ public class ShoppingCartController implements Serializable {
 		String[] label = {"firstname","lastname","address1","address2","city","region","postalCode","country","invoiceNum"};
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddhhmm");
 		BeansHelper bean = new BeansHelper();
-		FileLocations loc = (FileLocations) bean.getBean("file-context.xml", "fileLocations");
-		String fileName = loc.getOutPath() + sdf.format(new Date()) + ".csv";
+		String fileName = fileLocations.getOutPath() + sdf.format(new Date()) + ".csv";
 		Writer hdr = new FileWriter(fileName);
 		CsvBeanWriter csvWriter = new CsvBeanWriter(hdr, CsvPreference.STANDARD_PREFERENCE);
 		
@@ -261,19 +264,29 @@ public class ShoppingCartController implements Serializable {
 			lbl.setInvoiceNum(String.format("%06d", header.getInvoiceNum()));
 			csvWriter.write(lbl,label);
 
-			Writer inv = new FileWriter(loc.getOutPath() + String.format("%06d",header.getInvoiceNum()) + ".inv");
+			Writer inv = new FileWriter(fileLocations.getOutPath() + String.format("%08d",header.getInvoiceNum()) + ".inv");
 			List<InvoiceItem> invoices = invoiceService.getInvoice(header);
+			String address2 = "";
+			if ("".compareTo(user.getaddress2()) !=0 ) {
+				address2 = user.getaddress2() + "\n";
+			}
 			String invoiceHeading = user.getFirstname() + " " + user.getLastname() + "\n" +
 									user.getaddress1()  + "\n" +
-									user.getaddress2()  + "\n" +
+									address2 +
 									user.getcity()      + "," +
 									user.getregion()    + " " +
 									user.getpostalCode()+ " " +
 									user.getcountry()   + "\n" +
-									"Invoice # " + String.format("%06d", header.getInvoiceNum()) + "\n\n";
+									"Invoice # " + String.format("%06d", header.getInvoiceNum()) + "\n";
+			if (header.isPod() == true) {
+				invoiceHeading = invoiceHeading + "Payment ON Delivery\n\n";
+			}else{
+				invoiceHeading = invoiceHeading + "\n";
+			}
 			inv.write(invoiceHeading);
 			double total = 0;
 			double totalTax = 0;
+
 			for (InvoiceItem invoice: invoices) {
 				double price = invoice.getAmount() * invoice.getPrice();
 				double tax = invoice.getAmount() * invoice.getTax();
@@ -281,9 +294,11 @@ public class ShoppingCartController implements Serializable {
 				totalTax += tax;
 				inv.write(String.format("%s\t%d\tP%.2f [SKU - %s]\n", invoice.getProductName(), invoice.getAmount(), price, invoice.getSkuNum()));
 			}
-			inv.write("Subtotal -> " + String.format("P%.2f\n", total));
-			inv.write("Tax      -> " + String.format("P%.2f\n", totalTax));
-			inv.write("Total    -> " + String.format("P%.2f\n", total + totalTax));
+			inv.write("\n\n\n");
+			inv.write("Subtotal................. " + String.format("P%.2f\n", total));
+			inv.write("POD Charge............... " + String.format("P%.2f\n", header.getAddedCharges()));
+			inv.write("Tax...................... " + String.format("P%.2f\n", totalTax));
+			inv.write("Total.................... " + String.format("P%.2f\n", total + totalTax + header.getAddedCharges()));
 			inv.close();
 			header.setDateShipped(new Date());
 			invoiceHeaderService.updateHeader(header);

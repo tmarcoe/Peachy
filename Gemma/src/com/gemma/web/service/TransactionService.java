@@ -36,6 +36,9 @@ public class TransactionService extends Transaction {
 	@Autowired
 	private SessionFactory sessionFactory;
 	
+	@Autowired
+	private FileLocations fileLocations;
+	
 	public Session session() {
 		return sessionFactory.getCurrentSession();
 	}
@@ -90,10 +93,7 @@ public class TransactionService extends Transaction {
 	@Override
 	public void loadRule(String rule) throws IOException, RecognitionException, RuntimeException {
 		
-		BeansHelper bean = new BeansHelper();
-		FileLocations fi = (FileLocations) bean.getBean("file-context.xml", "fileLocations");
-
-		File file = new File(fi.getTransactionPath() + rule);
+		File file = new File(fileLocations.getTransactionPath() + rule);
 		Reader read = null;
 		try {
 			read = new FileReader(file);

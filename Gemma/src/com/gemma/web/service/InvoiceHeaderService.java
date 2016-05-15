@@ -52,9 +52,7 @@ public class InvoiceHeaderService {
 		return invoiceHeaderDao.totalHeader(header);
 	}
 
-
-
-	
-
-
+	public void podProcessShoppingCart(InvoiceHeader header) throws RecognitionException, IOException, RuntimeException {
+		invoiceHeaderDao.podProcessShoppingCart(header);		
+	}
 }

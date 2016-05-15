@@ -85,6 +85,7 @@
 					<li><a href="manageaccount">Manage Accounts</a></li>
 					<li><a href="users">User Profiles</a></li>
 					<li><a href="datepicker">View General Ledger</a></li>
+					<li><a href="podnotify">Receive POD Notification</a>
 					<li><a href="returns-list">Process Returns</a></li>
 				</sec:authorize>
 			</ul>

@@ -289,6 +289,18 @@
 		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/pcdenied.jsp"></put-attribute>
 	</definition>
+	<definition name="podnotify" extends="gemma.base">
+		<put-attribute name="heading_title" value="Enter the invoice number"></put-attribute>
+		<put-attribute name="title" value="POD Invoice"></put-attribute>
+		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/podnotify.jsp"></put-attribute>
+	</definition>
+	<definition name="podconfirm" extends="gemma.base">
+		<put-attribute name="heading_title" value="Confirm notification"></put-attribute>
+		<put-attribute name="title" value="POD confirm"></put-attribute>
+		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/podconfirm.jsp"></put-attribute>
+	</definition>
 </tiles-definitions>
 
 
