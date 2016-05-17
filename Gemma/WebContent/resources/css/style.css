@@ -673,3 +673,25 @@ table.returns-status td, th {
 .pcinfoTable td:nth-child(1){
 	text-align: left;
 }
+.emailtable {
+	border-collapse: collapse;
+}
+.emailtable th:nth-child(1), td:nth-child(1) {
+	text-align: left;
+	padding: 0 1.5em;
+}
+
+.emailtable tr:nth-child(odd)
+{
+	background: #dedbee;
+}
+
+.emailtable tr:nth-child(even)
+{
+	background: #fbfbff;
+}
+
+.emailtable th
+{
+	background: #f5f3c2;
+}

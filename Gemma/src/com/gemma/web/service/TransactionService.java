@@ -5,6 +5,8 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
 
 import org.antlr.v4.runtime.ANTLRInputStream;
@@ -21,7 +23,6 @@ import com.ftl.derived.FetalParser;
 import com.ftl.derived.FetalParser.TransactionContext;
 import com.ftl.helper.Transaction;
 import com.ftl.helper.Variable;
-import com.gemma.web.beans.BeansHelper;
 import com.gemma.web.beans.FileLocations;
 import com.gemma.web.exceptions.BailErrorStrategy;
 import com.gemma.web.exceptions.FetalExceptions;
@@ -42,7 +43,6 @@ public class TransactionService extends Transaction {
 	public Session session() {
 		return sessionFactory.getCurrentSession();
 	}
-	final String filePath = "C:/Users/Timothy Marcoe/Fetal Archive/git/Fetal Workbench/src/com/ftl/transactions/";
 	
 	@Override
 	public void credit(Double amount, String account) {
@@ -93,7 +93,12 @@ public class TransactionService extends Transaction {
 	@Override
 	public void loadRule(String rule) throws IOException, RecognitionException, RuntimeException {
 		
-		File file = new File(fileLocations.getTransactionPath() + rule);
+		File file;
+		try {
+			file = new File(new URI(fileLocations.getTransactionPath() + rule));
+		} catch (URISyntaxException e1) {
+			throw new RuntimeException();
+		}
 		Reader read = null;
 		try {
 			read = new FileReader(file);

@@ -60,6 +60,7 @@ public class LoginController {
 	
 	@RequestMapping("/loggedout")
 	public String showLoggedOut(HttpSession session, Model model) {
+		session.invalidate();
 
 		return "loggedout";
 	}
@@ -116,9 +117,10 @@ public class LoginController {
 		userProfileService.updatePassword(user);
 		
 		user = userProfileService.getUser(principal.getName());
-		logger.info("," + user.getUsername() + "' has just changed the password.");
-		model.addAttribute("userProfile", user);
 		
+		logger.info("," + user.getUsername() + "' has just changed the password.");
+		
+		model.addAttribute("userProfile", user);
 		return "mydonzalmart";
 	}
 	

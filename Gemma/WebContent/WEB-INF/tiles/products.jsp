@@ -41,7 +41,7 @@
 			<tr>
 				<td><a href="productdetails?skuNum=${inventory.skuNum}"> <img
 						alt="Image Not Available"
-						src="${pageContext.request.contextPath}/static/images/products/${inventory.image}"
+						src="<c:url value='${fileLoc}${inventory.image}' />"
 						width="30">
 				</a></td>
 				<td width="600">${inventory.productName}</td>

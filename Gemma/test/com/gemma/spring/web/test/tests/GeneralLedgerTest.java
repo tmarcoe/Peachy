@@ -34,7 +34,8 @@ import com.gemma.web.dao.InvoiceHeaderDao;
 		"classpath:com/gemma/web/config/pager-context.xml",
 		"classpath:com/gemma/web/config/security-context.xml",
 		"classpath:com/gemma/web/config/service-context.xml",
-		"classpath:com/gemma/spring/web/test/config/datasource.xml" })
+		"classpath:com/gemma/spring/web/test/config/datasource.xml", 
+		"classpath:com/gemma/web/config/email-context.xml" })
 @RunWith(SpringJUnit4ClassRunner.class)
 
 

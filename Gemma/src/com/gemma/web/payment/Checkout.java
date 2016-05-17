@@ -66,19 +66,14 @@ public class Checkout {
         return false;
     }
 
-    public String getTransaction(BraintreeGateway gateway, String transactionId, Model model) {
+    public String getTransaction(BraintreeGateway gateway, String transactionId, Model model) throws Exception {
         Transaction transaction;
         CreditCard creditCard;
         Customer customer;
 
-        try {
-            transaction = gateway.transaction().find(transactionId);
-            creditCard = transaction.getCreditCard();
-            customer = transaction.getCustomer();
-        } catch (Exception e) {
-            System.out.println("Exception: " + e);
-            return "redirect:/checkouts";
-        }
+        transaction = gateway.transaction().find(transactionId);
+        creditCard = transaction.getCreditCard();
+        customer = transaction.getCustomer();
 
         model.addAttribute("isSuccess", Arrays.asList(TRANSACTION_SUCCESS_STATUSES).contains(transaction.getStatus()));
         model.addAttribute("transaction", transaction);

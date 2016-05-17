@@ -301,6 +301,12 @@
 		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/podconfirm.jsp"></put-attribute>
 	</definition>
+	<definition name="checkemail" extends="gemma.base">
+		<put-attribute name="heading_title" value="Get Email"></put-attribute>
+		<put-attribute name="title" value="Email"></put-attribute>
+		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/checkemail.jsp"></put-attribute>
+	</definition>
 </tiles-definitions>
 
 

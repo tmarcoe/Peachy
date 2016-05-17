@@ -5,6 +5,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -31,7 +33,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.gemma.web.beans.BeansHelper;
 import com.gemma.web.beans.DatePicker;
 import com.gemma.web.beans.FileLocations;
 import com.gemma.web.beans.FileUpload;
@@ -42,6 +43,9 @@ import com.gemma.web.dao.Inventory;
 import com.gemma.web.dao.InvoiceHeader;
 import com.gemma.web.dao.Returns;
 import com.gemma.web.dao.UserProfile;
+import com.gemma.web.email.Email;
+import com.gemma.web.email.MsgDisplay;
+import com.gemma.web.email.ProcessEmail;
 import com.gemma.web.service.AccountingService;
 import com.gemma.web.service.ChartOfAccountsService;
 import com.gemma.web.service.GeneralLedgerService;
@@ -95,6 +99,9 @@ public class AdminController implements Serializable {
 	
 	@Autowired
 	private AccountingService accountingService;
+	
+	@Autowired
+	FileLocations fileLocations;
 	
 	@Autowired
 	private ReturnsService returnsService;
@@ -154,8 +161,9 @@ public class AdminController implements Serializable {
 	
 	@RequestMapping("/addinventory")
 	public String addInventory(
-			@ModelAttribute("fileUpload") FileUpload fileUpload, Model model, BindingResult result){
+			@ModelAttribute("fileUpload") FileUpload fileUpload, Model model, BindingResult result) throws URISyntaxException{
 		File file = null;
+
 
 		String contentType = fileUpload.getFile().getContentType();
 
@@ -166,10 +174,7 @@ public class AdminController implements Serializable {
 		
 		try {
 			InputStream is = fileUpload.getFile().getInputStream();
-			BeansHelper bean = new BeansHelper();
-
-			FileLocations loc = (FileLocations) bean.getBean("file-context.xml", "fileLocations");
-			File f1 = new File(loc.getImageLoc());
+			File f1 = new File(new URI(fileLocations.getImageLoc()));
 
 			file = File.createTempFile("img", ".png", f1);
 
@@ -263,15 +268,12 @@ public class AdminController implements Serializable {
 
 	@RequestMapping("/deleteinventory")
 	public String deleteInventory(
-			@ModelAttribute("deleteKey") String deleteKey, Model model) {
+			@ModelAttribute("deleteKey") String deleteKey, Model model) throws URISyntaxException {
 		Inventory inventory = inventoryService.getItem(deleteKey);
-		BeansHelper bean = new BeansHelper();
-
-		FileLocations loc = (FileLocations) bean.getBean("file-context.xml", "fileLocations");
 		
-		File file = new File(loc.getImageLoc() + "\\" + inventory.getImage());
+		File file = new File(new URI(fileLocations.getImageLoc() + inventory.getImage()));
 		file.delete();
-		logger.info("File: " + loc.getImageLoc() + "\\" + inventory.getImage() + " is deleted." );
+		logger.info("File: " + fileLocations.getImageLoc() + inventory.getImage() + " is deleted." );
 
 		inventoryService.delete(deleteKey);
 		logger.info("Item '" + deleteKey + "' is deleted.");
@@ -607,6 +609,22 @@ public class AdminController implements Serializable {
 		model.addAttribute("headerList", headerList);
 		
 		return "admin";
+	}
+/*********************************************************************************************************************
+ * Email
+ *********************************************************************************************************************/
+	@RequestMapping("/checkemail")
+	public String checkEmail(Model model) {
+		ProcessEmail email = new ProcessEmail();
+		Email myEmail = new Email();
+		myEmail.setFrom("tmtmarcoe80@outlook.com");
+		myEmail.setPassword("In_heaven3");
+		
+		PagedListHolder<MsgDisplay> msgs = email.receiveEmail(myEmail);
+		
+		model.addAttribute("msgs", msgs);
+		
+		return "checkemail";
 	}
 /*********************************************************************************************************************
  * Pageination Handlers

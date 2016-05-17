@@ -7,7 +7,7 @@
 <div class="pageheading">
 	<h2>Daily Specials</h2>
 </div>
-
+<h4>${fileLoc}</h4>
 <c:if test="${inventory.size() > 0}">
 	<table class="dailyspecials">
 
@@ -28,7 +28,7 @@
 				<td><a
 					href="${pageContext.request.contextPath}/productdetails?skuNum=${inventory.skuNum}">
 						<img alt="Image Not Available"
-						src="<c:url value='/static/images/products/${inventory.image}' />"
+						src='<c:url value="${fileLoc}${inventory.image}"></c:url>'
 						width="50">
 				</a></td>
 				<td class="name" width="600">${inventory.productName}</td>

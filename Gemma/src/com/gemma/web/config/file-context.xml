@@ -10,15 +10,14 @@
 
 	<bean id="fileLocations"
 		class="com.gemma.web.beans.FileLocations">
-	<property name="imageLoc"
-		value="C:\Users\Timothy Marcoe\WebSite Archive\Gemma\WebContent\resources\images\products">
+	<property name="imageLoc" value="file:///C:/Repository/Images/">
 	</property>
-	<property name="outPath" value="C:\Repository\"></property>
+	<property name="outPath" value="file:///C:/Repository/"></property>
 	<property name="transactionPath"
-		value="C:\Users\Timothy Marcoe\WebSite Archive\Gemma\src\com\gemma\web\transactions\">
+		value="file:///C:/Repository/transactions/">
 	</property>
 	<property name="paymentConfig"
-		value="C:\Users\Timothy Marcoe\WebSite Archive\Gemma\src\">
+		value="file:///C:/Repository/config/">
 	</property>
 	</bean>
 	

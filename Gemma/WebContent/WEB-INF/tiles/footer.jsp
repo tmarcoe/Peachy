@@ -1,2 +1,2 @@
 
-<div class="footer">Copyrighht (c) 2015, By Tim Marcoe</div>
+<div class="footer">Copyrighht (c) 2016, By Tim Marcoe</div>

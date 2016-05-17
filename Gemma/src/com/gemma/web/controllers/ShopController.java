@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.gemma.web.beans.Categories;
+import com.gemma.web.beans.FileLocations;
 import com.gemma.web.dao.Inventory;
 import com.gemma.web.dao.InvoiceContainer;
 import com.gemma.web.dao.InvoiceHeader;
@@ -65,6 +66,9 @@ public class ShopController implements Serializable {
 	private InvoiceService invoiceService;
 	
 	@Autowired
+	private FileLocations fileLocations;
+	
+	@Autowired
 	private UserProfileService userProfileService;
 	
 	private PagedListHolder<Returns> returnsList;
@@ -83,6 +87,8 @@ public class ShopController implements Serializable {
 	
 	@RequestMapping(value="/products")
 	public String products(Model model) {
+		String fileLoc = fileLocations.getImageLoc();
+		
 		if (categories == null) {
 			categories = new Categories();
 		}
@@ -93,15 +99,19 @@ public class ShopController implements Serializable {
 		model.addAttribute("inventoryList",inventoryList);
 
 		model.addAttribute("filter", buildFilter(categories));
-	
+		model.addAttribute("fileLoc", fileLoc);
+		
 		return "products";
 	}
 	
 	@RequestMapping(value="/productdetails", method=RequestMethod.GET)
 	public String showProductDetails(@ModelAttribute("skuNum") String skuNum, Model model ) {
+		String fileLoc = fileLocations.getImageLoc();
+		
 		Inventory inventory = inventoryService.getItem(skuNum);
 		InvoiceItem item = new InvoiceItem(inventory);
 		model.addAttribute("invoiceItem", item);
+		model.addAttribute("fileLoc", fileLoc);
 
 		return "productdetails";
 	}
@@ -138,7 +148,8 @@ public class ShopController implements Serializable {
 	}
 	@RequestMapping("/setcategory")
 	public String setCategory(@ModelAttribute("cat") String cat, Model model){
-
+		String fileLoc = fileLocations.getImageLoc();
+		
 		if (categories == null) {
 			categories = new Categories();
 		}
@@ -150,6 +161,7 @@ public class ShopController implements Serializable {
 			inventoryList.setPageSize(4);
 			inventoryList.setPage(0);
 			model.addAttribute("inventoryList",inventoryList);
+			model.addAttribute("fileLoc", fileLoc);
 
 			return "products";
 		}
@@ -164,6 +176,7 @@ public class ShopController implements Serializable {
 	
 	@RequestMapping("/setsubcategory")
 	public String setSubCategory(@ModelAttribute("cat") String cat, Model model){
+		String fileLoc = fileLocations.getImageLoc();
 		categories.setSubCategory(cat);
 		inventoryList = inventoryService.getPagedList(categories);
 
@@ -172,6 +185,7 @@ public class ShopController implements Serializable {
 		model.addAttribute("inventoryList",inventoryList);
 		
 		model.addAttribute("filter", buildFilter(categories));
+		model.addAttribute("fileLoc", fileLoc);
 		
 		return "products";
 	}
@@ -271,6 +285,7 @@ public class ShopController implements Serializable {
 	
 	@RequestMapping(value="/paging", method=RequestMethod.GET)
 	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String fileLoc = fileLocations.getImageLoc();
 		int pgNum;
 	    String keyword = request.getParameter("keyword");
 	    if (keyword != null) {
@@ -280,7 +295,10 @@ public class ShopController implements Serializable {
 
 	        inventoryList.setPageSize(4);
 	        request.getSession().setAttribute("SearchProductsController_productList", inventoryList);
-	        return new ModelAndView("products", "inventoryList", inventoryList);
+	        ModelAndView model = new ModelAndView("products");
+	        model.addObject("inventoryList", inventoryList);
+	        model.addObject("fileLoc", fileLoc);
+	        return model;
 	    }
 	    else {
 	        String page = request.getParameter("page");
@@ -300,7 +318,11 @@ public class ShopController implements Serializable {
 	        }
 	        
 	        request.setAttribute("filter", buildFilter(categories));
-	        return new ModelAndView("products", "inventoryList", inventoryList);
+	        ModelAndView model = new ModelAndView("products");
+	        model.addObject("inventoryList", inventoryList);
+	        model.addObject("fileLoc", fileLoc);
+	        
+	        return model;
 	    }
 	}
 	private String buildFilter(Categories categories) {
