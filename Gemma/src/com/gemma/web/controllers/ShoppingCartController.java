@@ -8,6 +8,7 @@ import java.io.Writer;
 import java.math.BigDecimal;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.UnknownHostException;
 import java.security.Principal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -32,6 +33,7 @@ import org.supercsv.prefs.CsvPreference;
 
 import com.braintreegateway.BraintreeGateway;
 import com.braintreegateway.ClientTokenRequest;
+import com.braintreegateway.exceptions.UnexpectedException;
 import com.gemma.web.beans.AddressLabel;
 import com.gemma.web.beans.FileLocations;
 import com.gemma.web.beans.FileUpload;
@@ -170,10 +172,21 @@ public class ShoppingCartController implements Serializable {
 	}
 
 	@RequestMapping("/pcinfo")
-	public String processPayment(Principal principal, Model model) throws URISyntaxException {
+	public String processPayment(Principal principal, Model model)
+			throws SecurityException, IllegalArgumentException, IOException,
+			URISyntaxException, UnknownHostException, UnexpectedException {
 		Payment payment = new Payment();
-		gateway = BraintreeGatewayFactory.fromConfigFile(new File(new URI(fileLocations
-				.getPaymentConfig() + "braintree.properties")));
+		UserProfile user = userProfileService.getUser(principal.getName());
+		payment.setFirstName(user.getFirstname());
+		payment.setLastName(user.getLastname());
+		payment.setAddress1(user.getaddress1());
+		payment.setAddress2(user.getaddress2());
+		payment.setCity(user.getcity());
+		payment.setRegion(user.getregion());
+		payment.setPostal(user.getpostalCode());
+		payment.setCountry(user.getcountry());
+		gateway = BraintreeGatewayFactory.fromConfigFile(new File(new URI(
+				fileLocations.getPaymentConfig() + "braintree.properties")));
 		@SuppressWarnings("unused")
 		ClientTokenRequest clientTokenRequest = new ClientTokenRequest()
 				.customerId(principal.getName());
@@ -186,6 +199,7 @@ public class ShoppingCartController implements Serializable {
 
 	@RequestMapping("/editcart")
 	public String editCart(int invoiceNum, String skuNum, Model model) {
+
 		InvoiceItem item = invoiceService.getInvoiceItem(invoiceNum, skuNum);
 
 		model.addAttribute("item", item);
@@ -221,7 +235,7 @@ public class ShoppingCartController implements Serializable {
 	public String processShoppingCart(
 			@ModelAttribute("payment") Payment payment,
 			@ModelAttribute("payment_method_nonce") String nonce,
-			Principal principal, Model model) throws RecognitionException  {
+			Principal principal, Model model) throws RecognitionException {
 
 		UserProfile user = userProfileService.getUser(principal.getName());
 		InvoiceHeader header = invoiceHeaderService.getOpenOrder(user
@@ -235,7 +249,7 @@ public class ShoppingCartController implements Serializable {
 			logger.info("Processing shopping cart.");
 			try {
 				invoiceHeaderService.processShoppingCart(header);
-			} catch (IOException | RuntimeException e ) {
+			} catch (IOException | RuntimeException e) {
 				return "error";
 			}
 		} else {
@@ -291,9 +305,10 @@ public class ShoppingCartController implements Serializable {
 			lbl.setInvoiceNum(String.format("%06d", header.getInvoiceNum()));
 			csvWriter.write(lbl, label);
 
-			Writer inv = new FileWriter(new File(new URI(fileLocations.getOutPath() + 
-										String.format("%08d", header.getInvoiceNum()) + ".inv"))
-					);
+			Writer inv = new FileWriter(new File(new URI(
+					fileLocations.getOutPath()
+							+ String.format("%08d", header.getInvoiceNum())
+							+ ".inv")));
 			List<InvoiceItem> invoices = invoiceService.getInvoice(header);
 			String address2 = "";
 			if ("".compareTo(user.getaddress2()) != 0) {

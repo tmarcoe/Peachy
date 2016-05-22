@@ -110,6 +110,7 @@ public class ShopController implements Serializable {
 		
 		Inventory inventory = inventoryService.getItem(skuNum);
 		InvoiceItem item = new InvoiceItem(inventory);
+		
 		model.addAttribute("invoiceItem", item);
 		model.addAttribute("fileLoc", fileLoc);
 

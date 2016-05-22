@@ -523,10 +523,12 @@ table.inventorytable th
 {
 	background: #f5f3c2;
 }
-table.productdetails td
+.productdetails td 
 {
-	padding: 0 1em;
-	vertical-align: text-bottom;
+	padding: 0 .5em;
+	text-align: left;
+	vertical-align: text-top;
+	vertical-align: top;
 }
 
 .accounttable 

@@ -3,13 +3,16 @@ package com.gemma.web.dao;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class InvoiceItem {
 	
 	@EmbeddedId
 	private Invoice invoiceKey;
-	@Min(value = 1)
+	
+	@Min(1)
+	@NotNull 
 	private int amount;
 	/*
 	 * The following is from the Iventory table

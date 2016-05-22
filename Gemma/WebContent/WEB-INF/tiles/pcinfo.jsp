@@ -37,11 +37,14 @@
 				<tr>
 					<td><sf:input type="text" path="city" /></td>
 					<td><sf:input type="text" path="region" /></td>
-					<td><sf:input type="text" path="country"/>
+					<td><sf:input type="text" path="country" size="3" maxlength="3" />
 					<td>Save Payment Card? </td>
 					<td><input type="hidden" value="on" name="_active"/>
 					<sf:checkbox path="saveInfo" /></td>
 				</tr>
+				<tr><td>&nbsp;</td></tr>
+				<tr><td>&nbsp;</td></tr>
+				<tr><td>&nbsp;</td></tr>
 			</table>
 
 			<section>

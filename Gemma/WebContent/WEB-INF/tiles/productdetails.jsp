@@ -6,24 +6,23 @@
 <%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-<h3>File = ${fileLoc}${inventory.image}</h3>
 
 <sf:form id="details" method="post"
 	action="${pageContext.request.contextPath}/orderproduct"
 	commandName="invoiceItem">
 	<table class="productdetails">
-		<thead>
-			<tr class="invoiceItemheader">
-				<th>&nbsp;</th>
-				<th>Product Description</th>
-				<th>Price</th>
-				<th>Qty</th>
-			</tr>
-		</thead>
-		<tr class="detailrow">
-			<td><img alt="Image Not Available" src="<c:url value='${fileLoc}${invoiceItem.image}' />" width="70" ></td>
-			<td class="price"><fmt:formatNumber type='currency'
-					currencySymbol='P' value='${invoiceItem.price}' /></td>
+		<tr class="invoiceItemheader">
+			<th>&nbsp;</th>
+			<th>Product Description</th>
+			<th>Price</th>
+			<th>Qty</th>
+		</tr>
+		<tr>
+			<td><img alt="Image Not Available"
+				src="<c:url value='${fileLoc}${invoiceItem.image}' />" width="200"></td>
+			<td>${invoiceItem.description}</td>
+			<td><fmt:formatNumber type='currency' currencySymbol='P'
+					value='${invoiceItem.price}' /></td>
 			<td><sf:input type="number" path="amount" step="1" min="1"
 					value="1" maxlength="3" size="2" /></td>
 		</tr>

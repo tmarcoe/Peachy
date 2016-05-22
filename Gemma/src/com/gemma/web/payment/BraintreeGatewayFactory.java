@@ -6,7 +6,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-
 import java.util.Map;
 import java.util.Properties;
 
@@ -21,18 +20,18 @@ public class BraintreeGatewayFactory {
         );
     }
 
-    public static BraintreeGateway fromConfigFile(File configFile) {
+    public static BraintreeGateway fromConfigFile(File configFile) throws SecurityException, IOException, IllegalArgumentException {
         InputStream inputStream = null;
         Properties properties = new Properties();
 
         try {
             inputStream = new FileInputStream(configFile);
             properties.load(inputStream);
-        } catch (Exception e) {
-            System.err.println("Exception: " + e);
+        } catch (SecurityException | IOException | IllegalArgumentException e) {
+            throw e;
         } finally {
             try { inputStream.close(); }
-            catch (IOException e) { System.err.println("Exception: " + e); }
+            catch (IOException ie) { throw ie; }
         }
 
         return new BraintreeGateway(

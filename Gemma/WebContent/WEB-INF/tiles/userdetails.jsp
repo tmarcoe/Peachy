@@ -79,7 +79,7 @@
 					name="postalCode" /></td>
 			<td>Country:</td>
 			<td><sf:input type="text" path="country" class="control"
-					name="country" /></td>
+					name="country" size="3" maxlength="3" /></td>
 		</tr>
 		<tr>
 			<td>&nbsp;</td>

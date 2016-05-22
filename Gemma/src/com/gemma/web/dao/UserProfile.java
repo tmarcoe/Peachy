@@ -49,7 +49,7 @@ public class UserProfile {
 	@Email 
 	private String username;
 	@NotBlank
-	//@Pattern(regexp="((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{6,20})")
+	@Size(min = 6, max = 15)
 	private String password;
 	private String shippingInfo;
 	private boolean monthlyMailing;

@@ -307,6 +307,12 @@
 		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/checkemail.jsp"></put-attribute>
 	</definition>
+	<definition name="nointernet" extends="gemma.base">
+		<put-attribute name="heading_title" value="No Internet"></put-attribute>
+		<put-attribute name="title" value="No Internet"></put-attribute>
+		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/nointernet.jsp"></put-attribute>
+	</definition>
 </tiles-definitions>
 
 

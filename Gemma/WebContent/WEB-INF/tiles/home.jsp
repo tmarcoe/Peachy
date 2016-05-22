@@ -7,7 +7,7 @@
 <div class="pageheading">
 	<h2>Daily Specials</h2>
 </div>
-<h4>${fileLoc}</h4>
+
 <c:if test="${inventory.size() > 0}">
 	<table class="dailyspecials">
 

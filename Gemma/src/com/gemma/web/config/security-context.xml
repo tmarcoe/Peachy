@@ -18,7 +18,7 @@
 
 	<security:http use-expressions="true">
 		<security:intercept-url pattern="/" access="permitAll" />
-		<security:intercept-url pattern="/static/**" access="permitAll" />
+		<security:intercept-url pattern="/static/**" access="permitAll" />		
 		<security:intercept-url pattern="/login" access="permitAll" />
 		<security:intercept-url pattern="/home" access="permitAll" />
 		<security:intercept-url pattern="/signup" access="permitAll"/>
@@ -29,6 +29,7 @@
 		<security:intercept-url pattern="/createprofile" access="permitAll"/>
 		<security:intercept-url pattern="/contactus" access="permitAll"/>
 		<security:intercept-url pattern="/aboutus" access="permitAll"/>
+		<security:intercept-url pattern="/nointernet" access="permitAll"/>
 		<security:intercept-url pattern="/favicon.ico" access="permitAll"/>
 		<security:intercept-url pattern="/products" access="isAuthenticated()"/>
 		<security:intercept-url pattern="/productdetails" access="isAuthenticated()"/>
@@ -99,6 +100,7 @@
 		<security:intercept-url pattern="/podconfirm" access="hasRole('ROLE_ADMIN')"/>
 		<security:intercept-url pattern="/podsave" access="hasRole('ROLE_ADMIN')"/>
 		<security:intercept-url pattern="/checkemail" access="hasRole('ROLE_ADMIN')"/>
+		<security:intercept-url pattern="/emailpaging" access="hasRole('ROLE_ADMIN')"/>
 		<security:intercept-url pattern="/**" access="denyAll" />
 		<security:form-login login-page="/login"
 			authentication-failure-url="/login?error=true" />

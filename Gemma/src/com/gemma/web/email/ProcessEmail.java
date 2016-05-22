@@ -1,5 +1,6 @@
 package com.gemma.web.email;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +11,6 @@ import javax.mail.Flags.Flag;
 import javax.mail.Folder;
 import javax.mail.Message;
 import javax.mail.MessagingException;
-import javax.mail.NoSuchProviderException;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Store;
@@ -25,7 +25,7 @@ import com.gemma.web.beans.EmailProperties;
 
 public class ProcessEmail {
 		
-	public void sendMail(final Email email) {
+	public void sendMail(final Email email) throws MessagingException, UnsupportedEncodingException {
 		EmailProperties emailProperties = (EmailProperties) new BeansHelper().getBean("email-context.xml", "emailProperties");
 		Properties props = new Properties();
 
@@ -46,7 +46,6 @@ public class ProcessEmail {
 
 		MimeMessage msg = new MimeMessage(session);
 		
-		try {
 			msg.setText(email.getMessage(), "utf-8", "html");
 			msg.setSubject(email.getSubject());
 			msg.setText(email.getMessage());
@@ -56,19 +55,14 @@ public class ProcessEmail {
 					email.getTo()));
 
 			Transport.send(msg);
-		} catch (MessagingException | UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 
-		System.out.println("Finished.");
 	}
 
-	public PagedListHolder<MsgDisplay> receiveEmail(Email email) {
+	public PagedListHolder<MsgDisplay> receiveEmail(Email email) throws MessagingException, IOException {
 			List<MsgDisplay> msgList = new ArrayList<MsgDisplay>();
 
 			EmailProperties emailProperties = (EmailProperties) new BeansHelper().getBean("email-context.xml", "emailProperties");
-		try {
+
 			Properties properties = new Properties();
 			String host = "pop3.live.com";
 
@@ -104,14 +98,7 @@ public class ProcessEmail {
 			// close the store and folder objects
 			emailFolder.close(false);
 			store.close();
-
-		} catch (NoSuchProviderException e) {
-			e.printStackTrace();
-		} catch (MessagingException e) {
-			e.printStackTrace();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+			
 		return new PagedListHolder<MsgDisplay>(msgList);
 	}
 

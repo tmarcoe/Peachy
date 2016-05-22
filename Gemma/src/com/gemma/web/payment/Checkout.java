@@ -30,7 +30,6 @@ public class Checkout {
 
 
     public boolean postForm(Payment payment, BraintreeGateway gateway, BigDecimal amount, String nonce) {
-
         TransactionRequest request = new TransactionRequest()
             	.amount(amount)
             	.paymentMethodNonce(nonce)
@@ -41,13 +40,13 @@ public class Checkout {
             		.extendedAddress(payment.getAddress2())
             		.locality(payment.getCity())
             		.region(payment.getRegion())
-            		.countryName(payment.getCountry())
+            		.countryCodeAlpha3(payment.getCountry())
             		.done()
             	.options()
-            	.storeInVault(payment.isSaveInfo())
-            	.addBillingAddressToPaymentMethod(payment.isSaveInfo())
-                .submitForSettlement(true)
-                .done();
+            		.storeInVault(payment.isSaveInfo())
+            		.addBillingAddressToPaymentMethod(payment.isSaveInfo())
+            		.submitForSettlement(true)
+            		.done();
 
         Result<Transaction> result = gateway.transaction().sale(request);
 

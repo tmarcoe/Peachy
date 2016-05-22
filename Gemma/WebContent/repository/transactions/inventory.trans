@@ -1,0 +1,21 @@
+/*******************************************************
+ * For purchase of inventory
+ *******************************************************/
+
+begin
+	string cash = "1000"; // Cash account
+	string inventory = "1003"; //Inventory account
+	
+	double amt = getAmount;	// Amount of purchase
+	double tax = getTax;	// Sales tax on inventory purchase
+	string desc = getDescription;	// Description of the ledger
+	double total  = amt + tax;		// Total amount sale + tax
+	
+	credit(total, cash);			// Credit the cash account
+	ledger(C, total, cash, desc);	// Record in the ledger
+	
+	debit(total, inventory);		// Debit the inventory account			
+	ledger(D, total, inventory, desc); //Record in the ledger
+	
+end
+	

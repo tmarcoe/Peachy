@@ -43,9 +43,6 @@ import com.gemma.web.dao.Inventory;
 import com.gemma.web.dao.InvoiceHeader;
 import com.gemma.web.dao.Returns;
 import com.gemma.web.dao.UserProfile;
-import com.gemma.web.email.Email;
-import com.gemma.web.email.MsgDisplay;
-import com.gemma.web.email.ProcessEmail;
 import com.gemma.web.service.AccountingService;
 import com.gemma.web.service.ChartOfAccountsService;
 import com.gemma.web.service.GeneralLedgerService;
@@ -609,22 +606,6 @@ public class AdminController implements Serializable {
 		model.addAttribute("headerList", headerList);
 		
 		return "admin";
-	}
-/*********************************************************************************************************************
- * Email
- *********************************************************************************************************************/
-	@RequestMapping("/checkemail")
-	public String checkEmail(Model model) {
-		ProcessEmail email = new ProcessEmail();
-		Email myEmail = new Email();
-		myEmail.setFrom("tmtmarcoe80@outlook.com");
-		myEmail.setPassword("In_heaven3");
-		
-		PagedListHolder<MsgDisplay> msgs = email.receiveEmail(myEmail);
-		
-		model.addAttribute("msgs", msgs);
-		
-		return "checkemail";
 	}
 /*********************************************************************************************************************
  * Pageination Handlers
