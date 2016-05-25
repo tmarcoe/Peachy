@@ -12,6 +12,7 @@ public class Payment {
 	private String	region;
 	private String	postal;
 	private String	country;
+	private String	username;
 	private boolean saveInfo;
 	
 	
@@ -68,6 +69,12 @@ public class Payment {
 	}
 	public void setCountry(String country) {
 		this.country = country;
+	}
+	public String getUsername() {
+		return username;
+	}
+	public void setUsername(String username) {
+		this.username = username;
 	}
 	public boolean isSaveInfo() {
 		return saveInfo;

@@ -31,9 +31,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.supercsv.io.CsvBeanWriter;
 import org.supercsv.prefs.CsvPreference;
 
-import com.braintreegateway.BraintreeGateway;
-import com.braintreegateway.ClientTokenRequest;
-import com.braintreegateway.exceptions.UnexpectedException;
 import com.gemma.web.beans.AddressLabel;
 import com.gemma.web.beans.FileLocations;
 import com.gemma.web.beans.FileUpload;
@@ -42,7 +39,6 @@ import com.gemma.web.dao.InvoiceContainer;
 import com.gemma.web.dao.InvoiceHeader;
 import com.gemma.web.dao.InvoiceItem;
 import com.gemma.web.dao.UserProfile;
-import com.gemma.web.payment.BraintreeGatewayFactory;
 import com.gemma.web.payment.Checkout;
 import com.gemma.web.payment.Payment;
 import com.gemma.web.service.AccountingService;
@@ -58,7 +54,6 @@ public class ShoppingCartController implements Serializable {
 	private static final long serialVersionUID = 4725326820861092920L;
 	private static Logger logger = Logger.getLogger(AccountingService.class
 			.getName());
-	private BraintreeGateway gateway;
 
 	@Autowired
 	private InvoiceService invoiceService;
@@ -174,7 +169,7 @@ public class ShoppingCartController implements Serializable {
 	@RequestMapping("/pcinfo")
 	public String processPayment(Principal principal, Model model)
 			throws SecurityException, IllegalArgumentException, IOException,
-			URISyntaxException, UnknownHostException, UnexpectedException {
+			URISyntaxException, UnknownHostException {
 		Payment payment = new Payment();
 		UserProfile user = userProfileService.getUser(principal.getName());
 		payment.setFirstName(user.getFirstname());
@@ -185,14 +180,8 @@ public class ShoppingCartController implements Serializable {
 		payment.setRegion(user.getregion());
 		payment.setPostal(user.getpostalCode());
 		payment.setCountry(user.getcountry());
-		gateway = BraintreeGatewayFactory.fromConfigFile(new File(new URI(
-				fileLocations.getPaymentConfig() + "braintree.properties")));
-		@SuppressWarnings("unused")
-		ClientTokenRequest clientTokenRequest = new ClientTokenRequest()
-				.customerId(principal.getName());
 
 		model.addAttribute("payment", payment);
-		model.addAttribute("clientToken", gateway.clientToken().generate());
 
 		return "pcinfo";
 	}
@@ -235,17 +224,16 @@ public class ShoppingCartController implements Serializable {
 	public String processShoppingCart(
 			@ModelAttribute("payment") Payment payment,
 			@ModelAttribute("payment_method_nonce") String nonce,
-			Principal principal, Model model) throws RecognitionException {
+			Principal principal, Model model) throws RecognitionException, URISyntaxException, IOException {
 
 		UserProfile user = userProfileService.getUser(principal.getName());
+		payment.setUsername(user.getUsername());
 		InvoiceHeader header = invoiceHeaderService.getOpenOrder(user
 				.getUserID());
 		Checkout checkout = new Checkout();
 		header = invoiceHeaderService.totalHeader(header);
 		header.setUserID(user.getUserID());
-		BigDecimal total = BigDecimal.valueOf(header.getTotal()
-				+ header.getTotalTax() + header.getShippingCost());
-		if (checkout.postForm(payment, gateway, total, nonce) == true) {
+		if (checkout.sevenConnect(header, payment) == true) {
 			logger.info("Processing shopping cart.");
 			try {
 				invoiceHeaderService.processShoppingCart(header);

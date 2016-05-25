@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.util.NestedServletException;
 
-import com.braintreegateway.exceptions.UnexpectedException;
 import com.gemma.web.service.AccountingService;
 
 @ControllerAdvice
@@ -49,7 +48,7 @@ public class ErrorHandler {
 	@ExceptionHandler(IOException.class)
 	public String handleIOException(IOException ex) {
 		logger.error("IOException: " + ex.getMessage());
-		return "error";
+		return "nointernet";
 	}
 	
 	@ExceptionHandler(MessagingException.class)
@@ -78,10 +77,5 @@ public class ErrorHandler {
 	public String handleURISyntaxException(URISyntaxException e) {
 		logger.error("URISyntaxException: " + e.getMessage());
 		return "error";
-	}
-	@ExceptionHandler(UnexpectedException.class)
-	public String handleUnexpectedException(UnexpectedException e) {
-		logger.error("UnexpectedException: " + e.getMessage());
-		return "nointernet";
 	}
 }

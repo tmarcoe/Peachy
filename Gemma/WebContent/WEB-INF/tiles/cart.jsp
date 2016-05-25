@@ -170,7 +170,7 @@
 			</c:if>
 		</tfoot>
 	</table>
-	<img src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/cc-badges-ppmcvdam.png" alt="Buy now with PayPal" />
+	<img src="${pageContext.request.contextPath}/static/images/web/7-eleven-130px.png" alt="Buy with 7-11 Connect" />
 </sf:form>
 <script type="text/javascript">
 	function rowRemoved(row) {
