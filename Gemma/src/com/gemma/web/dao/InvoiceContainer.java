@@ -42,6 +42,5 @@ public class InvoiceContainer {
 	public void setInvoiceList(List<InvoiceItem> invoiceList) {
 		this.invoiceList = invoiceList;
 	}
-	
 
 }

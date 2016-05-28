@@ -386,6 +386,7 @@ tfoot.tablefooter td
 	color: #000000;
 	font-size: 12px;
 	font-weight: 900;
+	text-align: right;
 }
 .viewledger
 {
@@ -483,9 +484,22 @@ table.ordertable th
 {
 	border-collapse: collapse;
 }
+.invoicetable td:nth-child(6), td:nth-child(7)
+{
+	text-align: right;
+}
+.invoicetable td:nth-child(7)
+{
+	text-align: right;
+}
 .invoicetable td
 {
-	text-align: right;	
+	text-align: left;	
+	padding: 0 1em;
+
+}
+.invoiceheade td
+{
 	padding: 0 1em;
 
 }
@@ -497,9 +511,10 @@ table.invoicetable tr:nth-child(even)
 {
 	background: #fbfbff;
 }
-table.invoicetable th
+.invoicehead td
 {
 	background: #f5f3c2;
+	font-weight: bold;
 }
 
 .inventorytable 
@@ -696,4 +711,8 @@ table.returns-status td, th {
 .emailtable th
 {
 	background: #f5f3c2;
+}
+.paymentRadio
+{
+	display: block;
 }

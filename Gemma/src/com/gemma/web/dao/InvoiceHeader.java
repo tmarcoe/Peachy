@@ -25,6 +25,7 @@ public class InvoiceHeader {
 	private double totalTax;
 	private float shippingCost;
 	private double addedCharges;
+	private String paymentType;
 	private boolean pod;
 	private Date modified;
 	private Date processed;
@@ -72,6 +73,12 @@ public class InvoiceHeader {
 	}
 	public void setAddedCharges(double addedCharges) {
 		this.addedCharges = addedCharges;
+	}
+	public String getPaymentType() {
+		return paymentType;
+	}
+	public void setPaymentType(String paymentType) {
+		this.paymentType = paymentType;
 	}
 	public boolean isPod() {
 		return pod;

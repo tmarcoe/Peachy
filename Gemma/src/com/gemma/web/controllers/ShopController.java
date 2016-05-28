@@ -132,10 +132,10 @@ public class ShopController implements Serializable {
 		logger.info("'" + item.getSkuNum() + "' was just added to the shopping cart.");
 
 		List<InvoiceItem> invoiceList = invoiceService.getInvoice(header);
-		InvoiceContainer invoice = new InvoiceContainer(header,invoiceList );
-		
+		InvoiceContainer invoice = new InvoiceContainer(header, invoiceList);
 		
 		model.addAttribute("invoice", invoice);
+		
 		return "cart";
 	}
 	

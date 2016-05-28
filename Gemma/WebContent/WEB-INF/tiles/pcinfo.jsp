@@ -32,15 +32,14 @@
 				<tr>
 					<td>City</td>
 					<td>Region</td>
+					<td>Postal Code</td>
 					<td>Country</td>
 				</tr>
 				<tr>
 					<td><sf:input type="text" path="city" /></td>
 					<td><sf:input type="text" path="region" /></td>
-					<td><sf:input type="text" path="country" size="3" maxlength="3" />
-					<td>Save Payment Card? </td>
-					<td><input type="hidden" value="on" name="_active"/>
-					<sf:checkbox path="saveInfo" /></td>
+					<td><sf:input type="text" path="postal" /></td>
+					<td><sf:input type="text" path="country" size="3" maxlength="3" /></td>
 				</tr>
 				<tr><td>&nbsp;</td></tr>
 				<tr><td>&nbsp;</td></tr>
@@ -52,9 +51,7 @@
 					<div id="bt-dropin"></div>
 				</div>
 			</section>
-			<button class="button" type="submit">
-				<span><img src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/buy-logo-small.png" alt="Buy now with PayPal" /></span>
-			</button>
+			<button type="submit" >Submit</button>
 			<input id="cToken" type="hidden" value="${clientToken}" />
 		</sf:form>
 	</div>

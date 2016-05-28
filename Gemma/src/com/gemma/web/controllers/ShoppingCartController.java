@@ -5,10 +5,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Serializable;
 import java.io.Writer;
-import java.math.BigDecimal;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.UnknownHostException;
 import java.security.Principal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -16,7 +14,6 @@ import java.util.List;
 
 import javax.validation.Valid;
 
-import org.antlr.v4.runtime.RecognitionException;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -39,8 +36,6 @@ import com.gemma.web.dao.InvoiceContainer;
 import com.gemma.web.dao.InvoiceHeader;
 import com.gemma.web.dao.InvoiceItem;
 import com.gemma.web.dao.UserProfile;
-import com.gemma.web.payment.Checkout;
-import com.gemma.web.payment.Payment;
 import com.gemma.web.service.AccountingService;
 import com.gemma.web.service.GeneralLedgerService;
 import com.gemma.web.service.InventoryService;
@@ -96,7 +91,7 @@ public class ShoppingCartController implements Serializable {
 		}
 		List<InvoiceItem> invoiceList = invoiceService.getInvoice(header);
 		InvoiceContainer invoice = new InvoiceContainer(header, invoiceList);
-
+		
 		model.addAttribute("invoice", invoice);
 
 		return "cart";
@@ -129,6 +124,7 @@ public class ShoppingCartController implements Serializable {
 		if (header == null) {
 			return "nocart";
 		}
+
 		List<InvoiceItem> invoiceList = invoiceService.getInvoice(header);
 		InvoiceContainer invoice = new InvoiceContainer(header, invoiceList);
 
@@ -139,6 +135,7 @@ public class ShoppingCartController implements Serializable {
 
 	@RequestMapping("/cart")
 	public String showCart(Principal principal, Model model) {
+
 		UserProfile user = userProfileService.getUser(principal.getName());
 		InvoiceHeader header = invoiceHeaderService.getOpenOrder(user
 				.getUserID());
@@ -147,6 +144,8 @@ public class ShoppingCartController implements Serializable {
 		}
 		List<InvoiceItem> invoiceList = invoiceService.getInvoice(header);
 		InvoiceContainer invoice = new InvoiceContainer(header, invoiceList);
+		
+
 
 		model.addAttribute("invoice", invoice);
 
@@ -159,31 +158,11 @@ public class ShoppingCartController implements Serializable {
 		InvoiceHeader header = invoiceHeaderService
 				.getInvoiceHeader(invoiceNum);
 		List<InvoiceItem> invoiceList = invoiceService.getInvoice(header);
-		InvoiceContainer invoice = new InvoiceContainer(header, invoiceList);
 
+		InvoiceContainer invoice = new InvoiceContainer(header, invoiceList);
 		model.addAttribute("invoice", invoice);
 
 		return "cart";
-	}
-
-	@RequestMapping("/pcinfo")
-	public String processPayment(Principal principal, Model model)
-			throws SecurityException, IllegalArgumentException, IOException,
-			URISyntaxException, UnknownHostException {
-		Payment payment = new Payment();
-		UserProfile user = userProfileService.getUser(principal.getName());
-		payment.setFirstName(user.getFirstname());
-		payment.setLastName(user.getLastname());
-		payment.setAddress1(user.getaddress1());
-		payment.setAddress2(user.getaddress2());
-		payment.setCity(user.getcity());
-		payment.setRegion(user.getregion());
-		payment.setPostal(user.getpostalCode());
-		payment.setCountry(user.getcountry());
-
-		model.addAttribute("payment", payment);
-
-		return "pcinfo";
 	}
 
 	@RequestMapping("/editcart")
@@ -194,63 +173,6 @@ public class ShoppingCartController implements Serializable {
 		model.addAttribute("item", item);
 
 		return "editcart";
-	}
-
-	@RequestMapping("/pod")
-	public String paymentOnDelivery(Principal principal, Model model) {
-		UserProfile user = userProfileService.getUser(principal.getName());
-		InvoiceHeader header = invoiceHeaderService.getOpenOrder(user
-				.getUserID());
-		if (header == null) {
-			return "nocart";
-		}
-		header = invoiceHeaderService.totalHeader(header);
-		header.setPod(true);
-		header.setAddedCharges((header.getTotal() * .1));
-
-		try {
-			logger.info("Processing shopping cart.");
-			invoiceHeaderService.podProcessShoppingCart(header);
-		} catch (IOException | RuntimeException e) {
-			return "error";
-		}
-
-		model.addAttribute("invoiceHeader", header);
-
-		return "thankyou";
-	}
-
-	@RequestMapping("/processcart")
-	public String processShoppingCart(
-			@ModelAttribute("payment") Payment payment,
-			@ModelAttribute("payment_method_nonce") String nonce,
-			Principal principal, Model model) throws RecognitionException, URISyntaxException, IOException {
-
-		UserProfile user = userProfileService.getUser(principal.getName());
-		payment.setUsername(user.getUsername());
-		InvoiceHeader header = invoiceHeaderService.getOpenOrder(user
-				.getUserID());
-		Checkout checkout = new Checkout();
-		header = invoiceHeaderService.totalHeader(header);
-		header.setUserID(user.getUserID());
-		if (checkout.sevenConnect(header, payment) == true) {
-			logger.info("Processing shopping cart.");
-			try {
-				invoiceHeaderService.processShoppingCart(header);
-			} catch (IOException | RuntimeException e) {
-				return "error";
-			}
-		} else {
-			return "pcdenied";
-		}
-		model.addAttribute("invoiceHeader", header);
-
-		return "thankyou";
-	}
-
-	@RequestMapping("/pcdenied")
-	public String showPcDenied() {
-		return "pcdenied";
 	}
 
 	@RequestMapping("/filepicker")

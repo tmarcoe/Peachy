@@ -13,6 +13,7 @@ public class Payment {
 	private String	postal;
 	private String	country;
 	private String	username;
+	private String paymentType;
 	private boolean saveInfo;
 	
 	
@@ -81,6 +82,12 @@ public class Payment {
 	}
 	public void setSaveInfo(boolean saveInfo) {
 		this.saveInfo = saveInfo;
+	}
+	public String getPaymentType() {
+		return paymentType;
+	}
+	public void setPaymentType(String paymentType) {
+		this.paymentType = paymentType;
 	}
 	
 	
