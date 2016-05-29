@@ -3,17 +3,14 @@
   ********************************************************/
 
 begin
-	double commisionPercentage = 20.0%; // Fixed percentage on commision
 
 	string cash = "1000";		// Cash account
 	string sales = "1009";		// Sales account
 	string taxAcc = "1010";		// Sales Tax account
-	string commision = "1011";	// Sales commision account
 	
 	double amt = getAmount;		// Amount without tax
-	amt += getAddedCharges;
+	amt += getAddedCharges;		// Get any additional charges
 	double tax = getTax;		// Sales tax
-	double commAmt = amt * commisionPercentage; // Commisiion amount
 	double total = amt + tax;	// Amount + tax
 
 
@@ -22,19 +19,14 @@ begin
 	 *****************************************************************/
 	string desc = getDescription;
 	string cashDesc = desc + " total with tax";
-	string salesDesc = desc + " without tax, and minus commision";
-	string commDesc = desc + " commision";
+	string salesDesc = desc + " without tax";
 	string taxDesc = desc + " tax";
 			
 	debit(total, cash);					// Debit Cash
 	ledger(D, total, cash, cashDesc);	// Ledger it
 	
-	amt -= commAmt;						// Subtract out the commision
 	credit(amt, sales);					// Credit sales the amount
 	ledger(C, amt, sales, salesDesc);	// Ledger it
-	
-	credit(commAmt, commision);			// Credit the commision amount
-	ledger(C, commAmt, commision, commDesc);	// Ledger it
 	
 	credit(tax, taxAcc);				// Credit tax
 	ledger(C, tax, taxAcc, taxDesc);	// Ledger it

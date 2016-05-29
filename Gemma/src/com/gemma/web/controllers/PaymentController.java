@@ -51,7 +51,7 @@ public class PaymentController {
 
 	private BraintreeGateway gateway;
 
-	private static Logger logger = Logger.getLogger(AccountingService.class
+	private static Logger logger = Logger.getLogger(PaymentController.class
 			.getName());
 
 	@RequestMapping("/pcinfo")
@@ -64,7 +64,7 @@ public class PaymentController {
 		Payment payment = new Payment();
 		UserProfile user = userProfileService.getUser(principal.getName());
 		Checkout checkout = new Checkout();
-		payment.setPaymentType("7-connect");
+		payment.setPaymentType("braintree");
 		
 		header = invoiceHeaderService.getOpenOrder(user.getUserID());
 		switch (payment.getPaymentType()) {

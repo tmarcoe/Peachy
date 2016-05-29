@@ -32,13 +32,11 @@
 				<tr>
 					<td>City</td>
 					<td>Region</td>
-					<td>Postal Code</td>
 					<td>Country</td>
 				</tr>
 				<tr>
 					<td><sf:input type="text" path="city" /></td>
 					<td><sf:input type="text" path="region" /></td>
-					<td><sf:input type="text" path="postal" /></td>
 					<td><sf:input type="text" path="country" size="3" maxlength="3" /></td>
 				</tr>
 				<tr><td>&nbsp;</td></tr>

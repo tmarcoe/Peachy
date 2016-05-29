@@ -115,7 +115,7 @@
 					<td colspan="3"><input type="button" value="Continue Shopping"
 						onclick="followLink('/pickcategory')" /></td>
 				</tr>
-				<tr>
+				<!-- <tr>
 					<td><img alt="7-connect"
 						src="/static/images/web/paymethods_logo.png"> <input
 						type="radio" name="invoiceHeader.paymentType" value="7-connect" />
@@ -125,7 +125,7 @@
 						type="radio" name="invoiceHeader.paymentType" value="braintree" />
 					</td>
 					<td colspan="9">&nbsp;</td>
-				</tr>
+				</tr> -->
 			</c:if>
 		</tfoot>
 	</table>
