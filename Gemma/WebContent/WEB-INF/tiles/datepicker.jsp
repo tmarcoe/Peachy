@@ -18,7 +18,17 @@
 			<td><sf:input type="date" path="end"  format="yyyy-MM-dd" /></td>
 		</tr>
 		<tr>
+			<td><div class="error"><sf:errors path="start" /></div></td>
+			<td><div class="error"><sf:errors path="end" /></div></td>
+		</tr>
+		<tr>
 			<td><input type="submit" value="View Ledger" ></td>
+			<td><button type="button" onclick="followLink('/admin')">Cancel</button></td>
 		</tr>
 	</table>
 </sf:form>
+<script type="text/javascript">
+function followLink(link) {
+	window.location.href = "${pageContext.request.contextPath}" + link;
+}
+</script>

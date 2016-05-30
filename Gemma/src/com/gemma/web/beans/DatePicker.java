@@ -3,8 +3,12 @@ package com.gemma.web.beans;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javax.validation.constraints.NotNull;
+
 public class DatePicker {
+	@NotNull
 	private Date start;
+	@NotNull
 	private Date end;
 	private SimpleDateFormat sf;
 	

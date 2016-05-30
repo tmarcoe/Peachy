@@ -24,6 +24,11 @@
 					<td>${item.getSubject()}</td>
 				</tr>
 			</c:forEach>
+			<tfoot class="tablefooter">
+				<tr>
+					<td colspan="2"><button type="button" onclick="followLink('/admin');">Back</button>
+				</tr>
+			</tfoot>
 		</table>
 		<div class="paging">
 			<c:if test="${msgs.getPageCount()> 1}">
@@ -55,3 +60,8 @@
 		<h1>No Email</h1>
 	</c:otherwise>
 </c:choose>
+<script type="text/javascript">
+	function followLink(link) {
+		window.location.href = "${pageContext.request.contextPath}" + link;
+	}
+</script>

@@ -6,7 +6,7 @@
 	uri="http://www.springframework.org/security/tags"%>
 
 <sf:form id="details" method="post"
-	action="${pageContext.request.contextPath}/updateuser"
+	action="${pageContext.request.contextPath}/saveuser"
 	commandName="userProfile">
 	<table class="signup">
 		<thead>
@@ -143,6 +143,7 @@
 		</tr>
 		<tr>
 			<td><input type="submit" value="Submit" /></td>
+			<td><button type="button" onclick="followLink('/users')">Cancel</button>
 		</tr>
 		<sec:authorize access="hasRole('ROLE_ADMIN')">
 			<tr>
@@ -165,3 +166,8 @@
 		<sf:hidden path="authority" />
 	</sec:authorize>
 </sf:form>
+<script type="text/javascript">
+function followLink(link) {
+	window.location.href = "${pageContext.request.contextPath}" + link;
+}
+</script>

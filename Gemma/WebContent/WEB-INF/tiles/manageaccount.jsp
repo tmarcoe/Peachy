@@ -30,10 +30,16 @@
 					<td><a href="#" onclick="getDetail(${i.index});" class="inventorydetail"><img alt="[Show Detail]" src="<c:url value='/static/images/web/edit.jpg' />"></a></td>
 				</tr>
 			</c:forEach>
+			<tr>
+				<td>
+					<button type="button" onclick="followLink('/addaccount')">+New</button>
+				</td>
+				<td>
+					<button type="button" onclick="followLink('/admin')">Back</button>
+				</td>
+			</tr>
 		</tbody>
 	</table>
-            
-	<a href="${pageContext.request.contextPath}/addaccount">Add Account</a>&nbsp;&nbsp;
 	</sf:form>
 
 <script type="text/javascript">
@@ -51,6 +57,9 @@
 		var column = (row * 2);
 		var key = inputs[column].value;
 		window.location.href = "${pageContext.request.contextPath}/accountdetail?detailKey=" + key;	
+	}
+	function followLink(link) {
+		window.location.href = "${pageContext.request.contextPath}" + link;
 	}
  
  

@@ -47,10 +47,12 @@
 						src="<c:url value='/static/images/web/edit.jpg' />"></a></td>
 			</tr>
 		</c:forEach>
-
+		<tfoot>
+			<tr>
+				<td colspan="10"><button type="button" onclick="followLink('/admin');">Back</button></td>
+			</tr>
+		</tfoot>
 	</table>
-
-
 </form:form>
 <div class="paging">
 	<c:if test="${userList.getPageCount()>1}">
@@ -97,5 +99,8 @@
 		var key = inputs[column].value;
 		window.location.href = "${pageContext.request.contextPath}/userdetails?detailKey="
 				+ key;
+	}
+	function followLink(link) {
+		window.location.href = "${pageContext.request.contextPath}" + link;
 	}
 </script>

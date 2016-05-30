@@ -11,8 +11,14 @@
 		</tr>
 		<tr>
 			<td><input type="submit" value="Continue" /></td>
+			<td><button type="button" onclick="followLink('/admin')"></button>
 		</tr>
 	</table>
 
 
 </sf:form>
+<script type="text/javascript">
+function followLink(link) {
+	window.location.href = "${pageContext.request.contextPath}" + link;
+}
+</script>

@@ -26,11 +26,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.gemma.web.beans.DatePicker;
@@ -470,6 +472,11 @@ public class AdminController implements Serializable {
 	public String partialUpdate(
 			@ModelAttribute("userProfile") UserProfile userProfile, Model model) {
 		userProfileService.partialUpdate(userProfile);
+		userList = userProfileService.getPagedList();
+		userList.setPageSize(10);
+		userList.setPage(0);
+
+		model.addAttribute("userList", userList);
 		return "users";
 	}
 /************************************************************************************
@@ -519,7 +526,7 @@ public class AdminController implements Serializable {
  *************************************************************************************/
 
 	@RequestMapping("/datepicker")
-	public String pickDate(Model model) {
+	public String pickDate(@Validated Model model) {
 		DatePicker datePicker = new DatePicker();
 		
 		model.addAttribute("datePicker", datePicker);
@@ -527,13 +534,16 @@ public class AdminController implements Serializable {
 		return "datepicker";
 	}
 	
-	@RequestMapping("/generalledger")
-	public String viewGeneralLedger(@ModelAttribute("datePicker") DatePicker picker, Model model) {
-
+	@RequestMapping(value="/generalledger", method = RequestMethod.POST)
+	public String viewGeneralLedger(@Validated @ModelAttribute(value="datePicker") DatePicker picker, Model model, BindingResult result) {
+		if (result.hasErrors()) {
+			return "datepicker";
+		}
+		
 		picker.setSf(dateFormat);
 		ledgerList = generalLedgerService.getPagedList(picker);
 		ledgerList.setPage(0);
-		ledgerList.setPageSize(25);
+		ledgerList.setPageSize(20);
 
 		model.addAttribute("ledgerList", ledgerList);
 		

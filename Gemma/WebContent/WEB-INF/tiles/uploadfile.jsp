@@ -9,6 +9,12 @@
 		</tr>
 		<tr>
 			<td><input type="submit" value="Upload File" /></td>
+			<td><button type="button" onclick="followLink('/manageinventory')">Cancel</button></td>
 		</tr>
 	</table>
 </sf:form>
+<script type="text/javascript">
+function followLink(link) {
+	window.location.href = "${pageContext.request.contextPath}" + link;
+}
+</script>

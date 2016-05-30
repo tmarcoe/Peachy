@@ -19,7 +19,8 @@
 
 		<tbody>
 
-			<c:forEach items="${inventory.pageList}" var="item" varStatus="i" begin="0">
+			<c:forEach items="${inventory.pageList}" var="item" varStatus="i"
+				begin="0">
 				<tr class="account">
 					<td>${item.productName}</td>
 					<td>${item.onSale}</td>
@@ -35,10 +36,20 @@
 				</tr>
 			</c:forEach>
 		</tbody>
+		<tfoot>
+			<tr>
+				<td colspan="7">&nbsp;</td>
+			</tr>
+
+			<tr>
+				<td><button type="button" onclick="followLink('/uploadfile')">Add Product</button>
+				<td><button type="button" onclick="followLink('/admin')">Back</button></td>
+			</tr>
+		</tfoot>
 	</table>
 
-	<a href="${pageContext.request.contextPath}/uploadfile">Add Product</a>&nbsp;&nbsp;
-	</sf:form>
+
+</sf:form>
 <c:if test="${inventory.getPageCount() > 1}">
 	<div class="paging">
 		<c:if test="${inventory.isFirstPage()==false}">
@@ -81,6 +92,9 @@
 		var column = (row * 2);
 		var key = inputs[column].value;
 		window.location.href = "${pageContext.request.contextPath}/inventorydetails?InventoryKey=" + key;	
+	}
+	function followLink(link) {
+		window.location.href = "${pageContext.request.contextPath}" + link;
 	}
  
 </script>

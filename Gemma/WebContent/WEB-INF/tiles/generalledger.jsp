@@ -44,6 +44,9 @@
 			</tr>
 		</c:forEach>
 	</tbody>
+	<tfoot class="tablefooter">
+		<tr><td><button type="button" onclick="followLink('/admin')">OK</button></td></tr>
+	</tfoot>
 </table>
 <c:if test="${ledgerList.getPageCount() > 1}">
 	<div class="paging">
@@ -70,3 +73,8 @@
 		</c:if>
 	</div>
 </c:if>
+<script type="text/javascript">
+function followLink(link) {
+	window.location.href = "${pageContext.request.contextPath}" + link;
+}
+</script>

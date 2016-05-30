@@ -41,7 +41,14 @@ method="post" commandName="chartOfAccounts">
 			</tr>
 			<tr>
 				<td><input type="submit" value="Add Account" /></td>
+				<td><button type="button" onclick="followLink('/manageaccount')">Cancel</button>
 			</tr>
 		</table>
 	</div>
 </sf:form>
+<script type="text/javascript">
+function followLink(link) {
+	window.location.href = "${pageContext.request.contextPath}" + link;
+}
+
+</script>
