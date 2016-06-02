@@ -198,6 +198,8 @@ public class ShoppingCartController implements Serializable {
 	public String showShoppingHistory(Principal principal, Model model) {
 		UserProfile user = userProfileService.getUser(principal.getName());
 		historyList = invoiceHeaderService.getHistory(user.getUserID());
+		historyList.setPageSize(15);
+		historyList.setPage(0);
 		model.addAttribute("historyList", historyList);
 		
 		return "shoppinghistory";

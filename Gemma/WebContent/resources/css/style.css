@@ -425,6 +425,7 @@ table.viewheader td
 .viewheader
 {
 	border-collapse: collapse;
+	font-size: 12px;
 }
 .viewheader th
 {
@@ -483,6 +484,7 @@ table.ordertable th
 .invoicetable 
 {
 	border-collapse: collapse;
+	font-size: 12px;
 }
 .invoicetable td:nth-child(6), td:nth-child(7)
 {
@@ -710,6 +712,8 @@ table.pcinfoTable td, th{
 .shoppingtable
 {
 	border-collapse: collapse;
+	font-size: 12px;
+	
 }
 .shoppingtable tr:nth-child(odd)
 {
@@ -730,4 +734,7 @@ table.pcinfoTable td, th{
 .shoppingtable td, th
 {
 	text-align: right;
+	padding: .5em;
+	
 }
+

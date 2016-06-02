@@ -19,7 +19,7 @@
 		</tr>
 		<tr>
 			<td><img alt="Image Not Available"
-				src="<c:url value='${fileLoc}${invoiceItem.image}' />" width="200"></td>
+				src="<c:url value='${fileLoc}${invoiceItem.image}' />" width="150"></td>
 			<td>${invoiceItem.description}</td>
 			<td><fmt:formatNumber type='currency' currencySymbol='P'
 					value='${invoiceItem.price}' /></td>

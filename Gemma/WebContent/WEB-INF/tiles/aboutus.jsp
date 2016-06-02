@@ -3,4 +3,4 @@
 We have always stood for those values and we know that you will see the difference. Thank you for giving us a chance
 to prove ourselves and for being a part of our family business. Sit back, relax and enjoy this new shopping experience.
 </p>
-<br/>know that you will be back.
+<br/>We know that you will be back.

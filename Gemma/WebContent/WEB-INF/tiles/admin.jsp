@@ -32,7 +32,7 @@
 						<tr>
 							<td>${invNum}</td>
 							<td>${stdate}</td>
-							<td>${userID}</td>
+							<td>${item.userID}</td>
 							<td>${total}</td>
 							<td><a href="viewcart?invoiceNum=${item.invoiceNum}"><img
 									alt="[View]"

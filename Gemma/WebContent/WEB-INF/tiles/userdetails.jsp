@@ -143,7 +143,9 @@
 		</tr>
 		<tr>
 			<td><input type="submit" value="Submit" /></td>
-			<td><button type="button" onclick="followLink('/users')">Cancel</button>
+			<sec:authorize access="hasRole('ROLE_ADMIN')">
+				<td><button type="button" onclick="followLink('/users')">Cancel</button>
+			</sec:authorize>
 		</tr>
 		<sec:authorize access="hasRole('ROLE_ADMIN')">
 			<tr>

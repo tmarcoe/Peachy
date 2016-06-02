@@ -7,7 +7,7 @@
 		<table class="shoppingtable">
 			<tr>
 				<th>Invoice #</th>
-				<th>Price</th>
+				<th>Grand Total</th>
 				<th>Purchased On</th>
 				<th>Processed On</th>
 			</tr>

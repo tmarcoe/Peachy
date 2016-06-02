@@ -94,7 +94,7 @@ public class ShopController implements Serializable {
 		}
 		
 		inventoryList = inventoryService.getPagedList(categories);
-		inventoryList.setPageSize(4);
+		inventoryList.setPageSize(6);
 		inventoryList.setPage(0);
 		model.addAttribute("inventoryList",inventoryList);
 
@@ -159,7 +159,7 @@ public class ShopController implements Serializable {
 			categories.setCategory("");
 			categories.setSubCategory("");
 			inventoryList = inventoryService.getPagedList(categories);
-			inventoryList.setPageSize(4);
+			inventoryList.setPageSize(6);
 			inventoryList.setPage(0);
 			model.addAttribute("inventoryList",inventoryList);
 			model.addAttribute("fileLoc", fileLoc);
@@ -181,7 +181,7 @@ public class ShopController implements Serializable {
 		categories.setSubCategory(cat);
 		inventoryList = inventoryService.getPagedList(categories);
 
-		inventoryList.setPageSize(4);
+		inventoryList.setPageSize(6);
 		inventoryList.setPage(0);
 		model.addAttribute("inventoryList",inventoryList);
 		
