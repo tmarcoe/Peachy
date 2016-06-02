@@ -313,6 +313,12 @@
 		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/nointernet.jsp"></put-attribute>
 	</definition>
+	<definition name="shoppinghistory" extends="gemma.base">
+		<put-attribute name="heading_title" value="Purchase History"></put-attribute>
+		<put-attribute name="title" value="History"></put-attribute>
+		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/shoppinghistory.jsp"></put-attribute>
+	</definition>
 </tiles-definitions>
 
 

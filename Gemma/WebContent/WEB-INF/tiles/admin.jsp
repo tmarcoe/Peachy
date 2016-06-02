@@ -25,11 +25,12 @@
 						</tr>
 					</thead>
 					<c:forEach var="item" items="${headerList.pageList}">
+						<fmt:formatNumber type="number" pattern="00000000" value="${item.invoiceNum}" var="invNum"/>
 						<fmt:formatNumber type="currency" currencySymbol="P"
 							value="${item.total + item.totalTax + item.shippingCost + item.addedCharges}" var="total" />
 						<fmt:formatDate value="${item.modified}" var="stdate" />
 						<tr>
-							<td>${item.invoiceNum}</td>
+							<td>${invNum}</td>
 							<td>${stdate}</td>
 							<td>${userID}</td>
 							<td>${total}</td>

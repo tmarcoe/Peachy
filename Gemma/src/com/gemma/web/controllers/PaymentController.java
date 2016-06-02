@@ -25,7 +25,6 @@ import com.gemma.web.dao.UserProfile;
 import com.gemma.web.payment.BraintreeGatewayFactory;
 import com.gemma.web.payment.Checkout;
 import com.gemma.web.payment.Payment;
-import com.gemma.web.service.AccountingService;
 import com.gemma.web.service.InventoryService;
 import com.gemma.web.service.InvoiceHeaderService;
 import com.gemma.web.service.InvoiceService;

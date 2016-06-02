@@ -8,6 +8,7 @@ import org.antlr.v4.runtime.RecognitionException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.support.PagedListHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -120,6 +121,14 @@ public class InvoiceHeaderDao {
 		header.setProcessed(new Date());
 		updateHeader(header);
 		
+	}
+
+	@SuppressWarnings("unchecked")
+	public PagedListHolder<InvoiceHeader> getHistory(int userID) {
+		String hql = "from InvoiceHeader where userID = :userID";
+		
+		return new PagedListHolder<InvoiceHeader>(session().createQuery(hql).setInteger("userID", userID).list());
+
 	}
 
 }

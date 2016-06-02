@@ -707,3 +707,27 @@ table.pcinfoTable td, th{
 {
 	display: block;
 }
+.shoppingtable
+{
+	border-collapse: collapse;
+}
+.shoppingtable tr:nth-child(odd)
+{
+	background: #dedbee;
+}
+.shoppingtable tr:nth-child(even)
+{
+	background: #fbfbff;
+}
+.shoppingtable th
+{
+	background: #f5f3c2;
+}
+.shoppingtable tr
+{
+	text-align: right;
+}
+.shoppingtable td, th
+{
+	text-align: right;
+}

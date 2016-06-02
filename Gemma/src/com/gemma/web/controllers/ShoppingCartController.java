@@ -12,11 +12,14 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.beans.support.PagedListHolder;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,6 +28,8 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 import org.supercsv.io.CsvBeanWriter;
 import org.supercsv.prefs.CsvPreference;
 
@@ -67,12 +72,17 @@ public class ShoppingCartController implements Serializable {
 
 	@Autowired
 	private FileLocations fileLocations;
+	
+	private PagedListHolder<InvoiceHeader> historyList;
+	
+	private SimpleDateFormat dateFormat;
 
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		sdf.setLenient(true);
-		binder.registerCustomEditor(Date.class, new CustomDateEditor(sdf, true));
+		dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		dateFormat.setLenient(false);
+		binder.registerCustomEditor(Date.class, new CustomDateEditor(
+				dateFormat, false));
 	}
 
 	@RequestMapping("/saveitem")
@@ -183,7 +193,16 @@ public class ShoppingCartController implements Serializable {
 
 		return "filepicker";
 	}
-
+	
+	@RequestMapping("/shoppinghistory")
+	public String showShoppingHistory(Principal principal, Model model) {
+		UserProfile user = userProfileService.getUser(principal.getName());
+		historyList = invoiceHeaderService.getHistory(user.getUserID());
+		model.addAttribute("historyList", historyList);
+		
+		return "shoppinghistory";
+	}
+	
 	@RequestMapping("/processorders")
 	public String processOrders() throws IOException, URISyntaxException {
 		AddressLabel lbl = new AddressLabel();
@@ -266,4 +285,60 @@ public class ShoppingCartController implements Serializable {
 
 		return "admin";
 	}
+/********************************************************************************************************
+ * Pagination Handlers
+ ********************************************************************************************************/
+	@RequestMapping(value="/historypaging", method=RequestMethod.GET)
+	public ModelAndView handleHostoryRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+		int pgNum;
+	    String keyword = request.getParameter("keyword");
+	    if (keyword != null) {
+	        historyList.setPageSize(4);
+	        request.getSession().setAttribute("SearchProductsController_productList", historyList);
+	        ModelAndView model = new ModelAndView("shoppinghistory");
+	        model.addObject("historyList", historyList);
+
+	        return model;
+	    }
+	    else {
+	        String page = request.getParameter("page");
+	        
+	        pgNum = isInteger(page);
+	        
+	        if ("next".equals(page)) {
+	        	historyList.nextPage();
+	        }
+	        else if ("prev".equals(page)) {
+	        	historyList.previousPage();
+	        }else if (pgNum != -1) {
+	        	historyList.setPage(pgNum);
+	        }
+	        
+	       
+	        ModelAndView model = new ModelAndView("shoppinghistory");
+	        model.addObject("historyList", historyList);
+	        
+	        return model;
+	    }
+	}
+
+	
+	
+	
+	
+	private int isInteger(String s) {
+		int retInt;
+	    try { 
+	    	retInt = Integer.parseInt(s); 
+	    } catch(NumberFormatException e) { 
+	        return -1; 
+	    } catch(NullPointerException e) {
+	        return -1;
+	    }
+	    // only got here if we didn't return false
+	    return retInt;
+	}
+
+	
 }

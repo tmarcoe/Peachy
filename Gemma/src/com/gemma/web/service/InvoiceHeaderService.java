@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.antlr.v4.runtime.RecognitionException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.support.PagedListHolder;
 import org.springframework.stereotype.Service;
 
 import com.gemma.web.dao.InvoiceHeader;
@@ -24,7 +25,9 @@ public class InvoiceHeaderService {
 		
 		return invoiceHeaderDao.getOpenOrder(userID);
 	}
-
+	public PagedListHolder<InvoiceHeader> getHistory(int userID) {
+		return invoiceHeaderDao.getHistory(userID);
+	}
 
 	public InvoiceHeader getInvoiceHeader(int invoiceNum) {
 		return invoiceHeaderDao.getInvoiceHeader(invoiceNum);
