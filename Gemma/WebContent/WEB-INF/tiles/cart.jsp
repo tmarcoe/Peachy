@@ -2,6 +2,13 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<script>
+$(document).ready(function(){
+	alert("This site is currently in beta and not accepting orders." + 
+		  "\nHowever, you are welcome to register and browse the products." + 
+		  "\nKeep in mind that the inventory might change.");
+});
+</script>
 
 <sf:form method="post"
 	action="${pageContext.request.contextPath}/pcinfo">

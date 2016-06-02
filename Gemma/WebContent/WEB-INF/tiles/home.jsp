@@ -7,7 +7,13 @@
 <div class="pageheading">
 	<h2>Daily Specials</h2>
 </div>
-
+<script>
+$(document).ready(function(){
+	alert("This site is currently in beta and not accepting orders." + 
+		  "\nHowever, you are welcome to register and browse the products." + 
+		  "\nKeep in mind that the inventory might change.");
+});
+</script>
 <c:if test="${inventory.size() > 0}">
 	<table class="dailyspecials">
 

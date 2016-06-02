@@ -10,8 +10,7 @@
 
 	<bean id="fileLocations"
 		class="com.gemma.web.beans.FileLocations">
-	<property name="imageLoc"
-		value="file:///C:/Users/Timothy%20Marcoe/WebSite%20Archive/Gemma/WebContent/resources/repository/Images/">
+	<property name="imageLoc" value="file:///c:/Repository/Images/">
 	</property>
 	<property name="outPath"
 		value="file:///C:/Users/Timothy%20Marcoe/WebSite%20Archive/Gemma/WebContent/resources/repository/shipping/">
