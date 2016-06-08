@@ -27,6 +27,8 @@ public class InvoiceHeader {
 	private double addedCharges;
 	private String paymentType;
 	private boolean pod;
+	private String paymentNumber;
+	private boolean disableCoupons;
 	private Date modified;
 	private Date processed;
 	private Date dateShipped;
@@ -85,6 +87,18 @@ public class InvoiceHeader {
 	}
 	public void setPod(boolean pod) {
 		this.pod = pod;
+	}
+	public String getPaymentNumber() {
+		return paymentNumber;
+	}
+	public void setPaymentNumber(String paymentNumber) {
+		this.paymentNumber = paymentNumber;
+	}
+	public boolean isDisableCoupons() {
+		return disableCoupons;
+	}
+	public void setDisableCoupons(boolean disableCoupons) {
+		this.disableCoupons = disableCoupons;
 	}
 	public Date getModified() {
 		return modified;

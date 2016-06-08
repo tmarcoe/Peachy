@@ -2,7 +2,7 @@
 	<caption>Eleanor Marcoe (CEO)</caption>
 	<tr>
 		<th>Email:</th>
-		<td><a href="mailto:eleanordonzal@gmail.com">eleanordonzal@gmail.com</a></td>
+		<td><a href="mailto:eleanor_marcoe@donzalmart.com">eleanor_marcoe@donzalmart.com</a></td>
 	</tr>
 	<tr>
 		<th>Phone Number:</th>
@@ -14,7 +14,7 @@
 <caption>Sweetchie Donzal (VP of Sales)</caption>
 	<tr>
 		<th>Email:</th>
-		<td><a href="mailto:sweetchiedonzal@yahoo.com">sweetchiedonzal@yahoo.com</a></td>
+		<td><a href="mailto:sweetchie_donzal@donzalmart.com">sweetchie_donzal@donzalmart.com</a></td>
 	</tr>
 	<tr>
 		<th>Phone Number:</th>
@@ -26,10 +26,17 @@
 <caption>Timothy Marcoe (CIO)</caption>
 	<tr>
 		<th>Email:</th>
-		<td><a href="mailto:tmtmarcoe80@gmail.com">tmtmarcoe80@gmail.com</a></td>
+		<td><a href="mailto:timothy_marcoe@donzalmart.com">timothy_marcoe@donzalmart.com</a></td>
 	</tr>
 	<tr>
 		<th>Phone Number:</th>
 		<td>+63 939 503 9015</td>
+	</tr>
+</table>
+<table class="contact">
+<caption>Customer Support</caption>
+	<tr>
+		<th>Email:</th>
+		<td><a href="mailto:customer_service@donzalmart.com">customer_service@donzalmart.com</a></td>
 	</tr>
 </table>

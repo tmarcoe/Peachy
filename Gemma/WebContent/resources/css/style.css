@@ -679,6 +679,7 @@ table.returns-status td, th {
 	font-size: 18px;
 	padding: 1em;
 }
+
 table.pcinfoTable td, th{
 	text-align: right;
 	
@@ -738,3 +739,28 @@ table.pcinfoTable td, th{
 	
 }
 
+.coupontable td, th {
+	text-align: left;
+}
+
+.viewcoupons tr:nth-child(odd)
+{
+	background: #dedbee;
+}
+.viewcoupons 
+{
+	border-collapse: collapse;
+}
+.viewcoupons tr:nth-child(even)
+{
+	background: #fbfbff;
+}
+.viewcoupons th
+{
+	background: #f5f3c2;
+}
+.viewcouponfoot
+{
+
+	background: #ffffff;
+}

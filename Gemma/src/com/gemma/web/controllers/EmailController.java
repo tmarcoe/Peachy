@@ -1,6 +1,7 @@
 package com.gemma.web.controllers;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
@@ -24,11 +25,11 @@ public class EmailController {
 	private PagedListHolder<MsgDisplay> msgs;
 	
 	@RequestMapping("/checkemail")
-	public String checkEmail(Model model) throws MessagingException, IOException {
+	public String checkEmail(Model model) throws MessagingException, IOException, URISyntaxException {
 		ProcessEmail email = new ProcessEmail();
 		Email myEmail = new Email();
-		myEmail.setFrom("tmtmarcoe80@outlook.com");
-		myEmail.setPassword("In_heaven3");
+		myEmail.setFrom("customer_service@donzalmart.com");
+		myEmail.setPassword("8/i,w\"p{jK8E?");
 		
 		msgs = email.receiveEmail(myEmail);
 		msgs.setPageSize(15);

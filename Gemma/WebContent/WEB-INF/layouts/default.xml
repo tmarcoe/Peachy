@@ -319,6 +319,24 @@
 		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/shoppinghistory.jsp"></put-attribute>
 	</definition>
+	<definition name="createcoupon" extends="gemma.base">
+		<put-attribute name="heading_title" value="Create Coupon"></put-attribute>
+		<put-attribute name="title" value="Create Coupon"></put-attribute>
+		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/createcoupon.jsp"></put-attribute>
+	</definition>
+	<definition name="listcoupons" extends="gemma.base">
+		<put-attribute name="heading_title" value="Coupon List"></put-attribute>
+		<put-attribute name="title" value="Coupon List"></put-attribute>
+		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/listcoupons.jsp"></put-attribute>
+	</definition>
+	<definition name="editcoupon" extends="gemma.base">
+		<put-attribute name="heading_title" value="Edit Coupon"></put-attribute>
+		<put-attribute name="title" value="Edit Coupon"></put-attribute>
+		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/editcoupon.jsp"></put-attribute>
+	</definition>
 </tiles-definitions>
 
 

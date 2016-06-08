@@ -1,6 +1,7 @@
 package com.gemma.web.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.support.PagedListHolder;
 import org.springframework.stereotype.Service;
 
 import com.gemma.web.dao.Coupons;
@@ -26,5 +27,9 @@ public class CouponsService {
 	
 	public Coupons retrieve(String couponNumber) {
 		return couponsDao.retrieve(couponNumber);
+	}
+
+	public PagedListHolder<Coupons> getList() {
+		return couponsDao.getList();
 	}
 }

@@ -89,6 +89,7 @@
 					<li><a href="datepicker">View General Ledger</a></li>
 					<li><a href="podnotify">Receive Payment From POD</a>
 					<li><a href="returns-list">Process Returns</a></li>
+					<li><a href="listcoupons">Manage Coupons</a></li>
 				</sec:authorize>
 			</ul>
 		</div>

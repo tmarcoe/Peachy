@@ -13,19 +13,20 @@ public class Coupons {
 	
 	@Id
 	@NotBlank
-	private String couponNumber;
+	private String couponID;
 	private String name;
 	private String description;
 	private Date expires;
 	private boolean active;
+	private boolean exclusive;
 	private String ruleName;
 	
 	
-	public String getCouponNumber() {
-		return couponNumber;
+	public String getCouponID() {
+		return couponID;
 	}
-	public void setCouponNumber(String couponNumber) {
-		this.couponNumber = couponNumber;
+	public void setCouponID(String couponNumber) {
+		this.couponID = couponNumber;
 	}
 	public String getName() {
 		return name;
@@ -50,6 +51,12 @@ public class Coupons {
 	}
 	public void setActive(boolean active) {
 		this.active = active;
+	}
+	public boolean isExclusive() {
+		return exclusive;
+	}
+	public void setExclusive(boolean exclusive) {
+		this.exclusive = exclusive;
 	}
 	public String getRuleName() {
 		return ruleName;

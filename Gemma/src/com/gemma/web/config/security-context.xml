@@ -103,6 +103,12 @@
 		<security:intercept-url pattern="/podsave" access="hasRole('ROLE_ADMIN')"/>
 		<security:intercept-url pattern="/checkemail" access="hasRole('ROLE_ADMIN')"/>
 		<security:intercept-url pattern="/emailpaging" access="hasRole('ROLE_ADMIN')"/>
+		<security:intercept-url pattern="/createcoupon" access="hasRole('ROLE_ADMIN')"/>
+		<security:intercept-url pattern="/savecoupon" access="hasRole('ROLE_ADMIN')"/>
+		<security:intercept-url pattern="/listcoupons" access="hasRole('ROLE_ADMIN')"/>
+		<security:intercept-url pattern="/editcoupon" access="hasRole('ROLE_ADMIN')"/>
+		<security:intercept-url pattern="/updatecoupon" access="hasRole('ROLE_ADMIN')"/>
+		<security:intercept-url pattern="/deletecoupon" access="hasRole('ROLE_ADMIN')"/>
 		<security:intercept-url pattern="/**" access="denyAll" />
 		<security:form-login login-page="/login"
 			authentication-failure-url="/login?error=true" />

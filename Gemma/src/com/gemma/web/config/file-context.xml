@@ -21,6 +21,9 @@
 	<property name="paymentConfig"
 		value="file:///C:/Users/Timothy%20Marcoe/WebSite%20Archive/Gemma/WebContent/resources/repository/config/">
 	</property>
+	<property name="emailConfig" value="file:///c:/Repository/email/">
+	</property>
 	</bean>
+
 	
 </beans>

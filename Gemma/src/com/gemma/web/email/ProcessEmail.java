@@ -1,7 +1,11 @@
 package com.gemma.web.email;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
+import java.io.InputStream;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -21,19 +25,25 @@ import javax.mail.internet.MimeMessage;
 import org.springframework.beans.support.PagedListHolder;
 
 import com.gemma.web.beans.BeansHelper;
-import com.gemma.web.beans.EmailProperties;
+import com.gemma.web.beans.FileLocations;
 
 public class ProcessEmail {
+	final private String configFile = "email.properties";
 		
-	public void sendMail(final Email email) throws MessagingException, UnsupportedEncodingException {
-		EmailProperties emailProperties = (EmailProperties) new BeansHelper().getBean("email-context.xml", "emailProperties");
-		Properties props = new Properties();
-
-		props.setProperty("mail.transport.protocol", emailProperties.getTransportProtocol());
-		props.put("mail.smtp.auth", emailProperties.getSmtpAuth());
-		props.setProperty("mail.host", emailProperties.getSmtpHost());
-		props.put("mail.smtp.port", emailProperties.getSmtpPort());
-		props.setProperty("mail.smtp.starttls.enable", emailProperties.getSmtpStarttlsEnable());
+	public void sendMail(final Email email) throws Exception {
+		Properties properties = new Properties();
+		InputStream inputStream = null;
+		FileLocations loc = (FileLocations) new BeansHelper().getBean("file-context.xml", "fileLocations");
+		
+        try {
+            inputStream = new FileInputStream(loc.getEmailConfig() + configFile);
+            properties.load(inputStream);
+        } catch (SecurityException | IOException | IllegalArgumentException e) {
+            throw e;
+        } finally {
+            try { inputStream.close(); }
+            catch (IOException ie) { throw ie; }
+        }
 
 		Authenticator auth = new Authenticator() {
 			protected PasswordAuthentication getPasswordAuthentication() {
@@ -42,7 +52,7 @@ public class ProcessEmail {
 			}
 		};
 
-		Session session = Session.getDefaultInstance(props, auth);
+		Session session = Session.getDefaultInstance(properties, auth);
 
 		MimeMessage msg = new MimeMessage(session);
 		
@@ -58,23 +68,29 @@ public class ProcessEmail {
 
 	}
 
-	public PagedListHolder<MsgDisplay> receiveEmail(Email email) throws MessagingException, IOException {
+	public PagedListHolder<MsgDisplay> receiveEmail(Email email) throws MessagingException, IOException, URISyntaxException {
 			List<MsgDisplay> msgList = new ArrayList<MsgDisplay>();
-
-			EmailProperties emailProperties = (EmailProperties) new BeansHelper().getBean("email-context.xml", "emailProperties");
+			InputStream inputStream = null;
+			FileLocations loc = (FileLocations) new BeansHelper().getBean("file-context.xml", "fileLocations");
 
 			Properties properties = new Properties();
-			String host = "pop3.live.com";
+			
+	        try {
+	            inputStream = new FileInputStream(new File(new URI(loc.getEmailConfig() + configFile)));
+	            properties.load(inputStream);
+	        } catch (SecurityException | IOException | IllegalArgumentException e) {
+	            throw e;
+	        } finally {
+	            try { inputStream.close(); }
+	            catch (IOException ie) { throw ie; }
+	        }
 
-			properties.put("mail.pop3.host",emailProperties.getPop3Host());
-			properties.put("mail.pop3.port", emailProperties.getPop3Port());
-			properties.put("mail.pop3.starttls.enable", emailProperties.getPop3StarttlsEnable());
 			Session emailSession = Session.getDefaultInstance(properties);
 
 			// create the POP3 store object and connect with the pop server
 			Store store = emailSession.getStore("pop3s");
 
-			store.connect(host, email.getFrom(), email.getPassword());
+			store.connect(properties.getProperty("mail.pop3.host"), email.getFrom(), email.getPassword());
 
 			// create the folder object and open it
 			Folder emailFolder = store.getFolder("INBOX");

@@ -24,6 +24,7 @@ public class InvoiceItem {
 	private float tax;
 	private int amtInStock;
 	private float weight;
+	private boolean disableCoupons;
 
 	/**
 	 * 
@@ -114,6 +115,12 @@ public class InvoiceItem {
 	}
 	public void setSkuNum(String itemNum) {
 		this.invoiceKey.setSkuNum(itemNum);
+	}
+	public boolean isDisableCoupons() {
+		return disableCoupons;
+	}
+	public void setDisableCoupons(boolean disableCoupons) {
+		this.disableCoupons = disableCoupons;
 	}
 
 
