@@ -112,4 +112,11 @@ public class InvoiceItemDao {
 		
 	}
 
+	public boolean hasCoupons(int invoiceNum) {
+		String hql = "SELECT count(*) FROM InvoiceItem WHERE invoiceNum = :invoiceNum AND skuNum LIKE 'CPN%' ";
+		Long result = (Long) session().createQuery(hql).setLong("invoiceNum", invoiceNum).uniqueResult();
+		
+		return (result > 0);
+	}
+
 }

@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.gemma.web.dao.UserProfile;
-import com.gemma.web.service.AccountingService;
 import com.gemma.web.service.UserProfileService;
 
 
@@ -30,7 +29,7 @@ public class LoginController {
 	@Autowired
 	private UserProfileService userProfileService;
 	
-	private static Logger logger = Logger.getLogger(AccountingService.class.getName());
+	private static Logger logger = Logger.getLogger(LoginController.class.getName());
 	
 	private SimpleDateFormat dateFormat;
 	

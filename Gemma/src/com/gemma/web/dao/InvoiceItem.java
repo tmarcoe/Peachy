@@ -55,6 +55,7 @@ public class InvoiceItem {
 	 * 
 	 */
 	public InvoiceItem() {
+		invoiceKey = new Invoice();
 	}	
 	public String getProductName() {
 		return productName;

@@ -26,6 +26,7 @@ import com.gemma.web.dao.GeneralLedger;
 import com.gemma.web.dao.GeneralLedgerDao;
 import com.gemma.web.dao.InvoiceHeader;
 import com.gemma.web.dao.InvoiceHeaderDao;
+import com.gemma.web.service.TransactionService;
 
 @ActiveProfiles("dev")
 @ContextConfiguration(locations = {
@@ -52,6 +53,9 @@ public class GeneralLedgerTest {
 	
 	@Autowired
 	private InvoiceHeaderDao invoiceHeaderDao;
+	
+	@Autowired
+	TransactionService transactionService;
 	
 	@Autowired
 	private DataSource dataSource;
@@ -138,7 +142,7 @@ public class GeneralLedgerTest {
 		List<InvoiceHeader> headers = invoiceHeaderDao.getAllInvoiceHeaders();
 		
 		for(InvoiceHeader item: headers) {
-			invoiceHeaderDao.processShoppingCart(item);
+			transactionService.processShoppingCart(item);
 		}
 		Audit audit = generalLedgerDao.getAudit();
 

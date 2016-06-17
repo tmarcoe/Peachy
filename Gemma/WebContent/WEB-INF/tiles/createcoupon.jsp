@@ -13,12 +13,14 @@
 			<th>Coupon Name</th>
 			<th>Rule Name</th>
 			<th>Date Expired</th>
+			<th>Maximum Usage</th>
 		</tr>
 		<tr>
 			<td>CPN<sf:input path="couponID" type="text" /></td>
 			<td><sf:input path="name" type="text" /></td>
 			<td><sf:input path="ruleName" type="date" /></td>
-			<td><sf:input path="expires" type="date" />
+			<td><sf:input path="expires" type="date" /></td>
+			<td><sf:input path="useage" type="number"/></td>
 		</tr>
 		<tr>
 			<td>Active&nbsp;<input type="hidden" value="on" name="_active" /> <sf:checkbox
@@ -26,7 +28,6 @@
 			<td>Exclusive&nbsp;<input type="hidden" value="on" name="_active" /> <sf:checkbox
 					path="exclusive" /></td>
 		</tr>
-		<tr><td>&nbsp;</td></tr>
 	</table>
 	<table>
 		<tr>

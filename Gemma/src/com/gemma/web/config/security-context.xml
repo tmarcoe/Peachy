@@ -61,8 +61,11 @@
 		<security:intercept-url pattern="/pcinfo" access="isAuthenticated()"/>
 		<security:intercept-url pattern="/pcdenied" access="isAuthenticated()"/>
 		<security:intercept-url pattern="/pod" access="isAuthenticated()"/>
+		<security:intercept-url pattern="/entercoupon" access="isAuthenticated()"/>
+		<security:intercept-url pattern="/redeemcoupon" access="isAuthenticated()"/>
 		<security:intercept-url pattern="/shoppinghistory" access="isAuthenticated()"/>
 		<security:intercept-url pattern="/historypaging" access="isAuthenticated()"/>
+		<security:intercept-url pattern="/vieworder" access="isAuthenticated()"/>
 		<security:intercept-url pattern="/deleteuser" access="hasRole('ROLE_ADMIN')"/>
 		<security:intercept-url pattern="/returns-list" access="hasRole('ROLE_ADMIN')"/>
 		<security:intercept-url pattern="/returns-approve" access="hasRole('ROLE_ADMIN')"/>
@@ -109,6 +112,7 @@
 		<security:intercept-url pattern="/editcoupon" access="hasRole('ROLE_ADMIN')"/>
 		<security:intercept-url pattern="/updatecoupon" access="hasRole('ROLE_ADMIN')"/>
 		<security:intercept-url pattern="/deletecoupon" access="hasRole('ROLE_ADMIN')"/>
+		<security:intercept-url pattern="/couponpaging" access="hasRole('ROLE_ADMIN')"/>
 		<security:intercept-url pattern="/**" access="denyAll" />
 		<security:form-login login-page="/login"
 			authentication-failure-url="/login?error=true" />

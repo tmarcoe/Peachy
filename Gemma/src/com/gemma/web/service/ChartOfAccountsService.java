@@ -76,4 +76,10 @@ public class ChartOfAccountsService {
 		return chartOfAccountsDao.exists(key);
 	}
 
+	public double getBalance(String account) {
+		ChartOfAccounts chartOfAccounts = chartOfAccountsDao.getAccount(account);
+		
+		return chartOfAccounts.getAccountBalance();
+	}
+
 }

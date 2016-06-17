@@ -1,9 +1,7 @@
 package com.gemma.web.service;
 
-import java.io.IOException;
 import java.util.List;
 
-import org.antlr.v4.runtime.RecognitionException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.support.PagedListHolder;
 import org.springframework.stereotype.Service;
@@ -33,10 +31,6 @@ public class InvoiceHeaderService {
 		return invoiceHeaderDao.getInvoiceHeader(invoiceNum);
 	}
 
-	public void processShoppingCart(InvoiceHeader header) throws RecognitionException, IOException, RuntimeException {
-		invoiceHeaderDao.processShoppingCart(header);
-	}
-
 	public List<InvoiceHeader> getProcessedInvoices() {
 
 		return invoiceHeaderDao.getProcessedInvoices();
@@ -55,7 +49,4 @@ public class InvoiceHeaderService {
 		return invoiceHeaderDao.totalHeader(header);
 	}
 
-	public void podProcessShoppingCart(InvoiceHeader header) throws RecognitionException, IOException, RuntimeException {
-		invoiceHeaderDao.podProcessShoppingCart(header);		
-	}
 }

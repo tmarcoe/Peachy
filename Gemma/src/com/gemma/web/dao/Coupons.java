@@ -20,6 +20,7 @@ public class Coupons {
 	private boolean active;
 	private boolean exclusive;
 	private String ruleName;
+	private int useage;
 	
 	
 	public String getCouponID() {
@@ -63,6 +64,12 @@ public class Coupons {
 	}
 	public void setRuleName(String ruleName) {
 		this.ruleName = ruleName;
+	}
+	public int getUseage() {
+		return useage;
+	}
+	public void setUseage(int useage) {
+		this.useage = useage;
 	}
 
 }

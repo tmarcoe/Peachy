@@ -32,7 +32,6 @@ import com.gemma.web.dao.InvoiceHeader;
 import com.gemma.web.dao.InvoiceItem;
 import com.gemma.web.dao.Returns;
 import com.gemma.web.dao.UserProfile;
-import com.gemma.web.service.AccountingService;
 import com.gemma.web.service.InventoryService;
 import com.gemma.web.service.InvoiceHeaderService;
 import com.gemma.web.service.InvoiceService;
@@ -48,7 +47,7 @@ import org.springframework.validation.BindingResult;
 public class ShopController implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
-	private static Logger logger = Logger.getLogger(AccountingService.class.getName());
+	private static Logger logger = Logger.getLogger(ShopController.class.getName());
 	
 	@Autowired
 	private ReturnsService returnsService;
@@ -133,6 +132,11 @@ public class ShopController implements Serializable {
 
 		List<InvoiceItem> invoiceList = invoiceService.getInvoice(header);
 		InvoiceContainer invoice = new InvoiceContainer(header, invoiceList);
+		String errorMsg = "";
+		String couponNum = "CPN";
+		
+		model.addAttribute("errorMsg", errorMsg);
+		model.addAttribute("couponNum", couponNum);
 		
 		model.addAttribute("invoice", invoice);
 		

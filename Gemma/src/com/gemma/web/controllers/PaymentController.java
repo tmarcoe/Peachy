@@ -28,6 +28,7 @@ import com.gemma.web.payment.Payment;
 import com.gemma.web.service.InventoryService;
 import com.gemma.web.service.InvoiceHeaderService;
 import com.gemma.web.service.InvoiceService;
+import com.gemma.web.service.TransactionService;
 import com.gemma.web.service.UserProfileService;
 
 @Controller
@@ -47,6 +48,9 @@ public class PaymentController {
 
 	@Autowired
 	private InventoryService inventoryService;
+	
+	@Autowired
+	TransactionService transactionService;
 
 	private BraintreeGateway gateway;
 
@@ -100,7 +104,7 @@ public class PaymentController {
 
 		try {
 			logger.info("Processing shopping cart.");
-			invoiceHeaderService.podProcessShoppingCart(header);
+			transactionService.podProcessShoppingCart(header);
 		} catch (IOException | RuntimeException e) {
 			return "error";
 		}
@@ -138,7 +142,7 @@ public class PaymentController {
 				nonce) == true) {
 			logger.info("Processing shopping cart.");
 			try {
-				invoiceHeaderService.processShoppingCart(header);
+				transactionService.processShoppingCart(header);
 			} catch (IOException | RuntimeException e) {
 				return "error";
 			}

@@ -1,10 +1,7 @@
 package com.gemma.web.dao;
 
-import java.io.IOException;
-import java.util.Date;
 import java.util.List;
 
-import org.antlr.v4.runtime.RecognitionException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +10,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.gemma.web.service.AccountingService;
-
 @Transactional
 @Repository
 @Component("InvoiceHeaderDao")
@@ -22,9 +17,6 @@ public class InvoiceHeaderDao {
 	
 	@Autowired
 	InvoiceItemDao invoiceItemDao;
-	
-	@Autowired
-	AccountingService accountingService;
 	
 	@Autowired
 	InventoryDao inventoryDao;
@@ -79,20 +71,6 @@ public class InvoiceHeaderDao {
 	public List<InvoiceHeader> getInvoiceHeader() {
 		return null;
 	}
-	public void processShoppingCart(InvoiceHeader header) throws RecognitionException, IOException, RuntimeException {
-
-		List<InvoiceItem> itemList = invoiceItemDao.getInvoice(header);
-		
-		accountingService.processSales(header);
-		for(InvoiceItem item: itemList) {
-			inventoryDao.depleteInventory(item);
-		}
-
-		header.setProcessed(new Date());
-		updateHeader(header);
-
-	}
-
 	public InvoiceHeader totalHeader(InvoiceHeader header) {
 		List<InvoiceItem> itemList = invoiceItemDao.getInvoice(header);
 		
@@ -108,19 +86,6 @@ public class InvoiceHeaderDao {
 		}
 		
 		return header;
-	}
-
-	public void podProcessShoppingCart(InvoiceHeader header) throws RecognitionException, IOException, RuntimeException {
-		List<InvoiceItem> itemList = invoiceItemDao.getInvoice(header);
-		
-		accountingService.podPurchase(header);
-		for(InvoiceItem item: itemList) {
-			inventoryDao.depleteInventory(item);
-		}
-
-		header.setProcessed(new Date());
-		updateHeader(header);
-		
 	}
 
 	@SuppressWarnings("unchecked")

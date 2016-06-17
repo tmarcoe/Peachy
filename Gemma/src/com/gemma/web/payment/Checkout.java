@@ -31,10 +31,9 @@ import com.gemma.web.beans.BeansHelper;
 import com.gemma.web.beans.FileLocations;
 import com.gemma.web.dao.InvoiceHeader;
 import com.gemma.web.dao.UserProfile;
-import com.gemma.web.service.AccountingService;
 
 public class Checkout {
-	private static Logger logger = Logger.getLogger(AccountingService.class
+	private static Logger logger = Logger.getLogger(Checkout.class
 			.getName());
 	
 	private Status[] TRANSACTION_SUCCESS_STATUSES = new Status[] {

@@ -11,7 +11,7 @@ $(document).ready(function(){
 </script>
 
 <sf:form method="post"
-	action="${pageContext.request.contextPath}/pcinfo">
+	action="${pageContext.request.contextPath}/vieworder">
 	<c:set var="total" scope="session" value="0" />
 	<c:set var="pr" scope="session" value="0" />
 	<c:set var="ttax" scope="session" value="0" />
@@ -65,9 +65,14 @@ $(document).ready(function(){
 							class="removeAccount"><img alt="[Remove]"
 								src="<c:url value='/static/images/web/delete.jpg' />"></a></td>
 						<td>&nbsp;</td>
-						<td><a href="#" onclick="getDetail(${i.index});"
-							class="inventorydetail"><img alt="[Show Detail]"
-								src="<c:url value='/static/images/web/edit.jpg' />"></a></td>
+						<c:if test="${pr >= 0}">
+							<td><a href="#" onclick="getDetail(${i.index});"
+								class="inventorydetail"><img alt="[Show Detail]"
+									src="<c:url value='/static/images/web/edit.jpg' />"></a></td>
+						</c:if>
+						<c:if test="${pr < 0}">
+							<td>&nbsp;</td>
+						</c:if>
 					</c:if>
 				</tr>
 			</c:forEach>
@@ -114,13 +119,13 @@ $(document).ready(function(){
 					<td colspan="11">&nbsp;</td>
 				</tr>
 				<tr>
-					<td colspan="4"><input type="submit" value="Check Out" /></td>
-					<td colspan="3"><input type="button" onClick="window.print()"
-						value="Print Order" /></td>
-					<td colspan="3"><input type="button" Value="Cancel Order"
+					<td><input type="submit" value="Check Out" /></td>
+					<td><input type="button" Value="Cancel Order"
 						onclick="cancel()" /></td>
-					<td colspan="3"><input type="button" value="Continue Shopping"
+					<td><input type="button" value="Continue Shopping"
 						onclick="followLink('/pickcategory')" /></td>
+					<td>Coupon: <input type="text" name="couponNum" value="CPN" /></td>
+					<td colspan="7"><div class="error">${errorMsg}</div></td>
 				</tr>
 				<!-- <tr>
 					<td><img alt="7-connect"

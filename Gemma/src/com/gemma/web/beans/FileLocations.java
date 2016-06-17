@@ -6,6 +6,7 @@ public class FileLocations {
 	private String transactionPath;
 	private String paymentConfig;
 	private String emailConfig;
+	private String couponPath;
 
 	public String getImageLoc() {
 		return imageLoc;
@@ -45,6 +46,14 @@ public class FileLocations {
 
 	public void setEmailConfig(String emailConfig) {
 		this.emailConfig = emailConfig;
+	}
+
+	public String getCouponPath() {
+		return couponPath;
+	}
+
+	public void setCouponPath(String couponPath) {
+		this.couponPath = couponPath;
 	}
 
 }

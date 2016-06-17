@@ -1,11 +1,15 @@
 package com.gemma.web.controllers;
 
+import java.io.IOException;
+import java.security.Principal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.antlr.v4.runtime.RecognitionException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.beans.support.PagedListHolder;
@@ -17,15 +21,41 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.util.NestedServletException;
 
 import com.gemma.web.dao.Coupons;
+import com.gemma.web.dao.InvoiceContainer;
+import com.gemma.web.dao.InvoiceHeader;
+import com.gemma.web.dao.InvoiceItem;
+import com.gemma.web.dao.UserProfile;
 import com.gemma.web.service.CouponsService;
+import com.gemma.web.service.InvoiceHeaderService;
+import com.gemma.web.service.InvoiceService;
+import com.gemma.web.service.TransactionService;
+import com.gemma.web.service.UsedCouponsService;
+import com.gemma.web.service.UserProfileService;
 
 @Controller
 public class CouponController {
 	
 	@Autowired
-	CouponsService couponsService;
+	private CouponsService couponsService;
+	
+	@Autowired
+	private InvoiceService invoiceService;
+	
+	@Autowired
+	private InvoiceHeaderService invoiceHeaderService;
+	
+	@Autowired
+	private UserProfileService userProfileService;
+	
+	@Autowired
+	TransactionService transactionService;
+	
+	@Autowired
+	UsedCouponsService usedCouponsService;
+	
 	PagedListHolder<Coupons> couponList;
 	
 	private SimpleDateFormat dateFormat;
@@ -52,6 +82,75 @@ public class CouponController {
 		couponList = couponsService.getList();
 		model.addAttribute("couponList", couponList);
 		return "listcoupons";
+	}
+	
+	@RequestMapping("/entercoupon")
+	public String enterCoupon(Model model) {
+		String errorMsg = "";
+		String couponNum = "CPN";
+		
+		model.addAttribute("errorMsg", errorMsg);
+		model.addAttribute("couponNum", couponNum);
+		
+		return "entercoupon";
+	}
+	@RequestMapping("/redeemcoupon")
+	public String redeemCoupon(@ModelAttribute("couponNum") String couponNum, 
+							   @ModelAttribute("errorMsg") String errorMsg, Principal principal, Model model) throws IOException, RecognitionException, NestedServletException {
+		if (couponNum.length() < 4) {
+			errorMsg = "Please enter a coupon number";
+			
+			model.addAttribute("errorMsg", errorMsg);
+			model.addAttribute("couponNum", couponNum);
+			
+			return "entercoupon";
+		}
+		Coupons coupon = couponsService.retrieve(couponNum);
+		if (coupon == null ) {
+			errorMsg = "That coupon does not exist";
+			model.addAttribute("errorMsg", errorMsg);
+			model.addAttribute("couponNum", couponNum);
+			
+			return "entercoupon";
+		}
+		if (new Date().after(coupon.getExpires())) {
+			errorMsg = "That coupon has expired";
+			
+			model.addAttribute("errorMsg", errorMsg);
+			model.addAttribute("couponNum", couponNum);
+			
+			return "entercoupon";
+
+		}
+		UserProfile user = userProfileService.getUser(principal.getName());
+		InvoiceHeader header = invoiceHeaderService.getOpenOrder(user.getUserID());
+		long count = usedCouponsService.getCount(user.getUserID(), coupon.getCouponID());
+		if (coupon.getUseage() <= count ) {
+			errorMsg = "That coupon is used up.";
+			
+			model.addAttribute("errorMsg", errorMsg);
+			model.addAttribute("couponNum", couponNum);
+			
+			return "entercoupon";
+		}
+		
+		if (coupon.isExclusive() && invoiceService.hasCoupons(header.getInvoiceNum())) {
+			errorMsg = "This coupon cannot be used with any other coupon";
+			
+			model.addAttribute("errorMsg", errorMsg);
+			model.addAttribute("couponNum", couponNum);
+			
+			return "entercoupon";
+		}
+		
+		transactionService.redeemCoupon(header, coupon);
+		
+		List<InvoiceItem> invoiceList = invoiceService.getInvoice(header);
+		InvoiceContainer invoice = new InvoiceContainer(header, invoiceList);
+		
+		model.addAttribute("invoice", invoice);
+
+		return("cart");
 	}
 	
 	@RequestMapping("/listcoupons")

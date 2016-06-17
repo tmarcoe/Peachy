@@ -44,13 +44,13 @@ import com.gemma.web.dao.Inventory;
 import com.gemma.web.dao.InvoiceHeader;
 import com.gemma.web.dao.Returns;
 import com.gemma.web.dao.UserProfile;
-import com.gemma.web.service.AccountingService;
 import com.gemma.web.service.ChartOfAccountsService;
 import com.gemma.web.service.GeneralLedgerService;
 import com.gemma.web.service.InventoryService;
 import com.gemma.web.service.InvoiceHeaderService;
 import com.gemma.web.service.InvoiceService;
 import com.gemma.web.service.ReturnsService;
+import com.gemma.web.service.TransactionService;
 import com.gemma.web.service.UserProfileService;
 
 @Controller
@@ -96,7 +96,7 @@ public class AdminController implements Serializable {
 	private GeneralLedgerService generalLedgerService;
 	
 	@Autowired
-	private AccountingService accountingService;
+	TransactionService transactionService;
 	
 	@Autowired
 	FileLocations fileLocations;
@@ -104,7 +104,7 @@ public class AdminController implements Serializable {
 	@Autowired
 	private ReturnsService returnsService;
 	
-	private static Logger logger = Logger.getLogger(AccountingService.class.getName());
+	private static Logger logger = Logger.getLogger(AdminController.class.getName());
 	
 	private SimpleDateFormat dateFormat;
 	
@@ -296,7 +296,7 @@ public class AdminController implements Serializable {
 		
 		order.setInventory(inventoryService.getItem(order.getInventory().getSkuNum()));
 		try {
-			accountingService.purchaseInventory(order);
+			transactionService.purchaseInventory(order);
 		} catch (IOException | RuntimeException e) {
 			return "error";
 		}
@@ -508,7 +508,7 @@ public class AdminController implements Serializable {
 		
 		returnsService.update(returns);
 		try {
-			accountingService.returnMerchandise(returns);
+			transactionService.returnMerchandise(returns);
 		} catch (IOException | RuntimeException e) {
 			return "error";
 		}
@@ -605,7 +605,7 @@ public class AdminController implements Serializable {
 	}
 	@RequestMapping("/podsave")
 	public String podSave(@ModelAttribute("header") InvoiceHeader header, Model model ) throws RecognitionException, IOException, RuntimeException {
-		accountingService.processPod(header);
+		transactionService.processPod(header);
 		header.setPod(false);
 		invoiceHeaderService.updateHeader(header);
 		

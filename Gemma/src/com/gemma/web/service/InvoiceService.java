@@ -23,9 +23,6 @@ public class InvoiceService {
 	private GeneralLedgerService generalLedgerService;
 	
 	@Autowired
-	private AccountingService accountingService;
-	
-	@Autowired
 	ChartOfAccountsService chartOfAccountsService;
 	
 	public List<InvoiceItem> getInvoice(InvoiceHeader header) {
@@ -66,5 +63,10 @@ public class InvoiceService {
 
 	public void deleteInvoice(InvoiceHeader header) {
 		invoiceItemDao.deleteInvoice(header);
+	}
+
+
+	public boolean hasCoupons(int invoiceNum) {
+		return invoiceItemDao.hasCoupons(invoiceNum);
 	}
 }

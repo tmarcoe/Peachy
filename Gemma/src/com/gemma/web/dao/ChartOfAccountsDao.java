@@ -18,22 +18,22 @@ public class ChartOfAccountsDao {
 
 	@Autowired
 	private SessionFactory sessionFactory;
-	
+
 	public Session session() {
 		return sessionFactory.getCurrentSession();
 	}
-	
+
 	public void create(ChartOfAccounts chartOfAccounts) {
 		session().save(chartOfAccounts);
-		
+
 	}
-	
+
 	public void update(List<ChartOfAccounts> accounts) {
-		for(ChartOfAccounts account : accounts) {
+		for (ChartOfAccounts account : accounts) {
 			session().saveOrUpdate(account);
 		}
 	}
-	
+
 	public boolean delete(String accountNum) {
 		ChartOfAccounts chartOfAccounts = getAccount(accountNum);
 		session().delete("ChartOfAccounts", chartOfAccounts);
@@ -47,11 +47,11 @@ public class ChartOfAccountsDao {
 
 		return crit.list();
 	}
-	
+
 	public ChartOfAccounts getAccount(String Key) {
 		Criteria crit = session().createCriteria(ChartOfAccounts.class);
 		crit.add(Restrictions.idEq(Key));
-		
+
 		return (ChartOfAccounts) crit.uniqueResult();
 	}
 
@@ -62,31 +62,29 @@ public class ChartOfAccountsDao {
 
 	public void update(ChartOfAccounts chartOfAccounts) {
 		session().update(chartOfAccounts);
-		
+
 	}
 
 	public void debitAccount(ChartOfAccounts accounts, double amount) {
-		if(accounts.isDebitAccount() == true) {
+		if (accounts.isDebitAccount() == true) {
 			amount *= -1;
 		}
 		String hql = "update ChartOfAccounts set accountBalance = accountBalance - :amount where accountNum = :accountNum";
-		session().createQuery(hql)
-				 .setDouble("amount", amount)
-				 .setString("accountNum", accounts.getAccountNum())
-				 .executeUpdate();
+		session().createQuery(hql).setDouble("amount", amount)
+				.setString("accountNum", accounts.getAccountNum())
+				.executeUpdate();
 	}
 
 	public void creditAccount(ChartOfAccounts accounts, double amount) {
-		if(accounts.isDebitAccount() == true) {
+		if (accounts.isDebitAccount() == true) {
 			amount *= -1;
 		}
 		String hql = "update ChartOfAccounts set accountBalance = accountBalance + :amount where accountNum = :accountNum";
-		session().createQuery(hql)
-				 .setDouble("amount", amount)
-				 .setString("accountNum", accounts.getAccountNum())
-				 .executeUpdate();
+		session().createQuery(hql).setDouble("amount", amount)
+				.setString("accountNum", accounts.getAccountNum())
+				.executeUpdate();
 	}
-	
+
 	public ChartOfAccounts getAccout(String account) {
 
 		Criteria crit = session().createCriteria(ChartOfAccounts.class);
@@ -98,6 +96,5 @@ public class ChartOfAccountsDao {
 
 		return (getAccount(key) != null);
 	}
-
 
 }

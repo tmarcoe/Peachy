@@ -1,5 +1,6 @@
 package com.gemma.web.controllers;
 
+import java.io.EOFException;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.UnknownHostException;
@@ -14,11 +15,11 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.util.NestedServletException;
 
-import com.gemma.web.service.AccountingService;
+import antlr.RecognitionException;
 
 @ControllerAdvice
 public class ErrorHandler {
-	private static Logger logger = Logger.getLogger(AccountingService.class.getName());
+	private static Logger logger = Logger.getLogger(ErrorHandler.class.getName());
 	
 	@ExceptionHandler(DataAccessException.class)
 	public String handleDatabaseException(DataAccessException ex) {
@@ -78,4 +79,20 @@ public class ErrorHandler {
 		logger.error("URISyntaxException: " + e.getMessage());
 		return "error";
 	}
+	
+	@ExceptionHandler(EOFException.class)
+	public String handleEOFException(EOFException e) {
+		logger.error("EOFException: " + e.getMessage());
+		
+		return "nointernet";
+	}
+	
+	@ExceptionHandler(RecognitionException.class)
+	public String handleRecognitionException(RecognitionException e){
+		logger.error("RecognitionException:" + e.getMessage());
+		
+		return "error";
+	}
+	
+
 }

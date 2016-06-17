@@ -337,6 +337,19 @@
 		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/editcoupon.jsp"></put-attribute>
 	</definition>
+	<definition name="entercoupon" extends="gemma.base">
+		<put-attribute name="heading_title" value="Enter Coupon"></put-attribute>
+		<put-attribute name="title" value="Enter Coupon"></put-attribute>
+		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/entercoupon.jsp"></put-attribute>
+	</definition>
+	<definition name="vieworder" extends="gemma.base">
+		<put-attribute name="heading_title" value="Order"></put-attribute>
+		<put-attribute name="title" value="Order"></put-attribute>
+		<put-attribute name="toolbar" value="/WEB-INF/tiles/blank.jsp"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/vieworder.jsp"></put-attribute>
+		<put-attribute name="footer" value="/WEB-INF/tiles/blank.jsp"></put-attribute>
+	</definition>
 </tiles-definitions>
 
 

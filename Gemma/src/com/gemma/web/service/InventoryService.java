@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.gemma.web.beans.Categories;
 import com.gemma.web.dao.Inventory;
 import com.gemma.web.dao.InventoryDao;
+import com.gemma.web.dao.InvoiceItem;
 
 @Service("inventoryService")
 public class InventoryService implements Serializable {
@@ -87,6 +88,10 @@ public class InventoryService implements Serializable {
 		Inventory inventory = getItem(skuNum);
 		inventory.setAmtInStock(inventory.getAmtInStock() + amtReturned);
 		update(inventory);
+	}
+
+	public void depleteInventory(InvoiceItem item) {
+		inventoryDao.depleteInventory(item);
 	}
 
 	
