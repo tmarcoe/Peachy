@@ -1,10 +1,9 @@
 package com.gemma.web.controllers;
 
-import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URL;
 import java.net.UnknownHostException;
 import java.security.Principal;
 
@@ -77,8 +76,8 @@ public class PaymentController {
 		case "braintree":
 			FileLocations fl = (FileLocations) new BeansHelper().getBean(
 					"file-context.xml", "fileLocations");
-			gateway = BraintreeGatewayFactory.fromConfigFile(new File(new URI(
-					fl.getPaymentConfig() + "braintree.properties")));
+			gateway = BraintreeGatewayFactory.fromConfigFile(new URL(
+					fl.getPaymentConfig() + "braintree.properties"));
 			checkout.populatePayment(payment, user);
 			model.addAttribute("clientToken", gateway.clientToken().generate());
 			model.addAttribute("payment", payment);
@@ -144,6 +143,7 @@ public class PaymentController {
 			try {
 				transactionService.processShoppingCart(header);
 			} catch (IOException | RuntimeException e) {
+				logger.error(e.getMessage());
 				return "error";
 			}
 		} else {

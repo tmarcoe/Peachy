@@ -69,4 +69,11 @@ public class InvoiceService {
 	public boolean hasCoupons(int invoiceNum) {
 		return invoiceItemDao.hasCoupons(invoiceNum);
 	}
+
+
+	public InvoiceItem getCouponFromInvoice(Integer invoiceNum) {
+		return invoiceItemDao.getCouponFromInvoice(invoiceNum);
+	}
+
+
 }

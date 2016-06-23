@@ -10,21 +10,26 @@
 
 	<bean id="fileLocations"
 		class="com.gemma.web.beans.FileLocations">
-	<property name="imageLoc" value="file:///c:/Repository/Images/">
+	<property name="imageLoc"
+		value="http://192.163.225.178/~donzalma/images/">
 	</property>
 	<property name="outPath"
-		value="file:///C:/Users/Timothy%20Marcoe/WebSite%20Archive/Gemma/WebContent/resources/repository/shipping/">
+		value="/home/donzalma/public_html/shipping/">
 	</property>
 	<property name="transactionPath"
-		value="file:///C:/Users/Timothy%20Marcoe/WebSite%20Archive/Gemma/WebContent/resources/repository/transactions/">
+		value="http://192.163.225.178/~donzalma/transactions/">
 	</property>
 	<property name="paymentConfig"
-		value="file:///C:/Users/Timothy%20Marcoe/WebSite%20Archive/Gemma/WebContent/resources/repository/config/">
+		value="http://192.163.225.178/~donzalma/config/">
 	</property>
-	<property name="emailConfig" value="file:///c:/Repository/email/">
+	<property name="emailConfig"
+		value="http://192.163.225.178/~donzalma/email/">
 	</property>
 	<property name="couponPath"
-		value="file:///C:/Users/Timothy%20Marcoe/WebSite%20Archive/Gemma/WebContent/resources/repository/coupons/">
+		value="http://192.163.225.178/~donzalma/coupons/">
+	</property>
+	<property name="imgUploadLoc"
+		value="/home/donzalma/public_html/images/">
 	</property>
 	</bean>
 

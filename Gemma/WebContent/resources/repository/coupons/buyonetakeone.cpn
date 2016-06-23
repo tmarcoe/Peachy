@@ -1,0 +1,7 @@
+begin
+	long itemQty = getItemQty("0033383530109");
+	
+	if (itemQty >= 2) {
+		"takeone0033383530109.cpn"
+	}
+end

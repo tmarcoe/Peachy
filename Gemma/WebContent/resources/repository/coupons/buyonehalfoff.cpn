@@ -1,0 +1,9 @@
+begin
+	long itemQty = getItemQty("0033383530109");
+	
+	long history = getHistory;
+	
+	if (itemQty >= 2 && history <= 1) {
+		"halfoff0033383530109.cpn"
+	}
+end

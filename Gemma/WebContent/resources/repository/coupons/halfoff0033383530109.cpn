@@ -1,0 +1,3 @@
+{
+	couponValue = getItemPrice("0033383530109") * (50% * -1.0);
+}

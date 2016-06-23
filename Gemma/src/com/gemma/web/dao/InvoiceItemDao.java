@@ -118,5 +118,10 @@ public class InvoiceItemDao {
 		
 		return (result > 0);
 	}
-
+	public InvoiceItem getCouponFromInvoice(int invoiceNum)
+	{
+		String hql = "FROM InvoiceItem WHERE invoiceNum = :invoiceNum AND skuNum LIKE 'CPN%' ";
+		
+		return (InvoiceItem) session().createQuery(hql).setInteger("invoiceNum", invoiceNum).uniqueResult();
+	}
 }

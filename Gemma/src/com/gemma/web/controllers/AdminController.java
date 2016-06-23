@@ -124,7 +124,7 @@ public class AdminController implements Serializable {
 
 		headerList.setSource(invoiceHeaderService.getProcessedInvoices());
 		headerList.setPage(0);
-		headerList.setPageSize(10);
+		headerList.setPageSize(5);
 		model.addAttribute("headerList", headerList);
 		return "admin";
 	}
@@ -172,7 +172,7 @@ public class AdminController implements Serializable {
 		
 		try {
 			InputStream is = fileUpload.getFile().getInputStream();
-			File f1 = new File(new URI(fileLocations.getImageLoc()));
+			File f1 = new File(fileLocations.getImgUploadLoc());
 
 			file = File.createTempFile("img", ".png", f1);
 

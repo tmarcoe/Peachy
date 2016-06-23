@@ -2,6 +2,7 @@ package com.gemma.web.beans;
 
 public class FileLocations {
 	private String imageLoc;
+	private String imgUploadLoc;
 	private String outPath;
 	private String transactionPath;
 	private String paymentConfig;
@@ -14,6 +15,14 @@ public class FileLocations {
 
 	public void setImageLoc(String imageLoc) {
 		this.imageLoc = imageLoc;
+	}
+
+	public String getImgUploadLoc() {
+		return imgUploadLoc;
+	}
+
+	public void setImgUploadLoc(String imgUploadLoc) {
+		this.imgUploadLoc = imgUploadLoc;
 	}
 
 	public String getOutPath() {

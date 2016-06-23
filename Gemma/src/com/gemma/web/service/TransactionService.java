@@ -1,12 +1,9 @@
 package com.gemma.web.service;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.Reader;
-import java.net.URI;
-import java.net.URISyntaxException;
+import java.io.InputStreamReader;
+import java.net.URL;
 import java.util.Date;
 import java.util.List;
 
@@ -152,18 +149,9 @@ public class TransactionService extends Transaction {
 	public void loadRule(String rule) throws IOException, RecognitionException,
 			RuntimeException {
 
-		File file;
-		try {
-			file = new File(new URI(fileLocations.getTransactionPath() + rule));
-		} catch (URISyntaxException e1) {
-			throw new RuntimeException();
-		}
-		Reader read = null;
-		try {
-			read = new FileReader(file);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
+		URL url = new URL(fileLocations.getTransactionPath() + rule);
+		BufferedReader read = new BufferedReader(new InputStreamReader(
+				url.openStream()));
 
 		ANTLRInputStream in = new ANTLRInputStream(read);
 		FetalLexer lexer = new FetalLexer(in);
@@ -179,20 +167,10 @@ public class TransactionService extends Transaction {
 	@SuppressWarnings("unused")
 	@Override
 	public void loadCoupon(String cpn) throws IOException {
+		URL url = new URL(fileLocations.getCouponPath() + cpn);
 
-		File file;
-		try {
-			file = new File(new URI(fileLocations.getCouponPath() + cpn));
-		} catch (URISyntaxException e1) {
-			throw new RuntimeException();
-		}
-		Reader read = null;
-		try {
-			read = new FileReader(file);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-
+		BufferedReader read = new BufferedReader(new InputStreamReader(
+				url.openStream()));
 		ANTLRInputStream in = new ANTLRInputStream(read);
 		FetalLexer lexer = new FetalLexer(in);
 		CommonTokenStream tokens = new CommonTokenStream(lexer);
@@ -202,6 +180,7 @@ public class TransactionService extends Transaction {
 		parser.addErrorListener(new FetalExceptions()); // add ours
 		parser.setErrorHandler(new BailErrorStrategy());
 		TransactionContext context = parser.transaction(this);
+
 	}
 
 	public void processSales(InvoiceHeader header) throws RecognitionException,
@@ -312,7 +291,7 @@ public class TransactionService extends Transaction {
 	@Override
 	public Object getValue(String name) {
 		Object obj = super.getValue(name);
-		
+
 		return obj;
 	}
 
@@ -349,26 +328,21 @@ public class TransactionService extends Transaction {
 		inventoryService.update(inventory);
 		logger.info("End Purchase");
 	}
-	
+
 	@SuppressWarnings("unused")
 	@Override
-	public void loadBlock(String rule) throws  RecognitionException, IOException {
-		File file;
+	public void loadBlock(String rule) throws RecognitionException, IOException {
+		URL url = new URL(getFilePath() + rule);
+		BufferedReader read = new BufferedReader(new InputStreamReader(
+				url.openStream()));
 
-		try {
-			file = new File(new URI(getFilePath() + rule));
-		} catch (URISyntaxException e) {
-			throw new IOException();
-		}
-		Reader read = null;
-		read = new FileReader(file);
-		ANTLRInputStream in = new ANTLRInputStream(read);        
+		ANTLRInputStream in = new ANTLRInputStream(read);
 		FetalLexer lexer = new FetalLexer(in);
-        CommonTokenStream tokens = new CommonTokenStream(lexer);
-        FetalParser parser = new FetalParser(tokens);
-        
-        BlockContext context = parser.block(this);
-		
+		CommonTokenStream tokens = new CommonTokenStream(lexer);
+		FetalParser parser = new FetalParser(tokens);
+
+		BlockContext context = parser.block(this);
+
 	}
-	
+
 }

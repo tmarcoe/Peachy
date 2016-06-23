@@ -87,6 +87,7 @@ public class LoginController {
 		}
 
 		if (userProfileService.exists(user.getUsername())) {
+			result.rejectValue("username", "DuplicateKey.userProfile.username");
 			return "signup";
 		}
 		try {

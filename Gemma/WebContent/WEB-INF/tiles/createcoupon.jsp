@@ -38,8 +38,15 @@
 		</tr>
 		<tr>
 			<td><button type="submit" >Save</button></td>
+			<td><button type="button" onclick="followLink('/listcoupons')">Cancel</button></td>
 		</tr>
 	</table>
 
 
 </sf:form>
+<script type="text/javascript">
+function followLink(link) {
+	window.location.href = "${pageContext.request.contextPath}" + link;
+}
+
+</script>

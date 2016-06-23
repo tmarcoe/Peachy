@@ -1,11 +1,10 @@
 package com.gemma.web.email;
 
-import java.io.File;
-import java.io.FileInputStream;
+import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.URI;
+import java.io.InputStreamReader;
 import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -32,16 +31,16 @@ public class ProcessEmail {
 		
 	public void sendMail(final Email email) throws Exception {
 		Properties properties = new Properties();
-		InputStream inputStream = null;
 		FileLocations loc = (FileLocations) new BeansHelper().getBean("file-context.xml", "fileLocations");
+		URL url = new URL(loc.getEmailConfig() + configFile);
+		BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
 		
         try {
-            inputStream = new FileInputStream(loc.getEmailConfig() + configFile);
-            properties.load(inputStream);
+            properties.load(in);
         } catch (SecurityException | IOException | IllegalArgumentException e) {
             throw e;
         } finally {
-            try { inputStream.close(); }
+            try { in.close(); }
             catch (IOException ie) { throw ie; }
         }
 
@@ -70,27 +69,31 @@ public class ProcessEmail {
 
 	public PagedListHolder<MsgDisplay> receiveEmail(Email email) throws MessagingException, IOException, URISyntaxException {
 			List<MsgDisplay> msgList = new ArrayList<MsgDisplay>();
-			InputStream inputStream = null;
 			FileLocations loc = (FileLocations) new BeansHelper().getBean("file-context.xml", "fileLocations");
-
+			URL url = new URL(loc.getEmailConfig() + configFile);
+			BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
+			
 			Properties properties = new Properties();
 			
 	        try {
-	            inputStream = new FileInputStream(new File(new URI(loc.getEmailConfig() + configFile)));
-	            properties.load(inputStream);
+	            properties.load(in);
 	        } catch (SecurityException | IOException | IllegalArgumentException e) {
 	            throw e;
 	        } finally {
-	            try { inputStream.close(); }
+	            try { in.close(); }
 	            catch (IOException ie) { throw ie; }
 	        }
 
 			Session emailSession = Session.getDefaultInstance(properties);
 
-			// create the POP3 store object and connect with the pop server
-			Store store = emailSession.getStore("pop3s");
-
-			store.connect(properties.getProperty("mail.pop3.host"), email.getFrom(), email.getPassword());
+			Store store = emailSession.getStore();
+			String mailHost = "";
+			if (properties.getProperty("mail.store.protocol").compareTo("imap") == 0 ) {
+				mailHost="imap";
+			}else if (properties.getProperty("mail.store.protocol").compareTo("pop3") == 0) {
+				mailHost = "pop3";
+			}
+			store.connect(mailHost, email.getFrom(), email.getPassword());
 
 			// create the folder object and open it
 			Folder emailFolder = store.getFolder("INBOX");

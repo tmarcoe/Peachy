@@ -43,6 +43,30 @@ public class HomeController {
 		return "home";
 	}
 	
+	@RequestMapping("/~donzalma")
+	public String donzalmaRedirect(Model model) {
+		String fileLoc = fileLocations.getImageLoc();
+		
+		List<Inventory> inventory = inventoryService.listSaleItems();
+		
+		model.addAttribute("inventory",inventory);
+		model.addAttribute("fileLoc", fileLoc);
+
+		return "home";
+	}
+	
+	@RequestMapping("/home~donzalma")
+	public String homeDonzalmaRedirect(Model model) {
+		String fileLoc = fileLocations.getImageLoc();
+		
+		List<Inventory> inventory = inventoryService.listSaleItems();
+		
+		model.addAttribute("inventory",inventory);
+		model.addAttribute("fileLoc", fileLoc);
+
+		return "home";
+	}
+	
 	@RequestMapping("/contactus")
 	public String contactUs() {
 

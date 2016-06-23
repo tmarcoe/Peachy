@@ -71,6 +71,7 @@
 		</tr>
 		<tr>
 			<td><button type="button" onclick="followLink('/pcinfo')">Submit Order</button></td>
+			<td><button type="button" onclick="cancel()">Cancel Order</button></td>
 			<td colspan="6"><input type="button" onClick="window.print()"
 						value="Print Order" /></td>
 		</tr>
@@ -80,6 +81,12 @@
 <script type="text/javascript" >
 function followLink(link) {
 	window.location.href = "${pageContext.request.contextPath}" + link;
+}
+
+function cancel() {
+	if (confirm("Are you sure you want to cancel this order?") == true) {
+		window.location.href = "${pageContext.request.contextPath}/cancelsale";
+	}
 }
 </script>
 

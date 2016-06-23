@@ -128,7 +128,7 @@ Nav
 .nav {
 	margin: 0;
 	padding: 0;
-	list-style: none;
+	list-style: inline;
 }
 
 .nav li {

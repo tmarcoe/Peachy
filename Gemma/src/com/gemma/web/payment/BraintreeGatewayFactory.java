@@ -2,10 +2,10 @@ package com.gemma.web.payment;
 
 import com.braintreegateway.BraintreeGateway;
 
-import java.io.File;
-import java.io.FileInputStream;
+import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.URL;
 import java.util.Map;
 import java.util.Properties;
 
@@ -20,17 +20,16 @@ public class BraintreeGatewayFactory {
         );
     }
 
-    public static BraintreeGateway fromConfigFile(File configFile) throws SecurityException, IOException, IllegalArgumentException {
-        InputStream inputStream = null;
+    public static BraintreeGateway fromConfigFile(URL configFile) throws SecurityException, IOException, IllegalArgumentException {
         Properties properties = new Properties();
+        BufferedReader in = new BufferedReader(new InputStreamReader(configFile.openStream()));
 
         try {
-            inputStream = new FileInputStream(configFile);
-            properties.load(inputStream);
+            properties.load(in);
         } catch (SecurityException | IOException | IllegalArgumentException e) {
             throw e;
         } finally {
-            try { inputStream.close(); }
+            try { in.close(); }
             catch (IOException ie) { throw ie; }
         }
 

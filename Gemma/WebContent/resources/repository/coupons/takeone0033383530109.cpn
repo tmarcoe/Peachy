@@ -1,0 +1,4 @@
+{
+	couponValue = getItemPrice("0033383530109") * -1.0;
+	couponTax = getItemTax("0033383530109") * -1.0;
+}

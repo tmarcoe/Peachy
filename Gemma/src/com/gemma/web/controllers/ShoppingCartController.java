@@ -1,11 +1,9 @@
 package com.gemma.web.controllers;
 
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Serializable;
 import java.io.Writer;
-import java.net.URI;
 import java.net.URISyntaxException;
 import java.security.Principal;
 import java.text.SimpleDateFormat;
@@ -133,8 +131,13 @@ public class ShoppingCartController implements Serializable {
 		UserProfile user = userProfileService.getUser(principal.getName());
 		InvoiceHeader header = invoiceHeaderService.getOpenOrder(user
 				.getUserID());
-		invoiceService.deleteInvoice(header);
 
+		InvoiceItem item = invoiceService.getCouponFromInvoice(header.getInvoiceNum());
+		if (item != null) {
+			UsedCoupons used = usedCouponsService.retrieve(item.getSkuNum(), user.getUserID());
+			usedCouponsService.delete(used);
+		}
+		invoiceService.deleteInvoice(header);
 		List<Inventory> inventory = inventoryService.listSaleItems();
 		model.addAttribute("inventory", inventory);
 		model.addAttribute("fileLoc", fileLoc);
@@ -244,7 +247,7 @@ public class ShoppingCartController implements Serializable {
 
 			if (coupon.isExclusive()
 					&& invoiceService.hasCoupons(header.getInvoiceNum())) {
-				errorMsg = "This coupon cannot be used with any other coupon";
+				errorMsg = "Only one coupon per order";
 
 				model.addAttribute("errorMsg", errorMsg);
 				model.addAttribute("couponNum", couponNum);
@@ -322,7 +325,11 @@ public class ShoppingCartController implements Serializable {
 
 		String fileName = fileLocations.getOutPath() + sdf.format(new Date())
 				+ ".csv";
-		Writer hdr = new FileWriter(new File(new URI(fileName)));
+		//URL url = new URL(fileName);
+		//URLConnection connection = url.openConnection();
+		//connection.setDoOutput(true);
+		//OutputStreamWriter hdr = new OutputStreamWriter(connection.getOutputStream());
+		Writer hdr = new FileWriter(fileName);
 		CsvBeanWriter csvWriter = new CsvBeanWriter(hdr,
 				CsvPreference.STANDARD_PREFERENCE);
 
@@ -342,11 +349,15 @@ public class ShoppingCartController implements Serializable {
 			lbl.setCountry(user.getcountry());
 			lbl.setInvoiceNum(String.format("%06d", header.getInvoiceNum()));
 			csvWriter.write(lbl, label);
-
-			Writer inv = new FileWriter(new File(new URI(
-					fileLocations.getOutPath()
-							+ String.format("%08d", header.getInvoiceNum())
-							+ ".inv")));
+			
+			//URL invUrl = new URL(fileLocations.getOutPath() + String.format("%08d", header.getInvoiceNum()) + ".inv");
+			//URLConnection invConn = invUrl.openConnection();
+			
+			//invConn.setDoOutput(true);
+			//OutputStreamWriter inv = new OutputStreamWriter(invConn.getOutputStream());
+			
+			Writer inv = new FileWriter(fileLocations.getOutPath() + String.format("%08d", header.getInvoiceNum()) + ".inv");
+			
 			List<InvoiceItem> invoices = invoiceService.getInvoice(header);
 			String address2 = "";
 			if ("".compareTo(user.getaddress2()) != 0) {

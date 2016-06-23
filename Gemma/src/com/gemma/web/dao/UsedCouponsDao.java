@@ -46,7 +46,7 @@ public class UsedCouponsDao {
 	@SuppressWarnings("unchecked")
 	public UsedCoupons retrieve(String skuNum, int userID) {
 		String hql = "FROM UsedCoupons WHERE userID = :userID and couponID = :couponID";
-		List<UsedCoupons> result = session().createQuery(hql).setString("skuNum", skuNum).setInteger("userID", userID).list();
+		List<UsedCoupons> result = session().createQuery(hql).setString("couponID", skuNum).setInteger("userID", userID).list();
 		return result.get(0);
 	}
 

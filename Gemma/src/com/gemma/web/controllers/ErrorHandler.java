@@ -55,7 +55,7 @@ public class ErrorHandler {
 	@ExceptionHandler(MessagingException.class)
 	public String handleMessagingException(MessagingException e){
 		logger.error("MessagingException: " + e.getMessage());
-		return "error";
+		return "nointernet";
 	}
 	
 	@ExceptionHandler(SecurityException.class) 
@@ -93,6 +93,5 @@ public class ErrorHandler {
 		
 		return "error";
 	}
-	
 
 }

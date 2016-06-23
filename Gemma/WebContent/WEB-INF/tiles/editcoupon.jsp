@@ -12,13 +12,16 @@
 			<th>Coupon ID</th>
 			<th>Coupon Name</th>
 			<th>Rule Name</th>
+			<th>Usage</th>
 			<th>Date Expired</th>
 		</tr>
 		<tr>
 			<td><sf:input path="couponID" type="text" readonly="true" /></td>
 			<td><sf:input path="name" type="text" /></td>
-			<td><sf:input path="ruleName" type="date" /></td>
+			<td><sf:input path="ruleName" type="text" /></td>
+			<th><sf:input path="useage" type="number" min="1" />
 			<td><sf:input path="expires" type="date" />
+			
 		</tr>
 		<tr>
 			<td>Active&nbsp;<input type="hidden" value="on" name="_active" /> <sf:checkbox
@@ -37,8 +40,13 @@
 		</tr>
 		<tr>
 			<td><button type="submit" >Save</button></td>
+			<td><button type="button" onclick="followLink('/listcoupons')">Cancel</button></td>
 		</tr>
 	</table>
-
-
 </sf:form>
+<script type="text/javascript">
+function followLink(link) {
+	window.location.href = "${pageContext.request.contextPath}" + link;
+}
+
+</script>

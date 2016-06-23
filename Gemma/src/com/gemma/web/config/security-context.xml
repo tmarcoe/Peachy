@@ -9,8 +9,8 @@
 	<security:authentication-manager>
 		<security:authentication-provider>
 			<security:jdbc-user-service data-source-ref="dataSource"
-				authorities-by-username-query='select username, authority from userprofile where binary username = ?'
-				users-by-username-query='select username, password, enabled from userprofile where binary username = ?'
+				authorities-by-username-query='select username, authority from UserProfile where binary username = ?'
+				users-by-username-query='select username, password, enabled from UserProfile where binary username = ?'
 				id="jdbcUserService" />
 			<security:password-encoder ref="passwordEncoder"></security:password-encoder>
 		</security:authentication-provider>
@@ -18,6 +18,8 @@
 
 	<security:http use-expressions="true">
 		<security:intercept-url pattern="/" access="permitAll" />
+		<security:intercept-url pattern="/~donzalma" access="permitAll" />
+		<security:intercept-url pattern="/home~donzalma" access="permitAll" />
 		<security:intercept-url pattern="/static/**" access="permitAll" />	
 		<security:intercept-url pattern="/login" access="permitAll" />
 		<security:intercept-url pattern="/home" access="permitAll" />
