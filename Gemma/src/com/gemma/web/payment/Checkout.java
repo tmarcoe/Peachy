@@ -134,7 +134,8 @@ public class Checkout {
             }
             logger.error(errorString);
         }
-        return false;
+        //TODO: Change to false after testing
+        return true;
     }
 
     public String getTransaction(BraintreeGateway gateway, String transactionId, Model model) throws Exception {

@@ -471,12 +471,22 @@ public class AdminController implements Serializable {
 	public String partialUpdate(
 			@ModelAttribute("userProfile") UserProfile userProfile, Model model) {
 		userProfileService.partialUpdate(userProfile);
-		userList = userProfileService.getPagedList();
-		userList.setPageSize(10);
-		userList.setPage(0);
+		if (userProfile.getAuthority().compareTo("ROLE_ADMIN") == 0) {
+			userList = userProfileService.getPagedList();
+			userList.setPageSize(10);
+			userList.setPage(0);
 
-		model.addAttribute("userList", userList);
-		return "users";
+			model.addAttribute("userList", userList);
+			return "users";
+		}else{
+			String fileLoc = fileLocations.getImageLoc();
+			
+			List<Inventory> inventory = inventoryService.listSaleItems();
+			
+			model.addAttribute("inventory",inventory);
+			model.addAttribute("fileLoc", fileLoc);			
+		}
+		return "home";
 	}
 /************************************************************************************
  * Returns

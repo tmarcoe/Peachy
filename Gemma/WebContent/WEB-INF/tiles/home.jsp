@@ -45,10 +45,18 @@ $(document).ready(function(){
 				<td colspan="3"><hr /></td>
 			</tr>
 		</c:forEach>
-
+		<tr>
+			<td><button class="standout" type="button" onclick="followLink('/pickcategory')">More Products</button>
+		</tr>
 
 	</table>
 </c:if>
 <c:if test="${inventory.size() == 0}">
 	<h1>Sorry, no daily specials today.</h1>
+	<h1>Click 'Shop' at the top menu to see a full list of products.</h1>
 </c:if>
+<script type="text/javascript">
+function followLink(link) {
+	window.location.href = "${pageContext.request.contextPath}" + link;
+}
+</script>

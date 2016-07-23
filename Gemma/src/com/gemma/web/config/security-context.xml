@@ -38,6 +38,7 @@
 		<security:intercept-url pattern="/paging" access="isAuthenticated()"/>
 		<security:intercept-url pattern="/userdetails" access="isAuthenticated()"/>
 		<security:intercept-url pattern="/mydonzalmart" access="isAuthenticated()"/>
+		<security:intercept-url pattern="/saveuser" access="isAuthenticated()"/>
 		<security:intercept-url pattern="/changepassword" access="isAuthenticated()"/>
 		<security:intercept-url pattern="/passwordchanged" access="isAuthenticated()"/>
 		<security:intercept-url pattern="/updateuser" access="isAuthenticated()"/>
@@ -102,7 +103,6 @@
 		<security:intercept-url pattern="/saveaccount" access="hasRole('ROLE_ADMIN')"/>
 		<security:intercept-url pattern="/users" access="hasRole('ROLE_ADMIN')"/>
 		<security:intercept-url pattern="/userpaging" access="hasRole('ROLE_ADMIN')"/>
-		<security:intercept-url pattern="/saveuser" access="hasRole('ROLE_ADMIN')"/>
 		<security:intercept-url pattern="/podnotify" access="hasRole('ROLE_ADMIN')"/>
 		<security:intercept-url pattern="/podconfirm" access="hasRole('ROLE_ADMIN')"/>
 		<security:intercept-url pattern="/podsave" access="hasRole('ROLE_ADMIN')"/>
