@@ -14,6 +14,10 @@ $(document).ready(function(){
 		  "\nKeep in mind that the inventory might change.");
 });
 </script>
+<div class="disclaimer">
+<h4>&nbsp;All pricess are in Philippine pesos&nbsp;</h4>
+<h6>&nbsp;Approx. 45PHP=$1USD&nbsp;</h6>
+</div>
 <c:if test="${inventory.size() > 0}">
 	<table class="dailyspecials">
 
@@ -52,8 +56,8 @@ $(document).ready(function(){
 	</table>
 </c:if>
 <c:if test="${inventory.size() == 0}">
-	<h1>Sorry, no daily specials today.</h1>
-	<h1>Click 'Shop' at the top menu to see a full list of products.</h1>
+	<h2>Sorry, no daily specials today.</h2>
+	<h3>Click 'Shop' at the top menu to see a full list of products.</h3>
 </c:if>
 <script type="text/javascript">
 function followLink(link) {

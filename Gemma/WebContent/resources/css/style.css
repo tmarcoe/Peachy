@@ -110,6 +110,8 @@ Layout styles
 }
 .menu-items {
 	float: right;
+	margin: 0 0;
+	box-shadow: 10px 10px 5px #b5b5b5;
 }
 .content {
 	padding: 1em 1.25em;
@@ -767,4 +769,11 @@ table.pcinfoTable td, th{
 .standout
 {
 	background-color: #f0c575;
+}
+.disclaimer
+{
+	float: right;
+	margin: 0 0;
+	border: 4px ridge #808080;
+	box-shadow: 10px 10px 5px #b5b5b5;
 }

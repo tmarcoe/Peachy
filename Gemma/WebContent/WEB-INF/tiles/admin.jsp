@@ -7,6 +7,28 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@taglib prefix="pg" uri="http://pagination/pagination-spring3.tld"%>
+<div class="menu-items">
+	<fieldset>
+		<legend>Admin Tasks</legend>
+
+		<div class="container">
+			<ul class="side-menu">
+				<li><a href="home">Home</a></li>
+				<sec:authorize access="hasRole('ROLE_ADMIN')">
+					<li><a href="checkemail">Check Email</a></li>
+					<li><a href="admininventory">Inventory Tasks</a></li>
+					<li><a href="manageaccount">Manage Accounts</a></li>
+					<li><a href="users">User Profiles</a></li>
+					<li><a href="datepicker">View General Ledger</a></li>
+					<li><a href="podnotify">Receive Payment From POD</a>
+					<li><a href="returns-list">Process Returns</a></li>
+					<li><a href="listcoupons">Manage Coupons</a></li>
+					<li><a href="https://my.justhost.com/cgi/cpanel?ldomain=donzalmart.com">Control Panel</a></li>
+				</sec:authorize>
+			</ul>
+		</div>
+	</fieldset>
+</div>
 
 <div class="printorders">
 	<c:choose>
@@ -73,26 +95,4 @@
 			<h1>No orders to print</h1>
 		</c:otherwise>
 	</c:choose>
-</div>
-<div class="menu-items">
-	<fieldset>
-		<legend>Admin Tasks</legend>
-
-		<div class="container">
-			<ul class="side-menu">
-				<li><a href="home">Home</a></li>
-				<sec:authorize access="hasRole('ROLE_ADMIN')">
-					<li><a href="checkemail">Check Email</a></li>
-					<li><a href="admininventory">Inventory Tasks</a></li>
-					<li><a href="manageaccount">Manage Accounts</a></li>
-					<li><a href="users">User Profiles</a></li>
-					<li><a href="datepicker">View General Ledger</a></li>
-					<li><a href="podnotify">Receive Payment From POD</a>
-					<li><a href="returns-list">Process Returns</a></li>
-					<li><a href="listcoupons">Manage Coupons</a></li>
-					<li><a href="https://my.justhost.com/cgi/cpanel?ldomain=donzalmart.com">Control Panel</a></li>
-				</sec:authorize>
-			</ul>
-		</div>
-	</fieldset>
 </div>

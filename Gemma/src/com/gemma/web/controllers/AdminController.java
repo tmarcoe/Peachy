@@ -269,7 +269,7 @@ public class AdminController implements Serializable {
 			@ModelAttribute("deleteKey") String deleteKey, Model model) throws URISyntaxException {
 		Inventory inventory = inventoryService.getItem(deleteKey);
 		
-		File file = new File(new URI(fileLocations.getImageLoc() + inventory.getImage()));
+		File file = new File(new URI(fileLocations.getImgUploadLoc() + inventory.getImage()));
 		file.delete();
 		logger.info("File: " + fileLocations.getImageLoc() + inventory.getImage() + " is deleted." );
 
