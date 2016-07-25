@@ -8,15 +8,28 @@
 	<h2>Daily Specials</h2>
 </div>
 <script>
-$(document).ready(function(){
-	alert("This site is currently in beta and not accepting orders." + 
-		  "\nHowever, you are welcome to register and browse the products." + 
-		  "\nKeep in mind that the inventory might change.");
-});
+	$(document)
+			.ready(
+					function() {
+						alert("This site is currently in beta and not accepting orders."
+								+ "\nHowever, you are welcome to register and browse the products."
+								+ "\nKeep in mind that the inventory might change.");
+					});
 </script>
 <div class="disclaimer">
-<h4>&nbsp;All pricess are in Philippine pesos&nbsp;</h4>
-<h6>&nbsp;Approx. 45PHP=$1USD&nbsp;</h6>
+	<h4>&nbsp;All pricess are in Philippine pesos&nbsp;</h4>
+	<h6>&nbsp;Approx. 45PHP=$1USD&nbsp;</h6>
+</div>
+
+<div class="logos">
+	<p>
+	<h5>We proudly feature the following products:</h5>
+	<p>
+	<img alt="Image not available" src="<c:url value='static/images/web/bluenoteslogo.png'/>" />
+	<p>
+	<img alt="Image not available" src="<c:url value='/static/images/web/artisanlogo.png' />" />
+	<p>
+	<img alt="Image not available" src="<c:url value='/static/images/web/serenitylogo.png' />" />
 </div>
 <c:if test="${inventory.size() > 0}">
 	<table class="dailyspecials">
@@ -50,7 +63,8 @@ $(document).ready(function(){
 			</tr>
 		</c:forEach>
 		<tr>
-			<td><button class="standout" type="button" onclick="followLink('/pickcategory')">More Products</button>
+			<td><button class="standout" type="button"
+					onclick="followLink('/pickcategory')">More Products</button>
 		</tr>
 
 	</table>
@@ -60,7 +74,7 @@ $(document).ready(function(){
 	<h3>Click 'Shop' at the top menu to see a full list of products.</h3>
 </c:if>
 <script type="text/javascript">
-function followLink(link) {
-	window.location.href = "${pageContext.request.contextPath}" + link;
-}
+	function followLink(link) {
+		window.location.href = "${pageContext.request.contextPath}" + link;
+	}
 </script>

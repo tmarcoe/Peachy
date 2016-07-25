@@ -777,3 +777,9 @@ table.pcinfoTable td, th{
 	border: 4px ridge #808080;
 	box-shadow: 10px 10px 5px #b5b5b5;
 }
+.logos{
+	padding-top: 0em;
+	float: right;
+	margin: 0 0;
+	clear: right;
+	}
