@@ -124,7 +124,7 @@ public class AdminController implements Serializable {
 
 		headerList.setSource(invoiceHeaderService.getProcessedInvoices());
 		headerList.setPage(0);
-		headerList.setPageSize(5);
+		headerList.setPageSize(10);
 		model.addAttribute("headerList", headerList);
 		return "admin";
 	}
