@@ -5,7 +5,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
-import java.net.URI;
 import java.net.URISyntaxException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -701,8 +700,7 @@ public class AdminController implements Serializable {
 	@RequestMapping(value="/productpaging", method=RequestMethod.GET)
 	public ModelAndView handleProductRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		int pgNum;
-		String keyword = request.getParameter("keyword");
-	
+		String keyword = request.getParameter("keyword");		
 
 	    if (keyword != null) {
 	        if (!StringUtils.hasLength(keyword)) {

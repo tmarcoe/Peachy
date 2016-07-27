@@ -4,6 +4,7 @@
 
 
 <sf:form modelAttribute="inventory" method="get">
+
 	<table class="inventorytable" id="listinventory">
 		<thead>
 			<tr>
