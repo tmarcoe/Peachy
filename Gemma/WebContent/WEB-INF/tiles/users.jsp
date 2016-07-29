@@ -28,7 +28,7 @@
 				<th>Edit</th>
 			</tr>
 		</thead>
-		<c:forEach var="user" items="${userList.pageList}" varStatus="i"
+		<c:forEach var="user" items="${objectList.pageList}" varStatus="i"
 			begin="0">
 			<tr>
 				<td>${user.firstname}</td>
@@ -54,31 +54,6 @@
 		</tfoot>
 	</table>
 </form:form>
-<div class="paging">
-	<c:if test="${userList.getPageCount()>1}">
-		<c:if test="${userList.isFirstPage()==false}">
-			<a href="userpaging?page=prev"><img alt="[Prev]"
-				src="<c:url value='/static/images/web/button_prev.gif'/>"></a>
-		</c:if>
-		<c:forEach begin="1" end="${userList.getPageCount()}" var="i">
-
-			<c:choose>
-				<c:when test="${(i-1)!=userList.getPage()}">
-					<a href="userpaging?page=${i-1}"><span class="paging"><c:out
-								value="${i}" /></span></a>
-				</c:when>
-				<c:otherwise>
-					<span class="paging"><c:out value="${i}" /></span>
-				</c:otherwise>
-			</c:choose>
-		</c:forEach>
-		<%--For displaying Next link --%>
-		<c:if test="${userList.isLastPage()==false}">
-			<a href="userpaging?page=next"><img alt="[Next]"
-				src="<c:url value='/static/images/web/button_next.gif'/>"></a>
-		</c:if>
-	</c:if>
-</div>
 <script type="text/javascript">
 	function rowRemoved(row) {
 		var inputs = document.getElementById('listusers').getElementsByTagName(

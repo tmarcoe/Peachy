@@ -21,6 +21,7 @@ import com.gemma.web.email.ProcessEmail;
 
 @Controller
 public class EmailController {
+	private final String pageLink = "/productpaging";
 	
 	private PagedListHolder<MsgDisplay> msgs;
 	
@@ -34,8 +35,9 @@ public class EmailController {
 		msgs = email.receiveEmail(myEmail);
 		msgs.setPageSize(15);
 		msgs.setPage(0);
-		model.addAttribute("msgs", msgs);
-		
+		model.addAttribute("objectList", msgs);
+		model.addAttribute("pagelink", pageLink);
+				
 		return "checkemail";
 	}
 /************************************************************************************************************
@@ -53,7 +55,10 @@ public class EmailController {
 	        }
 
 	        request.getSession().setAttribute("SearchProductsController_productList", msgs);
-	        return new ModelAndView("checkemail", "msgs", msgs);
+	        ModelAndView model = new ModelAndView("checkemail", "objectList", msgs);
+	        model.addObject("pagelink", pageLink);
+	        
+	        return model;        
 	    }
 	    else {
 	        String page = request.getParameter("page");
@@ -71,7 +76,10 @@ public class EmailController {
 	        }else if (pgNum != -1) {
 	        	msgs.setPage(pgNum);
 	        }
-	        return new ModelAndView("checkemail", "msgs", msgs);
+	        ModelAndView model = new ModelAndView("checkemail", "objectList", msgs);
+	        model.addObject("pagelink", pageLink);
+	        
+	        return model;        
 	    }
 	}
 /**************************************************************************************************************************************

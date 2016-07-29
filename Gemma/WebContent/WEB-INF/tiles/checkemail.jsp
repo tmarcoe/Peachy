@@ -10,7 +10,7 @@
 	<h2>Client Email</h2>
 </div>
 <c:choose>
-	<c:when test="${msgs.pageList.size() > 0}">
+	<c:when test="${objectList.pageList.size() > 0}">
 		<table class="emailtable">
 			<thead class="emailheader">
 				<tr>
@@ -18,7 +18,7 @@
 					<th>Subject</th>
 				</tr>
 			</thead>
-			<c:forEach var="item" items="${msgs.getPageList()}">
+			<c:forEach var="item" items="${objectList.getPageList()}">
 				<tr>
 					<td>${item.getFrom()}</td>
 					<td>${item.getSubject()}</td>
@@ -30,31 +30,6 @@
 				</tr>
 			</tfoot>
 		</table>
-		<div class="paging">
-			<c:if test="${msgs.getPageCount()> 1}">
-				<c:if test="${msgs.isFirstPage()==false}">
-					<a href="emailpaging?page=prev"><img alt="[Prev]"
-						src="<c:url value='/static/images/web/button_prev.gif'/>"></a>
-				</c:if>
-				<c:forEach begin="1" end="${msgs.getPageCount()}" var="i">
-
-					<c:choose>
-						<c:when test="${(i-1)!= msgs.getPage()}">
-							<a href="emailpaging?page=${i-1}"><span class="paging"><c:out
-										value="${i}" /></span></a>
-						</c:when>
-						<c:otherwise>
-							<span class="paging"><c:out value="${i}" /></span>
-						</c:otherwise>
-					</c:choose>
-				</c:forEach>
-				<%--For displaying Next link --%>
-				<c:if test="${msgs.isLastPage()==false}">
-					<a href="emailpaging?page=next"><img alt="[Next]"
-						src="<c:url value='/static/images/web/button_next.gif'/>"></a>
-				</c:if>
-			</c:if>
-		</div>
 	</c:when>
 	<c:otherwise>
 		<h1>No Email</h1>

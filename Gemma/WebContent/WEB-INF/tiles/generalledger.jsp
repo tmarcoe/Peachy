@@ -16,7 +16,7 @@
 
 	<tbody>
 
-		<c:forEach items="${ledgerList.pageList}" var="item">
+		<c:forEach items="${objectList.pageList}" var="item">
 			<c:choose>
 				<c:when test="${item.debitAmt > 0}">
 					<fmt:formatNumber type="currency" currencySymbol="P"
@@ -48,31 +48,7 @@
 		<tr><td><button type="button" onclick="followLink('/admin')">OK</button></td></tr>
 	</tfoot>
 </table>
-<c:if test="${ledgerList.getPageCount() > 1}">
-	<div class="paging">
-		<c:if test="${ledgerList.isFirstPage()==false}">
-			<a href="ledgerpaging?page=prev"><img alt="[Prev]"
-				src="<c:url value='/static/images/web/button_prev.gif'/>"></a>
-		</c:if>
-		<c:forEach begin="1" end="${ledgerList.getPageCount()}" var="i">
 
-			<c:choose>
-				<c:when test="${(i-1)!= ledgerList.getPage()}">
-					<a href="ledgerpaging?page=${i-1}"><span class="paging"><c:out
-								value="${i}" /></span></a>
-				</c:when>
-				<c:otherwise>
-					<span class="paging"><c:out value="${i}" /></span>
-				</c:otherwise>
-			</c:choose>
-		</c:forEach>
-		<%--For displaying Next link --%>
-		<c:if test="${ledgerList.isLastPage()==false}">
-			<a href="ledgerpaging?page=next"><img alt="[Next]"
-				src="<c:url value='/static/images/web/button_next.gif'/>"></a>
-		</c:if>
-	</div>
-</c:if>
 <script type="text/javascript">
 function followLink(link) {
 	window.location.href = "${pageContext.request.contextPath}" + link;

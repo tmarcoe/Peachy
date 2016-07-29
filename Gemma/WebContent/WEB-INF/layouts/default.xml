@@ -70,6 +70,7 @@
 		<put-attribute name="title" value="shop"></put-attribute>
 		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/products.jsp"></put-attribute>
+		<put-attribute name="footer" value="/WEB-INF/tiles/pageinator.jsp"></put-attribute>
 	</definition>
 	<definition name="productdetails" extends="gemma.base">
 		<put-attribute name="heading_title" value="Product Details"></put-attribute>
@@ -107,6 +108,7 @@
 		<put-attribute name="title" value="Manage Products"></put-attribute>
 		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/manageinventory.jsp"></put-attribute>
+		<put-attribute name="footer" value="/WEB-INF/tiles/pageinator.jsp"></put-attribute>
 	</definition>
 	<definition name="inventorydetails" extends="gemma.base">
 		<put-attribute name="heading_title" value="Inventory Details"></put-attribute>
@@ -156,6 +158,7 @@
 		<put-attribute name="title" value="Admin"></put-attribute>
 		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/admin.jsp"></put-attribute>
+		<put-attribute name="footer" value="/WEB-INF/tiles/pageinator.jsp"></put-attribute>
 	</definition>
 	<definition name="manageaccount" extends="gemma.base">
 		<put-attribute name="heading_title" value="Manage Accounts"></put-attribute>
@@ -180,6 +183,7 @@
 		<put-attribute name="title" value="User Profiles"></put-attribute>
 		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/users.jsp"></put-attribute>
+		<put-attribute name="footer" value="/WEB-INF/tiles/pageinator.jsp"></put-attribute>
 	</definition>
 	<definition name="userdetails" extends="gemma.base">
 		<put-attribute name="heading_title" value="User Details"></put-attribute>
@@ -204,6 +208,7 @@
 		<put-attribute name="title" value="General Ledger"></put-attribute>
 		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/generalledger.jsp"></put-attribute>
+		<put-attribute name="footer" value="/WEB-INF/tiles/pageinator.jsp"></put-attribute>
 	</definition>
 	<definition name="datepicker" extends="gemma.base">
 		<put-attribute name="heading_title" value="General Ledger Period"></put-attribute>
@@ -258,6 +263,7 @@
 		<put-attribute name="title" value="Returns List"></put-attribute>
 		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/returns-list.jsp"></put-attribute>
+		<put-attribute name="footer" value="/WEB-INF/tiles/pageinator.jsp"></put-attribute>
 	</definition>
 	<definition name="returns-approve" extends="gemma.base">
 		<put-attribute name="heading_title" value="Approve RMA"></put-attribute>
@@ -276,6 +282,7 @@
 		<put-attribute name="title" value="Returns Status"></put-attribute>
 		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/returns-status.jsp"></put-attribute>
+		<put-attribute name="footer" value="/WEB-INF/tiles/pageinator.jsp"></put-attribute>
 	</definition>
 	<definition name="pcinfo" extends="gemma.base">
 		<put-attribute name="heading_title" value="Please Enter Your Payment Information"></put-attribute>
@@ -306,6 +313,7 @@
 		<put-attribute name="title" value="Email"></put-attribute>
 		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/checkemail.jsp"></put-attribute>
+		<put-attribute name="footer" value="/WEB-INF/tiles/pageinator.jsp"></put-attribute>
 	</definition>
 	<definition name="nointernet" extends="gemma.base">
 		<put-attribute name="heading_title" value="No Internet"></put-attribute>
@@ -318,6 +326,7 @@
 		<put-attribute name="title" value="History"></put-attribute>
 		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/shoppinghistory.jsp"></put-attribute>
+		<put-attribute name="footer" value="/WEB-INF/tiles/pageinator.jsp"></put-attribute>
 	</definition>
 	<definition name="createcoupon" extends="gemma.base">
 		<put-attribute name="heading_title" value="Create Coupon"></put-attribute>
@@ -330,6 +339,7 @@
 		<put-attribute name="title" value="Coupon List"></put-attribute>
 		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/listcoupons.jsp"></put-attribute>
+		<put-attribute name="footer" value="/WEB-INF/tiles/pageinator.jsp"></put-attribute>
 	</definition>
 	<definition name="editcoupon" extends="gemma.base">
 		<put-attribute name="heading_title" value="Edit Coupon"></put-attribute>

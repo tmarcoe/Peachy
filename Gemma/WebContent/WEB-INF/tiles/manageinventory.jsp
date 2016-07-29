@@ -1,9 +1,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
 
-
-<sf:form modelAttribute="inventory" method="get">
+<sf:form modelAttribute="objectList" method="get">
 
 	<table class="inventorytable" id="listinventory">
 		<thead>
@@ -20,7 +20,7 @@
 
 		<tbody>
 
-			<c:forEach items="${inventory.pageList}" var="item" varStatus="i"
+			<c:forEach items="${objectList.pageList}" var="item" varStatus="i"
 				begin="0">
 				<tr class="account">
 					<td>${item.productName}</td>
@@ -31,8 +31,8 @@
 						class="removeAccount"><img alt="[Remove]"
 							src="<c:url value='/static/images/web/delete.jpg' />" /></a></td>
 					<td>&nbsp;</td>
-					<td><a href="#" onclick="inventoryDetail(${i.index});"
-						class="inventorydetail"><img alt="[Show Details]"
+					<td><a href="#" onclick="productDetail(${i.index});"
+						class="productdetail"><img alt="[Show Details]"
 							src="<c:url value='/static/images/web/edit.jpg' />" /></a>
 				</tr>
 			</c:forEach>
@@ -51,31 +51,6 @@
 
 
 </sf:form>
-<c:if test="${inventory.getPageCount() > 1}">
-	<div class="paging">
-		<c:if test="${inventory.isFirstPage()==false}">
-			<a href="productpaging?page=prev"><img alt="[Prev]"
-				src="<c:url value='/static/images/web/button_prev.gif'/>"></a>
-		</c:if>
-		<c:forEach begin="1" end="${inventory.getPageCount()}" var="i">
-
-			<c:choose>
-				<c:when test="${(i-1)!= inventory.getPage()}">
-					<a href="productpaging?page=${i-1}"><span class="paging"><c:out
-								value="${i}" /></span></a>
-				</c:when>
-				<c:otherwise>
-					<span class="paging"><c:out value="${i}" /></span>
-				</c:otherwise>
-			</c:choose>
-		</c:forEach>
-		<%--For displaying Next link --%>
-		<c:if test="${inventory.isLastPage()==false}">
-			<a href="productpaging?page=next"><img alt="[Next]"
-				src="<c:url value='/static/images/web/button_next.gif'/>"></a>
-		</c:if>
-	</div>
-</c:if>
 <script type="text/javascript">
 	function rowRemoved(row) {
 		
@@ -87,11 +62,10 @@
 		   	} 
 	}
 	
-	function inventoryDetail(row) {
-
+	function productDetail(row) {	
   		var inputs = document.getElementById('listinventory').getElementsByTagName('input');
 		var column = (row * 2);
-		var key = inputs[column].value;
+		var key = inputs[column].value;		
 		window.location.href = "${pageContext.request.contextPath}/inventorydetails?InventoryKey=" + key;	
 	}
 	function followLink(link) {

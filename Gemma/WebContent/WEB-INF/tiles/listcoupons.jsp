@@ -15,7 +15,7 @@
 		<th>Edit</th>
 		<th>Delete</th>
 	</tr>
-	<c:forEach var="item" items="${couponList.pageList}">
+	<c:forEach var="item" items="${objectList.pageList}">
 		<tr>
 			<td>${item.name}</td>
 			<td>${item.description}</td>
@@ -41,33 +41,6 @@
 	</tr>
 	</tfoot>
 </table>
-
-<div class="paging">
-	<c:if test="${couponList.getPageCount()> 1}">
-		<c:if test="${couponList.isFirstPage()==false}">
-			<a href="couponpaging?page=prev"><img alt="[Prev]"
-				src="<c:url value='/static/images/web/button_prev.gif'/>"></a>
-		</c:if>
-		<c:forEach begin="1" end="${couponList.getPageCount()}" var="i">
-
-			<c:choose>
-				<c:when test="${(i-1)!= couponList.getPage()}">
-					<a href="couponpaging?page=${i-1}"><span class="paging"><c:out
-								value="${i}" /></span></a>
-				</c:when>
-				<c:otherwise>
-					<span class="paging"><c:out value="${i}" /></span>
-				</c:otherwise>
-			</c:choose>
-		</c:forEach>
-		<%--For displaying Next link --%>
-		<c:if test="${couponList.isLastPage()==false}">
-			<a href="couponpaging?page=next"><img alt="[Next]"
-				src="<c:url value='/static/images/web/button_next.gif'/>"></a>
-		</c:if>
-	</c:if>
-</div>
-
 <script type="text/javascript">
 	function rowRemoved(key) {
 

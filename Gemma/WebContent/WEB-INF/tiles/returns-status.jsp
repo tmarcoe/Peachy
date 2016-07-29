@@ -12,7 +12,7 @@
 			<th>Reason</th>
 		</tr>
 	</thead>
-	<c:forEach var="item" items="${returns.pageList}">
+	<c:forEach var="item" items="${objectList.pageList}">
 		<c:if test="${item.decision == null}">
 			<c:set var="status" value="In Process"/>
 		</c:if>
@@ -30,28 +30,3 @@
 		</tr>
 	</c:forEach>
 </table>
-<c:if test="${returns.getPageCount() > 1}">
-	<div class="paging">
-		<c:if test="${returns.isFirstPage()==false}">
-			<a href="returnsstatuspaging?page=prev"><img alt="[Prev]"
-				src="<c:url value='/static/images/web/button_prev.gif'/>"></a>
-		</c:if>
-		<c:forEach begin="1" end="${returns.getPageCount()}" var="i">
-
-			<c:choose>
-				<c:when test="${(i-1)!= returns.getPage()}">
-					<a href="returnsstatuspaging?page=${i-1}"><span class="paging"><c:out
-								value="${i}" /></span></a>
-				</c:when>
-				<c:otherwise>
-					<span class="paging"><c:out value="${i}" /></span>
-				</c:otherwise>
-			</c:choose>
-		</c:forEach>
-		<%--For displaying Next link --%>
-		<c:if test="${returns.isLastPage()==false}">
-			<a href="returnsstatuspaging?page=next"><img alt="[Next]"
-				src="<c:url value='/static/images/web/button_next.gif'/>"></a>
-		</c:if>
-	</div>
-</c:if>

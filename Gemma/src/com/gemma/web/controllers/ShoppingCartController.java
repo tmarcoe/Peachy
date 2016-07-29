@@ -1,10 +1,7 @@
 package com.gemma.web.controllers;
 
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Serializable;
-import java.io.Writer;
-import java.net.URISyntaxException;
 import java.security.Principal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -30,10 +27,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.util.NestedServletException;
-import org.supercsv.io.CsvBeanWriter;
-import org.supercsv.prefs.CsvPreference;
-
-import com.gemma.web.beans.AddressLabel;
 import com.gemma.web.beans.FileLocations;
 import com.gemma.web.beans.FileUpload;
 import com.gemma.web.dao.Coupons;
@@ -58,6 +51,7 @@ public class ShoppingCartController implements Serializable {
 	private static final long serialVersionUID = 4725326820861092920L;
 	private static Logger logger = Logger
 			.getLogger(ShoppingCartController.class.getName());
+	private final String pageLink = "/historypaging";
 
 	@Autowired
 	private InvoiceService invoiceService;
@@ -310,101 +304,12 @@ public class ShoppingCartController implements Serializable {
 		historyList = invoiceHeaderService.getHistory(user.getUserID());
 		historyList.setPageSize(15);
 		historyList.setPage(0);
-		model.addAttribute("historyList", historyList);
+		model.addAttribute("objectList", historyList);
+		model.addAttribute("pagelink", pageLink);
 
 		return "shoppinghistory";
 	}
 
-	@RequestMapping("/processorders")
-	public String processOrders() throws IOException, URISyntaxException {
-		AddressLabel lbl = new AddressLabel();
-
-		String[] label = { "firstname", "lastname", "address1", "address2",
-				"city", "region", "postalCode", "country", "invoiceNum" };
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddhhmm");
-
-		String fileName = fileLocations.getOutPath() + sdf.format(new Date())
-				+ ".csv";
-		//URL url = new URL(fileName);
-		//URLConnection connection = url.openConnection();
-		//connection.setDoOutput(true);
-		//OutputStreamWriter hdr = new OutputStreamWriter(connection.getOutputStream());
-		Writer hdr = new FileWriter(fileName);
-		CsvBeanWriter csvWriter = new CsvBeanWriter(hdr,
-				CsvPreference.STANDARD_PREFERENCE);
-
-		List<InvoiceHeader> headers = invoiceHeaderService
-				.getProcessedInvoices();
-		csvWriter.writeHeader(label);
-		for (InvoiceHeader header : headers) {
-			UserProfile user = userProfileService.getUserByID(header
-					.getUserID());
-			lbl.setFirstname(user.getFirstname());
-			lbl.setLastname(user.getLastname());
-			lbl.setAddress1(user.getaddress1());
-			lbl.setAddress2(user.getaddress2());
-			lbl.setCity(user.getcity());
-			lbl.setRegion(user.getregion());
-			lbl.setPostalCode(user.getpostalCode());
-			lbl.setCountry(user.getcountry());
-			lbl.setInvoiceNum(String.format("%06d", header.getInvoiceNum()));
-			csvWriter.write(lbl, label);
-			
-			//URL invUrl = new URL(fileLocations.getOutPath() + String.format("%08d", header.getInvoiceNum()) + ".inv");
-			//URLConnection invConn = invUrl.openConnection();
-			
-			//invConn.setDoOutput(true);
-			//OutputStreamWriter inv = new OutputStreamWriter(invConn.getOutputStream());
-			
-			Writer inv = new FileWriter(fileLocations.getOutPath() + String.format("%08d", header.getInvoiceNum()) + ".inv");
-			
-			List<InvoiceItem> invoices = invoiceService.getInvoice(header);
-			String address2 = "";
-			if ("".compareTo(user.getaddress2()) != 0) {
-				address2 = user.getaddress2() + "\n";
-			}
-			String invoiceHeading = user.getFirstname() + " "
-					+ user.getLastname() + "\n" + user.getaddress1() + "\n"
-					+ address2 + user.getcity() + "," + user.getregion() + " "
-					+ user.getpostalCode() + " " + user.getcountry() + "\n"
-					+ "Invoice # "
-					+ String.format("%06d", header.getInvoiceNum()) + "\n";
-			if (header.isPod() == true) {
-				invoiceHeading = invoiceHeading + "Payment ON Delivery\n\n";
-			} else {
-				invoiceHeading = invoiceHeading + "\n";
-			}
-			inv.write(invoiceHeading);
-			double total = 0;
-			double totalTax = 0;
-
-			for (InvoiceItem invoice : invoices) {
-				double price = invoice.getAmount() * invoice.getPrice();
-				double tax = invoice.getAmount() * invoice.getTax();
-				total += price;
-				totalTax += tax;
-				inv.write(String.format("%s\t%d\tP%.2f [SKU - %s]\n",
-						invoice.getProductName(), invoice.getAmount(), price,
-						invoice.getSkuNum()));
-			}
-			inv.write("\n\n\n");
-			inv.write("Subtotal................. "
-					+ String.format("P%.2f\n", total));
-			inv.write("POD Charge............... "
-					+ String.format("P%.2f\n", header.getAddedCharges()));
-			inv.write("Tax...................... "
-					+ String.format("P%.2f\n", totalTax));
-			inv.write("Total.................... "
-					+ String.format("P%.2f\n",
-							total + totalTax + header.getAddedCharges()));
-			inv.close();
-			header.setDateShipped(new Date());
-			invoiceHeaderService.updateHeader(header);
-		}
-		csvWriter.close();
-
-		return "admin";
-	}
 
 	/********************************************************************************************************
 	 * Pagination Handlers
@@ -420,7 +325,8 @@ public class ShoppingCartController implements Serializable {
 			request.getSession().setAttribute(
 					"SearchProductsController_productList", historyList);
 			ModelAndView model = new ModelAndView("shoppinghistory");
-			model.addObject("historyList", historyList);
+			model.addObject("objectList", historyList);
+	        model.addObject("pagelink", pageLink);
 
 			return model;
 		} else {
@@ -437,7 +343,8 @@ public class ShoppingCartController implements Serializable {
 			}
 
 			ModelAndView model = new ModelAndView("shoppinghistory");
-			model.addObject("historyList", historyList);
+			model.addObject("objectList", historyList);
+	        model.addObject("pagelink", pageLink);
 
 			return model;
 		}

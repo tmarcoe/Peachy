@@ -37,7 +37,7 @@ import com.gemma.web.service.UserProfileService;
 
 @Controller
 public class CouponController {
-	
+	private final String pageLink = "/couponpaging";
 	@Autowired
 	private CouponsService couponsService;
 	
@@ -80,7 +80,9 @@ public class CouponController {
 		coupon.setCouponID("CPN" + coupon.getCouponID());
 		couponsService.create(coupon);
 		couponList = couponsService.getList();
-		model.addAttribute("couponList", couponList);
+		model.addAttribute("objectList", couponList);
+		model.addAttribute("pagelink", pageLink);
+		
 		return "listcoupons";
 	}
 	
@@ -160,7 +162,7 @@ public class CouponController {
 			model.addAttribute("coupon", new Coupons());
 			return "createcoupon";
 		}
-		model.addAttribute("couponList", couponList);
+		model.addAttribute("objectList", couponList);
 		return "listcoupons";
 	}
 	
@@ -175,7 +177,7 @@ public class CouponController {
 	public String updateCoupon(@ModelAttribute("coupon") Coupons coupon, Model model) {
 		couponsService.update(coupon);
 		couponList = couponsService.getList();
-		model.addAttribute("couponList", couponList);
+		model.addAttribute("objectList", couponList);
 		
 		return "listcoupons";
 	}
@@ -186,7 +188,9 @@ public class CouponController {
 		
 		couponsService.delete(coupon);
 		couponList = couponsService.getList();
-		model.addAttribute("couponList", couponList);
+		model.addAttribute("objectList", couponList);
+		model.addAttribute("pagelink", pageLink);
+		
 		return "listcoupons";
 	}
 	
@@ -200,7 +204,10 @@ public class CouponController {
 	    if (keyword != null) {
 	        couponList.setPageSize(20);
 	        request.getSession().setAttribute("SearchProductsController_productList", couponList);
-	        return new ModelAndView("listcoupons", "couponList", couponList);
+	        ModelAndView model = new ModelAndView("listcoupons", "objectList", couponList);
+	        model.addObject("pagelink", pageLink);
+	        
+	        return model;
 	    }
 	    else {
 	        String page = request.getParameter("page");
@@ -218,7 +225,10 @@ public class CouponController {
 	        }else if (pgNum != -1) {
 	        	couponList.setPage(pgNum);
 	        }
-	        return new ModelAndView("listcoupons", "couponList", couponList);
+	        ModelAndView model = new ModelAndView("listcoupons", "objectList", couponList);
+	        model.addObject("pagelink", pageLink);
+	        
+	        return model;
 	    }
 	}
 

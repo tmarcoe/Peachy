@@ -23,7 +23,9 @@
 					<li><a href="podnotify">Receive Payment From POD</a>
 					<li><a href="returns-list">Process Returns</a></li>
 					<li><a href="listcoupons">Manage Coupons</a></li>
-					<li><a href="https://my.justhost.com/cgi/cpanel?ldomain=donzalmart.com">Control Panel</a></li>
+					<li><a
+						href="https://my.justhost.com/cgi/cpanel?ldomain=donzalmart.com">Control
+							Panel</a></li>
 				</sec:authorize>
 			</ul>
 		</div>
@@ -32,8 +34,8 @@
 
 <div class="printorders">
 	<c:choose>
-		<c:when test="${headerList.pageList.size() > 0}">
-			<form:form id="pgform" method="post" modelAttribute="headerList"
+		<c:when test="${objectList.pageList.size() > 0}">
+			<form:form id="pgform" method="post" modelAttribute="objectList"
 				action="${pageContext.request.contextPath}/processorders">
 				<h2>Orders Ready For Processing</h2>
 				<table class="viewheader">
@@ -46,10 +48,12 @@
 							<th>View Cart</th>
 						</tr>
 					</thead>
-					<c:forEach var="item" items="${headerList.pageList}">
-						<fmt:formatNumber type="number" pattern="00000000" value="${item.invoiceNum}" var="invNum"/>
+					<c:forEach var="item" items="${objectList.pageList}">
+						<fmt:formatNumber type="number" pattern="00000000"
+							value="${item.invoiceNum}" var="invNum" />
 						<fmt:formatNumber type="currency" currencySymbol="P"
-							value="${item.total + item.totalTax + item.shippingCost + item.addedCharges}" var="total" />
+							value="${item.total + item.totalTax + item.shippingCost + item.addedCharges}"
+							var="total" />
 						<fmt:formatDate value="${item.modified}" var="stdate" />
 						<tr>
 							<td>${invNum}</td>
@@ -65,31 +69,6 @@
 				</table>
 				<input type="submit" value="Process Orders" />
 			</form:form>
-			<div class="paging">
-				<c:if test="${headerList.getPageCount()> 1}">
-					<c:if test="${headerList.isFirstPage()==false}">
-						<a href="headerpaging?page=prev"><img alt="[Prev]"
-							src="<c:url value='/static/images/web/button_prev.gif'/>"></a>
-					</c:if>
-					<c:forEach begin="1" end="${headerList.getPageCount()}" var="i">
-
-						<c:choose>
-							<c:when test="${(i-1)!= headerList.getPage()}">
-								<a href="headerpaging?page=${i-1}"><span class="paging"><c:out
-											value="${i}" /></span></a>
-							</c:when>
-							<c:otherwise>
-								<span class="paging"><c:out value="${i}" /></span>
-							</c:otherwise>
-						</c:choose>
-					</c:forEach>
-					<%--For displaying Next link --%>
-					<c:if test="${headerList.isLastPage()==false}">
-						<a href="headerpaging?page=next"><img alt="[Next]"
-							src="<c:url value='/static/images/web/button_next.gif'/>"></a>
-					</c:if>
-				</c:if>
-			</div>
 		</c:when>
 		<c:otherwise>
 			<h1>No orders to print</h1>

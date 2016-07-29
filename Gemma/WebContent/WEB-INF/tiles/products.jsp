@@ -23,7 +23,7 @@
 				<th>On Sale For...</th>
 			</tr>
 		</thead>
-		<c:forEach var="inventory" items="${inventoryList.pageList}">
+		<c:forEach var="inventory" items="${objectList.pageList}">
 			<fmt:formatNumber type="currency" currencySymbol="P"
 				value="${inventory.salePrice}" var="saleprice" />
 			<fmt:formatNumber type="currency" currencySymbol="P"
@@ -59,28 +59,3 @@
 
 
 </form:form>
-<c:if test="${inventoryList.getPageCount()>1}">
-	<div class="paging">
-		<c:if test="${inventoryList.isFirstPage()==false}">
-			<a href="paging?page=prev"><img alt="[Prev]"
-				src="<c:url value='/static/images/web/button_prev.gif'/>"></a>
-		</c:if>
-		<c:forEach begin="1" end="${inventoryList.getPageCount()}" var="i">
-
-			<c:choose>
-				<c:when test="${(i-1)!=inventoryList.getPage()}">
-					<a href="paging?page=${i-1}"><span class="paging"><c:out
-								value="${i}" /></span></a>
-				</c:when>
-				<c:otherwise>
-					<span class="paging"><c:out value="${i}" /></span>
-				</c:otherwise>
-			</c:choose>
-		</c:forEach>
-		<%--For displaying Next link --%>
-		<c:if test="${inventoryList.isLastPage()==false}">
-			<a href="paging?page=next"><img alt="[Next]"
-				src="<c:url value='/static/images/web/button_next.gif'/>"></a>
-		</c:if>
-	</div>
-</c:if>

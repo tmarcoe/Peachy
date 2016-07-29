@@ -38,10 +38,18 @@ public class ReturnsDao {
 		PagedListHolder<Returns> returnsList = new PagedListHolder<Returns>(session().createQuery(hql)
 																					 .setString("username", username)
 																					 .list());
+		return returnsList;
+	}
+	
+	public PagedListHolder<Returns> getReturnsList() {
+		String hql = "FROM Returns where dateProcessed = null";
+		
+		@SuppressWarnings("unchecked")
+		PagedListHolder<Returns> returnsList = new PagedListHolder<Returns>(session().createQuery(hql).list());
 		
 		return returnsList;
 	}
-
+	
 	public Returns getRma(Integer rmaId) {
 		Criteria crit = session().createCriteria(Returns.class);
 		crit.add(Restrictions.eq("rmaId", rmaId));
@@ -56,15 +64,6 @@ public class ReturnsDao {
 		
 	}
 
-	public PagedListHolder<Returns> getReturnsList() {
-		String hql = "FROM Returns where dateProcessed = null";
-		
-		@SuppressWarnings("unchecked")
-		PagedListHolder<Returns> returnsList = new PagedListHolder<Returns>(session().createQuery(hql).list());
-		
-		return returnsList;
-	}
-	
 
 
 
