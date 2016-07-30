@@ -43,7 +43,7 @@ public class GeneralLedgerDao {
 
 	@SuppressWarnings("unchecked")
 	public List<GeneralLedger> getList() {
-		String hql = "from GeneralLedger";
+		String hql = "FROM GeneralLedger";
 		
 		return session().createQuery(hql).list();
 	}
