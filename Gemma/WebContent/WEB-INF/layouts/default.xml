@@ -165,6 +165,7 @@
 		<put-attribute name="title" value="Manage Accounts"></put-attribute>
 		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/manageaccount.jsp"></put-attribute>
+		<put-attribute name="footer" value="/WEB-INF/tiles/pageinator.jsp"></put-attribute>
 	</definition>
 	<definition name="addaccount" extends="gemma.base">
 		<put-attribute name="heading_title" value="Add an Account"></put-attribute>

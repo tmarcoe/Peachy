@@ -61,16 +61,12 @@ public class InvoiceHeaderDao {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<InvoiceHeader> getProcessedInvoices() {
+	public PagedListHolder<InvoiceHeader> getProcessedInvoices() {
 		String hql = "from InvoiceHeader where processed != null and dateShipped = null";
-		List<InvoiceHeader> headers = session().createQuery(hql).list();
 		
-		return headers;
+		return new PagedListHolder<InvoiceHeader>(session().createQuery(hql).list());
 	}
 
-	public List<InvoiceHeader> getInvoiceHeader() {
-		return null;
-	}
 	public InvoiceHeader totalHeader(InvoiceHeader header) {
 		List<InvoiceItem> itemList = invoiceItemDao.getInvoice(header);
 		
@@ -94,6 +90,13 @@ public class InvoiceHeaderDao {
 		
 		return new PagedListHolder<InvoiceHeader>(session().createQuery(hql).setInteger("userID", userID).list());
 
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<InvoiceHeader> getProcessedInvoicesList() {
+		String hql = "from InvoiceHeader where processed != null and dateShipped = null";
+		
+		return session().createQuery(hql).list();
 	}
 
 }

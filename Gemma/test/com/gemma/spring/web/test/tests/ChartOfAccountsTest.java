@@ -3,14 +3,13 @@ package com.gemma.spring.web.test.tests;
 
 import static org.junit.Assert.*;
 
-import java.util.List;
-
 import javax.sql.DataSource;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.support.PagedListHolder;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
@@ -76,11 +75,11 @@ public class ChartOfAccountsTest {
 	
 	@Test
 	public void testDeleteAccount() {
-		List<ChartOfAccounts> accounts = chartOfAccountsDao.listAccounts();
-		assertEquals(12, accounts.size());
+		PagedListHolder<ChartOfAccounts> accounts = chartOfAccountsDao.listAccounts();
+		assertEquals(12, accounts.getSource().size());
 		chartOfAccountsDao.delete("1000");
 		accounts = chartOfAccountsDao.listAccounts();
-		assertEquals(11, accounts.size());
+		assertEquals(11, accounts.getSource().size());
 		ChartOfAccounts account = new ChartOfAccounts();
 		account.setAccountBalance((float) 100.00);
 		account.setAccountName("Cash Account");
@@ -89,7 +88,7 @@ public class ChartOfAccountsTest {
 		account.setAccountNum("1000");
 		chartOfAccountsDao.create(account);
 		accounts = chartOfAccountsDao.listAccounts();
-		assertEquals(12, accounts.size());
+		assertEquals(12, accounts.getSource().size());
 	}
 	
 	@Test

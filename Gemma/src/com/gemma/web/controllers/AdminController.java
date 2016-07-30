@@ -82,7 +82,7 @@ public class AdminController implements Serializable {
 	 ******************************************************************************/
 	@RequestMapping("/admin")
 	public String showAdmin(Model model) {
-		PagedListHolder<InvoiceHeader> headerList = new PagedListHolder<InvoiceHeader>(invoiceHeaderService.getProcessedInvoices());
+		PagedListHolder<InvoiceHeader> headerList = invoiceHeaderService.getProcessedInvoices();
 		headerList.setPage(0);
 		headerList.setPageSize(10);
 		model.addAttribute("objectList", headerList);
@@ -107,7 +107,7 @@ public class AdminController implements Serializable {
 				CsvPreference.STANDARD_PREFERENCE);
 
 		List<InvoiceHeader> headers = invoiceHeaderService
-				.getProcessedInvoices();
+				.getProcessedInvoicesList();
 		csvWriter.writeHeader(label);
 		for (InvoiceHeader header : headers) {
 			UserProfile user = userProfileService.getUserByID(header
@@ -180,7 +180,7 @@ public class AdminController implements Serializable {
 		header.setPod(false);
 		invoiceHeaderService.updateHeader(header);
 
-		headerList.setSource(invoiceHeaderService.getProcessedInvoices());
+		headerList = invoiceHeaderService.getProcessedInvoices();
 		headerList.setPage(0);
 		headerList.setPageSize(10);
 		model.addAttribute("objectList", headerList);

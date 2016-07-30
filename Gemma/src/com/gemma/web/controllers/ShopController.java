@@ -29,7 +29,6 @@ import com.gemma.web.dao.Inventory;
 import com.gemma.web.dao.InvoiceContainer;
 import com.gemma.web.dao.InvoiceHeader;
 import com.gemma.web.dao.InvoiceItem;
-import com.gemma.web.dao.Returns;
 import com.gemma.web.dao.UserProfile;
 import com.gemma.web.service.InventoryService;
 import com.gemma.web.service.InvoiceHeaderService;

@@ -3,10 +3,10 @@ package com.gemma.web.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.support.PagedListHolder;
 import org.springframework.stereotype.Service;
 
 import com.gemma.web.dao.ChartOfAccounts;
-import com.gemma.web.dao.ChartOfAccountsContainer;
 import com.gemma.web.dao.ChartOfAccountsDao;
 
 
@@ -16,7 +16,7 @@ public class ChartOfAccountsService {
 	@Autowired
 	private ChartOfAccountsDao chartOfAccountsDao;
 
-	public List<ChartOfAccounts> listAccounts() {
+	public PagedListHolder<ChartOfAccounts> listAccounts() {
 		return chartOfAccountsDao.listAccounts();
 	}
 
@@ -38,14 +38,6 @@ public class ChartOfAccountsService {
 		return chartOfAccountsDao.delete(deleteKey);
 	}
 	
-	public ChartOfAccountsContainer getContainer() {
-		ChartOfAccountsContainer container = new ChartOfAccountsContainer();
-		
-		container.setAccountsList(listAccounts());
-		
-		return container;
-	}
-
 	public void save(ChartOfAccounts charOfaccounts) {
 		chartOfAccountsDao.save(charOfaccounts);
 	}

@@ -31,7 +31,7 @@ public class InvoiceHeaderService {
 		return invoiceHeaderDao.getInvoiceHeader(invoiceNum);
 	}
 
-	public List<InvoiceHeader> getProcessedInvoices() {
+	public PagedListHolder<InvoiceHeader> getProcessedInvoices() {
 
 		return invoiceHeaderDao.getProcessedInvoices();
 	}
@@ -47,6 +47,11 @@ public class InvoiceHeaderService {
 
 	public InvoiceHeader totalHeader(InvoiceHeader header) {
 		return invoiceHeaderDao.totalHeader(header);
+	}
+
+	public List<InvoiceHeader> getProcessedInvoicesList() {
+		
+		return invoiceHeaderDao.getProcessedInvoicesList();
 	}
 
 }

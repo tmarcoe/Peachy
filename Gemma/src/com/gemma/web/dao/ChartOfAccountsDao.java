@@ -7,6 +7,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.support.PagedListHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -42,10 +43,10 @@ public class ChartOfAccountsDao {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<ChartOfAccounts> listAccounts() {
+	public PagedListHolder<ChartOfAccounts> listAccounts() {
 		Criteria crit = session().createCriteria(ChartOfAccounts.class);
 
-		return crit.list();
+		return new PagedListHolder<ChartOfAccounts>(crit.list());
 	}
 
 	public ChartOfAccounts getAccount(String Key) {

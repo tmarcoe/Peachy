@@ -39,7 +39,7 @@ public class PodController implements Serializable {
 	public String podConfirm(@ModelAttribute("invNum") String invNum,
 			Model model, BindingResult result) {
 		if ("".compareTo(invNum) == 0) {
-			PagedListHolder<InvoiceHeader> headerList = new PagedListHolder<InvoiceHeader>(invoiceHeaderService.getProcessedInvoices());
+			PagedListHolder<InvoiceHeader> headerList =invoiceHeaderService.getProcessedInvoices();
 			headerList.setPage(0);
 			headerList.setPageSize(10);
 			model.addAttribute("objectList", headerList);
