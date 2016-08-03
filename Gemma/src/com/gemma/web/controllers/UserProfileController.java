@@ -1,10 +1,13 @@
 package com.gemma.web.controllers;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.http.client.ClientProtocolException;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.support.PagedListHolder;
@@ -82,7 +85,7 @@ public class UserProfileController {
 
 	@RequestMapping("/saveuser")
 	public String partialUpdate(
-			@ModelAttribute("userProfile") UserProfile userProfile, Model model) {
+			@ModelAttribute("userProfile") UserProfile userProfile, Model model) throws ClientProtocolException, IOException, URISyntaxException {
 		userProfileService.partialUpdate(userProfile);
 		if (userProfile.getAuthority().compareTo("ROLE_ADMIN") == 0) {
 			userList = userProfileService.getPagedList();

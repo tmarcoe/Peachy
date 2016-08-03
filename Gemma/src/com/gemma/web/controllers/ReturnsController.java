@@ -2,6 +2,7 @@ package com.gemma.web.controllers;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.net.URISyntaxException;
 import java.security.Principal;
 import java.util.Date;
 
@@ -71,7 +72,7 @@ public class ReturnsController implements Serializable {
 		}
 		
 		@RequestMapping("/returns-update")
-		public String saveReturns(@ModelAttribute("returns") Returns returns, Model model) {
+		public String saveReturns(@ModelAttribute("returns") Returns returns, Model model) throws URISyntaxException {
 			
 			returns.setDateProcessed(new Date());
 			

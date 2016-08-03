@@ -1,6 +1,8 @@
 package com.gemma.web.controllers;
 
+import java.io.IOException;
 import java.io.Serializable;
+import java.net.URISyntaxException;
 import java.security.Principal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -9,6 +11,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.http.client.ClientProtocolException;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -76,7 +79,7 @@ public class ShopController implements Serializable {
 	}
 	
 	@RequestMapping(value="/products")
-	public String products(Model model) {
+	public String products(Model model) throws ClientProtocolException, IOException, URISyntaxException {
 		String fileLoc = fileLocations.getImageLoc();
 		
 		if (categories == null) {
@@ -96,7 +99,7 @@ public class ShopController implements Serializable {
 	}
 	
 	@RequestMapping(value="/productdetails", method=RequestMethod.GET)
-	public String showProductDetails(@ModelAttribute("skuNum") String skuNum, Model model ) {
+	public String showProductDetails(@ModelAttribute("skuNum") String skuNum, Model model ) throws ClientProtocolException, IOException, URISyntaxException {
 		String fileLoc = fileLocations.getImageLoc();
 		
 		Inventory inventory = inventoryService.getItem(skuNum);
@@ -144,7 +147,7 @@ public class ShopController implements Serializable {
 		return "pickcategory";
 	}
 	@RequestMapping("/setcategory")
-	public String setCategory(@ModelAttribute("cat") String cat, Model model){
+	public String setCategory(@ModelAttribute("cat") String cat, Model model) throws ClientProtocolException, IOException, URISyntaxException{
 		String fileLoc = fileLocations.getImageLoc();
 		
 		if (categories == null) {
@@ -173,7 +176,7 @@ public class ShopController implements Serializable {
 	
 	
 	@RequestMapping("/setsubcategory")
-	public String setSubCategory(@ModelAttribute("cat") String cat, Model model){
+	public String setSubCategory(@ModelAttribute("cat") String cat, Model model) throws ClientProtocolException, IOException, URISyntaxException{
 		String fileLoc = fileLocations.getImageLoc();
 		categories.setSubCategory(cat);
 		inventoryList = inventoryService.getPagedList(categories);

@@ -3,6 +3,7 @@ package com.gemma.web.service;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Date;
 import java.util.List;
@@ -296,7 +297,7 @@ public class TransactionService extends Transaction {
 	}
 
 	public void returnMerchandise(Returns returns) throws RecognitionException,
-			IOException, RuntimeException {
+			IOException, RuntimeException, URISyntaxException {
 		if ("D".equalsIgnoreCase(returns.getDecision())) {
 			InvoiceItem item = invoiceService.getInvoiceItem(
 					returns.getInvoiceNum(), returns.getSkuNum());

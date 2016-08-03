@@ -92,9 +92,10 @@ Layout styles
 .heading {
 	color: #fff;
 	background: #f0c575;
-	padding: .5em 9em;
+	padding: .5em;
 	font-size: 31px;
 	font-style: italic;
+	text-align: center;
 	text-shadow: 2px 2px 4px #83615c;
 }
 
@@ -784,3 +785,24 @@ table.pcinfoTable td, th{
 	margin: 0 0;
 	clear: right;
 	}
+.rightside {
+	float: right;
+}
+.leftside {
+	float: left;
+	clear: both;
+}
+table.rightside td {
+	vertical-align: text-bottom;	
+}
+table.leftside td {
+	vertical-align: text-bottom;
+}
+.userinfo {
+	box-shadow: 2px 2px 4px #83615c;
+	margin-right: 2em;
+	margin-top: .5em;
+}
+.label {
+	font-weight: 900;
+}

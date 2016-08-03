@@ -2,6 +2,7 @@ package com.gemma.web.controllers;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.net.URISyntaxException;
 import java.security.Principal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.antlr.v4.runtime.RecognitionException;
+import org.apache.http.client.ClientProtocolException;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -27,6 +29,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.util.NestedServletException;
+
 import com.gemma.web.beans.FileLocations;
 import com.gemma.web.beans.FileUpload;
 import com.gemma.web.dao.Coupons;
@@ -119,7 +122,7 @@ public class ShoppingCartController implements Serializable {
 	}
 
 	@RequestMapping("/cancelsale")
-	public String cancelSale(Principal principal, Model model) {
+	public String cancelSale(Principal principal, Model model) throws ClientProtocolException, IOException, URISyntaxException {
 		String fileLoc = fileLocations.getImageLoc();
 
 		UserProfile user = userProfileService.getUser(principal.getName());

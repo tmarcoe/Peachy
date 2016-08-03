@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
+import org.apache.http.client.ClientProtocolException;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.support.PagedListHolder;
@@ -52,7 +53,7 @@ public class InventoryController implements Serializable {
 		
 	@RequestMapping("/productadded")
 	public String productAdded(@Valid Inventory inventory, Model model,
-			BindingResult result) {
+			BindingResult result) throws ClientProtocolException, IOException, URISyntaxException {
 		if (result.hasErrors()) {
 			return "addinventory";
 		}
@@ -78,7 +79,7 @@ public class InventoryController implements Serializable {
 		return "manageinventory";
 	}
 	@RequestMapping("/manageinventory")
-	public String showManageInventory(Model model) {
+	public String showManageInventory(Model model) throws ClientProtocolException, IOException, URISyntaxException {
 		
 		adminInventoryList = inventoryService.getPagedList();
 		adminInventoryList.setPage(0);
@@ -92,7 +93,7 @@ public class InventoryController implements Serializable {
 
 	@RequestMapping("/inventorysaved")
 	public String inventorySaved(
-			@ModelAttribute("inventory") Inventory inventory, Model model) {
+			@ModelAttribute("inventory") Inventory inventory, Model model) throws ClientProtocolException, IOException, URISyntaxException {
 
 		inventoryService.update(inventory);
 		logger.info("'" + inventory.getSkuNum() + "' has been updated.");
@@ -107,7 +108,7 @@ public class InventoryController implements Serializable {
 	}
 	@RequestMapping("/deleteinventory")
 	public String deleteInventory(
-			@ModelAttribute("deleteKey") String deleteKey, Model model) throws URISyntaxException {
+			@ModelAttribute("deleteKey") String deleteKey, Model model) throws URISyntaxException, ClientProtocolException, IOException {
 		Inventory inventory = inventoryService.getItem(deleteKey);
 		
 		File file = new File(fileLocations.getImgUploadLoc() + inventory.getImage());
@@ -197,7 +198,7 @@ public class InventoryController implements Serializable {
 
 	@RequestMapping("/inventorydetails")
 	public String showInventoryDetails(
-			@ModelAttribute("InventoryKey") String inventoryKey, Model model) {
+			@ModelAttribute("InventoryKey") String inventoryKey, Model model) throws ClientProtocolException, IOException, URISyntaxException {
 		
 		Inventory inventory = inventoryService.getItem(inventoryKey);
 		model.addAttribute("inventory", inventory);
@@ -217,7 +218,7 @@ public class InventoryController implements Serializable {
 	}
 	
 	@RequestMapping("/stockshelves")
-	public String stockShelves(@ModelAttribute("order") Order order, Model model) {
+	public String stockShelves(@ModelAttribute("order") Order order, Model model) throws ClientProtocolException, IOException, URISyntaxException {
 		
 		order.setInventory(inventoryService.getItem(order.getInventory().getSkuNum()));
 		try {
@@ -234,7 +235,7 @@ public class InventoryController implements Serializable {
 	}
 	
 	@RequestMapping("/replenish")
-	public String replenishStock(@ModelAttribute("sku") String skuNum, Model model) {
+	public String replenishStock(@ModelAttribute("sku") String skuNum, Model model) throws ClientProtocolException, IOException, URISyntaxException {
 		Inventory inventory = inventoryService.getItem(skuNum);
 		
 		if (inventory == null) {			

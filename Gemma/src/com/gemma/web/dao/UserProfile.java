@@ -42,7 +42,7 @@ public class UserProfile {
 	private String postalCode;
 	@NotBlank
 	private String country;
-	
+	private String currency;
 	private String homePhone;
 	private String cellPhone;
 	@NotBlank
@@ -116,6 +116,13 @@ public class UserProfile {
 	}
 	public void setcountry(String country) {
 		this.country = country;
+	}
+	
+	public String getCurrency() {
+		return currency;
+	}
+	public void setCurrency(String currency) {
+		this.currency = currency;
 	}
 	public String getHomePhone() {
 		return homePhone;

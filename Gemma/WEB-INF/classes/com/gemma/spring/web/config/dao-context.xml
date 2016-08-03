@@ -16,7 +16,7 @@
 
 	<beans profile="production">
 
-		<jee:jndi-lookup jndi-name="jdbc/spring" id="dataSource"
+		<jee:jndi-lookup jndi-name="jdbc/donzalma_gemma" id="dataSource"
 			expected-type="javax.sql.DataSource">
 		</jee:jndi-lookup>
 
