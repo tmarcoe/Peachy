@@ -18,8 +18,8 @@
 			<c:forEach var="item" items="${orderList}">
 				<tr>
 					<td>${item.productName}</td>
-					<td><fmt:formatNumber type="currency" currencySymbol="P" value="${item.salePrice}" /></td>
-					<td><fmt:formatNumber type="currency" currencySymbol="P" value="${item.taxAmt}" /></td>
+					<td><fmt:formatNumber type="currency" currencySymbol="${currencySymbol}" value="${item.salePrice}" /></td>
+					<td><fmt:formatNumber type="currency" currencySymbol="${currencySymbol}" value="${item.taxAmt}" /></td>
 					<td>${item.amtInStock}</td>
 					<td><a href="${pageContext.request.contextPath}/replenish?sku=${item.skuNum}" >[Order]</a></td>
 				</tr>

@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+	pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
@@ -21,8 +21,8 @@
 			<td><img alt="Image Not Available"
 				src="<c:url value='${fileLoc}${invoiceItem.image}' />" width="150"></td>
 			<td>${invoiceItem.description}</td>
-			<td><fmt:formatNumber type='currency' currencySymbol='P'
-					value='${invoiceItem.price}' /></td>
+			<td><fmt:formatNumber type='currency' currencySymbol='${currencySymbol}'
+					value='${invoiceItem.price * rate}' /></td>
 			<td><sf:input type="number" path="amount" step="1" min="1"
 					value="1" maxlength="3" size="2" /></td>
 		</tr>

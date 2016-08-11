@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.io.Writer;
 import java.net.URISyntaxException;
+import java.security.Principal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -35,6 +36,7 @@ import com.gemma.web.beans.FileLocations;
 import com.gemma.web.dao.InvoiceHeader;
 import com.gemma.web.dao.InvoiceItem;
 import com.gemma.web.dao.UserProfile;
+import com.gemma.web.local.CurrencyExchange;
 import com.gemma.web.service.InvoiceHeaderService;
 import com.gemma.web.service.InvoiceService;
 import com.gemma.web.service.TransactionService;
@@ -79,12 +81,20 @@ public class AdminController implements Serializable {
 
 	/******************************************************************************
 	 * Admin Home Page
+	 * @throws IOException 
+	 * @throws URISyntaxException 
 	 ******************************************************************************/
 	@RequestMapping("/admin")
-	public String showAdmin(Model model) {
+	public String showAdmin(Model model, Principal principal) throws IOException, URISyntaxException {
+		UserProfile user = userProfileService.getUser(principal.getName());
+		
 		PagedListHolder<InvoiceHeader> headerList = invoiceHeaderService.getProcessedInvoices();
 		headerList.setPage(0);
 		headerList.setPageSize(10);
+		CurrencyExchange currency = new CurrencyExchange();
+		
+		model.addAttribute("rate", currency.getRate("PHP", user.getCurrency()));
+		model.addAttribute("currencySymbol", currency.getSymbol(user.getCurrency()));
 		model.addAttribute("objectList", headerList);
 		model.addAttribute("pagelink", pageLink);
 		
@@ -94,6 +104,9 @@ public class AdminController implements Serializable {
 	@RequestMapping("/processorders")
 	public String processOrders() throws IOException, URISyntaxException {
 		AddressLabel lbl = new AddressLabel();
+		CurrencyExchange currency = new CurrencyExchange();
+		double rate = 1;
+		String symbol = "P";
 
 		String[] label = { "firstname", "lastname", "address1", "address2",
 				"city", "region", "postalCode", "country", "invoiceNum" };
@@ -124,7 +137,8 @@ public class AdminController implements Serializable {
 			csvWriter.write(lbl, label);
 			
 			Writer inv = new FileWriter(fileLocations.getOutPath() + String.format("%08d", header.getInvoiceNum()) + ".inv");
-			
+			rate = currency.getRate("PHP", user.getCurrency());
+			symbol = currency.getSymbol(user.getCurrency());
 			List<InvoiceItem> invoices = invoiceService.getInvoice(header);
 			String address2 = "";
 			if ("".compareTo(user.getaddress2()) != 0) {
@@ -144,32 +158,33 @@ public class AdminController implements Serializable {
 			inv.write(invoiceHeading);
 			double total = 0;
 			double totalTax = 0;
-
+			
 			for (InvoiceItem invoice : invoices) {
 				double price = invoice.getAmount() * invoice.getPrice();
 				double tax = invoice.getAmount() * invoice.getTax();
 				total += price;
 				totalTax += tax;
-				inv.write(String.format("%s\t%d\tP%.2f [SKU - %s]\n",
-						invoice.getProductName(), invoice.getAmount(), price,
+				inv.write(String.format("%s\t%d\t%s%.2f [SKU - %s]\n",
+						invoice.getProductName(), invoice.getAmount(), symbol, price * rate,
 						invoice.getSkuNum()));
 			}
 			inv.write("\n\n\n");
 			inv.write("Subtotal................. "
-					+ String.format("P%.2f\n", total));
+					+ String.format("%s%.2f\n", symbol, total * rate));
 			inv.write("POD Charge............... "
-					+ String.format("P%.2f\n", header.getAddedCharges()));
+					+ String.format("%s%.2f\n", symbol, header.getAddedCharges() * rate));
 			inv.write("Tax...................... "
-					+ String.format("P%.2f\n", totalTax));
+					+ String.format("%s%.2f\n", symbol, totalTax * rate));
 			inv.write("Total.................... "
-					+ String.format("P%.2f\n",
-							total + totalTax + header.getAddedCharges()));
+					+ String.format("%s%.2f\n", symbol, 
+							(total + totalTax + header.getAddedCharges()) * rate));
 			inv.close();
 			header.setDateShipped(new Date());
 			invoiceHeaderService.updateHeader(header);
 		}
 		csvWriter.close();
 
+		
 		return "admin";
 	}
 	@RequestMapping("/podsave")
@@ -185,7 +200,8 @@ public class AdminController implements Serializable {
 		headerList.setPageSize(10);
 		model.addAttribute("objectList", headerList);
 		model.addAttribute("pagelink", pageLink);
-
+		
+		
 		return "admin";
 	}
 

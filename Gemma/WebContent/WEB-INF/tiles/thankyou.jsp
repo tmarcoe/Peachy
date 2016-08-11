@@ -5,8 +5,8 @@
 	<h3>From All of us at DonzalMart, Salamat</h3>
 </center>
 
-<fmt:formatNumber type='currency' currencySymbol='P'
-	value='${invoiceHeader.total + invoiceHeader.totalTax + invoiceHeader.addedCharges + invoiceHeader.shippingCost}'
+<fmt:formatNumber type='currency' currencySymbol='${currencySymbol}'
+	value='${(invoiceHeader.total + invoiceHeader.totalTax + invoiceHeader.addedCharges + invoiceHeader.shippingCost) * rate}'
 	var='total' />
 
 <h6>Your Total order is ${total}. This includes tax.</h6>

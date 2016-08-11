@@ -17,7 +17,7 @@
 			<td><fmt:formatNumber type="number" pattern="000000"
 					value="${returns.invoiceNum}" /></td>
 			<td>${returns.skuNum}</td>
-			<td><fmt:formatNumber type="currency" currencySymbol="P"
+			<td><fmt:formatNumber type="currency" currencySymbol="${currencySymbol}"
 					value="${returns.purchaseTax + returns.purchasePrice}" /></td>
 			<td>${returns.amtReturned}</td>
 			<td><fmt:formatDate value="${returns.datePurchased}" /></td>

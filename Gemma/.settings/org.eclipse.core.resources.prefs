@@ -1,2 +1,5 @@
 eclipse.preferences.version=1
 encoding//WebContent/WEB-INF/tiles/cart.jsp=UTF-8
+encoding//src/com/gemma/web/controllers/HomeController.java=UTF-8
+encoding//src/com/gemma/web/controllers/ShoppingCartController.java=UTF-8
+encoding//src/com/gemma/web/local/CurrencyExchange.java=UTF-8

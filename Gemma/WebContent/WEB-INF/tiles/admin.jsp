@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+	pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
@@ -51,8 +51,8 @@
 					<c:forEach var="item" items="${objectList.pageList}">
 						<fmt:formatNumber type="number" pattern="00000000"
 							value="${item.invoiceNum}" var="invNum" />
-						<fmt:formatNumber type="currency" currencySymbol="P"
-							value="${item.total + item.totalTax + item.shippingCost + item.addedCharges}"
+						<fmt:formatNumber type="currency" currencySymbol="${currencySymbol}"
+							value="${(item.total + item.totalTax + item.shippingCost + item.addedCharges) * rate}"
 							var="total" />
 						<fmt:formatDate value="${item.modified}" var="stdate" />
 						<tr>

@@ -13,18 +13,21 @@
 			</tr>
 			<c:forEach var="item" items="${objectList.pageList}">
 				<c:set var="price"
-					value="${item.total + item.totalTax + item.shippingCost + item.addedCharges}"></c:set>
+					value="${item.total + item.totalTax + item.shippingCost + item.addedCharges}" />
+				<c:if test="${price > 0}">
 				<fmt:formatDate value="${item.processed}" var="purchased" />
 				<fmt:formatDate value="${item.dateShipped}" var="shipped" />
 
 				<tr>
 					<td><fmt:formatNumber type="number" pattern="00000000"
 							value="${item.invoiceNum}" /></td>
-					<td><fmt:formatNumber type="currency" currencySymbol="P"
-							value="${price}" /></td>
+					<td><fmt:formatNumber type="currency" currencySymbol="${currencySymbol}"
+							value="${price * rate}" /></td>
 					<td>${purchased}</td>
 					<td>${shipped}</td>
+				
 				</tr>
+			</c:if>
 			</c:forEach>
 		</table>
 	</c:when>

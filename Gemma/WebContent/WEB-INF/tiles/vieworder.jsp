@@ -41,33 +41,33 @@
 
 				<td>${item.productName}</td>
 				<td>${item.amount}</td>
-				<td><fmt:formatNumber type='currency' currencySymbol='P'
-						value='${pr}' /></td>
-				<td><fmt:formatNumber type='currency' currencySymbol='P'
-						value='${tx}' /></td>
+				<td><fmt:formatNumber type='currency' currencySymbol='${currencySymbol}'
+						value='${pr * rate}' /></td>
+				<td><fmt:formatNumber type='currency' currencySymbol='${currencySymbol}'
+						value='${tx * rate}' /></td>
 			</tr>
 		</c:forEach>
 	</tbody>
 	<tfoot class="tablefooter">
 		<tr>
 			<td colspan="6">Subtotal =======></td>
-			<td><fmt:formatNumber type="currency" currencySymbol="P"
-					value="${total}" /></td>
+			<td><fmt:formatNumber type="currency" currencySymbol="${currencySymbol}"
+					value="${total * rate}" /></td>
 		</tr>
 		<tr>
 			<td colspan="6">Total Tax =======></td>
-			<td><fmt:formatNumber type="currency" currencySymbol="P"
-					value="${ttax}" /></td>
+			<td><fmt:formatNumber type="currency" currencySymbol="${currencySymbol}"
+					value="${ttax * rate}" /></td>
 		</tr>
 		<tr>
 			<td colspan="6">POD Charge ======></td>
-			<td><fmt:formatNumber type="currency" currencySymbol="P"
-					value="${invoice.invoiceHeader.addedCharges}" /></td>
+			<td><fmt:formatNumber type="currency" currencySymbol="${currencySymbol}"
+					value="${invoice.invoiceHeader.addedCharges * rate}" /></td>
 		</tr>
 		<tr>
 			<td colspan="6">Total =======></td>
-			<td><fmt:formatNumber type="currency" currencySymbol="P"
-					value="${total + ttax + invoice.invoiceHeader.addedCharges}" /></td>
+			<td><fmt:formatNumber type="currency" currencySymbol="${currencySymbol}"
+					value="${(total + ttax + invoice.invoiceHeader.addedCharges) * rate}" /></td>
 		</tr>
 		<tr>
 			<td><button type="button" onclick="followLink('/pcinfo')">Submit Order</button></td>

@@ -11,32 +11,32 @@
 	<table>
 		<tr>
 			<td>Sales -------------------------></td>
-			<td><fmt:formatNumber type="currency" currencySymbol="P"
+			<td><fmt:formatNumber type="currency" currencySymbol="${currencySymbol}"
 					value="${invHeader.total}" /></td>
 		</tr>
 		<tr>
 			<td>Shipping Cost -----------------></td>
-			<td><fmt:formatNumber type="currency" currencySymbol="P"
+			<td><fmt:formatNumber type="currency" currencySymbol="${currencySymbol}"
 					value="${invHeader.shippingCost}" /></td>
 		</tr>
 		<tr>
 			<td>Added Charges -----------------></td>
-			<td><fmt:formatNumber type="currency" currencySymbol="P"
+			<td><fmt:formatNumber type="currency" currencySymbol="${currencySymbol}"
 					value="${invHeader.addedCharges}" /></td>
 		</tr>
 		<tr>
 			<td>Subtotal ----------------------></td>
-			<td><fmt:formatNumber type="currency" currencySymbol="P"
+			<td><fmt:formatNumber type="currency" currencySymbol="${currencySymbol}"
 					value="${invHeader.total + invHeader.shippingCost + invHeader.addedCharges}" /></td>
 		</tr>
 		<tr>
 			<td>Tax ---------------------------></td>
-			<td><fmt:formatNumber type="currency" currencySymbol="P"
+			<td><fmt:formatNumber type="currency" currencySymbol="${currencySymbol}"
 					value="${invHeader.totalTax}" /></td>
 		</tr>
 		<tr>
 			<td>Grand Total -------------------></td>
-			<td><fmt:formatNumber type="currency" currencySymbol="P"
+			<td><fmt:formatNumber type="currency" currencySymbol="${currencySymbol}"
 					value="${invHeader.total + invHeader.shippingCost + invHeader.addedCharges + invHeader.totalTax}" /></td>
 		</tr>
 		<tr>

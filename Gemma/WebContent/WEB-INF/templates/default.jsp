@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=US-ASCII"
-	pageEncoding="US-ASCII"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+	pageEncoding="utf-8"%>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
@@ -9,7 +9,7 @@
 <sql:setDataSource var="ds" dataSource="jdbc/donzalma_gemma" />
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title><tiles:insertAttribute name="title"></tiles:insertAttribute></title>
 
 <link href="${pageContext.request.contextPath}/static/css/style.css"
@@ -98,7 +98,7 @@
 						<h6 class="label">Currency:</h6>
 					</td>
 					<td>
-						<h6 class="label">Philippines Peso</h6>
+						<h6 class="label">Philippines Peso &nbsp;&nbsp;</h6>
 					</td>
 				</tr>
 			</table>
@@ -111,6 +111,7 @@
 	</c:choose>
 	<script type="text/javascript">
 		$("#getCurrency").val($('#currencyHolder').val());
+		 document.getElementById("getCurrency").disabled=true;
 	</script>
 	<div class="heading">
 		<div class="container">

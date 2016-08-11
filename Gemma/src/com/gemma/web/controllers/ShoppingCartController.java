@@ -39,6 +39,7 @@ import com.gemma.web.dao.InvoiceHeader;
 import com.gemma.web.dao.InvoiceItem;
 import com.gemma.web.dao.UsedCoupons;
 import com.gemma.web.dao.UserProfile;
+import com.gemma.web.local.CurrencyExchange;
 import com.gemma.web.service.CouponsService;
 import com.gemma.web.service.GeneralLedgerService;
 import com.gemma.web.service.InventoryService;
@@ -97,8 +98,9 @@ public class ShoppingCartController implements Serializable {
 
 	@RequestMapping("/saveitem")
 	public String saveInvoiceItem(
-			@Valid @ModelAttribute("item") InvoiceItem item, Model model,
-			BindingResult result) {
+			@Valid @ModelAttribute("item") InvoiceItem item, Principal principal, Model model,
+			BindingResult result) throws IOException, URISyntaxException {
+		UserProfile user = userProfileService.getUser(principal.getName());
 		if (result.hasErrors()) {
 			return "editcart";
 		}
@@ -113,7 +115,8 @@ public class ShoppingCartController implements Serializable {
 		InvoiceContainer invoice = new InvoiceContainer(header, invoiceList);
 		String errorMsg = "";
 		String couponNum = "CPN";
-
+		
+		model.addAttribute("rate", new CurrencyExchange().getRate("PHP", user.getCurrency()));
 		model.addAttribute("errorMsg", errorMsg);
 		model.addAttribute("couponNum", couponNum);
 		model.addAttribute("invoice", invoice);
@@ -123,6 +126,14 @@ public class ShoppingCartController implements Serializable {
 
 	@RequestMapping("/cancelsale")
 	public String cancelSale(Principal principal, Model model) throws ClientProtocolException, IOException, URISyntaxException {
+		double rate = 1;
+		String currencySymbol = "₱";
+		if (principal != null) {
+			CurrencyExchange currency = new CurrencyExchange();
+			UserProfile user = userProfileService.getUser(principal.getName());
+			rate = currency.getRate("PHP", user.getCurrency());
+			currencySymbol = currency.getSymbol(user.getCurrency());
+		}
 		String fileLoc = fileLocations.getImageLoc();
 
 		UserProfile user = userProfileService.getUser(principal.getName());
@@ -136,6 +147,9 @@ public class ShoppingCartController implements Serializable {
 		}
 		invoiceService.deleteInvoice(header);
 		List<Inventory> inventory = inventoryService.listSaleItems();
+		
+		model.addAttribute("rate", rate);
+		model.addAttribute("currencySymbol", currencySymbol);
 		model.addAttribute("inventory", inventory);
 		model.addAttribute("fileLoc", fileLoc);
 
@@ -143,9 +157,9 @@ public class ShoppingCartController implements Serializable {
 	}
 
 	@RequestMapping("/deleteinvoiceitem")
-	public String deleteInvoiceItem(int invoiceNum, String skuNum, Principal principal, Model model) {
+	public String deleteInvoiceItem(int invoiceNum, String skuNum, Principal principal, Model model) throws ClientProtocolException, IOException, URISyntaxException {
+		UserProfile user = userProfileService.getUser(principal.getName());
 		if (skuNum.startsWith("CPN")) {
-			UserProfile user = userProfileService.getUser(principal.getName());
 			UsedCoupons coupon = usedCouponsService.retrieve(skuNum, user.getUserID());
 			usedCouponsService.delete(coupon);
 		}
@@ -163,17 +177,19 @@ public class ShoppingCartController implements Serializable {
 		InvoiceContainer invoice = new InvoiceContainer(header, invoiceList);
 		String errorMsg = "";
 		String couponNum = "CPN";
-
+		CurrencyExchange currency = new CurrencyExchange();
+		
+		model.addAttribute("rate", currency.getRate("PHP", user.getCurrency()));
+		model.addAttribute("currencySymbol", currency.getSymbol(user.getCurrency()));
 		model.addAttribute("errorMsg", errorMsg);
 		model.addAttribute("couponNum", couponNum);
-
 		model.addAttribute("invoice", invoice);
 
 		return "cart";
 	}
 
 	@RequestMapping("/cart")
-	public String showCart(Principal principal, Model model) {
+	public String showCart(Principal principal, Model model) throws ClientProtocolException, IOException, URISyntaxException {
 
 		UserProfile user = userProfileService.getUser(principal.getName());
 		InvoiceHeader header = invoiceHeaderService.getOpenOrder(user
@@ -187,7 +203,10 @@ public class ShoppingCartController implements Serializable {
 		model.addAttribute("invoice", invoice);
 		String errorMsg = "";
 		String couponNum = "CPN";
-
+		CurrencyExchange currency = new CurrencyExchange();
+		
+		model.addAttribute("rate", currency.getRate("PHP", user.getCurrency()));
+		model.addAttribute("currencySymbol", currency.getSymbol(user.getCurrency()));
 		model.addAttribute("errorMsg", errorMsg);
 		model.addAttribute("couponNum", couponNum);
 
@@ -198,8 +217,8 @@ public class ShoppingCartController implements Serializable {
 	public String viewOrder(@ModelAttribute("errorMsg") String errorMsg,
 			@ModelAttribute("couponNum") String couponNum, Principal principal,
 			Model model) throws RecognitionException, NestedServletException,
-			IOException {
-		
+			IOException, URISyntaxException {
+		CurrencyExchange currency = new CurrencyExchange();
 		UserProfile user = userProfileService.getUser(principal.getName());
 		InvoiceHeader header = invoiceHeaderService.getOpenOrder(user
 				.getUserID());
@@ -217,6 +236,8 @@ public class ShoppingCartController implements Serializable {
 			if (coupon == null) {
 				errorMsg = "That coupon does not exist";
 				
+				model.addAttribute("rate", currency.getRate("PHP", user.getCurrency()));
+				model.addAttribute("currencySymbol", currency.getSymbol(user.getCurrency()));
 				model.addAttribute("errorMsg", errorMsg);
 				model.addAttribute("couponNum", couponNum);
 
@@ -225,6 +246,8 @@ public class ShoppingCartController implements Serializable {
 			if (new Date().after(coupon.getExpires())) {
 				errorMsg = "That coupon has expired";
 
+				model.addAttribute("rate", currency.getRate("PHP", user.getCurrency()));
+				model.addAttribute("currencySymbol", currency.getSymbol(user.getCurrency()));
 				model.addAttribute("errorMsg", errorMsg);
 				model.addAttribute("couponNum", couponNum);
 
@@ -236,6 +259,8 @@ public class ShoppingCartController implements Serializable {
 			if (coupon.getUseage() <= count) {
 				errorMsg = "That coupon is used up.";
 
+				model.addAttribute("rate", currency.getRate("PHP", user.getCurrency()));
+				model.addAttribute("currencySymbol", currency.getSymbol(user.getCurrency()));
 				model.addAttribute("errorMsg", errorMsg);
 				model.addAttribute("couponNum", couponNum);
 
@@ -245,7 +270,10 @@ public class ShoppingCartController implements Serializable {
 			if (coupon.isExclusive()
 					&& invoiceService.hasCoupons(header.getInvoiceNum())) {
 				errorMsg = "Only one coupon per order";
+				
 
+				model.addAttribute("rate", currency.getRate("PHP", user.getCurrency()));
+				model.addAttribute("currencySymbol", currency.getSymbol(user.getCurrency()));
 				model.addAttribute("errorMsg", errorMsg);
 				model.addAttribute("couponNum", couponNum);
 
@@ -258,6 +286,8 @@ public class ShoppingCartController implements Serializable {
 		invoice.setInvoiceHeader(header);
 		invoice.setInvoiceList(invoiceList);
 
+		model.addAttribute("rate", currency.getRate("PHP", user.getCurrency()));
+		model.addAttribute("currencySymbol", currency.getSymbol(user.getCurrency()));
 		model.addAttribute("invoice", invoice);
 
 
@@ -265,15 +295,19 @@ public class ShoppingCartController implements Serializable {
 	}
 
 	@RequestMapping("/viewcart")
-	public String viewCart(@ModelAttribute("invoiceNum") int invoiceNum,
-			Model model) {
+	public String viewCart(@ModelAttribute("invoiceNum") int invoiceNum, Principal principal,
+			Model model) throws ClientProtocolException, IOException, URISyntaxException {
+		UserProfile user = userProfileService.getUser(principal.getName());
 		InvoiceHeader header = invoiceHeaderService
 				.getInvoiceHeader(invoiceNum);
 		List<InvoiceItem> invoiceList = invoiceService.getInvoice(header);
 		InvoiceContainer invoice = new InvoiceContainer(header, invoiceList);
 		String errorMsg = "";
 		String couponNum = "CPN";
-
+		CurrencyExchange currency = new CurrencyExchange();
+		
+		model.addAttribute("rate", currency.getRate("PHP", user.getCurrency()));
+		model.addAttribute("currencySymbol", currency.getSymbol(user.getCurrency()));
 		model.addAttribute("errorMsg", errorMsg);
 		model.addAttribute("couponNum", couponNum);
 
@@ -283,10 +317,14 @@ public class ShoppingCartController implements Serializable {
 	}
 
 	@RequestMapping("/editcart")
-	public String editCart(int invoiceNum, String skuNum, Model model) {
+	public String editCart(int invoiceNum, String skuNum, Model model, Principal principal) throws IOException, URISyntaxException {
 
+		UserProfile user = userProfileService.getUser(principal.getName());
 		InvoiceItem item = invoiceService.getInvoiceItem(invoiceNum, skuNum);
+		CurrencyExchange currency = new CurrencyExchange();
 
+		model.addAttribute("rate", currency.getRate("PHP", user.getCurrency()));
+		model.addAttribute("currencySymbol", currency.getSymbol(user.getCurrency()));
 		model.addAttribute("item", item);
 
 		return "editcart";
@@ -302,11 +340,15 @@ public class ShoppingCartController implements Serializable {
 	}
 
 	@RequestMapping("/shoppinghistory")
-	public String showShoppingHistory(Principal principal, Model model) {
+	public String showShoppingHistory(Principal principal, Model model) throws IOException, URISyntaxException {
 		UserProfile user = userProfileService.getUser(principal.getName());
 		historyList = invoiceHeaderService.getHistory(user.getUserID());
 		historyList.setPageSize(15);
 		historyList.setPage(0);
+		CurrencyExchange currency = new CurrencyExchange();
+		
+		model.addAttribute("rate", currency.getRate("PHP", user.getCurrency()));
+		model.addAttribute("currencySymbol", currency.getSymbol(user.getCurrency()));
 		model.addAttribute("objectList", historyList);
 		model.addAttribute("pagelink", pageLink);
 

@@ -28,9 +28,9 @@
 			<th>Date Purchased</th>
 		</tr>
 		<tr>
-			<td><fmt:formatNumber type="currency" currencySymbol="P"
+			<td><fmt:formatNumber type="currency" currencySymbol="${currencySymbol}"
 					value="${returns.purchasePrice}" /></td>
-			<td><fmt:formatNumber type="currency" currencySymbol="P"
+			<td><fmt:formatNumber type="currency" currencySymbol="${currencySymbol}"
 					value="${returns.purchaseTax}" /></td>
 			<td>${returns.amtReturned}</td>
 			<td><fmt:formatDate value="${returns.datePurchased}" /></td>

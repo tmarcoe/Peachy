@@ -21,6 +21,7 @@ import com.gemma.web.beans.FileLocations;
 import com.gemma.web.dao.InvoiceContainer;
 import com.gemma.web.dao.InvoiceHeader;
 import com.gemma.web.dao.UserProfile;
+import com.gemma.web.local.CurrencyExchange;
 import com.gemma.web.payment.BraintreeGatewayFactory;
 import com.gemma.web.payment.Checkout;
 import com.gemma.web.payment.Payment;
@@ -85,12 +86,16 @@ public class PaymentController {
 		default:
 			return "error";
 		}
+		CurrencyExchange currency = new CurrencyExchange();
+		
+		model.addAttribute("rate", currency.getRate("PHP", user.getCurrency()));
+		model.addAttribute("currencySymbol", currency.getSymbol(user.getCurrency()));
 
 		return "thankyou";
 	}
 
 	@RequestMapping("/pod")
-	public String paymentOnDelivery(Principal principal, Model model) {
+	public String paymentOnDelivery(Principal principal, Model model) throws IOException, URISyntaxException {
 		UserProfile user = userProfileService.getUser(principal.getName());
 		InvoiceHeader header = invoiceHeaderService.getOpenOrder(user
 				.getUserID());
@@ -109,6 +114,10 @@ public class PaymentController {
 		}
 
 		model.addAttribute("invoiceHeader", header);
+		CurrencyExchange currency = new CurrencyExchange();
+		
+		model.addAttribute("rate", currency.getRate("PHP", user.getCurrency()));
+		model.addAttribute("currencySymbol", currency.getSymbol(user.getCurrency()));
 
 		return "thankyou";
 	}
@@ -150,6 +159,10 @@ public class PaymentController {
 			return "pcdenied";
 		}
 		model.addAttribute("invoiceHeader", header);
+		CurrencyExchange currency = new CurrencyExchange();
+		
+		model.addAttribute("rate", currency.getRate("PHP", user.getCurrency()));
+		model.addAttribute("currencySymbol", currency.getSymbol(user.getCurrency()));
 
 		return "thankyou";
 	}

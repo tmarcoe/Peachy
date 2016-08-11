@@ -77,7 +77,8 @@ public class UserProfileDao {
 												"city = :city, " +
 												"region = :region, " +
 												"postalCode = :postalCode, " +
-												"country = :country " +
+												"country = :country, " +
+												"currency = :currency " +
 												"where userID=:userID";
 		
 		session().createQuery(hqlUpdate)
@@ -87,6 +88,7 @@ public class UserProfileDao {
 			.setString("region", user.getregion())
 			.setString("postalCode", user.getpostalCode())
 			.setString("country", user.getcountry())
+			.setString("currency", user.getCurrency())
 			.setInteger("userID", user.getUserID())
 			.executeUpdate();	
 	}

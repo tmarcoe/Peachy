@@ -113,11 +113,50 @@
 			<td>E-Mail:</td>
 			<td><sf:input type="username" path="username" class="control"
 					name="username" /></td>
+			<td>Currency:</td>
+			<td><sf:select path="currency">
+								<sf:option value="">--Select--</sf:option>
+								<sf:option value="PHP">Philippines Peso</sf:option>
+								<sf:option value="USD">United States Dollar</sf:option>
+								<sf:option value="AUD">Australia Dollar</sf:option>
+								<sf:option value="BGN">Bulgaria Lev</sf:option>
+								<sf:option value="BRL">Brazil Real</sf:option>
+								<sf:option value="CAD">Canada Dollar</sf:option>
+								<sf:option value="CHF">Switzerland Franc</sf:option>
+								<sf:option value="CNY">China Yuan Renminbi</sf:option>
+								<sf:option value="CZK">Czech Republic Koruna</sf:option>
+								<sf:option value="DKK">Denmark Krone</sf:option>
+								<sf:option value="GBP">United Kingdom Pound</sf:option>
+								<sf:option value="HKD">Hong Kong Dollar</sf:option>
+								<sf:option value="HRK">Croatia Kuna</sf:option>
+								<sf:option value="HUF">Hungary Forint</sf:option>
+								<sf:option value="IDR">Indonesia Rupiah</sf:option>
+								<sf:option value="ILS">Israel Shekel</sf:option>
+								<sf:option value="INR">India Rupee</sf:option>
+								<sf:option value="JPY">Japan Yen</sf:option>
+								<sf:option value="KRW">South Korea Won</sf:option>
+								<sf:option value="MXN">Mexico Peso</sf:option>
+								<sf:option value="MYR">Malaysia Ringgit</sf:option>
+								<sf:option value="NOK">Norway Krone</sf:option>
+								<sf:option value="NZD">New Zealand Dollar</sf:option>
+								<sf:option value="PLN">Poland Zloty</sf:option>
+								<sf:option value="RON">Romania New Leu</sf:option>
+								<sf:option value="RUB">Russia Ruble</sf:option>
+								<sf:option value="SEK">Sweden Krona</sf:option>
+								<sf:option value="SGD">Singapore Dollar</sf:option>
+								<sf:option value="THB">Thailand Baht</sf:option>
+								<sf:option value="TRY">Turkey Lira</sf:option>
+								<sf:option value="ZAR">South Africa Rand</sf:option>
+			</sf:select></td>
 		</tr>
 		<tr>
 			<td>&nbsp;</td>
 			<td><div class="error">
 					<sf:errors path="username" />
+				</div></td>
+			<td>&nbsp;</td>
+			<td><div class="error">
+					<sf:errors path="currency" />
 				</div></td>
 		</tr>
 		<tr>

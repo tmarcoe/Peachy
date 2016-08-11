@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+	pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
@@ -24,10 +24,10 @@
 			</tr>
 		</thead>
 		<c:forEach var="inventory" items="${objectList.pageList}">
-			<fmt:formatNumber type="currency" currencySymbol="P"
-				value="${inventory.salePrice}" var="saleprice" />
-			<fmt:formatNumber type="currency" currencySymbol="P"
-				value="${inventory.discountPrice}" var="discountprice" />
+			<fmt:formatNumber type="currency" currencySymbol="${currencySymbol}"
+				value="${inventory.salePrice * rate}" var="saleprice" />
+			<fmt:formatNumber type="currency" currencySymbol="${currencySymbol}"
+				value="${inventory.discountPrice * rate}" var="discountprice" />
 			<c:choose>
 				<c:when test="${inventory.onSale == true}">
 					<c:set var="saleprice" value="<s>${saleprice}</s>" />
@@ -44,7 +44,7 @@
 						src="<c:url value='${fileLoc}${inventory.image}' />"
 						width="30">
 				</a></td>
-				<td width="600">${inventory.productName}</td>
+				<td width="500">${inventory.productName}</td>
 				<td>${saleprice}</td>
 				<td>${discountprice}</td>
 			</tr>

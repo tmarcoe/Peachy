@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+	pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
@@ -18,7 +18,7 @@
 		<tr>
 			<td>${item.productName}</td>
 			<td>${item.description}</td>
-			<td><fmt:formatNumber type="currency" currencySymbol="P" value="${item.price}"/> each</td>
+			<td><fmt:formatNumber type="currency" currencySymbol="${currencySymbol}" value="${item.price * rate}"/> each</td>
 			<td><sf:input type="number" path="amount" min="1" maxlength="3" size="1"/></td>
 			<td><div class="error"><sf:errors path="amount"/></div></td>
 		</tr>

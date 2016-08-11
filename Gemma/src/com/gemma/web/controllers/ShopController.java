@@ -33,6 +33,7 @@ import com.gemma.web.dao.InvoiceContainer;
 import com.gemma.web.dao.InvoiceHeader;
 import com.gemma.web.dao.InvoiceItem;
 import com.gemma.web.dao.UserProfile;
+import com.gemma.web.local.CurrencyExchange;
 import com.gemma.web.service.InventoryService;
 import com.gemma.web.service.InvoiceHeaderService;
 import com.gemma.web.service.InvoiceService;
@@ -79,9 +80,9 @@ public class ShopController implements Serializable {
 	}
 	
 	@RequestMapping(value="/products")
-	public String products(Model model) throws ClientProtocolException, IOException, URISyntaxException {
+	public String products(Model model, Principal principal) throws ClientProtocolException, IOException, URISyntaxException {
 		String fileLoc = fileLocations.getImageLoc();
-		
+		UserProfile user = userProfileService.getUser(principal.getName());
 		if (categories == null) {
 			categories = new Categories();
 		}
@@ -89,8 +90,11 @@ public class ShopController implements Serializable {
 		inventoryList = inventoryService.getPagedList(categories);
 		inventoryList.setPageSize(4);
 		inventoryList.setPage(0);
+		CurrencyExchange currency = new CurrencyExchange();
+		
 		model.addAttribute("objectList",inventoryList);
-
+		model.addAttribute("rate", currency.getRate("PHP", user.getCurrency()));
+		model.addAttribute("currencySymbol", currency.getSymbol(user.getCurrency()));
 		model.addAttribute("filter", buildFilter(categories));
 		model.addAttribute("fileLoc", fileLoc);
 		model.addAttribute("pagelink", pageLink);
@@ -99,12 +103,17 @@ public class ShopController implements Serializable {
 	}
 	
 	@RequestMapping(value="/productdetails", method=RequestMethod.GET)
-	public String showProductDetails(@ModelAttribute("skuNum") String skuNum, Model model ) throws ClientProtocolException, IOException, URISyntaxException {
+	public String showProductDetails(@ModelAttribute("skuNum") String skuNum, Principal principal, Model model ) throws ClientProtocolException, IOException, URISyntaxException {
+		UserProfile user = userProfileService.getUser(principal.getName());
+		
 		String fileLoc = fileLocations.getImageLoc();
 		
 		Inventory inventory = inventoryService.getItem(skuNum);
 		InvoiceItem item = new InvoiceItem(inventory);
+		CurrencyExchange currency = new CurrencyExchange();
 		
+		model.addAttribute("rate", currency.getRate("PHP", user.getCurrency()));
+		model.addAttribute("currencySymbol", currency.getSymbol(user.getCurrency()));
 		model.addAttribute("invoiceItem", item);
 		model.addAttribute("fileLoc", fileLoc);
 
@@ -112,7 +121,7 @@ public class ShopController implements Serializable {
 	}
 	
 	@RequestMapping("/orderproduct")
-	public String orderProduct(@ModelAttribute("invoiceItem")InvoiceItem item, Model model, Principal principal ) {
+	public String orderProduct(@ModelAttribute("invoiceItem")InvoiceItem item, Model model, Principal principal ) throws ClientProtocolException, IOException, URISyntaxException {
 		UserProfile user = userProfileService.getUser(principal.getName());
 		InvoiceHeader header = invoiceHeaderService.getOpenOrder(user.getUserID());
 		if (header == null) {
@@ -129,10 +138,12 @@ public class ShopController implements Serializable {
 		InvoiceContainer invoice = new InvoiceContainer(header, invoiceList);
 		String errorMsg = "";
 		String couponNum = "CPN";
+		CurrencyExchange currency = new CurrencyExchange();
 		
+		model.addAttribute("rate", currency.getRate("PHP", user.getCurrency()));
+		model.addAttribute("currencySymbol", currency.getSymbol(user.getCurrency()));
 		model.addAttribute("errorMsg", errorMsg);
 		model.addAttribute("couponNum", couponNum);
-		
 		model.addAttribute("invoice", invoice);
 		
 		return "cart";
@@ -147,7 +158,9 @@ public class ShopController implements Serializable {
 		return "pickcategory";
 	}
 	@RequestMapping("/setcategory")
-	public String setCategory(@ModelAttribute("cat") String cat, Model model) throws ClientProtocolException, IOException, URISyntaxException{
+	public String setCategory(@ModelAttribute("cat") String cat, Model model, Principal principal) throws ClientProtocolException, IOException, URISyntaxException{
+		UserProfile user = userProfileService.getUser(principal.getName());
+		
 		String fileLoc = fileLocations.getImageLoc();
 		
 		if (categories == null) {
@@ -160,6 +173,10 @@ public class ShopController implements Serializable {
 			inventoryList = inventoryService.getPagedList(categories);
 			inventoryList.setPageSize(4);
 			inventoryList.setPage(0);
+			CurrencyExchange currency = new CurrencyExchange();
+			
+			model.addAttribute("rate", currency.getRate("PHP", user.getCurrency()));
+			model.addAttribute("currencySymbol", currency.getSymbol(user.getCurrency()));
 			model.addAttribute("objectList",inventoryList);
 			model.addAttribute("fileLoc", fileLoc);
 			model.addAttribute("pagelink", pageLink);
@@ -176,15 +193,20 @@ public class ShopController implements Serializable {
 	
 	
 	@RequestMapping("/setsubcategory")
-	public String setSubCategory(@ModelAttribute("cat") String cat, Model model) throws ClientProtocolException, IOException, URISyntaxException{
+	public String setSubCategory(@ModelAttribute("cat") String cat, Model model, Principal principal) throws ClientProtocolException, IOException, URISyntaxException{
+		UserProfile user = userProfileService.getUser(principal.getName());
+		
 		String fileLoc = fileLocations.getImageLoc();
 		categories.setSubCategory(cat);
 		inventoryList = inventoryService.getPagedList(categories);
 
 		inventoryList.setPageSize(4);
 		inventoryList.setPage(0);
-		model.addAttribute("objectList",inventoryList);
+		CurrencyExchange currency = new CurrencyExchange();
 		
+		model.addAttribute("objectList",inventoryList);		
+		model.addAttribute("rate", currency.getRate("PHP", user.getCurrency()));
+		model.addAttribute("currencySymbol", currency.getSymbol(user.getCurrency()));
 		model.addAttribute("filter", buildFilter(categories));
 		model.addAttribute("fileLoc", fileLoc);
 		model.addAttribute("pagelink", pageLink);
@@ -198,7 +220,8 @@ public class ShopController implements Serializable {
  **************************************************************************************************************/
 	
 	@RequestMapping(value="/paging", method=RequestMethod.GET)
-	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response, Principal principal) throws Exception {
+		UserProfile user = userProfileService.getUser(principal.getName());
 		String fileLoc = fileLocations.getImageLoc();
 		int pgNum;
 	    String keyword = request.getParameter("keyword");
@@ -232,9 +255,13 @@ public class ShopController implements Serializable {
 	        }else if (pgNum != -1) {
 	        	inventoryList.setPage(pgNum);
 	        }
+
 	        
 	        request.setAttribute("filter", buildFilter(categories));
 	        ModelAndView model = new ModelAndView("products");
+	        CurrencyExchange currency = new CurrencyExchange();
+	        model.addObject("rate", currency.getRate("PHP", user.getCurrency()));
+			model.addObject("currencySymbol", currency.getSymbol(user.getCurrency()));
 	        model.addObject("objectList", inventoryList);
 			model.addObject("pagelink", pageLink);
 	        model.addObject("fileLoc", fileLoc);

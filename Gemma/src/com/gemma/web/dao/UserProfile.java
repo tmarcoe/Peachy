@@ -40,8 +40,9 @@ public class UserProfile {
 	private String region;
 	@NotBlank
 	private String postalCode;
-	@NotBlank
+	@Size(min = 3, max = 3)
 	private String country;
+	@Size(min = 3, max = 3)
 	private String currency;
 	private String homePhone;
 	private String cellPhone;
