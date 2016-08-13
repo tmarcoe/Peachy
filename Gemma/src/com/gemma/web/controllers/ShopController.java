@@ -93,7 +93,7 @@ public class ShopController implements Serializable {
 		CurrencyExchange currency = new CurrencyExchange();
 		
 		model.addAttribute("objectList",inventoryList);
-		model.addAttribute("rate", currency.getRate("PHP", user.getCurrency()));
+		model.addAttribute("rate", currency.getRate(user.getCurrency()));
 		model.addAttribute("currencySymbol", currency.getSymbol(user.getCurrency()));
 		model.addAttribute("filter", buildFilter(categories));
 		model.addAttribute("fileLoc", fileLoc);
@@ -112,7 +112,7 @@ public class ShopController implements Serializable {
 		InvoiceItem item = new InvoiceItem(inventory);
 		CurrencyExchange currency = new CurrencyExchange();
 		
-		model.addAttribute("rate", currency.getRate("PHP", user.getCurrency()));
+		model.addAttribute("rate", currency.getRate(user.getCurrency()));
 		model.addAttribute("currencySymbol", currency.getSymbol(user.getCurrency()));
 		model.addAttribute("invoiceItem", item);
 		model.addAttribute("fileLoc", fileLoc);
@@ -140,7 +140,7 @@ public class ShopController implements Serializable {
 		String couponNum = "CPN";
 		CurrencyExchange currency = new CurrencyExchange();
 		
-		model.addAttribute("rate", currency.getRate("PHP", user.getCurrency()));
+		model.addAttribute("rate", currency.getRate(user.getCurrency()));
 		model.addAttribute("currencySymbol", currency.getSymbol(user.getCurrency()));
 		model.addAttribute("errorMsg", errorMsg);
 		model.addAttribute("couponNum", couponNum);
@@ -175,7 +175,7 @@ public class ShopController implements Serializable {
 			inventoryList.setPage(0);
 			CurrencyExchange currency = new CurrencyExchange();
 			
-			model.addAttribute("rate", currency.getRate("PHP", user.getCurrency()));
+			model.addAttribute("rate", currency.getRate(user.getCurrency()));
 			model.addAttribute("currencySymbol", currency.getSymbol(user.getCurrency()));
 			model.addAttribute("objectList",inventoryList);
 			model.addAttribute("fileLoc", fileLoc);
@@ -205,7 +205,7 @@ public class ShopController implements Serializable {
 		CurrencyExchange currency = new CurrencyExchange();
 		
 		model.addAttribute("objectList",inventoryList);		
-		model.addAttribute("rate", currency.getRate("PHP", user.getCurrency()));
+		model.addAttribute("rate", currency.getRate(user.getCurrency()));
 		model.addAttribute("currencySymbol", currency.getSymbol(user.getCurrency()));
 		model.addAttribute("filter", buildFilter(categories));
 		model.addAttribute("fileLoc", fileLoc);
@@ -260,7 +260,7 @@ public class ShopController implements Serializable {
 	        request.setAttribute("filter", buildFilter(categories));
 	        ModelAndView model = new ModelAndView("products");
 	        CurrencyExchange currency = new CurrencyExchange();
-	        model.addObject("rate", currency.getRate("PHP", user.getCurrency()));
+	        model.addObject("rate", currency.getRate(user.getCurrency()));
 			model.addObject("currencySymbol", currency.getSymbol(user.getCurrency()));
 	        model.addObject("objectList", inventoryList);
 			model.addObject("pagelink", pageLink);

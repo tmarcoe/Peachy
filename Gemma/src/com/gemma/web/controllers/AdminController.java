@@ -37,6 +37,7 @@ import com.gemma.web.dao.InvoiceHeader;
 import com.gemma.web.dao.InvoiceItem;
 import com.gemma.web.dao.UserProfile;
 import com.gemma.web.local.CurrencyExchange;
+import com.gemma.web.service.InventoryService;
 import com.gemma.web.service.InvoiceHeaderService;
 import com.gemma.web.service.InvoiceService;
 import com.gemma.web.service.TransactionService;
@@ -60,6 +61,9 @@ public class AdminController implements Serializable {
 	@Autowired
 	private InvoiceService invoiceService;
 
+	@Autowired
+	private InventoryService inventoryService;
+	
 	@Autowired
 	TransactionService transactionService;
 
@@ -93,7 +97,7 @@ public class AdminController implements Serializable {
 		headerList.setPageSize(10);
 		CurrencyExchange currency = new CurrencyExchange();
 		
-		model.addAttribute("rate", currency.getRate("PHP", user.getCurrency()));
+		model.addAttribute("rate", currency.getRate(user.getCurrency()));
 		model.addAttribute("currencySymbol", currency.getSymbol(user.getCurrency()));
 		model.addAttribute("objectList", headerList);
 		model.addAttribute("pagelink", pageLink);
@@ -137,7 +141,7 @@ public class AdminController implements Serializable {
 			csvWriter.write(lbl, label);
 			
 			Writer inv = new FileWriter(fileLocations.getOutPath() + String.format("%08d", header.getInvoiceNum()) + ".inv");
-			rate = currency.getRate("PHP", user.getCurrency());
+			rate = currency.getRate(user.getCurrency());
 			symbol = currency.getSymbol(user.getCurrency());
 			List<InvoiceItem> invoices = invoiceService.getInvoice(header);
 			String address2 = "";
@@ -160,6 +164,7 @@ public class AdminController implements Serializable {
 			double totalTax = 0;
 			
 			for (InvoiceItem invoice : invoices) {
+				inventoryService.depleteInventory(invoice);
 				double price = invoice.getAmount() * invoice.getPrice();
 				double tax = invoice.getAmount() * invoice.getTax();
 				total += price;

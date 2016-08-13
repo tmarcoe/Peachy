@@ -204,7 +204,7 @@ public class TransactionService extends Transaction {
 
 		processSales(header);
 		for (InvoiceItem item : itemList) {
-			inventoryService.depleteInventory(item);
+			inventoryService.commitInventory(item);
 		}
 
 		header.setProcessed(new Date());

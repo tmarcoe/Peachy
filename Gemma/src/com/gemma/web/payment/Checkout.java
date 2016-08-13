@@ -93,7 +93,7 @@ public class Checkout {
 	
 	private Properties getProperties(String propFile) throws URISyntaxException, IOException {
 
-		FileLocations fl = (FileLocations) new BeansHelper().getBean("file-context.xml", "fileLocations");
+		FileLocations fl = (FileLocations) new BeansHelper().getBean("config-context.xml", "fileLocations");
 		Reader fr = new FileReader(new File(new URI(fl.getPaymentConfig() + propFile)));
 		Properties prop = new Properties();
 		prop.load(fr);

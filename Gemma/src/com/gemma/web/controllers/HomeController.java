@@ -31,7 +31,7 @@ public class HomeController {
 	
 	@Autowired
 	private FileLocations fileLocations;
-
+	
 	@RequestMapping("/home")
 	public String showRoot(Model model, HttpServletResponse response, Principal principal) throws ClientProtocolException, IOException, URISyntaxException {
 		double rate;
@@ -39,7 +39,7 @@ public class HomeController {
 		if (principal != null) {
 			CurrencyExchange currency = new CurrencyExchange();
 			UserProfile user = userProfileService.getUser(principal.getName());
-			rate = currency.getRate("PHP", user.getCurrency());
+			rate = currency.getRate(user.getCurrency());
 			currencySymbol = currency.getSymbol(user.getCurrency());
 		}else{
 			rate = 1;
@@ -62,7 +62,7 @@ public class HomeController {
 		if (principal != null) {
 			CurrencyExchange currency = new CurrencyExchange();
 			UserProfile user = userProfileService.getUser(principal.getName());
-			rate = currency.getRate("PHP", user.getCurrency());
+			rate = currency.getRate(user.getCurrency());
 			currencySymbol = currency.getSymbol(user.getCurrency());
 		}else{
 			rate = 1;

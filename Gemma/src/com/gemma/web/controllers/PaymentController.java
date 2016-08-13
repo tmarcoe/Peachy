@@ -76,7 +76,7 @@ public class PaymentController {
 			break;
 		case "braintree":
 			FileLocations fl = (FileLocations) new BeansHelper().getBean(
-					"file-context.xml", "fileLocations");
+					"config-context.xml", "fileLocations");
 			gateway = BraintreeGatewayFactory.fromConfigFile(new URL(
 					fl.getPaymentConfig() + "braintree.properties"));
 			checkout.populatePayment(payment, user);
@@ -88,7 +88,7 @@ public class PaymentController {
 		}
 		CurrencyExchange currency = new CurrencyExchange();
 		
-		model.addAttribute("rate", currency.getRate("PHP", user.getCurrency()));
+		model.addAttribute("rate", currency.getRate(user.getCurrency()));
 		model.addAttribute("currencySymbol", currency.getSymbol(user.getCurrency()));
 
 		return "thankyou";
@@ -116,7 +116,7 @@ public class PaymentController {
 		model.addAttribute("invoiceHeader", header);
 		CurrencyExchange currency = new CurrencyExchange();
 		
-		model.addAttribute("rate", currency.getRate("PHP", user.getCurrency()));
+		model.addAttribute("rate", currency.getRate(user.getCurrency()));
 		model.addAttribute("currencySymbol", currency.getSymbol(user.getCurrency()));
 
 		return "thankyou";
@@ -161,7 +161,7 @@ public class PaymentController {
 		model.addAttribute("invoiceHeader", header);
 		CurrencyExchange currency = new CurrencyExchange();
 		
-		model.addAttribute("rate", currency.getRate("PHP", user.getCurrency()));
+		model.addAttribute("rate", currency.getRate(user.getCurrency()));
 		model.addAttribute("currencySymbol", currency.getSymbol(user.getCurrency()));
 
 		return "thankyou";

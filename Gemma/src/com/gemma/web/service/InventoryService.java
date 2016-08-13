@@ -106,10 +106,6 @@ public class InventoryService implements Serializable {
 		update(inventory);
 	}
 
-	public void depleteInventory(InvoiceItem item) {
-		inventoryDao.depleteInventory(item);
-	}
-	
 	@SuppressWarnings("unused")
 	private List<Inventory> getLocalPrices(List<Inventory> items, String target) throws ClientProtocolException, IOException, URISyntaxException {
 		CurrencyExchange currency = new CurrencyExchange();
@@ -119,5 +115,14 @@ public class InventoryService implements Serializable {
 		}
 		return items;
 	}
+
+	public void commitInventory(InvoiceItem item) {
+		inventoryDao.commitInventory(item);
+	}
+	
+	public void depleteInventory(InvoiceItem item) {
+		inventoryDao.depleteInventory(item);
+	}
+
 	
 }

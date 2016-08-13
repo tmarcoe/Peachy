@@ -86,7 +86,7 @@ public class InventoryDao {
 	}
 
 	public void depleteInventory(InvoiceItem item) {
-		String hql = "update Inventory set amtInStock = amtInStock - :amount where skuNum = :skuNum";
+		String hql = "update Inventory set amtCommitted = amtCommitted - :amount where skuNum = :skuNum";
 		session().createQuery(hql).setInteger("amount", item.getAmount()).setString("skuNum", item.getSkuNum()).executeUpdate();
 	}
 
@@ -107,5 +107,10 @@ public class InventoryDao {
 	public List<Inventory> getReplenishList() {
 		String hql = "from Inventory where amtInStock < minQuantity";
 		return session().createQuery(hql).list();
+	}
+
+	public void commitInventory(InvoiceItem item) {
+		String hql = "update Inventory set amtInStock = amtInStock - :amount, amtCommitted = amtCommitted + :amount where skuNum = :skuNum";	
+		session().createQuery(hql).setInteger("amount", item.getAmount()).setString("skuNum", item.getSkuNum()).executeUpdate();
 	}
 }

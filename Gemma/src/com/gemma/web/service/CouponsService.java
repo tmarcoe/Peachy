@@ -30,6 +30,6 @@ public class CouponsService {
 	}
 
 	public PagedListHolder<Coupons> getList() {
-		return couponsDao.getList();
+		return new PagedListHolder<Coupons>(couponsDao.getList());
 	}
 }

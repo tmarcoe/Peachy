@@ -24,7 +24,7 @@ public class InvoiceHeaderService {
 		return invoiceHeaderDao.getOpenOrder(userID);
 	}
 	public PagedListHolder<InvoiceHeader> getHistory(int userID) {
-		return invoiceHeaderDao.getHistory(userID);
+		return new PagedListHolder<InvoiceHeader>(invoiceHeaderDao.getHistory(userID));
 	}
 
 	public InvoiceHeader getInvoiceHeader(int invoiceNum) {
@@ -33,7 +33,7 @@ public class InvoiceHeaderService {
 
 	public PagedListHolder<InvoiceHeader> getProcessedInvoices() {
 
-		return invoiceHeaderDao.getProcessedInvoices();
+		return new PagedListHolder<InvoiceHeader>(invoiceHeaderDao.getProcessedInvoices());
 	}
 
 	public void updateHeader(InvoiceHeader header) {

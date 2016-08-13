@@ -23,12 +23,12 @@ public class ReturnsService {
 
 	public PagedListHolder<Returns> getReturnsList(String username) {
 
-		return returnsDao.getReturnsList(username);
+		return new PagedListHolder<Returns>(returnsDao.getReturnsList(username));
 	}
 
 	public PagedListHolder<Returns> getReturnsList() {
 
-		return returnsDao.getReturnsList();
+		return new PagedListHolder<Returns>(returnsDao.getReturnsList());
 	}
 
 	public Returns getRma(Integer rmaId) {

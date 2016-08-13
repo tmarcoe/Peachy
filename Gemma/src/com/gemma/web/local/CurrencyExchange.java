@@ -9,17 +9,24 @@ import java.net.URL;
 import org.apache.http.client.ClientProtocolException;
 import org.json.JSONException;
 import org.json.JSONObject;
+import com.gemma.web.beans.BeansHelper;
+import com.gemma.web.beans.LocalValues;
 
 public class CurrencyExchange {
+
+	private LocalValues localValues;
+	
 	private String currencyRecord = null;
 	
 	public CurrencyExchange() throws IOException {
 		super();
-		currencyRecord = getRecord("PHP");
+		localValues = (LocalValues) new BeansHelper().getBean("config-context.xml", "localValues");
+		currencyRecord = getRecord(localValues.getBaseCurrency());
 	}
 
-	public double getRate(String base, String target) throws ClientProtocolException, IOException, URISyntaxException {
+	public double getRate(String target) throws ClientProtocolException, IOException, URISyntaxException {
 		double rate;
+		String base = localValues.getBaseCurrency();
 		
 		if (base.compareTo(target) == 0) {
 			return 1.0;
@@ -156,6 +163,6 @@ public class CurrencyExchange {
 	}
 	
 	public double convert(double amount, String target) throws ClientProtocolException, IOException, URISyntaxException {
-		return amount * getRate("PHP", target);
+		return amount * getRate(target);
 	}
 }

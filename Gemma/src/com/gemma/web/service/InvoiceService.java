@@ -50,12 +50,6 @@ public class InvoiceService {
 		
 	}
 
-
-	public void depleteInventory(InvoiceItem item) {
-		inventoryDao.depleteInventory(item);
-	}
-
-
 	public double totalShoppingCart(InvoiceHeader header) {
 		return invoiceItemDao.totalShoppingCart(header);
 	}

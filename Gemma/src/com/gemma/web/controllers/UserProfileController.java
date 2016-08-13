@@ -141,7 +141,7 @@ public class UserProfileController {
 			List<Inventory> inventory = inventoryService.listSaleItems();
 			CurrencyExchange currency = new CurrencyExchange();
 
-			model.addAttribute("rate", currency.getRate("PHP", userProfile.getCurrency()));
+			model.addAttribute("rate", currency.getRate(userProfile.getCurrency()));
 			model.addAttribute("currencySymbol", currency.getSymbol(userProfile.getCurrency()));
 			model.addAttribute("inventory", inventory);
 			model.addAttribute("fileLoc", fileLoc);

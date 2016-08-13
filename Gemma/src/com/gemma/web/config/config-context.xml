@@ -34,4 +34,8 @@
 	</bean>
 
 
+	<bean id="localValues" class="com.gemma.web.beans.LocalValues">
+		<property name="baseCurrency" value="PHP"></property>
+		<property name="defaultCurrency" value="PHP"></property>
+	</bean>
 </beans>

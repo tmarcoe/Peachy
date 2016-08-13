@@ -116,7 +116,7 @@ public class ShoppingCartController implements Serializable {
 		String errorMsg = "";
 		String couponNum = "CPN";
 		
-		model.addAttribute("rate", new CurrencyExchange().getRate("PHP", user.getCurrency()));
+		model.addAttribute("rate", new CurrencyExchange().getRate(user.getCurrency()));
 		model.addAttribute("errorMsg", errorMsg);
 		model.addAttribute("couponNum", couponNum);
 		model.addAttribute("invoice", invoice);
@@ -131,7 +131,7 @@ public class ShoppingCartController implements Serializable {
 		if (principal != null) {
 			CurrencyExchange currency = new CurrencyExchange();
 			UserProfile user = userProfileService.getUser(principal.getName());
-			rate = currency.getRate("PHP", user.getCurrency());
+			rate = currency.getRate(user.getCurrency());
 			currencySymbol = currency.getSymbol(user.getCurrency());
 		}
 		String fileLoc = fileLocations.getImageLoc();
@@ -179,7 +179,7 @@ public class ShoppingCartController implements Serializable {
 		String couponNum = "CPN";
 		CurrencyExchange currency = new CurrencyExchange();
 		
-		model.addAttribute("rate", currency.getRate("PHP", user.getCurrency()));
+		model.addAttribute("rate", currency.getRate(user.getCurrency()));
 		model.addAttribute("currencySymbol", currency.getSymbol(user.getCurrency()));
 		model.addAttribute("errorMsg", errorMsg);
 		model.addAttribute("couponNum", couponNum);
@@ -205,7 +205,7 @@ public class ShoppingCartController implements Serializable {
 		String couponNum = "CPN";
 		CurrencyExchange currency = new CurrencyExchange();
 		
-		model.addAttribute("rate", currency.getRate("PHP", user.getCurrency()));
+		model.addAttribute("rate", currency.getRate(user.getCurrency()));
 		model.addAttribute("currencySymbol", currency.getSymbol(user.getCurrency()));
 		model.addAttribute("errorMsg", errorMsg);
 		model.addAttribute("couponNum", couponNum);
@@ -236,7 +236,7 @@ public class ShoppingCartController implements Serializable {
 			if (coupon == null) {
 				errorMsg = "That coupon does not exist";
 				
-				model.addAttribute("rate", currency.getRate("PHP", user.getCurrency()));
+				model.addAttribute("rate", currency.getRate(user.getCurrency()));
 				model.addAttribute("currencySymbol", currency.getSymbol(user.getCurrency()));
 				model.addAttribute("errorMsg", errorMsg);
 				model.addAttribute("couponNum", couponNum);
@@ -246,7 +246,7 @@ public class ShoppingCartController implements Serializable {
 			if (new Date().after(coupon.getExpires())) {
 				errorMsg = "That coupon has expired";
 
-				model.addAttribute("rate", currency.getRate("PHP", user.getCurrency()));
+				model.addAttribute("rate", currency.getRate(user.getCurrency()));
 				model.addAttribute("currencySymbol", currency.getSymbol(user.getCurrency()));
 				model.addAttribute("errorMsg", errorMsg);
 				model.addAttribute("couponNum", couponNum);
@@ -259,7 +259,7 @@ public class ShoppingCartController implements Serializable {
 			if (coupon.getUseage() <= count) {
 				errorMsg = "That coupon is used up.";
 
-				model.addAttribute("rate", currency.getRate("PHP", user.getCurrency()));
+				model.addAttribute("rate", currency.getRate(user.getCurrency()));
 				model.addAttribute("currencySymbol", currency.getSymbol(user.getCurrency()));
 				model.addAttribute("errorMsg", errorMsg);
 				model.addAttribute("couponNum", couponNum);
@@ -272,7 +272,7 @@ public class ShoppingCartController implements Serializable {
 				errorMsg = "Only one coupon per order";
 				
 
-				model.addAttribute("rate", currency.getRate("PHP", user.getCurrency()));
+				model.addAttribute("rate", currency.getRate(user.getCurrency()));
 				model.addAttribute("currencySymbol", currency.getSymbol(user.getCurrency()));
 				model.addAttribute("errorMsg", errorMsg);
 				model.addAttribute("couponNum", couponNum);
@@ -286,7 +286,7 @@ public class ShoppingCartController implements Serializable {
 		invoice.setInvoiceHeader(header);
 		invoice.setInvoiceList(invoiceList);
 
-		model.addAttribute("rate", currency.getRate("PHP", user.getCurrency()));
+		model.addAttribute("rate", currency.getRate(user.getCurrency()));
 		model.addAttribute("currencySymbol", currency.getSymbol(user.getCurrency()));
 		model.addAttribute("invoice", invoice);
 
@@ -306,7 +306,7 @@ public class ShoppingCartController implements Serializable {
 		String couponNum = "CPN";
 		CurrencyExchange currency = new CurrencyExchange();
 		
-		model.addAttribute("rate", currency.getRate("PHP", user.getCurrency()));
+		model.addAttribute("rate", currency.getRate(user.getCurrency()));
 		model.addAttribute("currencySymbol", currency.getSymbol(user.getCurrency()));
 		model.addAttribute("errorMsg", errorMsg);
 		model.addAttribute("couponNum", couponNum);
@@ -323,7 +323,7 @@ public class ShoppingCartController implements Serializable {
 		InvoiceItem item = invoiceService.getInvoiceItem(invoiceNum, skuNum);
 		CurrencyExchange currency = new CurrencyExchange();
 
-		model.addAttribute("rate", currency.getRate("PHP", user.getCurrency()));
+		model.addAttribute("rate", currency.getRate(user.getCurrency()));
 		model.addAttribute("currencySymbol", currency.getSymbol(user.getCurrency()));
 		model.addAttribute("item", item);
 
@@ -347,7 +347,7 @@ public class ShoppingCartController implements Serializable {
 		historyList.setPage(0);
 		CurrencyExchange currency = new CurrencyExchange();
 		
-		model.addAttribute("rate", currency.getRate("PHP", user.getCurrency()));
+		model.addAttribute("rate", currency.getRate(user.getCurrency()));
 		model.addAttribute("currencySymbol", currency.getSymbol(user.getCurrency()));
 		model.addAttribute("objectList", historyList);
 		model.addAttribute("pagelink", pageLink);
@@ -360,9 +360,10 @@ public class ShoppingCartController implements Serializable {
 	 * Pagination Handlers
 	 ********************************************************************************************************/
 	@RequestMapping(value = "/historypaging", method = RequestMethod.GET)
-	public ModelAndView handleHostoryRequest(HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
-
+	public ModelAndView handleHostoryRequest(HttpServletRequest request, HttpServletResponse response, Principal principal ) throws Exception {
+		UserProfile user = userProfileService.getUser(principal.getName());
+		CurrencyExchange currency = new CurrencyExchange();
+		
 		int pgNum;
 		String keyword = request.getParameter("keyword");
 		if (keyword != null) {
@@ -388,6 +389,8 @@ public class ShoppingCartController implements Serializable {
 			}
 
 			ModelAndView model = new ModelAndView("shoppinghistory");
+			model.addObject("rate", currency.getRate(user.getCurrency()));
+			model.addObject("currencySymbol", currency.getSymbol(user.getCurrency()));
 			model.addObject("objectList", historyList);
 	        model.addObject("pagelink", pageLink);
 

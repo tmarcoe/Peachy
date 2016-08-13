@@ -31,7 +31,7 @@ public class ProcessEmail {
 		
 	public void sendMail(final Email email) throws Exception {
 		Properties properties = new Properties();
-		FileLocations loc = (FileLocations) new BeansHelper().getBean("file-context.xml", "fileLocations");
+		FileLocations loc = (FileLocations) new BeansHelper().getBean("config-context.xml", "fileLocations");
 		URL url = new URL(loc.getEmailConfig() + configFile);
 		BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
 		
@@ -69,7 +69,7 @@ public class ProcessEmail {
 
 	public PagedListHolder<MsgDisplay> receiveEmail(Email email) throws MessagingException, IOException, URISyntaxException {
 			List<MsgDisplay> msgList = new ArrayList<MsgDisplay>();
-			FileLocations loc = (FileLocations) new BeansHelper().getBean("file-context.xml", "fileLocations");
+			FileLocations loc = (FileLocations) new BeansHelper().getBean("config-context.xml", "fileLocations");
 			URL url = new URL(loc.getEmailConfig() + configFile);
 			BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
 			

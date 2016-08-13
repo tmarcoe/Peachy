@@ -5,12 +5,6 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql" %>
-<!-- 
-<div class="disclaimer">
-	<h4>&nbsp;All pricess are in Philippine pesos&nbsp;</h4>
-	<h6>&nbsp;Approx. 45PHP=$1USD&nbsp;</h6>	
-</div>
- -->
 
 <div class="logos">
 	<p>

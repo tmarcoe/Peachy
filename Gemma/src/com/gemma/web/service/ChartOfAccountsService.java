@@ -17,7 +17,7 @@ public class ChartOfAccountsService {
 	private ChartOfAccountsDao chartOfAccountsDao;
 
 	public PagedListHolder<ChartOfAccounts> listAccounts() {
-		return chartOfAccountsDao.listAccounts();
+		return new  PagedListHolder<ChartOfAccounts>(chartOfAccountsDao.listAccounts());
 	}
 
 	public void create(ChartOfAccounts chartOfAccounts) {

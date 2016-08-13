@@ -5,7 +5,6 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.support.PagedListHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -61,10 +60,10 @@ public class InvoiceHeaderDao {
 	}
 
 	@SuppressWarnings("unchecked")
-	public PagedListHolder<InvoiceHeader> getProcessedInvoices() {
+	public List<InvoiceHeader> getProcessedInvoices() {
 		String hql = "from InvoiceHeader where processed != null and dateShipped = null";
 		
-		return new PagedListHolder<InvoiceHeader>(session().createQuery(hql).list());
+		return session().createQuery(hql).list();
 	}
 
 	public InvoiceHeader totalHeader(InvoiceHeader header) {
@@ -85,10 +84,10 @@ public class InvoiceHeaderDao {
 	}
 
 	@SuppressWarnings("unchecked")
-	public PagedListHolder<InvoiceHeader> getHistory(int userID) {
+	public List<InvoiceHeader> getHistory(int userID) {
 		String hql = "from InvoiceHeader where userID = :userID";
 		
-		return new PagedListHolder<InvoiceHeader>(session().createQuery(hql).setInteger("userID", userID).list());
+		return session().createQuery(hql).setInteger("userID", userID).list();
 
 	}
 
