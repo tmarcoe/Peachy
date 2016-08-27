@@ -1,2 +1,2 @@
 
-<div class="footer">Copyrighht (c) 2016, By Tim Marcoe</div>
+<div class="footer">Copyrighht © 2016, By Peachy's Coffee</div>

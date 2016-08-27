@@ -4,25 +4,25 @@
        "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
 
 <tiles-definitions>
-	<definition name="gemma.base" template="/WEB-INF/templates/default.jsp">
+	<definition name="peachy.base" template="/WEB-INF/templates/default.jsp">
 		<put-attribute name="includes" value=""></put-attribute>
 		<put-attribute name="heading_title" value=""></put-attribute>
 		<put-attribute name="toolbar" value=""></put-attribute>
-		<put-attribute name="title" value="DonzalMart"></put-attribute>
+		<put-attribute name="title" value="Peachy's Coffee"></put-attribute>
 		<put-attribute name="header" value="/WEB-INF/tiles/header.jsp"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/content.jsp"></put-attribute>
 		<put-attribute name="footer" value="/WEB-INF/tiles/footer.jsp"></put-attribute>
 	</definition>
 
-	<definition name="home" extends="gemma.base">
+	<definition name="home" extends="peachy.base">
 		<put-attribute name="includes" value=""></put-attribute>
-		<put-attribute name="title" value="DonzalMart"></put-attribute>
+		<put-attribute name="title" value="Peachy's Coffee"></put-attribute>
 		<put-attribute name="heading_title" value="DonzalMart"></put-attribute>
 		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/home.jsp"></put-attribute>
 	</definition>
 
-	<definition name="signup" extends="gemma.base">
+	<definition name="signup" extends="peachy.base">
 		<put-attribute name="includes" value="/WEB-INF/tiles/signupscript.jsp"></put-attribute>
 		<put-attribute name="heading_title" value="Signup"></put-attribute>
 		<put-attribute name="title" value="Signup"></put-attribute>
@@ -31,7 +31,7 @@
 
 	</definition>
 
-	<definition name="changepassword" extends="gemma.base">
+	<definition name="changepassword" extends="peachy.base">
 		<put-attribute name="includes" value="/WEB-INF/tiles/signupscript.jsp"></put-attribute>
 		<put-attribute name="heading_title" value="Change Password"></put-attribute>
 		<put-attribute name="title" value="Change Password"></put-attribute>
@@ -39,322 +39,322 @@
 		<put-attribute name="content" value="/WEB-INF/tiles/changepassword.jsp"></put-attribute>
 	</definition>
 
-	<definition name="createprofile" extends="gemma.base">
+	<definition name="createprofile" extends="peachy.base">
 		<put-attribute name="heading_title" value="Profile Created"></put-attribute>
 		<put-attribute name="title" value="Salamat"></put-attribute>
 		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/createprofile.jsp"></put-attribute>
 
 	</definition>
-	<definition name="login" extends="gemma.base">
+	<definition name="login" extends="peachy.base">
 		<put-attribute name="heading_title" value="Login with email and password"></put-attribute>
 		<put-attribute name="title" value="Login"></put-attribute>
 		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/login.jsp"></put-attribute>
 
 	</definition>
-	<definition name="error" extends="gemma.base">
+	<definition name="error" extends="peachy.base">
 		<put-attribute name="heading_title" value="Error"></put-attribute>
 		<put-attribute name="title" value="Error"></put-attribute>
 		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/error.jsp"></put-attribute>
 	</definition>
-	<definition name="blocked" extends="gemma.base">
+	<definition name="blocked" extends="peachy.base">
 		<put-attribute name="heading_title" value="Access Denied"></put-attribute>
 		<put-attribute name="title" value="Blocked"></put-attribute>
 		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/blocked.jsp"></put-attribute>
 	</definition>
-	<definition name="products" extends="gemma.base">
+	<definition name="products" extends="peachy.base">
 		<put-attribute name="heading_title" value="Shop"></put-attribute>
 		<put-attribute name="title" value="shop"></put-attribute>
 		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/products.jsp"></put-attribute>
 		<put-attribute name="footer" value="/WEB-INF/tiles/pageinator.jsp"></put-attribute>
 	</definition>
-	<definition name="productdetails" extends="gemma.base">
+	<definition name="productdetails" extends="peachy.base">
 		<put-attribute name="heading_title" value="Product Details"></put-attribute>
 		<put-attribute name="title" value="Product Details"></put-attribute>
 		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/productdetails.jsp"></put-attribute>
 	</definition>
-	<definition name="cart" extends="gemma.base">
+	<definition name="cart" extends="peachy.base">
 		<put-attribute name="heading_title" value="Invoice"></put-attribute>
 		<put-attribute name="title" value="Invoice"></put-attribute>
 		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/cart.jsp"></put-attribute>
 		<put-attribute name="footer" value="/WEB-INF/tiles/blank.jsp"></put-attribute>
 	</definition>
-	<definition name="editcart" extends="gemma.base">
+	<definition name="editcart" extends="peachy.base">
 		<put-attribute name="heading_title" value="Invoice Item"></put-attribute>
 		<put-attribute name="title" value="Invoice Item"></put-attribute>
 		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/editcart.jsp"></put-attribute>
 	</definition>
-	<definition name="nocart" extends="gemma.base">
+	<definition name="nocart" extends="peachy.base">
 		<put-attribute name="heading_title" value="No Cart"></put-attribute>
 		<put-attribute name="title" value="No Cart"></put-attribute>
 		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/nocart.jsp"></put-attribute>
 	</definition>
-	<definition name="addinventory" extends="gemma.base">
+	<definition name="addinventory" extends="peachy.base">
 		<put-attribute name="heading_title" value="Add New Products"></put-attribute>
 		<put-attribute name="title" value="Add New Products"></put-attribute>
 		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/addinventory.jsp"></put-attribute>
 	</definition>
-	<definition name="manageinventory" extends="gemma.base">
+	<definition name="manageinventory" extends="peachy.base">
 		<put-attribute name="heading_title" value="Manage Products"></put-attribute>
 		<put-attribute name="title" value="Manage Products"></put-attribute>
 		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/manageinventory.jsp"></put-attribute>
 		<put-attribute name="footer" value="/WEB-INF/tiles/pageinator.jsp"></put-attribute>
 	</definition>
-	<definition name="inventorydetails" extends="gemma.base">
+	<definition name="inventorydetails" extends="peachy.base">
 		<put-attribute name="heading_title" value="Inventory Details"></put-attribute>
 		<put-attribute name="title" value="Inventory Details"></put-attribute>
 		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
 		<put-attribute name="content"
 			value="/WEB-INF/tiles/inventorydetails.jsp"></put-attribute>
 	</definition>
-	<definition name="admininventory" extends="gemma.base">
+	<definition name="admininventory" extends="peachy.base">
 		<put-attribute name="heading_title" value="Inventory Tasks"></put-attribute>
 		<put-attribute name="title" value="Inventory Tasks"></put-attribute>
 		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/admininventory.jsp"></put-attribute>
 	</definition>
-	<definition name="singleitem" extends="gemma.base">
+	<definition name="singleitem" extends="peachy.base">
 		<put-attribute name="heading_title" value="Restock Single Item"></put-attribute>
 		<put-attribute name="title" value="Restock Single Item"></put-attribute>
 		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/singleitem.jsp"></put-attribute>
 	</definition>
-	<definition name="uploadfile" extends="gemma.base">
+	<definition name="uploadfile" extends="peachy.base">
 		<put-attribute name="heading_title" value="Upload Product Image"></put-attribute>
 		<put-attribute name="title" value="Upload Image"></put-attribute>
 		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/uploadfile.jsp"></put-attribute>
 	</definition>
-	<definition name="loggedout" extends="gemma.base">
+	<definition name="loggedout" extends="peachy.base">
 		<put-attribute name="heading_title" value="We will miss you"></put-attribute>
 		<put-attribute name="title" value="logged out"></put-attribute>
 		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/loggedout.jsp"></put-attribute>
 	</definition>
-	<definition name="contactus" extends="gemma.base">
+	<definition name="contactus" extends="peachy.base">
 		<put-attribute name="heading_title" value="Contact Info"></put-attribute>
 		<put-attribute name="title" value="Contact Us"></put-attribute>
 		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/contactus.jsp"></put-attribute>
 	</definition>
-	<definition name="aboutus" extends="gemma.base">
+	<definition name="aboutus" extends="peachy.base">
 		<put-attribute name="heading_title" value="About Us"></put-attribute>
 		<put-attribute name="title" value="About Us"></put-attribute>
 		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/aboutus.jsp"></put-attribute>
 	</definition>
-	<definition name="admin" extends="gemma.base">
+	<definition name="admin" extends="peachy.base">
 		<put-attribute name="heading_title" value="Admin"></put-attribute>
 		<put-attribute name="title" value="Admin"></put-attribute>
 		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/admin.jsp"></put-attribute>
 		<put-attribute name="footer" value="/WEB-INF/tiles/pageinator.jsp"></put-attribute>
 	</definition>
-	<definition name="manageaccount" extends="gemma.base">
+	<definition name="manageaccount" extends="peachy.base">
 		<put-attribute name="heading_title" value="Manage Accounts"></put-attribute>
 		<put-attribute name="title" value="Manage Accounts"></put-attribute>
 		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/manageaccount.jsp"></put-attribute>
 		<put-attribute name="footer" value="/WEB-INF/tiles/pageinator.jsp"></put-attribute>
 	</definition>
-	<definition name="addaccount" extends="gemma.base">
+	<definition name="addaccount" extends="peachy.base">
 		<put-attribute name="heading_title" value="Add an Account"></put-attribute>
 		<put-attribute name="title" value="Add an Account"></put-attribute>
 		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/addaccount.jsp"></put-attribute>
 	</definition>
-	<definition name="accountdetail" extends="gemma.base">
+	<definition name="accountdetail" extends="peachy.base">
 		<put-attribute name="heading_title" value="Account Detail"></put-attribute>
 		<put-attribute name="title" value="Account Detail"></put-attribute>
 		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/accountdetail.jsp"></put-attribute>
 	</definition>
-	<definition name="users" extends="gemma.base">
+	<definition name="users" extends="peachy.base">
 		<put-attribute name="heading_title" value="User Profiles"></put-attribute>
 		<put-attribute name="title" value="User Profiles"></put-attribute>
 		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/users.jsp"></put-attribute>
 		<put-attribute name="footer" value="/WEB-INF/tiles/pageinator.jsp"></put-attribute>
 	</definition>
-	<definition name="userdetails" extends="gemma.base">
+	<definition name="userdetails" extends="peachy.base">
 		<put-attribute name="heading_title" value="User Details"></put-attribute>
 		<put-attribute name="title" value="User Details"></put-attribute>
 		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/userdetails.jsp"></put-attribute>
 	</definition>
-	<definition name="mydonzalmart" extends="gemma.base">
-		<put-attribute name="heading_title" value="My DonzalMart"></put-attribute>
+	<definition name="mydonzalmart" extends="peachy.base">
+		<put-attribute name="heading_title" value="My Profile"></put-attribute>
 		<put-attribute name="title" value="User Details"></put-attribute>
 		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/userdetails.jsp"></put-attribute>
 	</definition>
-	<definition name="thankyou" extends="gemma.base">
+	<definition name="thankyou" extends="peachy.base">
 		<put-attribute name="heading_title" value="Salamat"></put-attribute>
 		<put-attribute name="title" value="Thank You"></put-attribute>
 		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/thankyou.jsp"></put-attribute>
 	</definition>
-	<definition name="generalledger" extends="gemma.base">
+	<definition name="generalledger" extends="peachy.base">
 		<put-attribute name="heading_title" value="General Ledger"></put-attribute>
 		<put-attribute name="title" value="General Ledger"></put-attribute>
 		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/generalledger.jsp"></put-attribute>
 		<put-attribute name="footer" value="/WEB-INF/tiles/pageinator.jsp"></put-attribute>
 	</definition>
-	<definition name="datepicker" extends="gemma.base">
+	<definition name="datepicker" extends="peachy.base">
 		<put-attribute name="heading_title" value="General Ledger Period"></put-attribute>
 		<put-attribute name="title" value="General Ledger Period"></put-attribute>
 		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/datepicker.jsp"></put-attribute>
 	</definition>
-	<definition name="filepicker" extends="gemma.base">
+	<definition name="filepicker" extends="peachy.base">
 		<put-attribute name="heading_title" value="Pick an Output File"></put-attribute>
 		<put-attribute name="title" value="Output File"></put-attribute>
 		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/filepicker.jsp"></put-attribute>
 	</definition>
-	<definition name="orderinventory" extends="gemma.base">
+	<definition name="orderinventory" extends="peachy.base">
 		<put-attribute name="heading_title" value="Products to Replenish"></put-attribute>
 		<put-attribute name="title" value="Replenish Product"></put-attribute>
 		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/orderinventory.jsp"></put-attribute>
 	</definition>
-	<definition name="replenish" extends="gemma.base">
+	<definition name="replenish" extends="peachy.base">
 		<put-attribute name="heading_title" value="Replenish Stock"></put-attribute>
 		<put-attribute name="title" value="Replenish Stock"></put-attribute>
 		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/replenish.jsp"></put-attribute>
 	</definition>
-	<definition name="pickcategory" extends="gemma.base">
+	<definition name="pickcategory" extends="peachy.base">
 		<put-attribute name="heading_title" value="Pick a Category"></put-attribute>
 		<put-attribute name="title" value="Category"></put-attribute>
 		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/pickcategory.jsp"></put-attribute>
 	</definition>
-	<definition name="picksubcategory" extends="gemma.base">
+	<definition name="picksubcategory" extends="peachy.base">
 		<put-attribute name="heading_title" value="Pick a Subcategory"></put-attribute>
 		<put-attribute name="title" value="Subcategory"></put-attribute>
 		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/picksubcategory.jsp"></put-attribute>
 	</definition>
-	<definition name="returns-getlookup" extends="gemma.base">
+	<definition name="returns-getlookup" extends="peachy.base">
 		<put-attribute name="heading_title" value="Invoice Number and product number"></put-attribute>
 		<put-attribute name="title" value="Returns"></put-attribute>
 		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/returns-getlookup.jsp"></put-attribute>
 	</definition>
-	<definition name="returns-submit" extends="gemma.base">
+	<definition name="returns-submit" extends="peachy.base">
 		<put-attribute name="heading_title" value="Submit Returns"></put-attribute>
 		<put-attribute name="title" value="Returns Submit"></put-attribute>
 		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/returns-submit.jsp"></put-attribute>
 	</definition>
-	<definition name="returns-list" extends="gemma.base">
+	<definition name="returns-list" extends="peachy.base">
 		<put-attribute name="heading_title" value="Returns for Approval"></put-attribute>
 		<put-attribute name="title" value="Returns List"></put-attribute>
 		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/returns-list.jsp"></put-attribute>
 		<put-attribute name="footer" value="/WEB-INF/tiles/pageinator.jsp"></put-attribute>
 	</definition>
-	<definition name="returns-approve" extends="gemma.base">
+	<definition name="returns-approve" extends="peachy.base">
 		<put-attribute name="heading_title" value="Approve RMA"></put-attribute>
 		<put-attribute name="title" value="RMA"></put-attribute>
 		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/returns-approve.jsp"></put-attribute>
 	</definition>
-	<definition name="returns-getrma" extends="gemma.base">
+	<definition name="returns-getrma" extends="peachy.base">
 		<put-attribute name="heading_title" value="For Your Records"></put-attribute>
 		<put-attribute name="title" value="For Your Records"></put-attribute>
 		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/returns-getrma.jsp"></put-attribute>
 	</definition>
-	<definition name="returns-status" extends="gemma.base">
+	<definition name="returns-status" extends="peachy.base">
 		<put-attribute name="heading_title" value="Returns Status"></put-attribute>
 		<put-attribute name="title" value="Returns Status"></put-attribute>
 		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/returns-status.jsp"></put-attribute>
 		<put-attribute name="footer" value="/WEB-INF/tiles/pageinator.jsp"></put-attribute>
 	</definition>
-	<definition name="pcinfo" extends="gemma.base">
+	<definition name="pcinfo" extends="peachy.base">
 		<put-attribute name="heading_title" value="Please Enter Your Payment Information"></put-attribute>
 		<put-attribute name="title" value="Payment Information"></put-attribute>
 		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/pcinfo.jsp"></put-attribute>
 	</definition>
-	<definition name="pcdenied" extends="gemma.base">
+	<definition name="pcdenied" extends="peachy.base">
 		<put-attribute name="heading_title" value="Payment Method Denied"></put-attribute>
 		<put-attribute name="title" value="Denied"></put-attribute>
 		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/pcdenied.jsp"></put-attribute>
 	</definition>
-	<definition name="podnotify" extends="gemma.base">
+	<definition name="podnotify" extends="peachy.base">
 		<put-attribute name="heading_title" value="Enter the invoice number"></put-attribute>
 		<put-attribute name="title" value="POD Invoice"></put-attribute>
 		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/podnotify.jsp"></put-attribute>
 	</definition>
-	<definition name="podconfirm" extends="gemma.base">
+	<definition name="podconfirm" extends="peachy.base">
 		<put-attribute name="heading_title" value="Confirm notification"></put-attribute>
 		<put-attribute name="title" value="POD confirm"></put-attribute>
 		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/podconfirm.jsp"></put-attribute>
 	</definition>
-	<definition name="checkemail" extends="gemma.base">
+	<definition name="checkemail" extends="peachy.base">
 		<put-attribute name="heading_title" value="Get Email"></put-attribute>
 		<put-attribute name="title" value="Email"></put-attribute>
 		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/checkemail.jsp"></put-attribute>
 		<put-attribute name="footer" value="/WEB-INF/tiles/pageinator.jsp"></put-attribute>
 	</definition>
-	<definition name="nointernet" extends="gemma.base">
+	<definition name="nointernet" extends="peachy.base">
 		<put-attribute name="heading_title" value="No Internet"></put-attribute>
 		<put-attribute name="title" value="No Internet"></put-attribute>
 		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/nointernet.jsp"></put-attribute>
 	</definition>
-	<definition name="shoppinghistory" extends="gemma.base">
+	<definition name="shoppinghistory" extends="peachy.base">
 		<put-attribute name="heading_title" value="Purchase History"></put-attribute>
 		<put-attribute name="title" value="History"></put-attribute>
 		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/shoppinghistory.jsp"></put-attribute>
 		<put-attribute name="footer" value="/WEB-INF/tiles/pageinator.jsp"></put-attribute>
 	</definition>
-	<definition name="createcoupon" extends="gemma.base">
+	<definition name="createcoupon" extends="peachy.base">
 		<put-attribute name="heading_title" value="Create Coupon"></put-attribute>
 		<put-attribute name="title" value="Create Coupon"></put-attribute>
 		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/createcoupon.jsp"></put-attribute>
 	</definition>
-	<definition name="listcoupons" extends="gemma.base">
+	<definition name="listcoupons" extends="peachy.base">
 		<put-attribute name="heading_title" value="Coupon List"></put-attribute>
 		<put-attribute name="title" value="Coupon List"></put-attribute>
 		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/listcoupons.jsp"></put-attribute>
 		<put-attribute name="footer" value="/WEB-INF/tiles/pageinator.jsp"></put-attribute>
 	</definition>
-	<definition name="editcoupon" extends="gemma.base">
+	<definition name="editcoupon" extends="peachy.base">
 		<put-attribute name="heading_title" value="Edit Coupon"></put-attribute>
 		<put-attribute name="title" value="Edit Coupon"></put-attribute>
 		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/editcoupon.jsp"></put-attribute>
 	</definition>
-	<definition name="entercoupon" extends="gemma.base">
+	<definition name="entercoupon" extends="peachy.base">
 		<put-attribute name="heading_title" value="Enter Coupon"></put-attribute>
 		<put-attribute name="title" value="Enter Coupon"></put-attribute>
 		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/entercoupon.jsp"></put-attribute>
 	</definition>
-	<definition name="vieworder" extends="gemma.base">
+	<definition name="vieworder" extends="peachy.base">
 		<put-attribute name="heading_title" value="Order"></put-attribute>
 		<put-attribute name="title" value="Order"></put-attribute>
 		<put-attribute name="toolbar" value="/WEB-INF/tiles/blank.jsp"></put-attribute>

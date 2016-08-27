@@ -106,9 +106,15 @@ $(document).ready(function(){
 				</c:if>
 			</tr>
 			<tr>
+				<td colspan="6">Shipping Charge ======></td>
+				<td><fmt:formatNumber type="currency" currencySymbol="${currencySymbol}"
+						value="${invoice.invoiceHeader.shippingCost * rate}" /></td>
+				<td>&nbsp;</td>			
+			</tr>
+			<tr>
 				<td colspan="6">Total =======></td>
 				<td><fmt:formatNumber type="currency" currencySymbol="${currencySymbol}"
-						value="${(total + ttax + invoice.invoiceHeader.addedCharges) * rate}" /></td>
+						value="${(total + ttax + invoice.invoiceHeader.addedCharges + invoice.invoiceHeader.shippingCost) * rate}" /></td>
 				<td>&nbsp;</td>
 				<c:if test="${invoice.invoiceHeader.processed == null}">
 					<td colspan="3">&nbsp;</td>

@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <center>
-	<h3>From All of us at DonzalMart, Salamat</h3>
+	<h3>From All of us at Peachy's Coffee, Salamat</h3>
 </center>
 
 <fmt:formatNumber type='currency' currencySymbol='${currencySymbol}'

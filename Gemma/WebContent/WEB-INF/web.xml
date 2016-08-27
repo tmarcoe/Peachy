@@ -14,19 +14,19 @@
 	</welcome-file-list>
 	<servlet>
 		<description></description>
-		<display-name>gemma</display-name>
-		<servlet-name>gemma</servlet-name>
+		<display-name>peachy</display-name>
+		<servlet-name>peachy</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
 		<load-on-startup>2</load-on-startup>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>gemma</servlet-name>
+		<servlet-name>peachy</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
 	<description>Spring Database</description>
 	<resource-ref>
 		<description>DB Connection</description>
-		<res-ref-name>jdbc/donzalma_gemma</res-ref-name>
+		<res-ref-name>jdbc/donzalma_peachy</res-ref-name>
 		<res-type>javax.sql.DataSource</res-type>
 		<res-auth>Container</res-auth>
 	</resource-ref>
@@ -36,12 +36,12 @@
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>
-		classpath:com/gemma/web/config/dao-context.xml
-		classpath:com/gemma/web/config/service-context.xml
-		classpath:com/gemma/web/config/security-context.xml
-		classpath:com/gemma/web/config/config-context.xml
-		classpath:com/gemma/web/config/pager-context.xml
-		classpath:com/gemma/web/config/email-context.xml
+		classpath:com/peachy/web/config/dao-context.xml
+		classpath:com/peachy/web/config/service-context.xml
+		classpath:com/peachy/web/config/security-context.xml
+		classpath:com/peachy/web/config/config-context.xml
+		classpath:com/peachy/web/config/pager-context.xml
+		classpath:com/peachy/web/config/email-context.xml
 		</param-value>
 	</context-param>
 	<context-param>
