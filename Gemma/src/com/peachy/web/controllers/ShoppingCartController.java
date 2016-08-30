@@ -112,12 +112,15 @@ public class ShoppingCartController implements Serializable {
 		if (header == null) {
 			return "nocart";
 		}
-		invoiceHeaderService.totalHeader(header);
 		List<InvoiceItem> invoiceList = invoiceService.getInvoice(header);
+		if (header.getProcessed() == null){
+			invoiceService.purgeCoupons(invoiceList, header.getUserID());
+		}
+		invoiceHeaderService.totalHeader(header);
 
 		InvoiceContainer invoice = new InvoiceContainer(header, invoiceList);
 		String errorMsg = "";
-		String couponNum = "CPN";
+		String couponNum = "";
 		
 		model.addAttribute("rate", new CurrencyExchange().getRate(user.getCurrency()));
 		model.addAttribute("errorMsg", errorMsg);
@@ -177,6 +180,7 @@ public class ShoppingCartController implements Serializable {
 		}
 
 		List<InvoiceItem> invoiceList = invoiceService.getInvoice(header);
+		invoiceService.purgeCoupons(invoiceList, header.getUserID());
 		invoiceHeaderService.totalHeader(header);
 		InvoiceContainer invoice = new InvoiceContainer(header, invoiceList);
 		String errorMsg = "";
@@ -202,12 +206,15 @@ public class ShoppingCartController implements Serializable {
 			return "nocart";
 		}
 		List<InvoiceItem> invoiceList = invoiceService.getInvoice(header);
+		if (header.getProcessed() == null) {
+			invoiceService.purgeCoupons(invoiceList, header.getUserID());
+		}
 		invoiceHeaderService.totalHeader(header);
 		InvoiceContainer invoice = new InvoiceContainer(header, invoiceList);
 
 		model.addAttribute("invoice", invoice);
 		String errorMsg = "";
-		String couponNum = "CPN";
+		String couponNum = "";
 		CurrencyExchange currency = new CurrencyExchange();
 		
 		model.addAttribute("rate", currency.getRate(user.getCurrency()));
@@ -231,6 +238,9 @@ public class ShoppingCartController implements Serializable {
 			return "nocart";
 		}
 		List<InvoiceItem> invoiceList = invoiceService.getInvoice(header);
+		if (header.getProcessed() == null){
+			invoiceService.purgeCoupons(invoiceList, header.getUserID());
+		}
 		invoiceHeaderService.totalHeader(header);
 		InvoiceContainer invoice = new InvoiceContainer(header, invoiceList);
 
@@ -286,7 +296,7 @@ public class ShoppingCartController implements Serializable {
 				return "cart";
 			}
 
-			transactionService.redeemCoupon(header, coupon);
+			transactionService.useCoupon(header, coupon);
 		}
 		invoiceList = invoiceService.getInvoice(header);
 		invoice.setInvoiceHeader(header);
@@ -307,10 +317,13 @@ public class ShoppingCartController implements Serializable {
 		InvoiceHeader header = invoiceHeaderService
 				.getInvoiceHeader(invoiceNum);
 		List<InvoiceItem> invoiceList = invoiceService.getInvoice(header);
+		if (header.getProcessed() == null){
+			invoiceService.purgeCoupons(invoiceList, header.getUserID());
+		}
 		invoiceHeaderService.totalHeader(header);
 		InvoiceContainer invoice = new InvoiceContainer(header, invoiceList);
 		String errorMsg = "";
-		String couponNum = "CPN";
+		String couponNum = "";
 		CurrencyExchange currency = new CurrencyExchange();
 		
 		model.addAttribute("rate", currency.getRate(user.getCurrency()));

@@ -18,7 +18,7 @@
 		<tr>
 			<td>CPN<sf:input path="couponID" type="text" /></td>
 			<td><sf:input path="name" type="text" /></td>
-			<td><sf:input path="ruleName" type="date" /></td>
+			<td><sf:input path="ruleName" type="text" /></td>
 			<td><sf:input path="expires" type="date" /></td>
 			<td><sf:input path="useage" type="number"/></td>
 		</tr>

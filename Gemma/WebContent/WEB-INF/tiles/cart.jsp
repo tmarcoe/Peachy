@@ -130,7 +130,7 @@ $(document).ready(function(){
 						onclick="cancel()" /></td>
 					<td><input type="button" value="Continue Shopping"
 						onclick="followLink('/pickcategory')" /></td>
-					<td>Coupon: <input type="text" name="couponNum" value="CPN" /></td>
+					<td>Coupon: <input type="text" name="couponNum" /></td>
 					<td colspan="7"><div class="error">${errorMsg}</div></td>
 				</tr>
 				<!-- <tr>

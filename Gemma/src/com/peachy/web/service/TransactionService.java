@@ -200,6 +200,7 @@ public class TransactionService extends Transaction {
 	public void processShoppingCart(InvoiceHeader header)
 			throws RecognitionException, IOException, RuntimeException {
 
+		header.setProcessed(new Date());
 		List<InvoiceItem> itemList = invoiceService.getInvoice(header);
 
 		processSales(header);
@@ -207,7 +208,7 @@ public class TransactionService extends Transaction {
 			inventoryService.commitInventory(item);
 		}
 
-		header.setProcessed(new Date());
+
 		invoiceHeaderService.updateHeader(header);
 
 	}
@@ -216,12 +217,12 @@ public class TransactionService extends Transaction {
 			throws RecognitionException, IOException, RuntimeException {
 		List<InvoiceItem> itemList = invoiceService.getInvoice(header);
 
+		header.setProcessed(new Date());
 		podPurchase(header);
 		for (InvoiceItem item : itemList) {
 			inventoryService.depleteInventory(item);
 		}
 
-		header.setProcessed(new Date());
 		invoiceHeaderService.updateHeader(header);
 
 	}
@@ -252,9 +253,13 @@ public class TransactionService extends Transaction {
 	}
 
 	@Transactional
-	public void redeemCoupon(InvoiceHeader header, Coupons coupon)
+	public void useCoupon(InvoiceHeader header, Coupons coupon)
 			throws IOException, RecognitionException, NestedServletException {
 		List<InvoiceItem> inv = invoiceService.getInvoice(header);
+		if (header.getProcessed() == null) {
+			//Only purge if the invoice has not been billed
+			invoiceService.purgeCoupons(inv, header.getUserID());
+		}
 		setHistory(usedCouponsService.getCount(header.getUserID(),
 				coupon.getCouponID()));
 		importSales(inv);

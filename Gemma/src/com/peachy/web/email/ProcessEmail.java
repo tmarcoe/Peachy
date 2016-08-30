@@ -87,12 +87,7 @@ public class ProcessEmail {
 			Session emailSession = Session.getDefaultInstance(properties);
 
 			Store store = emailSession.getStore();
-			String mailHost = "";
-			if (properties.getProperty("mail.store.protocol").compareTo("imap") == 0 ) {
-				mailHost="imap";
-			}else if (properties.getProperty("mail.store.protocol").compareTo("pop3") == 0) {
-				mailHost = "pop3";
-			}
+			String mailHost = properties.getProperty("mail.imap.host");
 			store.connect(mailHost, email.getFrom(), email.getPassword());
 
 			// create the folder object and open it

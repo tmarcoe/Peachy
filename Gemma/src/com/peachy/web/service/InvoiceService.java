@@ -9,6 +9,7 @@ import com.peachy.web.dao.InventoryDao;
 import com.peachy.web.dao.InvoiceHeader;
 import com.peachy.web.dao.InvoiceItem;
 import com.peachy.web.dao.InvoiceItemDao;
+import com.peachy.web.dao.UsedCoupons;
 
 @Service("invoiceService")
 public class InvoiceService {
@@ -24,6 +25,9 @@ public class InvoiceService {
 	
 	@Autowired
 	ChartOfAccountsService chartOfAccountsService;
+	
+	@Autowired
+	UsedCouponsService usedCouponsService;
 	
 	public List<InvoiceItem> getInvoice(InvoiceHeader header) {
 	
@@ -67,6 +71,16 @@ public class InvoiceService {
 
 	public InvoiceItem getCouponFromInvoice(Integer invoiceNum) {
 		return invoiceItemDao.getCouponFromInvoice(invoiceNum);
+	}
+	
+	public void purgeCoupons(List<InvoiceItem> invoice, int user) {
+		for (InvoiceItem item : invoice) {
+			if (item.getSkuNum().startsWith("CPN")) {
+				invoiceItemDao.deleteInvoiceItem(item.getInvoiceNum(), item.getSkuNum());
+				UsedCoupons uc = usedCouponsService.retrieve(item.getSkuNum(), user);
+				usedCouponsService.delete(uc);
+			}
+		}
 	}
 
 

@@ -43,12 +43,8 @@ public class ShippingRates {
         String url = localValues.getMailRateURL();
         SOAPMessage soapResponse = conn.call(getMessage(from, to, parcel), url);
         
-       
-        System.out.println();
         if (hasErrors(soapResponse) ==  true ){
         	soapResponse = stringToSOAP(fileLoc);
-        	soapResponse.writeTo(System.out);
-        	System.out.println();
         }
 
         shippingCost = parseRate(soapResponse);
@@ -212,7 +208,6 @@ public class ShippingRates {
 			if (itm.getNodeName().compareTo("Amount") == 0) {
 				total += Double.valueOf(itm.getTextContent());
 			}
-
 		}
 		
 		return total;

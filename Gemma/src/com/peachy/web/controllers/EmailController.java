@@ -30,7 +30,7 @@ public class EmailController {
 		ProcessEmail email = new ProcessEmail();
 		Email myEmail = new Email();
 		myEmail.setFrom("customer_service@donzalmart.com");
-		myEmail.setPassword("8/i,w\"p{jK8E?");
+		myEmail.setPassword("In_heaven3!");
 		
 		msgs = email.receiveEmail(myEmail);
 		msgs.setPageSize(15);

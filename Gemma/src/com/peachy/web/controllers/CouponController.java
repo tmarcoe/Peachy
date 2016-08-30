@@ -86,17 +86,18 @@ public class CouponController {
 		
 		return "listcoupons";
 	}
-	
+	/*	
 	@RequestMapping("/entercoupon")
 	public String enterCoupon(Model model) {
 		String errorMsg = "";
-		String couponNum = "CPN";
+		String couponNum = "";
 		
 		model.addAttribute("errorMsg", errorMsg);
 		model.addAttribute("couponNum", couponNum);
 		
 		return "entercoupon";
 	}
+
 	@RequestMapping("/redeemcoupon")
 	public String redeemCoupon(@ModelAttribute("couponNum") String couponNum, 
 							   @ModelAttribute("errorMsg") String errorMsg, Principal principal, Model model) throws IOException, RecognitionException, NestedServletException, SOAPException {
@@ -146,7 +147,7 @@ public class CouponController {
 			return "entercoupon";
 		}
 		
-		transactionService.redeemCoupon(header, coupon);
+		transactionService.useCoupon(header, coupon);
 		invoiceHeaderService.totalHeader(header);
 		List<InvoiceItem> invoiceList = invoiceService.getInvoice(header);
 		InvoiceContainer invoice = new InvoiceContainer(header, invoiceList);
@@ -155,7 +156,7 @@ public class CouponController {
 
 		return("cart");
 	}
-	
+	*/
 	@RequestMapping("/listcoupons")
 	public String listCoupons(Model model) {
 		couponList = couponsService.getList();

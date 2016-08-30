@@ -136,10 +136,13 @@ public class ShopController implements Serializable {
 		logger.info("'" + item.getSkuNum() + "' was just added to the shopping cart.");
 
 		List<InvoiceItem> invoiceList = invoiceService.getInvoice(header);
+		if (header.getProcessed() == null) {
+			invoiceService.purgeCoupons(invoiceList, header.getUserID());
+		}
 		invoiceHeaderService.totalHeader(header);
 		InvoiceContainer invoice = new InvoiceContainer(header, invoiceList);
 		String errorMsg = "";
-		String couponNum = "CPN";
+		String couponNum = "";
 		CurrencyExchange currency = new CurrencyExchange();
 		
 		model.addAttribute("rate", currency.getRate(user.getCurrency()));

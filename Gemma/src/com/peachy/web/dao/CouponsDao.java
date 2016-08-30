@@ -35,7 +35,7 @@ public class CouponsDao {
 	}
 	public Coupons retrieve(String couponNumber) {
 		Criteria crit = session().createCriteria(Coupons.class);
-		crit.add(Restrictions.idEq(couponNumber));
+		crit.add(Restrictions.eq("name", couponNumber));
 		
 		return (Coupons) crit.uniqueResult();
 	}
