@@ -2,6 +2,7 @@ package com.peachy.web.controllers;
 
 import java.io.EOFException;
 import java.io.IOException;
+import java.io.Serializable;
 import java.net.URISyntaxException;
 import java.net.UnknownHostException;
 
@@ -19,7 +20,8 @@ import org.springframework.web.util.NestedServletException;
 import antlr.RecognitionException;
 
 @ControllerAdvice
-public class ErrorHandler {
+public class ErrorHandler implements Serializable {
+	private static final long serialVersionUID = 1L;
 	private static Logger logger = Logger.getLogger(ErrorHandler.class.getName());
 	
 	@ExceptionHandler(DataAccessException.class)

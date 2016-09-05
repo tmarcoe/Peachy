@@ -361,6 +361,12 @@
 		<put-attribute name="content" value="/WEB-INF/tiles/vieworder.jsp"></put-attribute>
 		<put-attribute name="footer" value="/WEB-INF/tiles/blank.jsp"></put-attribute>
 	</definition>
+	<definition name="verify" extends="peachy.base">
+		<put-attribute name="heading_title" value="Welcome to Peachy's Coffee"></put-attribute>
+		<put-attribute name="title" value="Email Verified"></put-attribute>
+		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/verify.jsp"></put-attribute>
+	</definition>
 </tiles-definitions>
 
 

@@ -23,7 +23,7 @@ public class UserProfileService {
 	public void create(UserProfile user) {
 		
 		user.setAuthority("ROLE_USER");
-		user.setEnabled(true);
+		user.setEnabled(false);
 
 		user.setDateAdded(new Date());
 
@@ -67,5 +67,9 @@ public class UserProfileService {
 	public UserProfile getUserByID(int userID) {
 		
 		return userProfileDao.getUserByID(userID);
+	}
+
+	public List<UserProfile> getDailySpecialUsers() {
+		return userProfileDao.getDailySpecialUsers();
 	}
 }

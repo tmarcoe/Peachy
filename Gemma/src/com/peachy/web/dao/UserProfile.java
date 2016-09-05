@@ -9,44 +9,50 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.Size;
 
-import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 
+import java.io.Serializable;
 import java.util.Date;
 
 @Entity
-public class UserProfile {
-	
+public class UserProfile implements Serializable{
+	private static final long serialVersionUID = 1L;
 	@Id @GeneratedValue(strategy = GenerationType.AUTO)
 	int userID;
-	
 	@NotBlank
-	@Size(min=2, max=15)
 	private String firstname;
-	@NotBlank
-	@Size(min=2, max=15)
+
 	private String lastname;
+	
 	private String maleFemale;
-	@NotBlank
+
+
 	private String address1;
 	private String address2;
-	@NotBlank
+
+
 	private String city;
-	@NotBlank
+
+
 	private String region;
-	@NotBlank
+
+
 	private String postalCode;
-	@Size(min = 3, max = 3)
+
+
 	private String country;
-	@Size(min = 3, max = 3)
+
+
 	private String currency;
 	private String homePhone;
 	private String cellPhone;
-	@NotBlank
-	@Email 
+
+
+
 	private String username;
-	@NotBlank
-	@Size(min = 6, max = 15)
+
+
+
 	private String password;
 	private String shippingInfo;
 	private boolean monthlyMailing;

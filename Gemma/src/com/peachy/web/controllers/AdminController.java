@@ -36,6 +36,8 @@ import com.peachy.web.beans.FileLocations;
 import com.peachy.web.dao.InvoiceHeader;
 import com.peachy.web.dao.InvoiceItem;
 import com.peachy.web.dao.UserProfile;
+import com.peachy.web.email.Email;
+import com.peachy.web.email.ProcessEmail;
 import com.peachy.web.local.CurrencyExchange;
 import com.peachy.web.service.InventoryService;
 import com.peachy.web.service.InvoiceHeaderService;
@@ -212,6 +214,39 @@ public class AdminController implements Serializable {
 		return "admin";
 	}
 
+	@RequestMapping("/senddailyspecials")
+	public String sendDailySpecial(Model model, Principal principal) throws Exception {
+		final String fromEmail = "customer_service@donzalmart.com";
+		
+		Email email = new Email();
+		ProcessEmail pe = new ProcessEmail();
+		List <UserProfile> userList = userProfileService.getDailySpecialUsers();
+		
+		for (UserProfile user : userList) {
+			email.setFrom(fromEmail);
+			email.setName(user.getFirstname() + " " + user.getLastname());
+			email.setTo(user.getUsername());
+			email.setPassword("In_heaven3!");
+			email.setSubject("Daily Specials");
+			email.setMessage(pe.getDailySpecials());
+			pe.sendMail(email);
+		}
+		
+		UserProfile user = userProfileService.getUser(principal.getName());
+		
+		PagedListHolder<InvoiceHeader> headerList = invoiceHeaderService.getProcessedInvoices();
+		headerList.setPage(0);
+		headerList.setPageSize(10);
+		CurrencyExchange currency = new CurrencyExchange();
+		
+		model.addAttribute("rate", currency.getRate(user.getCurrency()));
+		model.addAttribute("currencySymbol", currency.getSymbol(user.getCurrency()));
+		model.addAttribute("objectList", headerList);
+		model.addAttribute("pagelink", pageLink);
+		
+		return "admin";
+	}
+	
 	/*********************************************************************************************************************
 	 * Pageination Handlers
 	 * 

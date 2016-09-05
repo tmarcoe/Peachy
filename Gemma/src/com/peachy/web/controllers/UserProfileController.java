@@ -1,6 +1,7 @@
 package com.peachy.web.controllers;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.net.URISyntaxException;
 import java.security.Principal;
 import java.text.SimpleDateFormat;
@@ -31,12 +32,15 @@ import org.springframework.web.servlet.ModelAndView;
 import com.peachy.web.beans.FileLocations;
 import com.peachy.web.dao.Inventory;
 import com.peachy.web.dao.UserProfile;
+import com.peachy.web.email.ProcessEmail;
 import com.peachy.web.local.CurrencyExchange;
 import com.peachy.web.service.InventoryService;
 import com.peachy.web.service.UserProfileService;
 
 @Controller
-public class UserProfileController {
+public class UserProfileController implements Serializable {
+	private static final long serialVersionUID = 1L;
+
 	private final String pageLink = "/userpaging";
 
 	private static Logger logger = Logger.getLogger(AdminController.class
@@ -106,26 +110,26 @@ public class UserProfileController {
 	@RequestMapping("/signup")
 	public String signup(Model model) {
 		model.addAttribute("userProfile", new UserProfile());
-		
+
 		return "signup";
 	}
-	
+
 	@RequestMapping("/mydonzalmart")
 	public String showMyDonzalMart(Model model, Principal principal) {
-		
+
 		UserProfile user = userProfileService.getUser(principal.getName());
 		model.addAttribute("userProfile", user);
-		
+
 		return "mydonzalmart";
 	}
-	
+
 	@RequestMapping("/saveuser")
 	public String partialUpdate(
 			@ModelAttribute("userProfile") UserProfile userProfile, Model model)
 			throws ClientProtocolException, IOException, URISyntaxException {
 
 		userProfileService.partialUpdate(userProfile);
-		
+
 		if (userProfile.getAuthority().compareTo("ROLE_ADMIN") == 0) {
 			userList = userProfileService.getPagedList();
 			userList.setPageSize(10);
@@ -141,8 +145,10 @@ public class UserProfileController {
 			List<Inventory> inventory = inventoryService.listSaleItems();
 			CurrencyExchange currency = new CurrencyExchange();
 
-			model.addAttribute("rate", currency.getRate(userProfile.getCurrency()));
-			model.addAttribute("currencySymbol", currency.getSymbol(userProfile.getCurrency()));
+			model.addAttribute("rate",
+					currency.getRate(userProfile.getCurrency()));
+			model.addAttribute("currencySymbol",
+					currency.getSymbol(userProfile.getCurrency()));
 			model.addAttribute("inventory", inventory);
 			model.addAttribute("fileLoc", fileLoc);
 		}
@@ -150,7 +156,11 @@ public class UserProfileController {
 	}
 
 	@RequestMapping("/createprofile")
-	public String createProfile( @Valid UserProfile user, BindingResult result) {
+	public String createProfile(
+			@Valid @ModelAttribute UserProfile user,
+			HttpServletRequest request, Model model, BindingResult result)
+			throws Exception {
+		String baseUrl = String.format("%s://%s:%d/verify?userID=",request.getScheme(),  request.getServerName(), request.getServerPort());
 		if (result.hasErrors()) {
 			return "signup";
 		}
@@ -161,47 +171,60 @@ public class UserProfileController {
 		}
 		try {
 			userProfileService.create(user);
-		}catch(DuplicateKeyException e){
-			result.reject("duplicate.userProfile.email", "A user already exists with that email address.");
+		} catch (DuplicateKeyException e) {
+			result.reject("duplicate.userProfile.email",
+					"A user already exists with that email address.");
 			return "signup";
 		}
 		logger.info("'" + user.getUsername() + "' has just signed up.");
+		ProcessEmail pe = new ProcessEmail();
+		pe.sendLoginLink(user, baseUrl);
+
+		String name = user.getFirstname() + " " + user.getLastname();
+
+		model.addAttribute("name", name);
+		model.addAttribute("email", user.getUsername());
+
 		return "createprofile";
 	}
-	
+
 	@RequestMapping("/changepassword")
 	public String showChangePassword(Model model, Principal principal) {
 		UserProfile user = userProfileService.getUser(principal.getName());
-		
+
 		user.setPassword("");
-		
+
 		model.addAttribute("userProfile", user);
-		
+
 		return "changepassword";
 	}
-	
+
 	@RequestMapping("/passwordchanged")
-	public String passwordChanged(@ModelAttribute("userProfile") UserProfile user, Principal principal, Model model) {
-		
+	public String passwordChanged(
+			@ModelAttribute("userProfile") UserProfile user,
+			Principal principal, Model model) {
+
 		userProfileService.updatePassword(user);
-		
+
 		user = userProfileService.getUser(principal.getName());
-		
-		logger.info("," + user.getUsername() + "' has just changed the password.");
-		
+
+		logger.info("," + user.getUsername()
+				+ "' has just changed the password.");
+
 		model.addAttribute("userProfile", user);
 		return "mydonzalmart";
 	}
-	
+
 	@RequestMapping("/updateuser")
-	public String updateProfile(@ModelAttribute("userProfile") UserProfile user){
-		
+	public String updateProfile(@ModelAttribute("userProfile") UserProfile user) {
+
 		userProfileService.updateProfile(user);
-		logger.info("'" + user.getUsername() + "' has just changed the user info.");
-		
-		return("mydonzalmart");
+		logger.info("'" + user.getUsername()
+				+ "' has just changed the user info.");
+
+		return ("mydonzalmart");
 	}
-	
+
 	@RequestMapping(value = "/userpaging", method = RequestMethod.GET)
 	public ModelAndView handleUserRequest(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {

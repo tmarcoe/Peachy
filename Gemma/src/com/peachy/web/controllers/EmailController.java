@@ -1,12 +1,14 @@
 package com.peachy.web.controllers;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.net.URISyntaxException;
 
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.support.PagedListHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,9 +20,21 @@ import org.springframework.web.servlet.ModelAndView;
 import com.peachy.web.email.Email;
 import com.peachy.web.email.MsgDisplay;
 import com.peachy.web.email.ProcessEmail;
+import com.peachy.web.service.InvoiceHeaderService;
+import com.peachy.web.service.UserProfileService;
 
 @Controller
-public class EmailController {
+public class EmailController implements Serializable {
+	private static final long serialVersionUID = 1L;
+
+	@Autowired
+	UserProfileService userProfileService;
+	
+	@Autowired
+	private InvoiceHeaderService invoiceHeaderService;
+
+
+	
 	private final String pageLink = "/productpaging";
 	
 	private PagedListHolder<MsgDisplay> msgs;
@@ -40,6 +54,8 @@ public class EmailController {
 				
 		return "checkemail";
 	}
+	
+	
 /************************************************************************************************************
  * Paging Handlers
  ************************************************************************************************************/

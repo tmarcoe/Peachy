@@ -1,6 +1,7 @@
 package com.peachy.web.service;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.List;
 
 import javax.xml.soap.SOAPException;
@@ -70,7 +71,7 @@ public class InvoiceHeaderService {
 		return invoiceHeaderDao.getProcessedInvoicesList();
 	}
 	
-	public InvoiceHeader totalHeader(InvoiceHeader header) throws SOAPException, IOException {
+	public InvoiceHeader totalHeader(InvoiceHeader header) throws SOAPException, IOException, URISyntaxException {
 		List<InvoiceItem> itemList = invoiceItemDao.getInvoice(header);
 		UserProfile user = userProfileDao.getUserByID(header.getUserID());
 		ShippingInfo ship = new ShippingInfo();

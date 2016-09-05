@@ -148,6 +148,13 @@ public class UserProfileDao {
 		
 		return (UserProfile) session().createQuery(hql).setInteger("userID", userID).uniqueResult();
 	}
+
+	@SuppressWarnings("unchecked")
+	public List<UserProfile> getDailySpecialUsers() {
+		String hql = "from UserProfile where dailySpecials = true";
+		
+		return session().createQuery(hql).list();
+	}
 	
 	
 }

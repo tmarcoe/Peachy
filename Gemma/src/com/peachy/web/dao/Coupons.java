@@ -1,5 +1,6 @@
 package com.peachy.web.dao;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -8,9 +9,8 @@ import javax.persistence.Id;
 import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
-public class Coupons {
-
-	
+public class Coupons implements Serializable{
+	private static final long serialVersionUID = 1L;
 	@Id
 	@NotBlank
 	private String couponID;

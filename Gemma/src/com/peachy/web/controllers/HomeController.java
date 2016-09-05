@@ -1,12 +1,12 @@
 package com.peachy.web.controllers;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.net.URISyntaxException;
 import java.security.Principal;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
-import javax.xml.soap.SOAPException;
 
 import org.apache.http.client.ClientProtocolException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +22,8 @@ import com.peachy.web.service.InventoryService;
 import com.peachy.web.service.UserProfileService;
 
 @Controller
-public class HomeController {
+public class HomeController implements Serializable{
+	private static final long serialVersionUID = 1L;
 
 	@Autowired
 	private InventoryService inventoryService;
@@ -34,7 +35,7 @@ public class HomeController {
 	private FileLocations fileLocations;
 	
 	@RequestMapping("/home")
-	public String showRoot(Model model, HttpServletResponse response, Principal principal) throws ClientProtocolException, IOException, URISyntaxException, SOAPException {
+	public String showRoot(Model model, HttpServletResponse response, Principal principal) throws Exception {
 		double rate;
 		String currencySymbol = "₱";
 		if (principal != null) {
@@ -45,7 +46,6 @@ public class HomeController {
 		}else{
 			rate = 1;
 		}
-		
 		String fileLoc = fileLocations.getImageLoc();
 		List<Inventory> inventory = inventoryService.listSaleItems();
 		

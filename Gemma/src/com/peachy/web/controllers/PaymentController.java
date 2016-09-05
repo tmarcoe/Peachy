@@ -1,6 +1,7 @@
 package com.peachy.web.controllers;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -34,7 +35,8 @@ import com.peachy.web.service.TransactionService;
 import com.peachy.web.service.UserProfileService;
 
 @Controller
-public class PaymentController {
+public class PaymentController implements Serializable {
+	private static final long serialVersionUID = 1L;
 
 	@Autowired
 	private UserProfileService userProfileService;

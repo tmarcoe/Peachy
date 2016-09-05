@@ -31,6 +31,7 @@
 	<property name="imgUploadLoc"
 		value="/home/donzalma/public_html/images/">
 	</property>
+	
 	</bean>
 
 
@@ -47,8 +48,8 @@
 		<property name="shippingPassword"
 			value="Jy2hFgXFwz7dKXxybJJ2DPz00">
 		</property>
-		<property name="companyName" value="Peachie's Coffee"></property>
-		<property name="localTZ" value="PHT"></property>
+		<property name="companyName" value="Peachie s Coffee"></property>
+		<property name="localTZ" value="HKT"></property>
 		<property name="address1" value="02319 Nueva St."></property>
 		<property name="address2" value="Brgy. Taft">
 		</property>

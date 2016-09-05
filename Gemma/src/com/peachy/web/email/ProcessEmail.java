@@ -25,9 +25,14 @@ import org.springframework.beans.support.PagedListHolder;
 
 import com.peachy.web.beans.BeansHelper;
 import com.peachy.web.beans.FileLocations;
+import com.peachy.web.dao.UserProfile;
 
 public class ProcessEmail {
 	final private String configFile = "email.properties";
+	final private String dsEmail = "DailySpecials.html";
+	final private String from = "customer_service@donzalmart.com";
+	final private String password = "In_heaven3!";
+	final private String name = "Customer Service";
 		
 	public void sendMail(final Email email) throws Exception {
 		Properties properties = new Properties();
@@ -55,9 +60,10 @@ public class ProcessEmail {
 
 		MimeMessage msg = new MimeMessage(session);
 		
-			msg.setText(email.getMessage(), "utf-8", "html");
+			
 			msg.setSubject(email.getSubject());
-			msg.setText(email.getMessage());
+			msg.setContent(email.getMessage(), "text/html");
+
 			msg.setFrom(new InternetAddress(email.getFrom(), email
 					.getName()));
 			msg.setRecipient(Message.RecipientType.TO, new InternetAddress(
@@ -67,6 +73,40 @@ public class ProcessEmail {
 
 	}
 
+	public void sendLoginLink(UserProfile user, String baseUrl) throws Exception {
+		Email email = new Email();
+		
+		email.setName(user.getFirstname() + " " + user.getLastname());
+		email.setFrom(from);
+		email.setPassword(password);
+		email.setSubject("Welcome to Peachy's Coffee");
+		String msg = "<h1>Welcome " + email.getName() + "</h1>" +
+		             "<h3>Please click the link to activate your account</h3>" +
+				     "<a href='" + baseUrl + user.getUserID() + "&h=" + user.getPassword() + "'>" +
+				     "Activate your accout</a>";
+
+		email.setTo(user.getUsername());
+		email.setMessage(msg);
+		
+		sendMail(email);
+		
+	}
+	
+	public String getDailySpecials() throws IOException {
+		String fileContent = "";
+		
+		FileLocations loc = (FileLocations) new BeansHelper().getBean("config-context.xml", "fileLocations");
+		URL url = new URL(loc.getEmailConfig() + dsEmail);
+		BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
+		
+		String line = "";
+		while ((line = in.readLine()) != null) {
+			fileContent += line;
+		}
+		
+		return fileContent;
+	}
+		
 	public PagedListHolder<MsgDisplay> receiveEmail(Email email) throws MessagingException, IOException, URISyntaxException {
 			List<MsgDisplay> msgList = new ArrayList<MsgDisplay>();
 			FileLocations loc = (FileLocations) new BeansHelper().getBean("config-context.xml", "fileLocations");
@@ -114,6 +154,21 @@ public class ProcessEmail {
 			store.close();
 			
 		return new PagedListHolder<MsgDisplay>(msgList);
+	}
+	
+	public void dailySpecials(List<UserProfile> users, String message) throws Exception {
+		
+		Email email = new Email();
+		
+		email.setName(name);
+		email.setFrom(from);
+		email.setPassword(password);
+		email.setSubject("Daily Specials");
+		for (UserProfile user : users) {
+			email.setTo(user.getUsername());
+			email.setMessage(message);
+			sendMail(email);
+		}
 	}
 
 }

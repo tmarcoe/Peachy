@@ -1,16 +1,12 @@
 package com.peachy.web.controllers;
 
-import java.io.IOException;
-import java.security.Principal;
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.xml.soap.SOAPException;
 
-import org.antlr.v4.runtime.RecognitionException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.beans.support.PagedListHolder;
@@ -22,13 +18,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.util.NestedServletException;
 
 import com.peachy.web.dao.Coupons;
-import com.peachy.web.dao.InvoiceContainer;
-import com.peachy.web.dao.InvoiceHeader;
-import com.peachy.web.dao.InvoiceItem;
-import com.peachy.web.dao.UserProfile;
 import com.peachy.web.service.CouponsService;
 import com.peachy.web.service.InvoiceHeaderService;
 import com.peachy.web.service.InvoiceService;
@@ -37,7 +28,8 @@ import com.peachy.web.service.UsedCouponsService;
 import com.peachy.web.service.UserProfileService;
 
 @Controller
-public class CouponController {
+public class CouponController implements Serializable {
+	private static final long serialVersionUID = 1L;
 	private final String pageLink = "/couponpaging";
 	@Autowired
 	private CouponsService couponsService;

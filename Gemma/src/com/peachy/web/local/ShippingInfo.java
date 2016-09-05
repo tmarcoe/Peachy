@@ -31,6 +31,9 @@ public class ShippingInfo {
 	public ShippingAddress receiverAddress(UserProfile user) {
 		ShippingAddress receiver = new ShippingAddress();
 		
+		receiver.setFirstname(user.getFirstname());
+		receiver.setLastname(user.getLastname());
+		receiver.setPhone(user.getHomePhone());
 		receiver.setAddress1(user.getaddress1());
 		receiver.setAddress2(user.getaddress2());
 		receiver.setCity(user.getcity());
