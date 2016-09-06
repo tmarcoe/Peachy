@@ -9,8 +9,8 @@ import org.springframework.beans.support.PagedListHolder;
 import org.springframework.stereotype.Service;
 
 import com.peachy.web.beans.DatePicker;
-import com.peachy.web.dao.GeneralLedger;
 import com.peachy.web.dao.GeneralLedgerDao;
+import com.peachy.web.orm.GeneralLedger;
 
 @Service("generalLedgerService")
 public class GeneralLedgerService implements Serializable{

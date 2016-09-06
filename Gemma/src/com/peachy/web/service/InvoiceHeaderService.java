@@ -12,14 +12,14 @@ import org.springframework.stereotype.Service;
 
 import com.peachy.web.beans.Parcel;
 import com.peachy.web.beans.ShippingAddress;
-import com.peachy.web.dao.InvoiceHeader;
 import com.peachy.web.dao.InvoiceHeaderDao;
-import com.peachy.web.dao.InvoiceItem;
 import com.peachy.web.dao.InvoiceItemDao;
-import com.peachy.web.dao.UserProfile;
 import com.peachy.web.dao.UserProfileDao;
 import com.peachy.web.local.ShippingInfo;
 import com.peachy.web.local.ShippingRates;
+import com.peachy.web.orm.InvoiceHeader;
+import com.peachy.web.orm.InvoiceItem;
+import com.peachy.web.orm.UserProfile;
 
 @Service("invoiceHeaderService")
 public class InvoiceHeaderService {

@@ -30,10 +30,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.peachy.web.beans.FileLocations;
-import com.peachy.web.dao.Inventory;
-import com.peachy.web.dao.UserProfile;
 import com.peachy.web.email.ProcessEmail;
 import com.peachy.web.local.CurrencyExchange;
+import com.peachy.web.orm.Inventory;
+import com.peachy.web.orm.UserProfile;
 import com.peachy.web.service.InventoryService;
 import com.peachy.web.service.UserProfileService;
 
@@ -157,7 +157,7 @@ public class UserProfileController implements Serializable {
 
 	@RequestMapping("/createprofile")
 	public String createProfile(
-			@Valid @ModelAttribute UserProfile user,
+			@Valid @ModelAttribute("userProfile") UserProfile user,
 			HttpServletRequest request, Model model, BindingResult result)
 			throws Exception {
 		String baseUrl = String.format("%s://%s:%d/verify?userID=",request.getScheme(),  request.getServerName(), request.getServerPort());

@@ -6,10 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.peachy.web.dao.InventoryDao;
-import com.peachy.web.dao.InvoiceHeader;
-import com.peachy.web.dao.InvoiceItem;
 import com.peachy.web.dao.InvoiceItemDao;
-import com.peachy.web.dao.UsedCoupons;
+import com.peachy.web.orm.InvoiceHeader;
+import com.peachy.web.orm.InvoiceItem;
+import com.peachy.web.orm.UsedCoupons;
 
 @Service("invoiceService")
 public class InvoiceService {

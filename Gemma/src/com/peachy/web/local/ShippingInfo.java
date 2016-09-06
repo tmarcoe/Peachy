@@ -4,7 +4,7 @@ import com.peachy.web.beans.BeansHelper;
 import com.peachy.web.beans.LocalValues;
 import com.peachy.web.beans.Parcel;
 import com.peachy.web.beans.ShippingAddress;
-import com.peachy.web.dao.UserProfile;
+import com.peachy.web.orm.UserProfile;
 
 public class ShippingInfo {
 	private LocalValues localValues;

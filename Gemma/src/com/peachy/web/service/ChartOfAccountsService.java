@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.support.PagedListHolder;
 import org.springframework.stereotype.Service;
 
-import com.peachy.web.dao.ChartOfAccounts;
 import com.peachy.web.dao.ChartOfAccountsDao;
+import com.peachy.web.orm.ChartOfAccounts;
 
 
 @Service("chartOfAccountsService")

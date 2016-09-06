@@ -1,25 +1,26 @@
 /**
  * 
  */
-package com.peachy.web.dao;
+package com.peachy.web.orm;
+
+import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotBlank;
 
-import java.io.Serializable;
-import java.util.Date;
+import com.peachy.web.validation.ValidEmail;
 
 @Entity
 public class UserProfile implements Serializable{
 	private static final long serialVersionUID = 1L;
 	@Id @GeneratedValue(strategy = GenerationType.AUTO)
 	int userID;
-	@NotBlank
+
 	private String firstname;
 
 	private String lastname;
@@ -48,7 +49,7 @@ public class UserProfile implements Serializable{
 	private String cellPhone;
 
 
-
+	@ValidEmail
 	private String username;
 
 

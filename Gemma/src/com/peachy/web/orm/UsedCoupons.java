@@ -1,4 +1,4 @@
-package com.peachy.web.dao;
+package com.peachy.web.orm;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

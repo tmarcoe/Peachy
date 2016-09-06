@@ -4,8 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.support.PagedListHolder;
 import org.springframework.stereotype.Service;
 
-import com.peachy.web.dao.Coupons;
 import com.peachy.web.dao.CouponsDao;
+import com.peachy.web.orm.Coupons;
 
 @Service("couponsService")
 public class CouponsService {

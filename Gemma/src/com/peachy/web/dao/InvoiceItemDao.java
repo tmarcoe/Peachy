@@ -9,6 +9,10 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.peachy.web.orm.Inventory;
+import com.peachy.web.orm.InvoiceHeader;
+import com.peachy.web.orm.InvoiceItem;
+
 @Transactional
 @Repository
 @Component("InvoiceItemDao")

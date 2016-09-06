@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.peachy.web.beans.DatePicker;
-import com.peachy.web.dao.GeneralLedger;
+import com.peachy.web.orm.GeneralLedger;
 import com.peachy.web.service.GeneralLedgerService;
 
 @Controller

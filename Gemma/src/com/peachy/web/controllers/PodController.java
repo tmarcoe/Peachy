@@ -10,7 +10,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.peachy.web.dao.InvoiceHeader;
+import com.peachy.web.orm.InvoiceHeader;
 import com.peachy.web.service.InvoiceHeaderService;
 import com.peachy.web.service.TransactionService;
 

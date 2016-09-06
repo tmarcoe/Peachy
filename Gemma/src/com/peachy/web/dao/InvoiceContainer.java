@@ -2,6 +2,9 @@ package com.peachy.web.dao;
 
 import java.util.List;
 
+import com.peachy.web.orm.InvoiceHeader;
+import com.peachy.web.orm.InvoiceItem;
+
 public class InvoiceContainer {
 	
 	private InvoiceHeader invoiceHeader;

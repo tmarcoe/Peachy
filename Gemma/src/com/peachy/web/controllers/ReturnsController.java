@@ -22,9 +22,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.peachy.web.dao.InvoiceHeader;
-import com.peachy.web.dao.InvoiceItem;
-import com.peachy.web.dao.Returns;
+import com.peachy.web.orm.InvoiceHeader;
+import com.peachy.web.orm.InvoiceItem;
+import com.peachy.web.orm.Returns;
 import com.peachy.web.service.InvoiceHeaderService;
 import com.peachy.web.service.InvoiceService;
 import com.peachy.web.service.ReturnsService;

@@ -28,7 +28,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.peachy.web.beans.FileLocations;
 import com.peachy.web.beans.FileUpload;
 import com.peachy.web.beans.Order;
-import com.peachy.web.dao.Inventory;
+import com.peachy.web.orm.Inventory;
 import com.peachy.web.service.InventoryService;
 import com.peachy.web.service.TransactionService;
 

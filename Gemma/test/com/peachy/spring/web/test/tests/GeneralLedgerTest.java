@@ -20,12 +20,12 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.peachy.web.beans.Audit;
-import com.peachy.web.dao.ChartOfAccounts;
 import com.peachy.web.dao.ChartOfAccountsDao;
-import com.peachy.web.dao.GeneralLedger;
 import com.peachy.web.dao.GeneralLedgerDao;
-import com.peachy.web.dao.InvoiceHeader;
 import com.peachy.web.dao.InvoiceHeaderDao;
+import com.peachy.web.orm.ChartOfAccounts;
+import com.peachy.web.orm.GeneralLedger;
+import com.peachy.web.orm.InvoiceHeader;
 import com.peachy.web.service.TransactionService;
 
 @ActiveProfiles("dev")

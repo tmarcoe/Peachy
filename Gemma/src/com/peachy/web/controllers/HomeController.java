@@ -15,9 +15,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.peachy.web.beans.FileLocations;
-import com.peachy.web.dao.Inventory;
-import com.peachy.web.dao.UserProfile;
 import com.peachy.web.local.CurrencyExchange;
+import com.peachy.web.orm.Inventory;
+import com.peachy.web.orm.UserProfile;
 import com.peachy.web.service.InventoryService;
 import com.peachy.web.service.UserProfileService;
 

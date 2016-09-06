@@ -29,8 +29,8 @@ import com.braintreegateway.TransactionRequest;
 import com.braintreegateway.ValidationError;
 import com.peachy.web.beans.BeansHelper;
 import com.peachy.web.beans.FileLocations;
-import com.peachy.web.dao.InvoiceHeader;
-import com.peachy.web.dao.UserProfile;
+import com.peachy.web.orm.InvoiceHeader;
+import com.peachy.web.orm.UserProfile;
 
 public class Checkout {
 	private static Logger logger = Logger.getLogger(Checkout.class

@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.peachy.web.dao.Coupons;
+import com.peachy.web.orm.Coupons;
 import com.peachy.web.service.CouponsService;
 import com.peachy.web.service.InvoiceHeaderService;
 import com.peachy.web.service.InvoiceService;
