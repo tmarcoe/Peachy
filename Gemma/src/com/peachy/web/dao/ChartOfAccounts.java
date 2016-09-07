@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.peachy.web.orm;
+package com.peachy.web.dao;
 
 import java.io.Serializable;
 

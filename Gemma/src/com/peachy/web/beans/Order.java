@@ -1,6 +1,6 @@
 package com.peachy.web.beans;
 
-import com.peachy.web.orm.Inventory;
+import com.peachy.web.dao.Inventory;
 
 public class Order {
 	private Inventory inventory;

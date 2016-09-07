@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.peachy.web.orm.UserProfile;
+import com.peachy.web.dao.UserProfile;
 import com.peachy.web.service.UserProfileService;
 
 @Controller

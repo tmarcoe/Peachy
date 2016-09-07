@@ -1,4 +1,4 @@
-package com.peachy.web.orm;
+package com.peachy.web.dao;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;

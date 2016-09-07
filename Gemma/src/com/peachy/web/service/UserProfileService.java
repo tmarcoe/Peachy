@@ -7,8 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.support.PagedListHolder;
 import org.springframework.stereotype.Service;
 
+import com.peachy.web.dao.UserProfile;
 import com.peachy.web.dao.UserProfileDao;
-import com.peachy.web.orm.UserProfile;
 
 @Service("userProfileService")
 public class UserProfileService {

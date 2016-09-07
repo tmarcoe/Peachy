@@ -3,8 +3,8 @@ package com.peachy.web.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.peachy.web.dao.UsedCoupons;
 import com.peachy.web.dao.UsedCouponsDao;
-import com.peachy.web.orm.UsedCoupons;
 
 @Service("usedCouponsService")
 public class UsedCouponsService {

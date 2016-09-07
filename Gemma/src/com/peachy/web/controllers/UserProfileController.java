@@ -30,10 +30,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.peachy.web.beans.FileLocations;
+import com.peachy.web.dao.Inventory;
+import com.peachy.web.dao.UserProfile;
 import com.peachy.web.email.ProcessEmail;
 import com.peachy.web.local.CurrencyExchange;
-import com.peachy.web.orm.Inventory;
-import com.peachy.web.orm.UserProfile;
 import com.peachy.web.service.InventoryService;
 import com.peachy.web.service.UserProfileService;
 
@@ -125,9 +125,11 @@ public class UserProfileController implements Serializable {
 
 	@RequestMapping("/saveuser")
 	public String partialUpdate(
-			@ModelAttribute("userProfile") UserProfile userProfile, Model model)
+			@Valid @ModelAttribute("userProfile") UserProfile userProfile, BindingResult result, Model model)
 			throws ClientProtocolException, IOException, URISyntaxException {
-
+		if (result.hasErrors()) {
+			return "mydonzalmart";
+		}
 		userProfileService.partialUpdate(userProfile);
 
 		if (userProfile.getAuthority().compareTo("ROLE_ADMIN") == 0) {
@@ -156,11 +158,12 @@ public class UserProfileController implements Serializable {
 	}
 
 	@RequestMapping("/createprofile")
-	public String createProfile(
-			@Valid @ModelAttribute("userProfile") UserProfile user,
-			HttpServletRequest request, Model model, BindingResult result)
+	public String createProfile(HttpServletRequest request, 
+			@Valid @ModelAttribute("userProfile") UserProfile user, BindingResult result,
+			Model model)
 			throws Exception {
-		String baseUrl = String.format("%s://%s:%d/verify?userID=",request.getScheme(),  request.getServerName(), request.getServerPort());
+		
+		String baseUrl = String.format("%s://%s:%d/verify?userID=",request.getScheme(), request.getServerName(), request.getServerPort());
 		if (result.hasErrors()) {
 			return "signup";
 		}

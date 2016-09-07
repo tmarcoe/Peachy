@@ -29,12 +29,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.peachy.web.beans.Categories;
 import com.peachy.web.beans.FileLocations;
+import com.peachy.web.dao.Inventory;
 import com.peachy.web.dao.InvoiceContainer;
+import com.peachy.web.dao.InvoiceHeader;
+import com.peachy.web.dao.InvoiceItem;
+import com.peachy.web.dao.UserProfile;
 import com.peachy.web.local.CurrencyExchange;
-import com.peachy.web.orm.Inventory;
-import com.peachy.web.orm.InvoiceHeader;
-import com.peachy.web.orm.InvoiceItem;
-import com.peachy.web.orm.UserProfile;
 import com.peachy.web.service.InventoryService;
 import com.peachy.web.service.InvoiceHeaderService;
 import com.peachy.web.service.InvoiceService;

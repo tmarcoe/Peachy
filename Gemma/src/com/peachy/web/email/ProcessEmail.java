@@ -25,7 +25,7 @@ import org.springframework.beans.support.PagedListHolder;
 
 import com.peachy.web.beans.BeansHelper;
 import com.peachy.web.beans.FileLocations;
-import com.peachy.web.orm.UserProfile;
+import com.peachy.web.dao.UserProfile;
 
 public class ProcessEmail {
 	final private String configFile = "email.properties";

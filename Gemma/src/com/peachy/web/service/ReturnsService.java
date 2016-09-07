@@ -4,8 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.support.PagedListHolder;
 import org.springframework.stereotype.Service;
 
+import com.peachy.web.dao.Returns;
 import com.peachy.web.dao.ReturnsDao;
-import com.peachy.web.orm.Returns;
 
 @Service("returnsService")
 public class ReturnsService {

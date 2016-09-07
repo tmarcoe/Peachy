@@ -11,10 +11,10 @@ import org.springframework.beans.support.PagedListHolder;
 import org.springframework.stereotype.Service;
 
 import com.peachy.web.beans.Categories;
+import com.peachy.web.dao.Inventory;
 import com.peachy.web.dao.InventoryDao;
+import com.peachy.web.dao.InvoiceItem;
 import com.peachy.web.local.CurrencyExchange;
-import com.peachy.web.orm.Inventory;
-import com.peachy.web.orm.InvoiceItem;
 
 @Service("inventoryService")
 public class InventoryService implements Serializable {

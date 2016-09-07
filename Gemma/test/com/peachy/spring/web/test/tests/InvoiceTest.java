@@ -16,12 +16,12 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.peachy.web.dao.Inventory;
 import com.peachy.web.dao.InventoryDao;
+import com.peachy.web.dao.InvoiceHeader;
 import com.peachy.web.dao.InvoiceHeaderDao;
+import com.peachy.web.dao.InvoiceItem;
 import com.peachy.web.dao.InvoiceItemDao;
-import com.peachy.web.orm.Inventory;
-import com.peachy.web.orm.InvoiceHeader;
-import com.peachy.web.orm.InvoiceItem;
 
 @ActiveProfiles("dev")
 @ContextConfiguration(locations = {

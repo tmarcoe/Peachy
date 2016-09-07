@@ -16,9 +16,9 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.peachy.web.dao.ChartOfAccounts;
 import com.peachy.web.dao.ChartOfAccountsDao;
 import com.peachy.web.dao.InventoryDao;
-import com.peachy.web.orm.ChartOfAccounts;
 
 @ActiveProfiles("dev")
 @ContextConfiguration(locations = {

@@ -36,6 +36,9 @@
 			<td><div class="error">
 					<sf:errors path="lastname" />
 				</div></td>
+			<td><div class="error">
+					<sf:errors path="maleFemale" />
+				</div></td>
 		</tr>
 		<tr>
 			<td>Address 1:</td>

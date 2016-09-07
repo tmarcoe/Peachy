@@ -20,8 +20,8 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.peachy.web.dao.UserProfile;
 import com.peachy.web.dao.UserProfileDao;
-import com.peachy.web.orm.UserProfile;
 
 
 @ActiveProfiles("dev")

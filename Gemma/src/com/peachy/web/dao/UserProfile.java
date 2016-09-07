@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.peachy.web.orm;
+package com.peachy.web.dao;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -10,9 +10,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotBlank;
 
+import com.peachy.web.validation.Password;
 import com.peachy.web.validation.ValidEmail;
 
 @Entity
@@ -21,39 +24,29 @@ public class UserProfile implements Serializable{
 	@Id @GeneratedValue(strategy = GenerationType.AUTO)
 	int userID;
 
+	@Size(min = 2, max = 30)
 	private String firstname;
-
+	@Size(min = 2, max = 30)
 	private String lastname;
-	
+	@NotNull
 	private String maleFemale;
-
-
+	@NotBlank
 	private String address1;
 	private String address2;
-
-
+	@NotBlank
 	private String city;
-
-
 	private String region;
-
-
 	private String postalCode;
-
-
+	@Size(min = 3, max = 3)
 	private String country;
-
-
+	@NotBlank
 	private String currency;
 	private String homePhone;
 	private String cellPhone;
-
-
 	@ValidEmail
 	private String username;
-
-
-
+	@Size(min = 8, max = 20)
+	@Password
 	private String password;
 	private String shippingInfo;
 	private boolean monthlyMailing;

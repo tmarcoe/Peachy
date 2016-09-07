@@ -29,14 +29,14 @@ import com.ftl.helper.Transaction;
 import com.ftl.helper.Variable;
 import com.peachy.web.beans.FileLocations;
 import com.peachy.web.beans.Order;
+import com.peachy.web.dao.Coupons;
+import com.peachy.web.dao.Inventory;
+import com.peachy.web.dao.InvoiceHeader;
+import com.peachy.web.dao.InvoiceItem;
+import com.peachy.web.dao.Returns;
+import com.peachy.web.dao.UsedCoupons;
 import com.peachy.web.exceptions.BailErrorStrategy;
 import com.peachy.web.exceptions.FetalExceptions;
-import com.peachy.web.orm.Coupons;
-import com.peachy.web.orm.Inventory;
-import com.peachy.web.orm.InvoiceHeader;
-import com.peachy.web.orm.InvoiceItem;
-import com.peachy.web.orm.Returns;
-import com.peachy.web.orm.UsedCoupons;
 
 @Service("transactionServiceService")
 public class TransactionService extends Transaction {

@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.peachy.web.orm.ChartOfAccounts;
+import com.peachy.web.dao.ChartOfAccounts;
 import com.peachy.web.service.ChartOfAccountsService;
 
 @Controller
