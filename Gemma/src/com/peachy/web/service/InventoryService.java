@@ -57,8 +57,6 @@ public class InventoryService implements Serializable {
 	
 	public Inventory getItem(String skuNum) throws ClientProtocolException, IOException, URISyntaxException {
 		Inventory item = inventoryDao.getItem(skuNum);
-		item.setSalePrice(item.getSalePrice());
-		item.setDiscountPrice(item.getDiscountPrice());
 		return item;
 	}
 	
@@ -78,8 +76,8 @@ public class InventoryService implements Serializable {
 		return inventoryDao.getSubCategory(category);
 	}
 
-	public List<Inventory> getReplenishList() {
-		return inventoryDao.getReplenishList();
+	public PagedListHolder<Inventory> getReplenishList() {
+		return new PagedListHolder<Inventory>(inventoryDao.getReplenishList());
 	}
 	
 	public PagedListHolder<Inventory> getPagedList(Categories categories) throws ClientProtocolException, IOException, URISyntaxException {

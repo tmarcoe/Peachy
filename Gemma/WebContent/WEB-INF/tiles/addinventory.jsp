@@ -50,7 +50,7 @@
 			<td>Discount Price:</td>
 			<td><sf:input path="discountPrice" name="discountPrice" class="control" type="number" step=".01"/></td>
 			<td>Shipping Weight:</td>
-			<td><sf:input path="weight" name="weight" class="control" type="number" step=".1"/></td>
+			<td><sf:input path="weight" name="weight" class="control" type="number" step=".01"/></td>
 		</tr>
 		<tr>
 			<td>&nbsp;</td><td><div class="error"><sf:errors path="salePrice"></sf:errors></div></td>

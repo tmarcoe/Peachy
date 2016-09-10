@@ -12,7 +12,6 @@ public class InvoiceItem {
 	private Invoice invoiceKey;
 	
 	@Min(1)
-	@NotNull 
 	private int amount;
 	/*
 	 * The following is from the Iventory table

@@ -71,11 +71,4 @@
 	function followLink(link) {
 		window.location.href = "${pageContext.request.contextPath}" + link;
 	}
-	$(document)
-			.ready(
-					function() {
-						alert("This site is currently in beta and not accepting orders."
-								+ "\nHowever, you are welcome to register and browse the products."
-								+ "\nKeep in mind that the inventory might change.");
-					});
 </script>

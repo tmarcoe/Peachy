@@ -45,7 +45,6 @@ public class UserProfile implements Serializable{
 	private String cellPhone;
 	@ValidEmail
 	private String username;
-	@Size(min = 8, max = 20)
 	@Password
 	private String password;
 	private String shippingInfo;

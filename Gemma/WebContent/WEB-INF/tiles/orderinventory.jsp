@@ -3,7 +3,7 @@
 <%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <c:choose>
-	<c:when test="${orderList.size() > 0}">
+	<c:when test="${objectList.pageList.size() > 0}">
 <form>
 	<table class="ordertable">
 		<thead>
@@ -12,10 +12,11 @@
 				<th>Price</th>
 				<th>Tax</th>
 				<th>In Stock</th>
+				<th>&nbsp</th>
 			</tr>
 		</thead>
 		<tbody>
-			<c:forEach var="item" items="${orderList}">
+			<c:forEach var="item" items="${objectList.pageList}">
 				<tr>
 					<td>${item.productName}</td>
 					<td><fmt:formatNumber type="currency" currencySymbol="${currencySymbol}" value="${item.salePrice}" /></td>

@@ -62,8 +62,8 @@ public class AccountsController implements Serializable {
 	}
 
 	@RequestMapping("/submitaddaccount")
-	public String submitAddAccount(@Valid ChartOfAccounts chartOfAccounts,
-			Model model, BindingResult result) {
+	public String submitAddAccount(@Valid ChartOfAccounts chartOfAccounts, BindingResult result,
+			Model model) {
 		if (result.hasErrors()) {
 			return "addaccount";
 		}
@@ -88,7 +88,10 @@ public class AccountsController implements Serializable {
 
 
 	@RequestMapping("/saveaccount")
-	public String saveAccount(ChartOfAccounts chartOfAccounts, Model model) {
+	public String saveAccount(@Valid ChartOfAccounts chartOfAccounts, BindingResult result, Model model) {
+		if (result.hasErrors()) {
+			return "accountdetail";
+		}
 		chartOfAccountsService.update(chartOfAccounts);
 		logger.info("Account # '" + chartOfAccounts.getAccountNum() + "' has been updated.");
 

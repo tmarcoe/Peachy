@@ -87,7 +87,7 @@ public class InvoiceHeaderService {
 		for(InvoiceItem item: itemList) {
 			total += (item.getAmount() * item.getPrice());
 			totalTax += (item.getAmount() * item.getTax());
-			weight += (item.getWeight());
+			weight += (item.getAmount() * item.getWeight());
 			
 			header.setTotal(total);
 			header.setTotalTax(totalTax);

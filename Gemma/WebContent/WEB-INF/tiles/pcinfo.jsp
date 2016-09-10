@@ -49,12 +49,14 @@
 					<div id="bt-dropin"></div>
 				</div>
 			</section>
-			<button type="submit" >Submit</button>
+			<sf:button id="sbutton" type="submit" hidden="true" >Submit</sf:button>
 			<input id="cToken" type="hidden" value="${clientToken}" />
 		</sf:form>
 	</div>
 </div>
-<script src="https://js.braintreegateway.com/v2/braintree.js"></script>
+<script src="https://js.braintreegateway.com/v2/braintree.js">
+
+</script>
 
 <script type="text/javascript">
 	/*<![CDATA[*/
@@ -68,4 +70,8 @@
 		container : "bt-dropin"
 	});
 	/*]]>*/
+	$(document).ready(function() {
+		document.getElementById("sbutton").hidden=false;
+	});
+
 </script>

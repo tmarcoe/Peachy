@@ -6,6 +6,7 @@ import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -14,7 +15,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -47,7 +47,7 @@ public class LedgerController implements Serializable {
 	}
 
 	@RequestMapping("/datepicker")
-	public String pickDate(@Validated Model model) {
+	public String pickDate(Model model) {
 		DatePicker datePicker = new DatePicker();
 
 		model.addAttribute("datePicker", datePicker);
@@ -57,8 +57,8 @@ public class LedgerController implements Serializable {
 
 	@RequestMapping(value = "/generalledger", method = RequestMethod.POST)
 	public String viewGeneralLedger(
-			@Validated @ModelAttribute(value = "datePicker") DatePicker picker,
-			Model model, BindingResult result) {
+			@Valid @ModelAttribute(value = "datePicker") DatePicker picker,
+			BindingResult result, Model model) {
 		if (result.hasErrors()) {
 			return "datepicker";
 		}
@@ -89,10 +89,11 @@ public class LedgerController implements Serializable {
 			ledgerList.setPageSize(25);
 			request.getSession().setAttribute(
 					"SearchProductsController_productList", ledgerList);
-	        ModelAndView model = new ModelAndView("generalledger", "objectList", ledgerList);
-	        model.addObject("pagelink", pageLink);
-	        
-	        return model;
+			ModelAndView model = new ModelAndView("generalledger",
+					"objectList", ledgerList);
+			model.addObject("pagelink", pageLink);
+
+			return model;
 		} else {
 			String page = request.getParameter("page");
 
@@ -109,10 +110,11 @@ public class LedgerController implements Serializable {
 			} else if (pgNum != -1) {
 				ledgerList.setPage(pgNum);
 			}
-	        ModelAndView model = new ModelAndView("generalledger", "objectList", ledgerList);
-	        model.addObject("pagelink", pageLink);
-	        
-	        return model;
+			ModelAndView model = new ModelAndView("generalledger",
+					"objectList", ledgerList);
+			model.addObject("pagelink", pageLink);
+
+			return model;
 		}
 	}
 

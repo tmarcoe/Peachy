@@ -10,6 +10,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import javax.xml.soap.SOAPException;
 
 import org.apache.http.client.ClientProtocolException;
@@ -41,6 +42,7 @@ import com.peachy.web.service.InvoiceService;
 import com.peachy.web.service.UserProfileService;
 
 import org.springframework.util.StringUtils;
+import org.springframework.validation.BindingResult;
 
 
 @Controller
@@ -122,7 +124,23 @@ public class ShopController implements Serializable {
 	}
 	
 	@RequestMapping("/orderproduct")
-	public String orderProduct(@ModelAttribute("invoiceItem")InvoiceItem item, Model model, Principal principal ) throws ClientProtocolException, IOException, URISyntaxException, SOAPException {
+	public String orderProduct(@Valid @ModelAttribute("invoiceItem")InvoiceItem item, 
+								BindingResult result, Model model, Principal principal ) 
+								throws ClientProtocolException, IOException, URISyntaxException, SOAPException {
+		if (result.hasErrors()) {
+			UserProfile user = userProfileService.getUser(principal.getName());
+			
+			String fileLoc = fileLocations.getImageLoc();
+			
+			CurrencyExchange currency = new CurrencyExchange();
+			
+			model.addAttribute("rate", currency.getRate(user.getCurrency()));
+			model.addAttribute("currencySymbol", currency.getSymbol(user.getCurrency()));
+			model.addAttribute("invoiceItem", item);
+			model.addAttribute("fileLoc", fileLoc);
+
+			return "productdetails";
+		}
 		UserProfile user = userProfileService.getUser(principal.getName());
 		InvoiceHeader header = invoiceHeaderService.getOpenOrder(user.getUserID());
 		if (header == null) {

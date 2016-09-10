@@ -228,6 +228,7 @@
 		<put-attribute name="title" value="Replenish Product"></put-attribute>
 		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/orderinventory.jsp"></put-attribute>
+		<put-attribute name="footer" value="/WEB-INF/tiles/pageinator.jsp"></put-attribute>
 	</definition>
 	<definition name="replenish" extends="peachy.base">
 		<put-attribute name="heading_title" value="Replenish Stock"></put-attribute>

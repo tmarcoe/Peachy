@@ -118,6 +118,7 @@
 		<security:intercept-url pattern="/updatecoupon" access="hasRole('ROLE_ADMIN')"/>
 		<security:intercept-url pattern="/deletecoupon" access="hasRole('ROLE_ADMIN')"/>
 		<security:intercept-url pattern="/couponpaging" access="hasRole('ROLE_ADMIN')"/>
+		<security:intercept-url pattern="/orderpaging" access="hasRole('ROLE_ADMIN')"/>
 		<security:intercept-url pattern="/**" access="denyAll" />
 		<security:form-login login-page="/login"
 			authentication-failure-url="/login?error=true" />

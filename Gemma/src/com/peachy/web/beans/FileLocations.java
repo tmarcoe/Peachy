@@ -1,6 +1,10 @@
 package com.peachy.web.beans;
 
-public class FileLocations {
+import java.io.Serializable;
+
+public class FileLocations implements Serializable {
+	private static final long serialVersionUID = 1L;
+	
 	private String imageLoc;
 	private String imgUploadLoc;
 	private String outPath;

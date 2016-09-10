@@ -5,9 +5,12 @@ package com.peachy.web.dao;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotBlank;
+
+import com.peachy.web.validation.FloatMin;
 
 @Entity
 public class Inventory {
@@ -16,15 +19,24 @@ public class Inventory {
 	private String skuNum;
 	@Size(min=2, max=255)
 	private String productName;
+	@NotBlank
 	private String category;
+	@NotBlank
 	private String subCategory;
+	@NotNull
 	private int amtInStock;
+	@NotNull
 	private int amtCommitted;
+	@NotNull
 	private int minQuantity;
+	@NotNull
 	private float salePrice;
+	@NotNull
 	private float discountPrice;
+	@NotNull
 	private float taxAmt;
-	private float weight;
+	@FloatMin(.01)
+	private double weight;
 	private boolean onSale;
 	private String image;
 	@Size(min=10, max=1000)
@@ -103,10 +115,10 @@ public class Inventory {
 	public void setTaxAmt(float taxAmt) {
 		this.taxAmt = taxAmt;
 	}
-	public float getWeight() {
+	public double getWeight() {
 		return weight;
 	}
-	public void setWeight(float weight) {
+	public void setWeight(double weight) {
 		this.weight = weight;
 	}
 	public boolean isOnSale() {

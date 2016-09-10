@@ -25,6 +25,7 @@
 					value='${invoiceItem.price * rate}' /></td>
 			<td><sf:input type="number" path="amount" step="1" min="1"
 					value="1" maxlength="3" size="2" /></td>
+			<td><div class="error"><sf:errors path="amount" /></div>
 		</tr>
 		<tr>
 			<td><input type="image" name="submit" width="50" height="50"

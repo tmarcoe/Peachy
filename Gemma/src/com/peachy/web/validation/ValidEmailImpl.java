@@ -16,6 +16,9 @@ public class ValidEmailImpl implements ConstraintValidator<ValidEmail, String> {
 
 	@Override
 	public boolean isValid(String email, ConstraintValidatorContext context) {
+		if (email == null) {
+			return true;
+		}
 		if(email.length() < min) {
 			return false;
 		}

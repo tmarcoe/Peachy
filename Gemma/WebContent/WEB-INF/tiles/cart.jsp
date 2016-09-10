@@ -2,13 +2,6 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<script>
-$(document).ready(function(){
-	alert("This site is currently in beta and not accepting orders." + 
-		  "\nHowever, you are welcome to register and browse the products." + 
-		  "\nKeep in mind that the inventory might change.");
-});
-</script>
 
 <sf:form method="post"
 	action="${pageContext.request.contextPath}/vieworder">
@@ -110,6 +103,9 @@ $(document).ready(function(){
 				<td><fmt:formatNumber type="currency" currencySymbol="${currencySymbol}"
 						value="${invoice.invoiceHeader.shippingCost * rate}" /></td>
 				<td>&nbsp;</td>			
+				<c:if test="${invoice.invoiceHeader.processed == null}">
+					<td colspan="3">&nbsp;</td>
+				</c:if>
 			</tr>
 			<tr>
 				<td colspan="6">Total =======></td>

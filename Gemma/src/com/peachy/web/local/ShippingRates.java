@@ -16,6 +16,7 @@ import javax.xml.soap.SOAPConnectionFactory;
 import javax.xml.soap.SOAPElement;
 import javax.xml.soap.SOAPEnvelope;
 import javax.xml.soap.SOAPException;
+import javax.xml.soap.SOAPFault;
 import javax.xml.soap.SOAPMessage;
 import javax.xml.soap.SOAPPart;
 
@@ -46,7 +47,8 @@ public class ShippingRates {
         SOAPMessage soapResponse = conn.call(getMessage(from, to, parcel), url);
         
         if (hasErrors(soapResponse) ==  true ){
-        	logger.error("Error sending Ship Request");
+        	String errMsg =  parseErrorMsg(soapResponse);
+        	logger.error("Error sending Ship Request Fault:" + errMsg);
         	throw new SOAPException();
         }
 
@@ -196,7 +198,10 @@ public class ShippingRates {
 	
 	public boolean hasErrors(SOAPMessage soapResponse) throws SOAPException{
 		boolean result = false;
-		
+		SOAPFault fault = soapResponse.getSOAPBody().getFault();
+		if (fault != null) {
+			return true;
+		}
 		SOAPBody soapBody = soapResponse.getSOAPBody();
 		NodeList nl = soapBody.getElementsByTagName("HighestSeverity");
 		if (nl.getLength() > 0) {
@@ -208,6 +213,11 @@ public class ShippingRates {
 		}
 		
 		return result;
+	}
+	public String parseErrorMsg(SOAPMessage soapResponse) throws SOAPException {		
+		NodeList nList = soapResponse.getSOAPBody().getElementsByTagName("LocalizedMessage");
+
+		return nList.item(0).getTextContent();
 	}
 	
 	public SOAPMessage stringToSOAP(String fileLoc) throws IOException, SOAPException {
@@ -254,13 +264,16 @@ public class ShippingRates {
 		
 		return total;
 	}
-	private String getShippingCurrency(SOAPBody parent) {
+	private String getShippingCurrency(SOAPBody parent) throws SOAPException {
 		String c = "";
 		NodeList nl = parent.getElementsByTagName("CurrencyExchangeRate");
 		Node item;
 		Node itm;
 		
 		item = nl.item(0);
+		if (item == null) {
+			throw new SOAPException("Null node in getShippingCurrency.");
+		}
 		NodeList n = item.getChildNodes();
 		for (int i = 0; i < n.getLength(); i++ ) {
 			itm = n.item(i);

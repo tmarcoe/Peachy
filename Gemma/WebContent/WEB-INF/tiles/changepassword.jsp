@@ -10,23 +10,24 @@
 	commandName="userProfile">
 	<div class="billing">
 		<table>
-			<caption>Enter the New Password for : ${userProfile.username}</caption>
+			<caption>Enter the New Password for :
+				${userProfile.username}</caption>
 			<tr>
-				<td>Password:</td>
-				<td><sf:input id="password" class="control" path="password"
+				<td>Password: <sf:input id="password" class="control" path="password"
 						name="password" type="password" value="" /></td>
+				<td>Confirm Password: <input id="confirmpass" class="control" name="confirmpass"
+					type="password" /></td>
+				<td><div id="matchpass"></div></td>
+			</tr>
+			<tr>
 				<td><div class="error">
 						<sf:errors path="password"></sf:errors>
 					</div></td>
-				<td>Confirm Password:</td>
-				<td><input id="confirmpass" class="control" name="confirmpass"
-					type="password" /></td>
-				<td><div id="matchpass"></div></td>
 			</tr>
 			<tr>
 				<td><input type="submit" value="Submit" /></td>
 			</tr>
 		</table>
 	</div>
-	<sf:hidden path="userID"/>
+	<sf:hidden path="userID" />
 </sf:form>

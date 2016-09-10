@@ -93,7 +93,7 @@ public class ReturnsController implements Serializable {
 		}
 		
 		@RequestMapping("/returns-submit")
-		public String returnsSubmit(@Valid @ModelAttribute("returns") Returns returns, Model model, BindingResult result) {
+		public String returnsSubmit(@Valid @ModelAttribute("returns") Returns returns, BindingResult result, Model model) {
 			InvoiceItem invoice = invoiceService.getInvoiceItem(returns.getInvoiceNum(), returns.getSkuNum());
 			if (result.hasErrors() == true ){
 				return "returns-getlookup";

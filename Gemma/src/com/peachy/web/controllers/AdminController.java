@@ -108,7 +108,7 @@ public class AdminController implements Serializable {
 	}
 
 	@RequestMapping("/processorders")
-	public String processOrders() throws IOException, URISyntaxException {
+	public String processOrders() throws Exception {
 		AddressLabel lbl = new AddressLabel();
 		CurrencyExchange currency = new CurrencyExchange();
 		double rate = 1;
@@ -131,6 +131,10 @@ public class AdminController implements Serializable {
 		for (InvoiceHeader header : headers) {
 			UserProfile user = userProfileService.getUserByID(header
 					.getUserID());
+			if (user == null) {
+				csvWriter.close();
+				throw new Exception("User not found when referenced by 'header'.");
+			}
 			lbl.setFirstname(user.getFirstname());
 			lbl.setLastname(user.getLastname());
 			lbl.setAddress1(user.getaddress1());

@@ -30,7 +30,7 @@ import com.peachy.web.dao.UserProfile;
 public class ProcessEmail {
 	final private String configFile = "email.properties";
 	final private String dsEmail = "DailySpecials.html";
-	final private String from = "customer_service@donzalmart.com";
+	final private String from = "customer_service@peachyscoffee.com";
 	final private String password = "In_heaven3!";
 	final private String name = "Customer Service";
 		

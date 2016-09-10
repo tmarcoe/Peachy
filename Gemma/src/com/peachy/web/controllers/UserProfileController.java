@@ -127,7 +127,15 @@ public class UserProfileController implements Serializable {
 	public String partialUpdate(
 			@Valid @ModelAttribute("userProfile") UserProfile userProfile, BindingResult result, Model model)
 			throws ClientProtocolException, IOException, URISyntaxException {
-		if (result.hasErrors()) {
+		if (result.hasFieldErrors("firstname") || 
+			result.hasFieldErrors("lastname") || 
+			result.hasFieldErrors("maleFemale") || 
+			result.hasFieldErrors("address1") || 
+			result.hasFieldErrors("city") || 
+			result.hasFieldErrors("country") || 
+			result.hasFieldErrors("currency") || 
+			result.hasFieldErrors("username")) {
+			
 			return "mydonzalmart";
 		}
 		userProfileService.partialUpdate(userProfile);
@@ -203,9 +211,13 @@ public class UserProfileController implements Serializable {
 	}
 
 	@RequestMapping("/passwordchanged")
-	public String passwordChanged(
-			@ModelAttribute("userProfile") UserProfile user,
+	public String passwordChanged(@Valid 
+			@ModelAttribute("userProfile") UserProfile user, BindingResult result,
 			Principal principal, Model model) {
+		
+		if (result.hasFieldErrors("password")) {
+			return "changepassword";
+		}
 
 		userProfileService.updatePassword(user);
 
@@ -215,7 +227,7 @@ public class UserProfileController implements Serializable {
 				+ "' has just changed the password.");
 
 		model.addAttribute("userProfile", user);
-		return "mydonzalmart";
+		return "home";
 	}
 
 	@RequestMapping("/updateuser")

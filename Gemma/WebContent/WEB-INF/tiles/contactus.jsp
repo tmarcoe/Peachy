@@ -2,7 +2,7 @@
 	<caption>Eleanor Marcoe (CEO)</caption>
 	<tr>
 		<th>Email:</th>
-		<td><a href="mailto:eleanor_marcoe@donzalmart.com">eleanor_marcoe@donzalmart.com</a></td>
+		<td><a href="mailto:eleanor_marcoe@peachyscoffee.com">eleanor_marcoe@peachyscoffee.com</a></td>
 	</tr>
 	<tr>
 		<th>Phone Number:</th>
@@ -14,7 +14,7 @@
 <caption>Sweetchie Marcoe (COO)</caption>
 	<tr>
 		<th>Email:</th>
-		<td><a href="mailto:sweetchie_donzal@donzalmart.com">sweetchie_donzal@donzalmart.com</a></td>
+		<td><a href="mailto:sweetchie_donzal@peachyscoffee.com">sweetchie_donzal@peachyscoffee.com</a></td>
 	</tr>
 	<tr>
 		<th>Phone Number:</th>
@@ -26,6 +26,6 @@
 <caption>Customer Support</caption>
 	<tr>
 		<th>Email:</th>
-		<td><a href="mailto:customer_service@donzalmart.com">customer_service@donzalmart.com</a></td>
+		<td><a href="mailto:customer_service@peachyscoffee.com">customer_service@peachyscoffee.com</a></td>
 	</tr>
 </table>

@@ -99,10 +99,16 @@ public class ShoppingCartController implements Serializable {
 
 	@RequestMapping("/saveitem")
 	public String saveInvoiceItem(
-			@Valid @ModelAttribute("item") InvoiceItem item, Principal principal, Model model,
-			BindingResult result) throws IOException, URISyntaxException, SOAPException {
+			@Valid @ModelAttribute("item") InvoiceItem item,
+			BindingResult result, Principal principal, Model model) throws IOException, URISyntaxException, SOAPException {
 		UserProfile user = userProfileService.getUser(principal.getName());
-		if (result.hasErrors()) {
+		if (result.hasErrors()) {		
+			CurrencyExchange currency = new CurrencyExchange();
+
+			model.addAttribute("rate", currency.getRate(user.getCurrency()));
+			model.addAttribute("currencySymbol", currency.getSymbol(user.getCurrency()));
+			model.addAttribute("item", item);
+
 			return "editcart";
 		}
 		int invoiceNum = item.getInvoiceNum();
