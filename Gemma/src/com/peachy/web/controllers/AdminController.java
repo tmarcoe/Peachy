@@ -33,10 +33,10 @@ import org.supercsv.prefs.CsvPreference;
 
 import com.peachy.web.beans.AddressLabel;
 import com.peachy.web.beans.FileLocations;
+import com.peachy.web.dao.Inventory;
 import com.peachy.web.dao.InvoiceHeader;
 import com.peachy.web.dao.InvoiceItem;
 import com.peachy.web.dao.UserProfile;
-import com.peachy.web.email.Email;
 import com.peachy.web.email.ProcessEmail;
 import com.peachy.web.local.CurrencyExchange;
 import com.peachy.web.service.InventoryService;
@@ -220,22 +220,13 @@ public class AdminController implements Serializable {
 
 	@RequestMapping("/senddailyspecials")
 	public String sendDailySpecial(Model model, Principal principal) throws Exception {
-		final String fromEmail = "customer_service@donzalmart.com";
-		
-		Email email = new Email();
 		ProcessEmail pe = new ProcessEmail();
 		List <UserProfile> userList = userProfileService.getDailySpecialUsers();
+		List <Inventory> inventoryList = inventoryService.listSaleItems();
 		
-		for (UserProfile user : userList) {
-			email.setFrom(fromEmail);
-			email.setName(user.getFirstname() + " " + user.getLastname());
-			email.setTo(user.getUsername());
-			email.setPassword("In_heaven3!");
-			email.setSubject("Daily Specials");
-			email.setMessage(pe.getDailySpecials());
-			pe.sendMail(email);
-		}
 		
+		pe.sendDailySpecials(userList, pe.getDailySpecials(inventoryList));
+
 		UserProfile user = userProfileService.getUser(principal.getName());
 		
 		PagedListHolder<InvoiceHeader> headerList = invoiceHeaderService.getProcessedInvoices();

@@ -25,14 +25,14 @@ import org.springframework.beans.support.PagedListHolder;
 
 import com.peachy.web.beans.BeansHelper;
 import com.peachy.web.beans.FileLocations;
+import com.peachy.web.dao.Inventory;
 import com.peachy.web.dao.UserProfile;
 
 public class ProcessEmail {
 	final private String configFile = "email.properties";
-	final private String dsEmail = "DailySpecials.html";
 	final private String from = "customer_service@peachyscoffee.com";
 	final private String password = "In_heaven3!";
-	final private String name = "Customer Service";
+
 		
 	public void sendMail(final Email email) throws Exception {
 		Properties properties = new Properties();
@@ -57,19 +57,15 @@ public class ProcessEmail {
 		};
 
 		Session session = Session.getDefaultInstance(properties, auth);
-
 		MimeMessage msg = new MimeMessage(session);
-		
 			
-			msg.setSubject(email.getSubject());
-			msg.setContent(email.getMessage(), "text/html");
+		msg.setSubject(email.getSubject());
+		msg.setContent(email.getMessage(), "text/html");
 
-			msg.setFrom(new InternetAddress(email.getFrom(), email
-					.getName()));
-			msg.setRecipient(Message.RecipientType.TO, new InternetAddress(
-					email.getTo()));
+		msg.setFrom(new InternetAddress(email.getFrom(), email.getName()));
+		msg.setRecipient(Message.RecipientType.TO, new InternetAddress(email.getTo()));
 
-			Transport.send(msg);
+		Transport.send(msg);
 
 	}
 
@@ -91,20 +87,30 @@ public class ProcessEmail {
 		sendMail(email);
 		
 	}
-	
-	public String getDailySpecials() throws IOException {
-		String fileContent = "";
-		
-		FileLocations loc = (FileLocations) new BeansHelper().getBean("config-context.xml", "fileLocations");
-		URL url = new URL(loc.getEmailConfig() + dsEmail);
-		BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
-		
-		String line = "";
-		while ((line = in.readLine()) != null) {
-			fileContent += line;
+
+	public String getDailySpecials(List <Inventory> inventoryList) throws IOException {
+		final String head = "<div " +
+						    "style=\"color: #fff; background: " +
+						    "#f0c575; padding: .5em; font-size: " + 
+						    "31px; font-style: italic; text-align: " + 
+						    "center;\">Peachy's Coffee</div>\n" + 
+						    "<center>\n" +
+						    "<fieldset style=\"background: #d5e0ff; " +
+						    "display: block; width: 50%; border: 4px ridge #808080;\">\n" +
+						    "<legend style=\"font-size: 30;\">Daily Specials</legend>\n" +
+						    "<ul style=\"list-style-type: none;\" >";
+		final String foot = "</ul> \n" +
+							"</fieldset> \n" +
+							"</center> \n";
+		String saleItems = "";
+		for (Inventory item : inventoryList) {
+			saleItems += "<li><a href=\"http://192.163.225.178:8080/peachy/productdetails?skuNum=" +
+						 item.getSkuNum() + "\">" + item.getProductName() + "</a>\n";
 		}
 		
-		return fileContent;
+		
+		
+		return head + saleItems + foot;
 	}
 		
 	public PagedListHolder<MsgDisplay> receiveEmail(Email email) throws MessagingException, IOException, URISyntaxException {
@@ -156,15 +162,15 @@ public class ProcessEmail {
 		return new PagedListHolder<MsgDisplay>(msgList);
 	}
 	
-	public void dailySpecials(List<UserProfile> users, String message) throws Exception {
+	public void sendDailySpecials(List<UserProfile> users, String message) throws Exception {
 		
 		Email email = new Email();
-		
-		email.setName(name);
+
 		email.setFrom(from);
 		email.setPassword(password);
 		email.setSubject("Daily Specials");
 		for (UserProfile user : users) {
+			email.setName(user.getFirstname() + " " + user.getLastname());
 			email.setTo(user.getUsername());
 			email.setMessage(message);
 			sendMail(email);
