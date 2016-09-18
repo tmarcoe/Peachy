@@ -25,6 +25,7 @@ public class ChartOfAccountsDao {
 
 	public void create(ChartOfAccounts chartOfAccounts) {
 		session().save(chartOfAccounts);
+		session().disconnect();
 
 	}
 
@@ -32,11 +33,13 @@ public class ChartOfAccountsDao {
 		for (ChartOfAccounts account : accounts) {
 			session().saveOrUpdate(account);
 		}
+		session().disconnect();
 	}
 
 	public boolean delete(String accountNum) {
 		ChartOfAccounts chartOfAccounts = getAccount(accountNum);
 		session().delete("ChartOfAccounts", chartOfAccounts);
+		session().disconnect();
 
 		return true;
 	}
@@ -44,6 +47,7 @@ public class ChartOfAccountsDao {
 	@SuppressWarnings("unchecked")
 	public List<ChartOfAccounts> listAccounts() {
 		Criteria crit = session().createCriteria(ChartOfAccounts.class);
+		session().disconnect();
 
 		return crit.list();
 	}
@@ -51,17 +55,21 @@ public class ChartOfAccountsDao {
 	public ChartOfAccounts getAccount(String Key) {
 		Criteria crit = session().createCriteria(ChartOfAccounts.class);
 		crit.add(Restrictions.idEq(Key));
+		ChartOfAccounts chartOfAccounts = (ChartOfAccounts) crit.uniqueResult();
+		session().disconnect();
 
-		return (ChartOfAccounts) crit.uniqueResult();
+		return chartOfAccounts;
 	}
 
 	public void save(ChartOfAccounts charOfaccounts) {
 		session().save(charOfaccounts);
+		session().disconnect();
 
 	}
 
 	public void update(ChartOfAccounts chartOfAccounts) {
 		session().update(chartOfAccounts);
+		session().disconnect();
 
 	}
 
@@ -73,6 +81,7 @@ public class ChartOfAccountsDao {
 		session().createQuery(hql).setDouble("amount", amount)
 				.setString("accountNum", accounts.getAccountNum())
 				.executeUpdate();
+		session().disconnect();
 	}
 
 	public void creditAccount(ChartOfAccounts accounts, double amount) {
@@ -83,13 +92,17 @@ public class ChartOfAccountsDao {
 		session().createQuery(hql).setDouble("amount", amount)
 				.setString("accountNum", accounts.getAccountNum())
 				.executeUpdate();
+		session().disconnect();
 	}
 
 	public ChartOfAccounts getAccout(String account) {
 
 		Criteria crit = session().createCriteria(ChartOfAccounts.class);
 		crit.add(Restrictions.eq("accountNum", account));
-		return (ChartOfAccounts) crit.uniqueResult();
+		ChartOfAccounts chartOfAccounts = (ChartOfAccounts) crit.uniqueResult();
+		session().disconnect();
+		
+		return chartOfAccounts;
 	}
 
 	public boolean exists(String key) {

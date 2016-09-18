@@ -26,23 +26,28 @@ public class InventoryDao {
 	}
 	
 	public void create(Inventory inventory) {
-		
 		session().save(inventory);
+		session().disconnect();
+		
 	}
 	
 	@SuppressWarnings("unchecked")
 	public List<Inventory> listProducts() {
 		Criteria crit = session().createCriteria(Inventory.class);
+		List<Inventory > inv = crit.list();
+		session().disconnect();
 		
-		return crit.list();
+		return inv;
 	}
 	
 	@SuppressWarnings("unchecked")
 	public List<Inventory> listProducts(String category) {
 		Criteria crit = session().createCriteria(Inventory.class);
 		crit.add(Restrictions.eq("category", category));
-		
-		return crit.list();
+		List <Inventory> inv = crit.list();
+		session().disconnect();
+
+		return inv;
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -50,67 +55,93 @@ public class InventoryDao {
 		Criteria crit = session().createCriteria(Inventory.class);
 		crit.add(Restrictions.eq("category", category));
 		crit.add(Restrictions.eq("subCategory", subCategory));
-		
-		return crit.list();
+		List<Inventory> inv = crit.list();
+		session().disconnect();
+
+		return inv;
 	}
 	
 	@SuppressWarnings("unchecked")
 	public List<Inventory> listSaleItems(){
 		Criteria crit = session().createCriteria(Inventory.class);
 		crit.add(Restrictions.eq("onSale", true));
-		
-		return crit.list();
+		List<Inventory> inv = crit.list();
+		session().disconnect();
+
+		return inv;
 	}
 	
 	public void saveOrUpdate(List<Inventory> inventory){
 		for(Inventory inv: inventory) {
 			session().saveOrUpdate(inv);
 		}
+		session().disconnect();
+
 	}
 	
 	public void update(Inventory inventory) {
 		session().update(inventory);
+		session().disconnect();
+
 	}
 	
 	public boolean delete(String skuNum) {
 		Query query = session().createQuery("delete from Inventory where skunum=:skuNum");
 		query.setString("skuNum", skuNum);
-		return (query.executeUpdate() == 1);
+		int count = query.executeUpdate();
+		session().disconnect();
+
+		return ( count == 1);
 	}
 
 	public Inventory getItem(String skuNum) {
 		
 		Criteria crit = session().createCriteria(Inventory.class);
 		crit.add(Restrictions.eq("skuNum", skuNum));
-		return (Inventory) crit.uniqueResult();
+		Inventory inv = (Inventory) crit.uniqueResult();
+		session().disconnect();
+
+		return inv;
 	}
 
 	public void depleteInventory(InvoiceItem item) {
 		String hql = "update Inventory set amtCommitted = amtCommitted - :amount where skuNum = :skuNum";
 		session().createQuery(hql).setInteger("amount", item.getAmount()).setString("skuNum", item.getSkuNum()).executeUpdate();
+		session().disconnect();
+
 	}
 
 	@SuppressWarnings("unchecked")
 	public List<String> getCategory() {
 		String hql = "select DISTINCT category FROM Inventory";
-		return session().createQuery(hql).list();
+		List<String> cat = session().createQuery(hql).list();
+		session().disconnect();
+
+		return cat;
 	}
 
 	@SuppressWarnings("unchecked")
 	public List<String> getSubCategory(String category) {
 		String hql = "select DISTINCT subCategory FROM Inventory where category = :category";
-		
-		return session().createSQLQuery(hql).setString("category", category).list();
+		List<String> subCat = session().createSQLQuery(hql).setString("category", category).list();
+		session().disconnect();
+
+		return subCat;
 	}
 
 	@SuppressWarnings("unchecked")
 	public List<Inventory> getReplenishList() {
 		String hql = "from Inventory where amtInStock < minQuantity";
-		return session().createQuery(hql).list();
+		List<Inventory> inv = session().createQuery(hql).list();
+		session().disconnect();
+
+		return inv;
 	}
 
 	public void commitInventory(InvoiceItem item) {
 		String hql = "update Inventory set amtInStock = amtInStock - :amount, amtCommitted = amtCommitted + :amount where skuNum = :skuNum";	
 		session().createQuery(hql).setInteger("amount", item.getAmount()).setString("skuNum", item.getSkuNum()).executeUpdate();
+		session().disconnect();
+
 	}
 }

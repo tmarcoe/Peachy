@@ -97,7 +97,7 @@ public class Checkout {
 		Reader fr = new FileReader(new File(new URI(fl.getPaymentConfig() + propFile)));
 		Properties prop = new Properties();
 		prop.load(fr);
-		
+		fr.close();
 		return prop;
 	}
 	

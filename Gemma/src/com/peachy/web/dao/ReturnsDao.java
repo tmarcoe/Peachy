@@ -24,39 +24,48 @@ public class ReturnsDao {
 	}
 	
 	public void create(Returns returns) {
-		
 		session().save(returns);
+		session().disconnect();
+		
 	}
 	
 	public void update(Returns returns) {
 		session().update(returns);
+		session().disconnect();
+
 	}
 
 	@SuppressWarnings("unchecked")
 	public List<Returns> getReturnsList(String username) {
 		String hql = "FROM Returns where username = :username";
-			
-		return session().createQuery(hql).setString("username", username).list();
+		List<Returns> retList = session().createQuery(hql).setString("username", username).list();
+		session().disconnect();
+		
+		return retList;
 	}
 	
 	@SuppressWarnings("unchecked")
 	public List<Returns> getReturnsList() {
 		String hql = "FROM Returns where dateProcessed = null";
+		List<Returns> retList = session().createQuery(hql).list();
+		session().disconnect();
 		
-		return session().createQuery(hql).list();
+		return retList;
 	}
 	
 	public Returns getRma(Integer rmaId) {
 		Criteria crit = session().createCriteria(Returns.class);
 		crit.add(Restrictions.eq("rmaId", rmaId));
+		Returns returns = (Returns) crit.uniqueResult();
+		session().disconnect();
 		
-		return (Returns) crit.uniqueResult();
+		return returns;
 	}
 
 	public void delete(Integer rmaId) {
 		Returns returns = getRma(rmaId);
-		
 		session().delete(returns);
+		session().disconnect();
 		
 	}
 

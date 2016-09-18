@@ -61,8 +61,7 @@ public class ShopController implements Serializable {
 	@Autowired
 	private InventoryService inventoryService;
 	
-	@Autowired
-	private PagedListHolder<Inventory> inventoryList;
+	private PagedListHolder<Inventory> inventoryList = null;
 	
 	@Autowired
 	private FileLocations fileLocations;
@@ -89,7 +88,11 @@ public class ShopController implements Serializable {
 		if (categories == null) {
 			categories = new Categories();
 		}
-		
+		if (inventoryList != null) {
+			inventoryList.getSource().clear();
+			inventoryList = null;
+			System.gc();
+		}
 		inventoryList = inventoryService.getPagedList(categories);
 		inventoryList.setPageSize(4);
 		inventoryList.setPage(0);
@@ -193,6 +196,12 @@ public class ShopController implements Serializable {
 		if (cat.length()== 0) {
 			categories.setCategory("");
 			categories.setSubCategory("");
+			if (inventoryList != null) {
+				inventoryList.getSource().clear();
+				inventoryList = null;
+				System.gc();
+			}
+			
 			inventoryList = inventoryService.getPagedList(categories);
 			inventoryList.setPageSize(4);
 			inventoryList.setPage(0);
@@ -220,6 +229,11 @@ public class ShopController implements Serializable {
 		UserProfile user = userProfileService.getUser(principal.getName());
 		
 		String fileLoc = fileLocations.getImageLoc();
+		if (inventoryList != null) {
+			inventoryList.getSource().clear();
+			inventoryList = null;
+			System.gc();
+		}
 		categories.setSubCategory(cat);
 		inventoryList = inventoryService.getPagedList(categories);
 
@@ -316,4 +330,5 @@ public class ShopController implements Serializable {
 	    // only got here if we didn't return false
 	    return retInt;
 	}
+	
 }

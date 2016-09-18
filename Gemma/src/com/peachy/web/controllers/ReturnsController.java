@@ -53,7 +53,11 @@ public class ReturnsController implements Serializable {
 		
 		@RequestMapping("/returns-list")
 		public String showReturns(Model model) {
-			
+			if (returnsList != null) {
+				returnsList.getSource().clear();
+				returnsList = null;
+				System.gc();
+			}
 			returnsList = returnsService.getReturnsList();
 
 			model.addAttribute("objectList", returnsList);
@@ -83,6 +87,11 @@ public class ReturnsController implements Serializable {
 				return "error";
 			}
 			
+			if (returnsList != null) {
+				returnsList.getSource().clear();
+				returnsList = null;
+				System.gc();
+			}
 			returnsList = returnsService.getReturnsList();
 
 			model.addAttribute("objectList", returnsList);
@@ -142,6 +151,11 @@ public class ReturnsController implements Serializable {
 		
 		@RequestMapping("/returns-status")
 		public String showReturnsStatus(Model model, Principal principal) {
+			if (returnsList != null) {
+				returnsList.getSource().clear();
+				returnsList = null;
+				System.gc();
+			}
 			returnsList = returnsService.getReturnsList(principal.getName());
 			returnsList.setPage(0);
 			returnsList.setPageSize(10);

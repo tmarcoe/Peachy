@@ -72,6 +72,11 @@ public class CouponController implements Serializable {
 	public String saveCoupon(@ModelAttribute("coupon") Coupons coupon, Model model) {
 		coupon.setCouponID("CPN" + coupon.getCouponID());
 		couponsService.create(coupon);
+		if (couponList != null) {
+			couponList.getSource().clear();
+			couponList = null;
+			System.gc();
+		}
 		couponList = couponsService.getList();
 		model.addAttribute("objectList", couponList);
 		model.addAttribute("pagelink", pageLink);
@@ -151,6 +156,11 @@ public class CouponController implements Serializable {
 	*/
 	@RequestMapping("/listcoupons")
 	public String listCoupons(Model model) {
+		if (couponList != null) {
+			couponList.getSource().clear();
+			couponList = null;
+			System.gc();
+		}
 		couponList = couponsService.getList();
 		if (couponList.getPageList().size() == 0) {
 			model.addAttribute("coupon", new Coupons());
@@ -170,6 +180,11 @@ public class CouponController implements Serializable {
 	@RequestMapping("/updatecoupon")
 	public String updateCoupon(@ModelAttribute("coupon") Coupons coupon, Model model) {
 		couponsService.update(coupon);
+		if (couponList != null) {
+			couponList.getSource().clear();
+			couponList = null;
+			System.gc();
+		}
 		couponList = couponsService.getList();
 		model.addAttribute("objectList", couponList);
 		
@@ -181,6 +196,11 @@ public class CouponController implements Serializable {
 		Coupons coupon = couponsService.retrieve(key);
 		
 		couponsService.delete(coupon);
+		if (couponList != null) {
+			couponList.getSource().clear();
+			couponList = null;
+			System.gc();
+		}
 		couponList = couponsService.getList();
 		model.addAttribute("objectList", couponList);
 		model.addAttribute("pagelink", pageLink);

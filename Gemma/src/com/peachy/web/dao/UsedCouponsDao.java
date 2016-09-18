@@ -23,14 +23,20 @@ public class UsedCouponsDao {
 
 	public void create(UsedCoupons usedCoupons) {
 		session().save(usedCoupons);
+		session().disconnect();
+		
 	}
 
 	public void update(UsedCoupons usedCoupons) {
 		session().update(usedCoupons);
+		session().disconnect();
+		
 	}
 
 	public void delete(UsedCoupons usedCoupons) {
 		session().delete(usedCoupons);
+		session().disconnect();
+		
 	}
 
 	public long getCount(int userID, String couponID) {
@@ -39,6 +45,7 @@ public class UsedCouponsDao {
 		Long history = (Long) session().createQuery(hql)
 				.setInteger("userID", userID).setString("couponID", couponID)
 				.uniqueResult();
+		session().disconnect();
 
 		return history;
 	}
@@ -47,7 +54,10 @@ public class UsedCouponsDao {
 	public UsedCoupons retrieve(String skuNum, int userID) {
 		String hql = "FROM UsedCoupons WHERE userID = :userID and couponID = :couponID";
 		List<UsedCoupons> result = session().createQuery(hql).setString("couponID", skuNum).setInteger("userID", userID).list();
-		return result.get(0);
+		UsedCoupons uc = result.get(0);
+		session().disconnect();
+		
+		return uc;
 	}
 
 }

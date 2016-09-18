@@ -69,6 +69,11 @@ public class UserProfileController implements Serializable {
 
 	@RequestMapping("/users")
 	public String showUsers(@ModelAttribute("page") String page, Model model) {
+		if (userList != null) {
+			userList.getSource().clear();
+			userList = null;
+			System.gc();
+		}
 		userList = userProfileService.getPagedList();
 		userList.setPageSize(10);
 		userList.setPage(0);
@@ -86,6 +91,11 @@ public class UserProfileController implements Serializable {
 
 		userProfileService.delete(deleteKey);
 		logger.info("User: '" + deleteKey + "' Deleted");
+		if (userList != null) {
+			userList.getSource().clear();
+			userList = null;
+			System.gc();
+		}
 		userList = userProfileService.getPagedList();
 		userList.setPageSize(10);
 		userList.setPage(0);
@@ -141,6 +151,11 @@ public class UserProfileController implements Serializable {
 		userProfileService.partialUpdate(userProfile);
 
 		if (userProfile.getAuthority().compareTo("ROLE_ADMIN") == 0) {
+			if (userList != null) {
+				userList.getSource().clear();
+				userList = null;
+				System.gc();
+			}
 			userList = userProfileService.getPagedList();
 			userList.setPageSize(10);
 			userList.setPage(0);

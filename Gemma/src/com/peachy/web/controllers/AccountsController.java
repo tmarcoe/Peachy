@@ -34,6 +34,11 @@ public class AccountsController implements Serializable {
 	
 	@RequestMapping("/manageaccount")
 	public String showMangeAccounts(Model model) {
+		if (accounts != null) {
+			accounts.getSource().clear();
+			accounts = null;
+			System.gc();
+		}
 		accounts = chartOfAccountsService.listAccounts();
 		accounts.setPage(0);
 		accounts.setPageSize(pageSize);
@@ -73,6 +78,11 @@ public class AccountsController implements Serializable {
 		}
 		chartOfAccountsService.create(chartOfAccounts);
 		logger.info("'" + chartOfAccounts.getAccountNum() + "' has been created." );
+		if (accounts != null) {
+			accounts.getSource().clear();
+			accounts = null;
+			System.gc();
+		}
 		accounts = chartOfAccountsService.listAccounts();
 		accounts.setPage(0);
 		accounts.setPageSize(pageSize);
@@ -95,6 +105,11 @@ public class AccountsController implements Serializable {
 		chartOfAccountsService.update(chartOfAccounts);
 		logger.info("Account # '" + chartOfAccounts.getAccountNum() + "' has been updated.");
 
+		if (accounts != null) {
+			accounts.getSource().clear();
+			accounts = null;
+			System.gc();
+		}
 		accounts = chartOfAccountsService.listAccounts();
 		accounts.setPage(0);
 		accounts.setPageSize(pageSize);
@@ -112,6 +127,11 @@ public class AccountsController implements Serializable {
 		
 		logger.info("Account # '" + deleteKey + "' has been deleted.");
 
+		if (accounts != null) {
+			accounts.getSource().clear();
+			accounts = null;
+			System.gc();
+		}
 		accounts = chartOfAccountsService.listAccounts();
 		accounts.setPage(0);
 		accounts.setPageSize(pageSize);

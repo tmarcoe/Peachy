@@ -45,7 +45,11 @@ public class EmailController implements Serializable {
 		Email myEmail = new Email();
 		myEmail.setFrom("customer_service@donzalmart.com");
 		myEmail.setPassword("In_heaven3!");
-		
+		if (msgs != null) {
+			msgs.getSource().clear();
+			msgs = null;
+			System.gc();
+		}
 		msgs = email.receiveEmail(myEmail);
 		msgs.setPageSize(15);
 		msgs.setPage(0);

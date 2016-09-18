@@ -32,6 +32,9 @@
 		value="/home/donzalma/public_html/images/">
 	</property>
 	
+	<property name="currencyFile"
+		value="/home/donzalma/public_html/currency/">
+	</property>
 	</bean>
 
 

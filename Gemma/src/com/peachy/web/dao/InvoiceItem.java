@@ -3,7 +3,6 @@ package com.peachy.web.dao;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
 
 @Entity
 public class InvoiceItem {

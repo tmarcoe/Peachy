@@ -13,6 +13,7 @@ public class FileLocations implements Serializable {
 	private String emailConfig;
 	private String couponPath;
 	private String emailPath;
+	private String currencyFile;
 
 	public String getImageLoc() {
 		return imageLoc;
@@ -76,6 +77,14 @@ public class FileLocations implements Serializable {
 
 	public void setEmailPath(String emailPath) {
 		this.emailPath = emailPath;
+	}
+
+	public String getCurrencyFile() {
+		return currencyFile;
+	}
+
+	public void setCurrencyFile(String currencyFile) {
+		this.currencyFile = currencyFile;
 	}
 
 }

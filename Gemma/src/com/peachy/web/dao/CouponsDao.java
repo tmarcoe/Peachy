@@ -24,23 +24,32 @@ public class CouponsDao {
 
 	public void create(Coupons coupons) {
 		session().save(coupons);
+		session().disconnect();
+				
 	}
 	
 	public void update(Coupons coupons) {
 		session().update(coupons);
+		session().disconnect();
 	}
 	
 	public void delete(Coupons coupons){
 		session().delete(coupons);
+		session().disconnect();
 	}
 	public Coupons retrieve(String couponNumber) {
 		Criteria crit = session().createCriteria(Coupons.class);
 		crit.add(Restrictions.eq("name", couponNumber));
+		Coupons coupons = (Coupons) crit.uniqueResult();
+		session().disconnect();
 		
-		return (Coupons) crit.uniqueResult();
+		return coupons;
 	}
 	@SuppressWarnings("unchecked")
 	public List<Coupons> getList() {
-		return session().createQuery("from Coupons").list();
+		List<Coupons> couponsList = session().createQuery("from Coupons").list();
+		session().disconnect();
+		
+		return couponsList;
 	}
 }

@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
 import java.net.URISyntaxException;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -70,7 +71,11 @@ public class InventoryController implements Serializable {
 
 		inventoryService.create(inventory);
 		logger.info("New inventory item added.");
-
+		if (adminInventoryList != null) {
+			adminInventoryList.getSource().clear();
+			adminInventoryList = null;
+			System.gc();
+		}
 		adminInventoryList = inventoryService.getPagedList();
 		adminInventoryList.setPage(0);
 		adminInventoryList.setPageSize(15);
@@ -84,6 +89,10 @@ public class InventoryController implements Serializable {
 	public String showManageInventory(Model model)
 			throws ClientProtocolException, IOException, URISyntaxException {
 
+		if (adminInventoryList != null) {
+			adminInventoryList.getSource().clear();
+			adminInventoryList = null;
+		}
 		adminInventoryList = inventoryService.getPagedList();
 		adminInventoryList.setPage(0);
 		adminInventoryList.setPageSize(15);
@@ -102,6 +111,10 @@ public class InventoryController implements Serializable {
 		inventoryService.update(inventory);
 		logger.info("'" + inventory.getSkuNum() + "' has been updated.");
 
+		if (adminInventoryList != null) {
+			adminInventoryList.getSource().clear();
+			adminInventoryList = null;
+		}
 		adminInventoryList = inventoryService.getPagedList();
 		adminInventoryList.setPage(0);
 		adminInventoryList.setPageSize(15);
@@ -120,11 +133,17 @@ public class InventoryController implements Serializable {
 		File file = new File(fileLocations.getImgUploadLoc()
 				+ inventory.getImage());
 		file.delete();
+		file = null;
 		logger.info("File: " + fileLocations.getImageLoc()
 				+ inventory.getImage() + " is deleted.");
 
 		inventoryService.delete(deleteKey);
 		logger.info("Item '" + deleteKey + "' is deleted.");
+		if (adminInventoryList != null) {
+			adminInventoryList.getSource().clear();
+			adminInventoryList = null;
+			System.gc();
+		}
 		adminInventoryList = inventoryService.getPagedList();
 		adminInventoryList.setPageSize(15);
 		model.addAttribute("objectList", adminInventoryList);
@@ -159,8 +178,8 @@ public class InventoryController implements Serializable {
 
 	@RequestMapping("/addinventory")
 	public String addInventory(
-			@ModelAttribute("fileUpload") FileUpload fileUpload, Model model,
-			BindingResult result) throws URISyntaxException {
+			@ModelAttribute("fileUpload") FileUpload fileUpload, 
+			BindingResult result, Model model) throws URISyntaxException {
 		File file = null;
 
 		String contentType = fileUpload.getFile().getContentType();
@@ -185,6 +204,8 @@ public class InventoryController implements Serializable {
 
 			fos.close();
 			is.close();
+			f1 = null;
+			file = null;
 		} catch (IOException i) {
 			result.rejectValue("file", "IOException.fileUpload.file",
 					i.getMessage());
@@ -216,7 +237,11 @@ public class InventoryController implements Serializable {
 
 	@RequestMapping("/orderinventory")
 	public String orderInventory(Model model) {
-
+		if (orderList != null) {
+			orderList.getSource().clear();
+			orderList = null;
+			System.gc();
+	}
 		orderList = inventoryService.getReplenishList();
 		orderList.setPageSize(20);
 		model.addAttribute("objectList", orderList);

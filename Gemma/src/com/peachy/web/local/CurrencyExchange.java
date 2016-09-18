@@ -1,6 +1,9 @@
 package com.peachy.web.local;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URISyntaxException;
@@ -11,17 +14,21 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.peachy.web.beans.BeansHelper;
+import com.peachy.web.beans.FileLocations;
 import com.peachy.web.beans.LocalValues;
 
 public class CurrencyExchange {
 
 	private LocalValues localValues;
+	private FileLocations fileLocations;
+	private final String jFile = "rates.json";
 	
 	private String currencyRecord = null;
 	
 	public CurrencyExchange() throws IOException {
 		super();
 		localValues = (LocalValues) new BeansHelper().getBean("config-context.xml", "localValues");
+		fileLocations = (FileLocations) new BeansHelper().getBean("config-context.xml", "fileLocations");
 		currencyRecord = getRecord(localValues.getBaseCurrency());
 	}
 
@@ -45,15 +52,29 @@ public class CurrencyExchange {
 	
 	public String getRecord(String base) throws IOException, JSONException {
 		URL currency = new URL("http://api.fixer.io/latest?base=" + base);
-        
-        BufferedReader in = new BufferedReader(
-        new InputStreamReader(currency.openStream()));
+		BufferedReader in = null;
+		BufferedWriter out = null;
+		boolean fileIO = false;
+		
+		try {
+	        in = new BufferedReader(new InputStreamReader(currency.openStream()));
+		} catch (IOException e) {
+			in = new BufferedReader(new FileReader(fileLocations.getCurrencyFile() + jFile));
+			fileIO = true;
+		}
 
         String inputLine;
         String buff = "";
-        while ((inputLine = in.readLine()) != null)
+        while ((inputLine = in.readLine()) != null) {
         	buff = buff + inputLine;
+        }
+        
         in.close();
+        if (fileIO == false) {
+        	out = new BufferedWriter(new FileWriter(fileLocations.getCurrencyFile() + jFile));
+            out.write(buff, 0, buff.length());
+            out.close();
+       }
         
         return buff;
 	}
@@ -81,7 +102,7 @@ public class CurrencyExchange {
 			symbol = "Â¥";
 			break;
 		case "CZK":
-			symbol = "KÄ?";
+			symbol = "Kï¿½?";
 			break;
 		case "DKK":
 			symbol = "kr";

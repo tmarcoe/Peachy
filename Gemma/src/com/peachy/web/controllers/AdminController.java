@@ -93,7 +93,11 @@ public class AdminController implements Serializable {
 	@RequestMapping("/admin")
 	public String showAdmin(Model model, Principal principal) throws IOException, URISyntaxException {
 		UserProfile user = userProfileService.getUser(principal.getName());
-		
+		if (headerList != null) {
+			headerList.getSource().clear();
+			headerList = null;
+			System.gc();
+		}
 		PagedListHolder<InvoiceHeader> headerList = invoiceHeaderService.getProcessedInvoices();
 		headerList.setPage(0);
 		headerList.setPageSize(10);
@@ -208,6 +212,11 @@ public class AdminController implements Serializable {
 		header.setPod(false);
 		invoiceHeaderService.updateHeader(header);
 
+		if (headerList != null) {
+			headerList.getSource().clear();
+			headerList = null;
+			System.gc();
+		}
 		headerList = invoiceHeaderService.getProcessedInvoices();
 		headerList.setPage(0);
 		headerList.setPageSize(10);
@@ -229,6 +238,11 @@ public class AdminController implements Serializable {
 
 		UserProfile user = userProfileService.getUser(principal.getName());
 		
+		if (headerList != null) {
+			headerList.getSource().clear();
+			headerList = null;
+			System.gc();
+		}
 		PagedListHolder<InvoiceHeader> headerList = invoiceHeaderService.getProcessedInvoices();
 		headerList.setPage(0);
 		headerList.setPageSize(10);

@@ -368,6 +368,11 @@ public class ShoppingCartController implements Serializable {
 	@RequestMapping("/shoppinghistory")
 	public String showShoppingHistory(Principal principal, Model model) throws IOException, URISyntaxException {
 		UserProfile user = userProfileService.getUser(principal.getName());
+		if (historyList != null) {
+			historyList.getSource().clear();
+			historyList = null;
+			System.gc();
+		}
 		historyList = invoiceHeaderService.getHistory(user.getUserID());
 		historyList.setPageSize(15);
 		historyList.setPage(0);

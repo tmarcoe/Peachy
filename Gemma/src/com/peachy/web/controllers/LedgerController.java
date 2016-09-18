@@ -64,6 +64,11 @@ public class LedgerController implements Serializable {
 		}
 
 		picker.setSf(dateFormat);
+		if (ledgerList != null) {
+			ledgerList.getSource().clear();
+			ledgerList = null;
+			System.gc();
+		}
 		ledgerList = generalLedgerService.getPagedList(picker);
 		ledgerList.setPage(0);
 		ledgerList.setPageSize(20);
