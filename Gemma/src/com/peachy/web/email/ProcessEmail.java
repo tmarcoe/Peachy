@@ -25,6 +25,7 @@ import org.springframework.beans.support.PagedListHolder;
 
 import com.peachy.web.beans.BeansHelper;
 import com.peachy.web.beans.FileLocations;
+import com.peachy.web.beans.FileUpload;
 import com.peachy.web.dao.Inventory;
 import com.peachy.web.dao.UserProfile;
 
@@ -111,6 +112,29 @@ public class ProcessEmail {
 		
 		
 		return head + saleItems + foot;
+	}
+		
+	public void monthlyNewsLetter(List<UserProfile> users, FileUpload fileUpload ) throws Exception {
+		BufferedReader is = new BufferedReader(new InputStreamReader(fileUpload.getFile().getInputStream()));
+		String inBuff = "";
+		StringBuilder message = new StringBuilder();
+		Email email = new Email();
+
+		while ((inBuff = is.readLine()) != null) {
+			message.append(inBuff);
+		}
+		email.setFrom(from);
+		email.setPassword(password);
+		email.setSubject("Monthly News Letter");
+
+		for (UserProfile user : users) {
+			email.setName(user.getFirstname() + " " + user.getLastname());
+			email.setTo(user.getUsername());
+			email.setMessage(message.toString());
+			sendMail(email);
+		}
+		
+		
 	}
 		
 	public PagedListHolder<MsgDisplay> receiveEmail(Email email) throws MessagingException, IOException, URISyntaxException {

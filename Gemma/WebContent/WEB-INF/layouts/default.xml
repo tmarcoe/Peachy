@@ -368,6 +368,18 @@
 		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/verify.jsp"></put-attribute>
 	</definition>
+	<definition name="getemailfile" extends="peachy.base">
+		<put-attribute name="heading_title" value="Enter the News Letter File"></put-attribute>
+		<put-attribute name="title" value="News Letter File"></put-attribute>
+		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/getemailfile.jsp"></put-attribute>
+	</definition>
+	<definition name="mailsent" extends="peachy.base">
+		<put-attribute name="heading_title" value="eMail Has Been Sent"></put-attribute>
+		<put-attribute name="title" value="Email Sent"></put-attribute>
+		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/mailsent.jsp"></put-attribute>
+	</definition>
 </tiles-definitions>
 
 

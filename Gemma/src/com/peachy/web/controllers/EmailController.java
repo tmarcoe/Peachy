@@ -3,6 +3,7 @@ package com.peachy.web.controllers;
 import java.io.IOException;
 import java.io.Serializable;
 import java.net.URISyntaxException;
+import java.util.List;
 
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
@@ -13,10 +14,14 @@ import org.springframework.beans.support.PagedListHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.peachy.web.beans.FileUpload;
+import com.peachy.web.dao.UserProfile;
 import com.peachy.web.email.Email;
 import com.peachy.web.email.MsgDisplay;
 import com.peachy.web.email.ProcessEmail;
@@ -59,6 +64,23 @@ public class EmailController implements Serializable {
 		return "checkemail";
 	}
 	
+	@RequestMapping("/getemailfile")
+	public String getEmailFile(Model model) {
+		FileUpload fu = new FileUpload();
+		
+		model.addAttribute("fileUpload",fu);
+		
+		return "getemailfile";
+	}
+	
+	@RequestMapping("/mailsent")
+	public String sendMonthlyNewsLetter(@ModelAttribute("fileUpload") FileUpload fu, BindingResult result) throws Exception {
+		List<UserProfile> users = userProfileService.getMonthlyNewsLetterUsers();
+		ProcessEmail pe = new ProcessEmail();
+		pe.monthlyNewsLetter(users, fu);
+		
+		return "mailsent";
+	}
 	
 /************************************************************************************************************
  * Paging Handlers

@@ -174,4 +174,13 @@ public class UserProfileDao {
 		return userList;
 	}
 
+	@SuppressWarnings("unchecked")
+	public List<UserProfile> getMonthlyNewsLetterUsers() {
+		String hql = "from UserProfile where monthlyMailing = true";
+		List<UserProfile> userList = session().createQuery(hql).list();
+		session().disconnect();
+		
+		return userList;
+	}
+
 }

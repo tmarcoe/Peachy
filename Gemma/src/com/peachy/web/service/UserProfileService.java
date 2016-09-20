@@ -72,4 +72,8 @@ public class UserProfileService {
 	public List<UserProfile> getDailySpecialUsers() {
 		return userProfileDao.getDailySpecialUsers();
 	}
+
+	public List<UserProfile> getMonthlyNewsLetterUsers() {
+		return userProfileDao.getMonthlyNewsLetterUsers();
+	}
 }

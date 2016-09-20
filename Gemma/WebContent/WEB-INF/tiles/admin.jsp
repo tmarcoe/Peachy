@@ -17,6 +17,7 @@
 				<sec:authorize access="hasRole('ROLE_ADMIN')">
 					<li><a href="checkemail">Check Email</a></li>
 					<li><a href="senddailyspecials">Send Daily Special</a></li>
+					<li><a href="getemailfile">Send Monthly News Letter</a></li>
 					<li><a href="admininventory">Inventory Tasks</a></li>
 					<li><a href="manageaccount">Manage Accounts</a></li>
 					<li><a href="users">User Profiles</a></li>
