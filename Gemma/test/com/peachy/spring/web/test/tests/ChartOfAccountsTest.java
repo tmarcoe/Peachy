@@ -35,6 +35,7 @@ public class ChartOfAccountsTest {
 	@Autowired
 	private ChartOfAccountsDao chartOfAccountsDao;
 	
+	@SuppressWarnings("unused")
 	@Autowired
 	private InventoryDao inventoryDao;
 

@@ -33,9 +33,6 @@ public class InvoiceHeaderService {
 	@Autowired
 	private UserProfileDao userProfileDao;
 	
-	@Autowired
-	private InvoiceService invoiceService;
-	
 	public InvoiceHeader createHeader(InvoiceHeader header) {
 		return invoiceHeaderDao.createHeader(header);
 	}

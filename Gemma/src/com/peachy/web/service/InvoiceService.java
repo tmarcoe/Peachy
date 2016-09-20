@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.peachy.web.dao.InventoryDao;
 import com.peachy.web.dao.InvoiceHeader;
 import com.peachy.web.dao.InvoiceItem;
 import com.peachy.web.dao.InvoiceItemDao;
@@ -16,12 +15,6 @@ public class InvoiceService {
 	
 	@Autowired
 	private InvoiceItemDao invoiceItemDao;
-	
-	@Autowired
-	private InventoryDao inventoryDao;
-	
-	@Autowired
-	private GeneralLedgerService generalLedgerService;
 	
 	@Autowired
 	ChartOfAccountsService chartOfAccountsService;

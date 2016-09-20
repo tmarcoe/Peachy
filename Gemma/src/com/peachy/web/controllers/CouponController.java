@@ -21,11 +21,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.peachy.web.dao.Coupons;
 import com.peachy.web.service.CouponsService;
-import com.peachy.web.service.InvoiceHeaderService;
-import com.peachy.web.service.InvoiceService;
 import com.peachy.web.service.TransactionService;
 import com.peachy.web.service.UsedCouponsService;
-import com.peachy.web.service.UserProfileService;
 
 @Controller
 public class CouponController implements Serializable {
@@ -33,15 +30,6 @@ public class CouponController implements Serializable {
 	private final String pageLink = "/couponpaging";
 	@Autowired
 	private CouponsService couponsService;
-	
-	@Autowired
-	private InvoiceService invoiceService;
-	
-	@Autowired
-	private InvoiceHeaderService invoiceHeaderService;
-	
-	@Autowired
-	private UserProfileService userProfileService;
 	
 	@Autowired
 	TransactionService transactionService;
