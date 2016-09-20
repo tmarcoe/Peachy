@@ -20,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.peachy.web.email.Email;
 import com.peachy.web.email.MsgDisplay;
 import com.peachy.web.email.ProcessEmail;
+import com.peachy.web.service.InvoiceHeaderService;
 import com.peachy.web.service.UserProfileService;
 
 @Controller
@@ -28,6 +29,11 @@ public class EmailController implements Serializable {
 
 	@Autowired
 	UserProfileService userProfileService;
+	
+	@Autowired
+	private InvoiceHeaderService invoiceHeaderService;
+
+
 	
 	private final String pageLink = "/productpaging";
 	

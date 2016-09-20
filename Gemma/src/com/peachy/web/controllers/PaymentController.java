@@ -28,7 +28,9 @@ import com.peachy.web.local.CurrencyExchange;
 import com.peachy.web.payment.BraintreeGatewayFactory;
 import com.peachy.web.payment.Checkout;
 import com.peachy.web.payment.Payment;
+import com.peachy.web.service.InventoryService;
 import com.peachy.web.service.InvoiceHeaderService;
+import com.peachy.web.service.InvoiceService;
 import com.peachy.web.service.TransactionService;
 import com.peachy.web.service.UserProfileService;
 
@@ -40,7 +42,16 @@ public class PaymentController implements Serializable {
 	private UserProfileService userProfileService;
 
 	@Autowired
+	private FileLocations fileLocations;
+
+	@Autowired
+	private InvoiceService invoiceService;
+
+	@Autowired
 	private InvoiceHeaderService invoiceHeaderService;
+
+	@Autowired
+	private InventoryService inventoryService;
 	
 	@Autowired
 	TransactionService transactionService;

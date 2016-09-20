@@ -1,6 +1,5 @@
 package com.peachy.web.dao;
 
-import java.io.Serializable;
 import java.util.List;
 
 import org.hibernate.Criteria;
@@ -16,8 +15,8 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository
 @Transactional
 @Component("inventoryDao")
-public class InventoryDao implements Serializable {
-	private static final long serialVersionUID = 1L;
+public class InventoryDao {
+
 	
 	@Autowired
 	private SessionFactory sessionFactory;
