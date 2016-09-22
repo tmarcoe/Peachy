@@ -71,9 +71,6 @@ public class ShoppingCartController implements Serializable {
 	private UserProfileService userProfileService;
 
 	@Autowired
-	private GeneralLedgerService generalLedgerService;
-
-	@Autowired
 	private CouponsService couponsService;
 
 	@Autowired

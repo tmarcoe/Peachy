@@ -40,8 +40,6 @@
 		classpath:com/peachy/web/config/service-context.xml
 		classpath:com/peachy/web/config/security-context.xml
 		classpath:com/peachy/web/config/config-context.xml
-		classpath:com/peachy/web/config/pager-context.xml
-		classpath:com/peachy/web/config/email-context.xml
 		</param-value>
 	</context-param>
 	<context-param>

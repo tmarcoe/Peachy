@@ -18,7 +18,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.peachy.web.dao.ChartOfAccounts;
 import com.peachy.web.dao.ChartOfAccountsDao;
-import com.peachy.web.dao.InventoryDao;
 
 @ActiveProfiles("dev")
 @ContextConfiguration(locations = {
@@ -35,9 +34,6 @@ public class ChartOfAccountsTest {
 	@Autowired
 	private ChartOfAccountsDao chartOfAccountsDao;
 	
-	@Autowired
-	private InventoryDao inventoryDao;
-
 	@Autowired
 	private DataSource dataSource;
 
