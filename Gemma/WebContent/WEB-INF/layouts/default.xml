@@ -392,6 +392,13 @@
 		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/submitsurvey.jsp"></put-attribute>
 	</definition>
+	<definition name="surveylist" extends="peachy.base">
+		<put-attribute name="heading_title" value="List of Surveys"></put-attribute>
+		<put-attribute name="title" value="Survey List"></put-attribute>
+		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/surveylist.jsp"></put-attribute>
+		<put-attribute name="footer" value="/WEB-INF/tiles/pageinator.jsp"></put-attribute>
+	</definition>
 </tiles-definitions>
 
 

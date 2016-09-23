@@ -25,6 +25,7 @@
 					<li><a href="podnotify">Receive Payment From POD</a>
 					<li><a href="returns-list">Process Returns</a></li>
 					<li><a href="listcoupons">Manage Coupons</a></li>
+					<li><a href="surveylist">View Surveys</a></li>
 					<li><a
 						href="https://my.justhost.com/cgi/cpanel?ldomain=donzalmart.com">Control
 							Panel</a></li>

@@ -1,7 +1,6 @@
 package com.peachy.web.service;
 
 import java.io.Serializable;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.support.PagedListHolder;
@@ -21,10 +20,9 @@ public class SurveyService implements Serializable{
 		surveyDao.create(survey);
 	}
 	
-	@SuppressWarnings("unchecked")
-	public List<Survey> retrieveAll() {
+	public PagedListHolder<Survey> retrieveAll() {
 		
-		return (List<Survey>) new PagedListHolder<Survey>(surveyDao.retrieveAll());
+		return  new PagedListHolder<Survey>(surveyDao.retrieveAll());
 	}
 	
 	public Survey retrieve(int userID) {

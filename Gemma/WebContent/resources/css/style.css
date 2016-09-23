@@ -112,7 +112,7 @@ Layout styles
 .menu-items {
 	float: right;
 	margin: 0 0;
-	box-shadow: 10px 10px 5px #b5b5b5;
+	box-shadow: 2px 2px 2px #83615c;
 }
 .content {
 	padding: 1em 1.25em;
@@ -777,7 +777,7 @@ table.pcinfoTable td, th{
 	float: right;
 	margin: 0 0;
 	border: 4px ridge #808080;
-	box-shadow: 10px 10px 5px #b5b5b5;
+	box-shadow: 2px 2px 2px #83615c;
 }
 .logos{
 	padding-top: 0em;
@@ -805,4 +805,30 @@ table.leftside td {
 }
 .label {
 	font-weight: 900;
+}
+.viewsurvey tr:nth-child(odd)
+{
+	background: #dedbee;
+}
+.viewsurvey 
+{
+	border-collapse: collapse;
+	box-shadow:  2px 2px 4px #83615c;
+}
+.viewsurvey td:nth-child(3) 
+{
+	text-align: right;
+}
+
+.viewsurvey tr:nth-child(even)
+{
+	background: #fbfbff;
+}
+.viewsurvey th
+{
+	background: #f5f3c2;
+}
+.shadow 
+{
+	box-shadow:  2px 2px 4px #83615c;
 }

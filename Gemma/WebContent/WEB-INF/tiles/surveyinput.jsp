@@ -22,13 +22,16 @@
 			<td>What is the reason for this rating?</td>
 		</tr>
 		<tr>
-			<td><sf:radiobutton path="question3" value="0" /> <sf:radiobutton
-					path="question3" value="1" /> <sf:radiobutton path="question3"
-					value="2" /> <sf:radiobutton path="question3" value="3" /> <sf:radiobutton
-					path="question3" value="4" /> <sf:radiobutton path="question3"
-					value="5" /> <sf:radiobutton path="question3" value="6" /> <sf:radiobutton
-					path="question3" value="7" /> <sf:radiobutton path="question3"
-					value="8" /> <sf:radiobutton path="question3" value="9" /></td>
+			<td>1<sf:radiobutton path="question3" value="0" /> 
+				2<sf:radiobutton path="question3" value="1" />
+				3<sf:radiobutton path="question3" value="2" /> 
+				4<sf:radiobutton path="question3" value="3" /> 
+				5<sf:radiobutton path="question3" value="4" /> 
+				6<sf:radiobutton path="question3" value="5" /> 
+				7<sf:radiobutton path="question3" value="6" /> 
+				8<sf:radiobutton path="question3" value="7" /> 
+				9<sf:radiobutton path="question3" value="8" /> 
+				10<sf:radiobutton path="question3" value="9" /></td>
 			<td><sf:textarea path="question4" rows="2" cols="50" /></td>
 		</tr>
 		<tr>
@@ -38,13 +41,18 @@
 			<td>What is the reason for this rating?</td>
 		</tr>
 		<tr>
-			<td><sf:radiobutton path="question5" value="0" /> <sf:radiobutton
-					path="question5" value="1" /> <sf:radiobutton path="question5"
-					value="2" /> <sf:radiobutton path="question5" value="3" /> <sf:radiobutton
-					path="question5" value="4" /> <sf:radiobutton path="question5"
-					value="5" /> <sf:radiobutton path="question5" value="6" /> <sf:radiobutton
-					path="question5" value="7" /> <sf:radiobutton path="question5"
-					value="8" /> <sf:radiobutton path="question5" value="9" /></td>
+			<td>
+				1<sf:radiobutton path="question5" value="0" /> 
+				2<sf:radiobutton path="question5" value="1" /> 
+				3<sf:radiobutton path="question5" value="2" /> 
+				4<sf:radiobutton path="question5" value="3" /> 
+				5<sf:radiobutton path="question5" value="4" /> 
+				6<sf:radiobutton path="question5" value="5" /> 
+				7<sf:radiobutton path="question5" value="6" /> 
+				8<sf:radiobutton path="question5" value="7" /> 
+				9<sf:radiobutton path="question5" value="8" /> 
+				10<sf:radiobutton path="question5" value="9" />
+			</td>
 			<td><sf:textarea path="question6" rows="2" cols="50" /></td>
 		</tr>
 		<tr>
@@ -54,13 +62,18 @@
 			<td>What is the reason for this rating?</td>
 		</tr>
 		<tr>
-			<td><sf:radiobutton path="question7" value="0" /> <sf:radiobutton
-					path="question7" value="1" /> <sf:radiobutton path="question7"
-					value="2" /> <sf:radiobutton path="question7" value="3" /> <sf:radiobutton
-					path="question7" value="4" /> <sf:radiobutton path="question7"
-					value="5" /> <sf:radiobutton path="question7" value="6" /> <sf:radiobutton
-					path="question7" value="7" /> <sf:radiobutton path="question7"
-					value="8" /> <sf:radiobutton path="question7" value="9" /></td>
+			<td>
+				1<sf:radiobutton path="question7" value="0" /> 
+				2<sf:radiobutton path="question7" value="1" /> 
+				3<sf:radiobutton path="question7" value="2" /> 
+				4<sf:radiobutton path="question7" value="3" /> 
+				5<sf:radiobutton path="question7" value="4" /> 
+				6<sf:radiobutton path="question7" value="5" /> 
+				7<sf:radiobutton path="question7" value="6" /> 
+				8<sf:radiobutton path="question7" value="7" /> 
+				9<sf:radiobutton path="question7" value="8" /> 
+				10<sf:radiobutton path="question7" value="9" />
+			</td>
 			<td><sf:textarea path="question8" rows="2" cols="50" /></td>
 		</tr>
 		<tr>

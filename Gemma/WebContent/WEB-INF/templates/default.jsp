@@ -28,6 +28,7 @@
 <body>
 	<c:choose>
 		<c:when test="${principal  != 'anonymousUser'}">
+
 			<sql:query var="rs" dataSource="${ds}">
 				SELECT firstname, lastname, currency FROM UserProfile WHERE username='${principal.username}'
 			</sql:query>
