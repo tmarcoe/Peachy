@@ -380,6 +380,18 @@
 		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/mailsent.jsp"></put-attribute>
 	</definition>
+	<definition name="surveyinput" extends="peachy.base">
+		<put-attribute name="heading_title" value="Survey"></put-attribute>
+		<put-attribute name="title" value="Survey"></put-attribute>
+		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/surveyinput.jsp"></put-attribute>
+	</definition>
+	<definition name="submitsurvey" extends="peachy.base">
+		<put-attribute name="heading_title" value="Survey Has Been Submitted"></put-attribute>
+		<put-attribute name="title" value="Submit Survey"></put-attribute>
+		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/submitsurvey.jsp"></put-attribute>
+	</definition>
 </tiles-definitions>
 
 

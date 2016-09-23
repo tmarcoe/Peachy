@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beansProjectDescription>
 	<version>1</version>
-	<pluginVersion><![CDATA[3.7.1.201510041102-RELEASE]]></pluginVersion>
+	<pluginVersion><![CDATA[3.8.1.201607290748-RELEASE]]></pluginVersion>
 	<configSuffixes>
 		<configSuffix><![CDATA[xml]]></configSuffix>
 	</configSuffixes>
@@ -11,8 +11,6 @@
 		<config>test/com/peachy/spring/web/test/config/datasource.xml</config>
 		<config>src/com/peachy/web/config/config-context.xml</config>
 		<config>src/com/peachy/web/config/dao-context.xml</config>
-		<config>src/com/peachy/web/config/email-context.xml</config>
-		<config>src/com/peachy/web/config/pager-context.xml</config>
 		<config>src/com/peachy/web/config/security-context.xml</config>
 		<config>src/com/peachy/web/config/service-context.xml</config>
 	</configs>

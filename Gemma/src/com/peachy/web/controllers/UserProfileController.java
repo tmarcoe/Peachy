@@ -43,7 +43,7 @@ public class UserProfileController implements Serializable {
 
 	private final String pageLink = "/userpaging";
 
-	private static Logger logger = Logger.getLogger(AdminController.class
+	private static Logger logger = Logger.getLogger(UserProfileController.class
 			.getName());
 
 	@Autowired

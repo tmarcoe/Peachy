@@ -29,6 +29,7 @@
 				<li><a href="shoppinghistory">Purchase History</a></li>
 				<li><a href="changepassword">Change password</a></li>
 				<li><a href="cart">View/Manage Shopping Cart</a></li>
+				<li><a href="surveyinput">Take the survey</a></li>
 			</sec:authorize>
 			<li><a href="contactus">Contact Us</a></li>
 			<li><a href="aboutus">About Us</a></li>

@@ -42,7 +42,6 @@ import com.peachy.web.dao.UsedCoupons;
 import com.peachy.web.dao.UserProfile;
 import com.peachy.web.local.CurrencyExchange;
 import com.peachy.web.service.CouponsService;
-import com.peachy.web.service.GeneralLedgerService;
 import com.peachy.web.service.InventoryService;
 import com.peachy.web.service.InvoiceHeaderService;
 import com.peachy.web.service.InvoiceService;
