@@ -105,7 +105,7 @@ public class ProcessEmail {
 							"</center> \n";
 		String saleItems = "";
 		for (Inventory item : inventoryList) {
-			saleItems += "<li><a href=\"http://192.163.225.178:8080/peachy/productdetails?skuNum=" +
+			saleItems += "<li><a href=\"http://www.peachyscoffee.com:8080/productdetails?skuNum=" +
 						 item.getSkuNum() + "\">" + item.getProductName() + "</a>\n";
 		}
 		
