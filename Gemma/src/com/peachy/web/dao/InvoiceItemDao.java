@@ -15,9 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 public class InvoiceItemDao {
 
 	@Autowired
-	private InventoryDao inventoryDao;
-
-	@Autowired
 	private SessionFactory sessionFactory;
 
 	public Session session() {
@@ -93,6 +90,7 @@ public class InvoiceItemDao {
 		
 	}
 
+	/*
 	public double totalShoppingCart(InvoiceHeader header) {
 
 		double total = 0;
@@ -109,7 +107,7 @@ public class InvoiceItemDao {
 		
 		return total + tax;
 	}
-
+*/
 	public void deleteInvoice(InvoiceHeader header) {
 		String deleteInvoice = "DELETE FROM InvoiceItem where invoiceNum = :invoiceNum";
 		String deleteHeader = "DELETE FROM InvoiceHeader where invoiceNum = :invoiceNum";

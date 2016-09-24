@@ -46,12 +46,12 @@ public class InvoiceService {
 		invoiceItemDao.updateItem(item);
 		
 	}
-
+/*
 	public double totalShoppingCart(InvoiceHeader header) {
 		return invoiceItemDao.totalShoppingCart(header);
 	}
 
-
+*/
 	public void deleteInvoice(InvoiceHeader header) {
 		invoiceItemDao.deleteInvoice(header);
 	}
