@@ -32,7 +32,7 @@ public class EmailController implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	UserProfileService userProfileService;
+	private UserProfileService userProfileService;
 	
 	private final String pageLink = "/productpaging";
 	

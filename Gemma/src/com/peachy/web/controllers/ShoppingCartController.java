@@ -73,7 +73,7 @@ public class ShoppingCartController implements Serializable {
 	private CouponsService couponsService;
 
 	@Autowired
-	TransactionService transactionService;
+	private TransactionService transactionService;
 
 	@Autowired
 	private UsedCouponsService usedCouponsService;

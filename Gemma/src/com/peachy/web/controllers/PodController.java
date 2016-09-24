@@ -23,9 +23,6 @@ public class PodController implements Serializable {
 	@Autowired
 	private InvoiceHeaderService invoiceHeaderService;
 
-	@Autowired
-	TransactionService transactionService;
-
 	@RequestMapping("/podnotify")
 	public String podNotify(Model model) {
 		String invNum = "";

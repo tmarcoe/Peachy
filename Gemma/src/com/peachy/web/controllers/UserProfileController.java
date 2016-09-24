@@ -55,7 +55,7 @@ public class UserProfileController implements Serializable {
 	private InventoryService inventoryService;
 
 	@Autowired
-	FileLocations fileLocations;
+	private FileLocations fileLocations;
 
 	private SimpleDateFormat dateFormat;
 

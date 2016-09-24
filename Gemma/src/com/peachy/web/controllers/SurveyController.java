@@ -46,10 +46,10 @@ public class SurveyController implements Serializable {
 	}
 	
 	@Autowired
-	SurveyService surveyService;
+	private SurveyService surveyService;
 	
 	@Autowired
-	UserProfileService userProfileService;
+	private UserProfileService userProfileService;
 	
 	@RequestMapping("/surveyinput")
 	public String surveyInput(Model model, Principal principal) {

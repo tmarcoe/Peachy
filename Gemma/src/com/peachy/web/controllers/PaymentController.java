@@ -43,7 +43,7 @@ public class PaymentController implements Serializable {
 	private InvoiceHeaderService invoiceHeaderService;
 	
 	@Autowired
-	TransactionService transactionService;
+	private TransactionService transactionService;
 
 	private BraintreeGateway gateway;
 

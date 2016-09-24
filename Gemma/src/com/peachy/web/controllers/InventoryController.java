@@ -46,10 +46,10 @@ public class InventoryController implements Serializable {
 	private PagedListHolder<Inventory> orderList;
 
 	@Autowired
-	FileLocations fileLocations;
+	private FileLocations fileLocations;
 
 	@Autowired
-	TransactionService transactionService;
+	private TransactionService transactionService;
 
 	@RequestMapping("/productadded")
 	public String productAdded(

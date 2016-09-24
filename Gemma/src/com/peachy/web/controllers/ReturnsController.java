@@ -41,7 +41,7 @@ public class ReturnsController implements Serializable {
 	private ReturnsService returnsService;
 	
 	@Autowired
-	TransactionService transactionService;
+	private TransactionService transactionService;
 	
 	@Autowired
 	private InvoiceService invoiceService;

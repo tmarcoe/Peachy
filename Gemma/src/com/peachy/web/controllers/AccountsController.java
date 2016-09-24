@@ -27,6 +27,7 @@ public class AccountsController implements Serializable {
 	private static Logger logger = Logger.getLogger(AccountsController.class.getName());
 	private final String pageLink = "/accountpaging";
 	private final int pageSize = 10;
+	
 	@Autowired
 	private ChartOfAccountsService chartOfAccountsService;
 	
