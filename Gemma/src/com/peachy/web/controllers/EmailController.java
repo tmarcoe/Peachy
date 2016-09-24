@@ -42,7 +42,7 @@ public class EmailController implements Serializable {
 	public String checkEmail(Model model) throws MessagingException, IOException, URISyntaxException {
 		ProcessEmail email = new ProcessEmail();
 		Email myEmail = new Email();
-		myEmail.setFrom("customer_service@donzalmart.com");
+		myEmail.setFrom("customer_service@peachyscoffee.com");
 		myEmail.setPassword("In_heaven3!");
 		if (msgs != null) {
 			msgs.getSource().clear();
