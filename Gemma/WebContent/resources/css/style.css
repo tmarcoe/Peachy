@@ -813,11 +813,12 @@ table.leftside td {
 .viewsurvey 
 {
 	border-collapse: collapse;
+	vertical-align: bottom;
 	box-shadow:  2px 2px 4px #83615c;
 }
-.viewsurvey td:nth-child(3) 
+.viewsurvey td
 {
-	text-align: right;
+	text-align: center;
 }
 
 .viewsurvey tr:nth-child(even)

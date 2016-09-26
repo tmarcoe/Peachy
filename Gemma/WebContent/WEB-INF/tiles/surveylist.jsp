@@ -13,7 +13,9 @@
 		<tr>
 			<th>Date Submitted</th>
 			<th>Submitted By</th>
-			<th>Overall Satisfaction</th>
+			<th>Satisfaction</th>
+			<th>Navigation</th>
+			<th>Prices</th>
 		</tr>
 		<c:forEach var="item" items="${objectList.pageList}">
 			<tr>
@@ -25,10 +27,12 @@
 				</c:forEach>
 				<td>${firstName}${lastName}</td>
 				<td>${item.question3 + 1}</td>
+				<td>${item.question5 + 1}</td>
+				<td>${item.question7 + 1}</td>
 			</tr>
 		</c:forEach>
 		<tr>
-			<td colspan="3"><button type="button"
+			<td colspan="5"><button type="button"
 					onclick="followLink('/admin')">OK</button></td>
 		</tr>
 	</table>
