@@ -73,5 +73,6 @@
 			value="http://www.w3.org/2001/XMLSchema">
 		</property>
 		<property name="ns" value="http://fedex.com/ws/rate/v20"></property>
+		<property name="defaultRate" value="240"></property>
 	</bean>
 </beans>

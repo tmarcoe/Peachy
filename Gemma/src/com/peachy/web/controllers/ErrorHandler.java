@@ -99,9 +99,9 @@ public class ErrorHandler implements Serializable {
 	
 	@ExceptionHandler(SOAPException.class)
 	public String handleSOAPException(SOAPException e) {
-		logger.error("SOAPException:" + e.getMessage());
+		logger.error("Packets: \n\t" + e.getMessage());
 		
-		return "error";
+		return "nointernet";
 	}
 
 }

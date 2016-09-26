@@ -1,5 +1,6 @@
 package com.peachy.web.local;
 
+import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -41,14 +42,28 @@ public class ShippingRates {
 	public double getShippingRate(ShippingAddress from, ShippingAddress to, Parcel parcel) throws SOAPException, IOException, URISyntaxException {
 		double shippingCost = 0;
 		
+		if (from.getCountry().compareTo(to.getCountry()) == 0) {
+			return localValues.getDefaultRate();
+		}
 		SOAPConnection conn = getSOAPConnection();
 		
         String url = localValues.getMailRateURL();
-        SOAPMessage soapResponse = conn.call(getMessage(from, to, parcel), url);
+        SOAPMessage soapRequest = getMessage(from, to, parcel);
+        SOAPMessage soapResponse = conn.call( soapRequest, url);
         
         if (hasErrors(soapResponse) ==  true ){
+        	ByteArrayOutputStream in = new ByteArrayOutputStream();
+        	ByteArrayOutputStream out = new ByteArrayOutputStream();
         	String errMsg =  parseErrorMsg(soapResponse);
+        	soapRequest.writeTo(in);
+        	String req = new String(in.toString());
+        	soapResponse.writeTo(out);
+        	String res = new String(out.toString());
         	logger.error("Error sending Ship Request Fault:" + errMsg);
+        	logger.error("Request: " + req);
+        	logger.error("Response: " + res);
+        	in.close();
+        	out.close();
         	throw new SOAPException();
         }
 
@@ -144,14 +159,14 @@ public class ShippingRates {
 		streetLines2.addTextNode(from.getAddress2());
 		SOAPElement city = address.addChildElement("City");
 		city.addTextNode(from.getCity());
-		if ("US".compareTo(from.getCountry().substring(0, 2)) == 0) {
+		if ("US".compareTo(getISOAlpha2(from.getCountry())) == 0) {
 			SOAPElement stateOrProvinceCode = address.addChildElement("StateOrProvinceCode");
 			stateOrProvinceCode.addTextNode(from.getRegion());
 		}
 		SOAPElement postalCode = address.addChildElement("PostalCode");
 		postalCode.addTextNode(from.getPostalCode());
 		SOAPElement countryCode = address.addChildElement("CountryCode");
-		countryCode.addTextNode(from.getCountry().substring(0, 2));
+		countryCode.addTextNode(getISOAlpha2(from.getCountry()));
 		
 		//To Address
 		SOAPElement recipient = requestedShipment.addChildElement("Recipient");
@@ -167,14 +182,14 @@ public class ShippingRates {
 		streetLines2.addTextNode(to.getAddress2());
 		city = address.addChildElement("City");
 		city.addTextNode(to.getCity());
-		if ("US".compareTo(from.getCountry().substring(0, 2)) == 0) {
+		if ("US".compareTo(getISOAlpha2(to.getCountry())) == 0) {
 			SOAPElement stateOrProvinceCode = address.addChildElement("StateOrProvinceCode");
 			stateOrProvinceCode.addTextNode(to.getRegion());
 		}
 		postalCode = address.addChildElement("PostalCode");
 		postalCode.addTextNode(to.getPostalCode());
 		countryCode = address.addChildElement("CountryCode");
-		countryCode.addTextNode(to.getCountry().substring(0, 2));
+		countryCode.addTextNode(getISOAlpha2(to.getCountry()));
 		
 		//Package Information
 		SOAPElement packageCount = requestedShipment.addChildElement("PackageCount");
@@ -207,7 +222,7 @@ public class ShippingRates {
 		if (nl.getLength() > 0) {
 			Node n = nl.item(0);
 			String t = n.getTextContent();
-			if ("ERROR".compareTo(t) == 0) {
+			if ("ERROR".compareTo(t) == 0 || "FAILURE".compareTo(t) == 0) {
 				result = true;
 			}
 		}
@@ -215,8 +230,13 @@ public class ShippingRates {
 		return result;
 	}
 	public String parseErrorMsg(SOAPMessage soapResponse) throws SOAPException {		
-		NodeList nList = soapResponse.getSOAPBody().getElementsByTagName("LocalizedMessage");
-
+		NodeList nList = soapResponse.getSOAPBody().getElementsByTagName("Message");
+		if ( nList == null ) {
+			return "Unknown Error";
+		}
+		if (nList.item(0) == null) {
+			return "Unknown Error";
+		}
 		return nList.item(0).getTextContent();
 	}
 	
@@ -284,7 +304,110 @@ public class ShippingRates {
 		
 		return c;
 	}
-	
+	public String getISOAlpha2(String isoAlpha3){
+		String result = "";
+		
+		switch (isoAlpha3) {
+		case "PHL":
+			result = "PH";
+			break;
+		case "USA":
+			result = "US";
+			break;
+		case "AUS":
+			result = "AU";
+			break;
+		case "BGR":
+			result = "BG";
+			break;
+		case "BRA":
+			result = "BR";
+			break;
+		case "CAN":
+			result = "CA";
+			break;
+		case "CHE":
+			result = "CH";
+			break;
+		case "CHN":
+			result = "CN";
+			break;
+		case "CZE":
+			result = "CZ";
+			break;
+		case "DNK":
+			result = "DK";
+			break;
+		case "GBR":
+			result = "GB";
+			break;
+		case "HKG":
+			result = "HK";
+			break;
+		case "HRV":
+			result = "HR";
+			break;
+		case "HUN":
+			result = "HU";
+			break;
+		case "IDN":
+			result = "ID";
+			break;
+		case "ISR":
+			result = "IL";
+			break;
+		case "IND":
+			result = "IN";
+			break;
+		case "JPN":
+			result = "JP";
+			break;
+		case "KOR":
+			result = "KR";
+			break;
+		case "MEX":
+			result = "MX";
+			break;
+		case "MYS":
+			result = "MY";
+			break;
+		case "NOR":
+			result = "NO";
+			break;
+		case "NZL":
+			result = "NZ";
+			break;
+		case "POL":
+			result = "PL";
+			break;
+		case "ROU":
+			result = "RO";
+			break;
+		case "RUS":
+			result = "RU";
+			break;
+		case "SWE":
+			result = "SE";
+			break;
+		case "SGP":
+			result = "SG";
+			break;
+		case "THA":
+			result = "TH";
+			break;
+		case "TUR":
+			result = "TR";
+			break;
+		case "ZAF":
+			result = "ZA";
+			break;
+		default:
+			result = "";
+			break;
+		}
+		
+		return result;
+	}
 	
 	private double divide(double num, double dem) {
 		if (dem == 0) {

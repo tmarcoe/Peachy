@@ -21,6 +21,7 @@ public class LocalValues {
 	private String postalCode;
 	private String country;
 	private String localTZ;
+	private double defaultRate;
 	
 
 	public String getBaseCurrency() {
@@ -181,6 +182,14 @@ public class LocalValues {
 
 	public void setLocalTZ(String localTZ) {
 		this.localTZ = localTZ;
+	}
+
+	public double getDefaultRate() {
+		return defaultRate;
+	}
+
+	public void setDefaultRate(double defaultRate) {
+		this.defaultRate = defaultRate;
 	}
 
 }

@@ -81,8 +81,40 @@
 			<td><sf:input type="text" path="postalCode" class="control"
 					name="postalCode" /></td>
 			<td>Country:</td>
-			<td><sf:input type="text" path="country" class="control"
-					name="country" size="3" maxlength="3"/></td>
+			<td><sf:select path="country">
+					<sf:option value="">--Make a Selection--</sf:option>
+					<sf:option value="PHL">Philippines</sf:option>
+					<sf:option value="USA">United States</sf:option>
+					<sf:option value="AUS">Australia</sf:option>
+					<sf:option value="BGR">Bulgaria</sf:option>
+					<sf:option value="BRA">Brazil</sf:option>
+					<sf:option value="CAN">Canada</sf:option>
+					<sf:option value="CHE">Switzerland</sf:option>
+					<sf:option value="CHN">China</sf:option>
+					<sf:option value="CZE">Czech Republic</sf:option>
+					<sf:option value="DNK">Denmark</sf:option>
+					<sf:option value="GBR">United Kingdom</sf:option>
+					<sf:option value="HKG">Hong Kong</sf:option>
+					<sf:option value="HRV">Croatia</sf:option>
+					<sf:option value="HUN">Hungary</sf:option>
+					<sf:option value="IDN">Indonesia</sf:option>
+					<sf:option value="ISR">Israel</sf:option>
+					<sf:option value="IND">India</sf:option>
+					<sf:option value="JPN">Japan</sf:option>
+					<sf:option value="KOR">South Korea</sf:option>
+					<sf:option value="MEX">Mexico</sf:option>
+					<sf:option value="MYS">Malaysia</sf:option>
+					<sf:option value="NOR">Norway</sf:option>
+					<sf:option value="NZL">New Zealand</sf:option>
+					<sf:option value="POL">Poland</sf:option>
+					<sf:option value="ROU">Romania</sf:option>
+					<sf:option value="RUS">Russian Federation</sf:option>
+					<sf:option value="SWE">Sweden</sf:option>
+					<sf:option value="SGP">Singapore</sf:option>
+					<sf:option value="THA">Thailand</sf:option>
+					<sf:option value="TUR">Turkey</sf:option>
+					<sf:option value="ZAF">South Africa</sf:option>
+				</sf:select></td>
 		</tr>
 		<tr>
 			<td>&nbsp;</td>
@@ -118,39 +150,39 @@
 					name="username" /></td>
 			<td>Currency:</td>
 			<td><sf:select path="currency">
-								<sf:option value="">--Select--</sf:option>
-								<sf:option value="PHP">Philippines Peso</sf:option>
-								<sf:option value="USD">United States Dollar</sf:option>
-								<sf:option value="AUD">Australia Dollar</sf:option>
-								<sf:option value="BGN">Bulgaria Lev</sf:option>
-								<sf:option value="BRL">Brazil Real</sf:option>
-								<sf:option value="CAD">Canada Dollar</sf:option>
-								<sf:option value="CHF">Switzerland Franc</sf:option>
-								<sf:option value="CNY">China Yuan Renminbi</sf:option>
-								<sf:option value="CZK">Czech Republic Koruna</sf:option>
-								<sf:option value="DKK">Denmark Krone</sf:option>
-								<sf:option value="GBP">United Kingdom Pound</sf:option>
-								<sf:option value="HKD">Hong Kong Dollar</sf:option>
-								<sf:option value="HRK">Croatia Kuna</sf:option>
-								<sf:option value="HUF">Hungary Forint</sf:option>
-								<sf:option value="IDR">Indonesia Rupiah</sf:option>
-								<sf:option value="ILS">Israel Shekel</sf:option>
-								<sf:option value="INR">India Rupee</sf:option>
-								<sf:option value="JPY">Japan Yen</sf:option>
-								<sf:option value="KRW">South Korea Won</sf:option>
-								<sf:option value="MXN">Mexico Peso</sf:option>
-								<sf:option value="MYR">Malaysia Ringgit</sf:option>
-								<sf:option value="NOK">Norway Krone</sf:option>
-								<sf:option value="NZD">New Zealand Dollar</sf:option>
-								<sf:option value="PLN">Poland Zloty</sf:option>
-								<sf:option value="RON">Romania New Leu</sf:option>
-								<sf:option value="RUB">Russia Ruble</sf:option>
-								<sf:option value="SEK">Sweden Krona</sf:option>
-								<sf:option value="SGD">Singapore Dollar</sf:option>
-								<sf:option value="THB">Thailand Baht</sf:option>
-								<sf:option value="TRY">Turkey Lira</sf:option>
-								<sf:option value="ZAR">South Africa Rand</sf:option>
-			</sf:select></td>
+					<sf:option value="">--Select--</sf:option>
+					<sf:option value="PHP">Philippines Peso</sf:option>
+					<sf:option value="USD">United States Dollar</sf:option>
+					<sf:option value="AUD">Australia Dollar</sf:option>
+					<sf:option value="BGN">Bulgaria Lev</sf:option>
+					<sf:option value="BRL">Brazil Real</sf:option>
+					<sf:option value="CAD">Canada Dollar</sf:option>
+					<sf:option value="CHF">Switzerland Franc</sf:option>
+					<sf:option value="CNY">China Yuan Renminbi</sf:option>
+					<sf:option value="CZK">Czech Republic Koruna</sf:option>
+					<sf:option value="DKK">Denmark Krone</sf:option>
+					<sf:option value="GBP">United Kingdom Pound</sf:option>
+					<sf:option value="HKD">Hong Kong Dollar</sf:option>
+					<sf:option value="HRK">Croatia Kuna</sf:option>
+					<sf:option value="HUF">Hungary Forint</sf:option>
+					<sf:option value="IDR">Indonesia Rupiah</sf:option>
+					<sf:option value="ILS">Israel Shekel</sf:option>
+					<sf:option value="INR">India Rupee</sf:option>
+					<sf:option value="JPY">Japan Yen</sf:option>
+					<sf:option value="KRW">South Korea Won</sf:option>
+					<sf:option value="MXN">Mexico Peso</sf:option>
+					<sf:option value="MYR">Malaysia Ringgit</sf:option>
+					<sf:option value="NOK">Norway Krone</sf:option>
+					<sf:option value="NZD">New Zealand Dollar</sf:option>
+					<sf:option value="PLN">Poland Zloty</sf:option>
+					<sf:option value="RON">Romania New Leu</sf:option>
+					<sf:option value="RUB">Russia Ruble</sf:option>
+					<sf:option value="SEK">Sweden Krona</sf:option>
+					<sf:option value="SGD">Singapore Dollar</sf:option>
+					<sf:option value="THB">Thailand Baht</sf:option>
+					<sf:option value="TRY">Turkey Lira</sf:option>
+					<sf:option value="ZAR">South Africa Rand</sf:option>
+				</sf:select></td>
 		</tr>
 		<tr>
 			<td>&nbsp;</td>
