@@ -412,14 +412,15 @@ table.catlist
 	vertical-align: text-top;
 	vertical-align: top;
 }
-.tableview
-{
-	border-collapse: collapse;
-}
+
 /***********************************************************
  * List tables 
  * These are the specifications for list tables
  ***********************************************************/
+.tableview
+{
+	border-collapse: collapse;
+}
 
 table.tableview tr:nth-child(odd)
 {
@@ -464,11 +465,17 @@ tfoot.tablefooter td
 	border: 1px solid black;
 }
 
-#listaccounts {
-	border-collapse: collapse;
-	width: 70%;
+#listaccounts td
+{
+	padding: 0;
+	font-size: 12px;
 }
-#listinventory
+#listinventory th
+{
+	padding: .5em;
+
+}
+#listinventory td:nth-child(2)
 {
 	text-align: center;
 }
@@ -509,7 +516,22 @@ tfoot.tablefooter td
 {
 	text-align: right;
 }
-
+#listusers td
+{
+	padding: 0 1em;
+}
+#listusers th
+{
+	padding: 0 1em;	
+}
+#viewcoupons td
+{
+	padding: 0 1em;	
+}
+#viewcoupons th
+{
+	padding: 0 1em;		
+}
 .viewreturns td {
 	text-align: right;	
 	padding: 0 2.5em;

@@ -1,5 +1,6 @@
 eclipse.preferences.version=1
 encoding//WebContent/WEB-INF/tiles/cart.jsp=UTF-8
 encoding//src/com/peachy/web/controllers/HomeController.java=UTF-8
+encoding//src/com/peachy/web/controllers/ShopController.java=UTF-8
 encoding//src/com/peachy/web/controllers/ShoppingCartController.java=UTF-8
 encoding//src/com/peachy/web/local/CurrencyExchange.java=UTF-8
