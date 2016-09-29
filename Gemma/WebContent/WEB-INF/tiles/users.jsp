@@ -12,7 +12,7 @@
 
 <form:form id="pgform" method="post" modelAttribute="pparam"
 	action="${pageLink}">
-	<table class="userstable" id="listusers">
+	<table class="tableview" id="listusers">
 
 		<thead>
 			<tr>

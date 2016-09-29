@@ -6,7 +6,7 @@
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@taglib prefix="pg" uri="http://pagination/pagination-spring3.tld"%>
 
-<table class="viewcoupons">
+<table class="tableview" id="viewcoupons">
 	<tr>
 		<th>Coupon Name</th>
 		<th>Coupon Description</th>

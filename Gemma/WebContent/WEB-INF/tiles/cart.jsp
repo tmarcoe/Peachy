@@ -14,7 +14,7 @@
 			value="${invoice.invoiceHeader.invoiceNum}" minIntegerDigits="8"
 			groupingUsed="false" />
 	</h3>
-	<table class="invoicetable" id="listinvoice">
+	<table class="tableview" id="listinvoice">
 		<thead class="invoicehead">
 			<tr>
 				<td>&nbsp;</td>
@@ -72,8 +72,8 @@
 		</tbody>
 		<tfoot class="tablefooter">
 			<tr>
-				<td colspan="6">Subtotal =======></td>
-				<td><fmt:formatNumber type="currency" currencySymbol="${currencySymbol}"
+				<td class="currency" colspan="6">Subtotal =======></td>
+				<td class="currency"><fmt:formatNumber type="currency" currencySymbol="${currencySymbol}"
 						value="${total * rate}" /></td>
 				<td>&nbsp;</td>
 				<c:if test="${invoice.invoiceHeader.processed == null}">
@@ -81,8 +81,8 @@
 				</c:if>
 			</tr>
 			<tr>
-				<td colspan="6">Total Tax =======></td>
-				<td><fmt:formatNumber type="currency" currencySymbol="${currencySymbol}"
+				<td class="currency" colspan="6">Total Tax =======></td>
+				<td class="currency" ><fmt:formatNumber type="currency" currencySymbol="${currencySymbol}"
 						value="${ttax * rate}" /></td>
 				<td>&nbsp;</td>
 				<c:if test="${invoice.invoiceHeader.processed == null}">
@@ -90,8 +90,8 @@
 				</c:if>
 			</tr>
 			<tr>
-				<td colspan="6">POD Charge ======></td>
-				<td><fmt:formatNumber type="currency" currencySymbol="${currencySymbol}"
+				<td class="currency" colspan="6">POD Charge ======></td>
+				<td class="currency" ><fmt:formatNumber type="currency" currencySymbol="${currencySymbol}"
 						value="${invoice.invoiceHeader.addedCharges * rate}" /></td>
 				<td>&nbsp;</td>
 				<c:if test="${invoice.invoiceHeader.processed == null}">
@@ -99,8 +99,8 @@
 				</c:if>
 			</tr>
 			<tr>
-				<td colspan="6">Shipping Charge ======></td>
-				<td><fmt:formatNumber type="currency" currencySymbol="${currencySymbol}"
+				<td class="currency" colspan="6">Shipping Charge ======></td>
+				<td class="currency" ><fmt:formatNumber type="currency" currencySymbol="${currencySymbol}"
 						value="${invoice.invoiceHeader.shippingCost * rate}" /></td>
 				<td>&nbsp;</td>			
 				<c:if test="${invoice.invoiceHeader.processed == null}">
@@ -108,8 +108,8 @@
 				</c:if>
 			</tr>
 			<tr>
-				<td colspan="6">Total =======></td>
-				<td><fmt:formatNumber type="currency" currencySymbol="${currencySymbol}"
+				<td class="currency" colspan="6">Total =======></td>
+				<td class="currency" ><fmt:formatNumber type="currency" currencySymbol="${currencySymbol}"
 						value="${(total + ttax + invoice.invoiceHeader.addedCharges + invoice.invoiceHeader.shippingCost) * rate}" /></td>
 				<td>&nbsp;</td>
 				<c:if test="${invoice.invoiceHeader.processed == null}">

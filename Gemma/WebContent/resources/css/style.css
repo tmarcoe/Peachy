@@ -307,16 +307,6 @@ Wide styles
 	}
 }
 
-td:nth-child(1) {
-	text-align: right;
-}
-
-
-#listaccounts {
-	border-collapse: collapse;
-	width: 50%;
-}
-
 .footer {
 	float: bottom;
 	font-size: 10px;
@@ -384,64 +374,13 @@ table.dailyspecials td {
 {
 	padding: 2em;
 }
-tfoot.tablefooter td 
-{
-	background: #d5e6ee;
-	color: #000000;
-	font-size: 12px;
-	font-weight: 900;
-	text-align: right;
-}
-.viewledger
-{
-	border-collapse: collapse;
-}
-.viewledger th
-{
-	background: #f5f3c2;
-}
-.viewledger tr:nth-child(odd)
-{
-	background: #dedbee;
-}
-.viewledger tr:nth-child(even)
-{
-	 background: #fbfbff;
-}
-table.viewledger td
-{
-	padding: 0 2em;
-	border: 1px solid black;
-}
-.viewheader td:nth-child(4)
+.currency
 {
 	text-align: right;
 }
 div.pageheading
 {
 	color: #804000;
-}
-table.viewheader td
-{
-	padding: 0 2em;
-	border: 1px solid black;
-}
-.viewheader
-{
-	border-collapse: collapse;
-	font-size: 12px;
-}
-.viewheader th
-{
-		background: #f5f3c2;
-}
-.viewheader tr:nth-child(odd)
-{
-	background: #dedbee;
-}
-.viewheader tr:nth-child(even)
-{
-	background: #fbfbff;
 }
 table.signup td
 {
@@ -460,90 +399,12 @@ table.catlist
     margin-right:auto;
 }
 
-
-
-.ordertable 
-{
-	border-collapse: collapse;
-}
-.ordertable td
-{
-	text-align: right;	
-	padding: 0 1em;
-
-}
-table.ordertable tr:nth-child(odd)
-{
-	background: #dedbee;
-}
-table.ordertable tr:nth-child(even)
-{
-	background: #fbfbff;
-}
-table.ordertable th
-{
-	background: #f5f3c2;
-}
-
-.invoicetable 
-{
-	border-collapse: collapse;
-	font-size: 12px;
-}
-.invoicetable td:nth-child(6), td:nth-child(7)
-{
-	text-align: right;
-}
-.invoicetable td:nth-child(7)
-{
-	text-align: right;
-}
-.invoicetable td
-{
-	text-align: left;	
-	padding: 0 1em;
-
-}
-.invoiceheade td
-{
-	padding: 0 1em;
-
-}
-table.invoicetable tr:nth-child(odd)
-{
-	background: #dedbee;
-}
-table.invoicetable tr:nth-child(even)
-{
-	background: #fbfbff;
-}
 .invoicehead td
 {
 	background: #f5f3c2;
 	font-weight: bold;
 }
 
-.inventorytable 
-{
-	border-collapse: collapse;
-}
-.inventorytable td
-{
-	text-align: right;	
-	padding: 0 1em;
-}
-table.inventorytable tr:nth-child(odd)
-{
-	background: #dedbee;
-}
-table.inventorytable tr:nth-child(even)
-{
-	background: #fbfbff;
-}
-table.inventorytable th
-{
-	background: #f5f3c2;
-}
 .productdetails td 
 {
 	padding: 0 .5em;
@@ -551,50 +412,119 @@ table.inventorytable th
 	vertical-align: text-top;
 	vertical-align: top;
 }
-
-.accounttable 
+.tableview
 {
 	border-collapse: collapse;
 }
-.accounttable td
-{
-	text-align: right;	
-	padding: 0 1em;
-}
-table.accounttable tr:nth-child(odd)
+/***********************************************************
+ * List tables 
+ * These are the specifications for list tables
+ ***********************************************************/
+
+table.tableview tr:nth-child(odd)
 {
 	background: #dedbee;
 }
-table.accounttable tr:nth-child(even)
+table.tableview tr:nth-child(even)
 {
 	background: #fbfbff;
 }
-table.accounttable th
+table.tableview th
 {
 	background: #f5f3c2;
 }
 
-.userstable 
+tfoot.tablefooter td 
 {
+	background: #d5e6ee;
+	color: #000000;
+	font-size: 12px;
+	font-weight: 900;
+	text-align: right;
+}
+
+/*The specifics for each table*/
+
+#shoppingtable td, th
+{
+	text-align: right;
+	padding: .5em;
+	
+}
+
+#viewsurvey 
+{
+	vertical-align: bottom;
+	box-shadow:  2px 2px 4px #83615c;
+}
+
+#viewledger td
+{
+	padding: 0 2em;
+	border: 1px solid black;
+}
+
+#listaccounts {
 	border-collapse: collapse;
+	width: 70%;
 }
-.userstable td
+#listinventory
 {
-	text-align: right;	
+	text-align: center;
+}
+#viewsurvey td
+{
+	text-align: center;
+}
+
+#listinvoice 
+{
+	font-size: 12px;
+}
+
+#listinvoice td:nth-child(4)
+{
+	text-align: right;
+}
+#listinvoice td:nth-child(5)
+{
+	text-align: right;
+}
+#listinvoice td
+{
 	padding: 0 1em;
+
 }
-table.userstable tr:nth-child(odd)
+
+#viewheader td
 {
-	background: #dedbee;
+	padding: 0 2em;
+	border: 1px solid black;
 }
-table.userstable tr:nth-child(even)
+#viewheader
 {
-	background: #fbfbff;
+	font-size: 12px;
 }
-table.userstable th
+#viewheader td:nth-child(4)
 {
-	background: #f5f3c2;
+	text-align: right;
 }
+
+.viewreturns td {
+	text-align: right;	
+	padding: 0 2.5em;
+}
+
+.viewcouponfoot
+{
+
+	background: #ffffff;
+}
+
+/***********************************************
+ * Shopping List
+ *
+ ***********************************************/
 table.productlist td
 {
 	padding: 0 .5em;
@@ -624,27 +554,6 @@ border-collapse: collapse;
 	
 }
 
-
-.viewreturns {
-	border-collapse: collapse;
-}
-
-.viewreturns td {
-	text-align: right;	
-	padding: 0 2.5em;
-}
-table.viewreturns tr:nth-child(odd)
-{
-	background: #dedbee;
-}
-table.viewreturns tr:nth-child(even)
-{
-	background: #fbfbff;
-}
-table.viewreturns th
-{
-	background: #f5f3c2;
-}
 .rmadetails {
 	border-collapse: collapse;	
 }
@@ -660,7 +569,7 @@ table.rmadetails caption{
 	background: #a6a6ff;
 }
 hr {
-	    display: block;
+	display: block;
     margin-top: 0.5em;
     margin-bottom: 0.5em;
     margin-left: auto;
@@ -688,28 +597,6 @@ table.pcinfoTable td, th{
 	text-align: right;
 	
 }
-.emailtable {
-	border-collapse: collapse;
-}
-.emailtable th:nth-child(1), td:nth-child(1) {
-	text-align: left;
-	padding: 0 1.5em;
-}
-
-.emailtable tr:nth-child(odd)
-{
-	background: #dedbee;
-}
-
-.emailtable tr:nth-child(even)
-{
-	background: #fbfbff;
-}
-
-.emailtable th
-{
-	background: #f5f3c2;
-}
 .paymentRadio
 {
 	display: block;
@@ -717,57 +604,13 @@ table.pcinfoTable td, th{
 .shoppingtable
 {
 	border-collapse: collapse;
-	font-size: 12px;
-	
-}
-.shoppingtable tr:nth-child(odd)
-{
-	background: #dedbee;
-}
-.shoppingtable tr:nth-child(even)
-{
-	background: #fbfbff;
-}
-.shoppingtable th
-{
-	background: #f5f3c2;
-}
-.shoppingtable tr
-{
-	text-align: right;
-}
-.shoppingtable td, th
-{
-	text-align: right;
-	padding: .5em;
-	
+	font-size: 12px;	
 }
 
 .coupontable td, th {
 	text-align: left;
 }
 
-.viewcoupons tr:nth-child(odd)
-{
-	background: #dedbee;
-}
-.viewcoupons 
-{
-	border-collapse: collapse;
-}
-.viewcoupons tr:nth-child(even)
-{
-	background: #fbfbff;
-}
-.viewcoupons th
-{
-	background: #f5f3c2;
-}
-.viewcouponfoot
-{
-
-	background: #ffffff;
-}
 .standout
 {
 	background-color: #f0c575;
@@ -805,29 +648,6 @@ table.leftside td {
 }
 .label {
 	font-weight: 900;
-}
-.viewsurvey tr:nth-child(odd)
-{
-	background: #dedbee;
-}
-.viewsurvey 
-{
-	border-collapse: collapse;
-	vertical-align: bottom;
-	box-shadow:  2px 2px 4px #83615c;
-}
-.viewsurvey td
-{
-	text-align: center;
-}
-
-.viewsurvey tr:nth-child(even)
-{
-	background: #fbfbff;
-}
-.viewsurvey th
-{
-	background: #f5f3c2;
 }
 .shadow 
 {

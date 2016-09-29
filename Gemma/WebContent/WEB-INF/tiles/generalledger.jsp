@@ -3,7 +3,7 @@
 <%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-<table class="viewledger">
+<table class="tableview" id="viewledger" >
 	<thead>
 		<tr>
 			<th>Date</th>
@@ -39,8 +39,8 @@
 				<td><fmt:formatDate value="${item.entryDate}" /></td>
 				<td>${item.accountNum}</td>
 				<td>${item.description}</td>
-				<td>${debit}</td>
-				<td>${credit}</td>
+				<td class="currency" >${debit}</td>
+				<td class="currency" >${credit}</td>
 			</tr>
 		</c:forEach>
 	</tbody>

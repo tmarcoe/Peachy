@@ -13,7 +13,7 @@
 		value="${invoice.invoiceHeader.invoiceNum}" minIntegerDigits="8"
 		groupingUsed="false" />
 </h3>
-<table class="invoicetable" id="listinvoice">
+<table class="tableview" id="listinvoice">
 	<thead class="invoicehead">
 		<tr>
 			<td>&nbsp;</td>
@@ -41,38 +41,38 @@
 
 				<td>${item.productName}</td>
 				<td>${item.amount}</td>
-				<td><fmt:formatNumber type='currency' currencySymbol='${currencySymbol}'
+				<td class="currency"><fmt:formatNumber type='currency' currencySymbol='${currencySymbol}'
 						value='${pr * rate}' /></td>
-				<td><fmt:formatNumber type='currency' currencySymbol='${currencySymbol}'
+				<td class="currency"><fmt:formatNumber type='currency' currencySymbol='${currencySymbol}'
 						value='${tx * rate}' /></td>
 			</tr>
 		</c:forEach>
 	</tbody>
 	<tfoot class="tablefooter">
 		<tr>
-			<td colspan="6">Subtotal =======></td>
-			<td><fmt:formatNumber type="currency" currencySymbol="${currencySymbol}"
+			<td class="currency" colspan="6">Subtotal =======></td>
+			<td class="currency" ><fmt:formatNumber type="currency" currencySymbol="${currencySymbol}"
 					value="${total * rate}" /></td>
 		</tr>
 		<tr>
-			<td colspan="6">Total Tax =======></td>
-			<td><fmt:formatNumber type="currency" currencySymbol="${currencySymbol}"
+			<td class="currency" colspan="6">Total Tax =======></td>
+			<td class="currency"><fmt:formatNumber type="currency" currencySymbol="${currencySymbol}"
 					value="${ttax * rate}" /></td>
 		</tr>
 		<tr>
-			<td colspan="6">POD Charge ======></td>
-			<td><fmt:formatNumber type="currency" currencySymbol="${currencySymbol}"
+			<td class="currency" colspan="6">POD Charge ======></td>
+			<td class="currency"><fmt:formatNumber type="currency" currencySymbol="${currencySymbol}"
 					value="${invoice.invoiceHeader.addedCharges * rate}" /></td>
 		</tr>
 		<tr>
-			<td colspan="6">Shipping Charge ======></td>
-			<td><fmt:formatNumber type="currency" currencySymbol="${currencySymbol}"
+			<td class="currency" colspan="6">Shipping Charge ======></td>
+			<td class="currency" ><fmt:formatNumber type="currency" currencySymbol="${currencySymbol}"
 					value="${invoice.invoiceHeader.shippingCost * rate}" /></td>
 			<td>&nbsp;</td>			
 		</tr>
 		<tr>
-			<td colspan="6">Total =======></td>
-			<td><fmt:formatNumber type="currency" currencySymbol="${currencySymbol}"
+			<td class="currency" colspan="6">Total =======></td>
+			<td class="currency" ><fmt:formatNumber type="currency" currencySymbol="${currencySymbol}"
 					value="${(total + ttax + invoice.invoiceHeader.addedCharges + invoice.invoiceHeader.shippingCost) * rate}" /></td>
 		</tr>
 		<tr>

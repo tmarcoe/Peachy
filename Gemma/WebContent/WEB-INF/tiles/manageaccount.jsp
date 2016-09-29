@@ -3,31 +3,39 @@
 <%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form"%>
 
 
-<sf:form action="${pageContext.request.contextPath}/accountdetail" modelAttribute="objectList" method="get" id="accountsListForm" name="manageAccounts">
- 	<table  class="accounttable" id = "listaccounts" >
-    	<thead>
-        	<tr>
-            	<th>Number</th>
-             	<th>Name</th>
-             	<th>&nbsp;</th>
-             	<th>&nbsp;</th>
-             	<th>Delete</th>
-             	<th>&nbsp;</th>
-             	<th>Edit</th>
+<sf:form action="${pageContext.request.contextPath}/accountdetail"
+	modelAttribute="objectList" method="get" id="accountsListForm"
+	name="manageAccounts">
+
+	<table class="tableview" id="listaccounts">
+		<thead>
+			<tr>
+				<th>Number</th>
+				<th>Name</th>
+				<th>&nbsp;</th>
+				<th>&nbsp;</th>
+				<th>Delete</th>
+				<th>&nbsp;</th>
+				<th>Edit</th>
 			</tr>
 		</thead>
 
-		<tbody >
+		<tbody>
 
-			<c:forEach items="${objectList.pageList}" var="item" varStatus="i" begin="0" > 
-				<tr class="account" >    
+			<c:forEach items="${objectList.pageList}" var="item" varStatus="i"
+				begin="0">
+				<tr class="account">
 					<td>${item.accountNum}</td>
 					<td>${item.accountName}</td>
 					<td><input type="hidden" value="${item.accountNum}" /></td>
 					<td><input type="hidden" value="${item.accountName}" /></td>
-					<td><a href="#" onclick="rowRemoved(${i.index});" class="removeAccount"><img alt="[Remove]" src="<c:url value='/static/images/web/delete.jpg' />"></a></td>
+					<td><a href="#" onclick="rowRemoved(${i.index});"
+						class="removeAccount"><img alt="[Remove]"
+							src="<c:url value='/static/images/web/delete.jpg' />"></a></td>
 					<td>&nbsp;</td>
-					<td><a href="#" onclick="getDetail(${i.index});" class="inventorydetail"><img alt="[Show Detail]" src="<c:url value='/static/images/web/edit.jpg' />"></a></td>
+					<td><a href="#" onclick="getDetail(${i.index});"
+						class="inventorydetail"><img alt="[Show Detail]"
+							src="<c:url value='/static/images/web/edit.jpg' />"></a></td>
 				</tr>
 			</c:forEach>
 			<tr>
@@ -40,7 +48,7 @@
 			</tr>
 		</tbody>
 	</table>
-	</sf:form>
+</sf:form>
 
 <script type="text/javascript">
 	function rowRemoved(row) {

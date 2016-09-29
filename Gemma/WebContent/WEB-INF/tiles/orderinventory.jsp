@@ -5,7 +5,7 @@
 <c:choose>
 	<c:when test="${objectList.pageList.size() > 0}">
 <form>
-	<table class="ordertable">
+	<table class="tableview">
 		<thead>
 			<tr>
 				<th>Product</th>

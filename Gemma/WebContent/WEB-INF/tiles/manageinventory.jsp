@@ -5,7 +5,7 @@
 
 <sf:form modelAttribute="objectList" method="get">
 
-	<table class="inventorytable" id="listinventory">
+	<table class="tableview" id="listinventory">
 		<thead>
 			<tr>
 				<th>Product Name</th>

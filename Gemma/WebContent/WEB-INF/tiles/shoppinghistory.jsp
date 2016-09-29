@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <c:choose>
 	<c:when test="${objectList.pageList.size() > 0}">
-		<table class="shoppingtable">
+		<table class="tableview" id="shoppingtable">
 			<tr>
 				<th>Invoice #</th>
 				<th>Grand Total</th>

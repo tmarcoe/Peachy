@@ -11,7 +11,7 @@
 </div>
 <c:choose>
 	<c:when test="${objectList.pageList.size() > 0}">
-		<table class="emailtable">
+		<table class="tableview">
 			<thead class="emailheader">
 				<tr>
 					<th>From</th>

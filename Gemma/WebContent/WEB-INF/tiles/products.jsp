@@ -19,8 +19,8 @@
 			<tr>
 				<th>&nbsp;</th>
 				<th>Product Name</th>
-				<th>Price</th>
-				<th>On Sale For...</th>
+				<th class="currency" >Price</th>
+				<th class="currency" >On Sale For...</th>
 			</tr>
 		</thead>
 		<c:forEach var="inventory" items="${objectList.pageList}">
@@ -45,8 +45,8 @@
 						width="30">
 				</a></td>
 				<td width="500">${inventory.productName}</td>
-				<td>${saleprice}</td>
-				<td>${discountprice}</td>
+				<td class="currency" >${saleprice}</td>
+				<td class="currency" >${discountprice}</td>
 			</tr>
 			<tr>
 				<td colspan="4">

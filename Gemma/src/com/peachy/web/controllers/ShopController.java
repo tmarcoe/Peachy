@@ -227,7 +227,9 @@ public class ShopController implements Serializable {
 	@RequestMapping("/setsubcategory")
 	public String setSubCategory(@ModelAttribute("cat") String cat, Model model, Principal principal) throws ClientProtocolException, IOException, URISyntaxException{
 		UserProfile user = userProfileService.getUser(principal.getName());
-		
+		if (categories == null) {
+			return "home";
+		}
 		String fileLoc = fileLocations.getImageLoc();
 		if (inventoryList != null) {
 			inventoryList.getSource().clear();

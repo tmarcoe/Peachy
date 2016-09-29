@@ -9,7 +9,7 @@
 
 <sql:setDataSource var="ds" dataSource="jdbc/donzalma_peachy" />
 
-	<table class="viewsurvey">
+	<table class="tableview" id="viewsurvey">
 		<tr>
 			<th>Date Submitted</th>
 			<th>Submitted By</th>

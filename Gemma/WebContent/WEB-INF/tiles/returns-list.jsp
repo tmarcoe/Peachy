@@ -11,7 +11,7 @@
 		<c:when test="${objectList.pageList.size() > 0}">
 			<form:form id="pgform" method="post" modelAttribute="objectList"
 				action="${pageContext.request.contextPath}/returns-approve">
-				<table class="viewreturns">
+				<table class="tableview" id="viewreturns" >
 					<thead>
 						<tr>
 							<th>RMA #</th>
