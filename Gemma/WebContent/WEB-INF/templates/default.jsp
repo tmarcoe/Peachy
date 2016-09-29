@@ -11,7 +11,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title><tiles:insertAttribute name="title"></tiles:insertAttribute></title>
-
+<link rel="icon" href="<c:url value='/static/images/web/favicon.png' />">
 <link href="${pageContext.request.contextPath}/static/css/style.css"
 	rel="stylesheet" type="text/css" />
 <script type="text/javascript"

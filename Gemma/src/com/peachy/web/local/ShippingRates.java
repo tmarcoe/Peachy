@@ -48,7 +48,7 @@ public class ShippingRates {
 		SOAPConnection conn = getSOAPConnection();
 		
         String url = localValues.getMailRateURL();
-        SOAPMessage soapRequest = getMessage(from, to, parcel);
+        SOAPMessage soapRequest = getFedExMessage(from, to, parcel);
         SOAPMessage soapResponse = conn.call( soapRequest, url);
         
         if (hasErrors(soapResponse) ==  true ){
@@ -80,7 +80,7 @@ public class ShippingRates {
         return soapConnection;
 	}
 	
-	private SOAPMessage getMessage(ShippingAddress from, ShippingAddress to, Parcel parcel) throws SOAPException, IOException {
+	private SOAPMessage getFedExMessage(ShippingAddress from, ShippingAddress to, Parcel parcel) throws SOAPException, IOException {
         MessageFactory messageFactory = MessageFactory.newInstance();
         SOAPMessage msg = messageFactory.createMessage();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss+08:00");

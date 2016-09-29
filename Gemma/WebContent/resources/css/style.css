@@ -90,8 +90,8 @@ Layout styles
 }
 
 .heading {
-	color: #fff;
-	background: #f0c575;
+	color: #804000;
+	background: #ffddaa;
 	padding: .5em;
 	font-size: 31px;
 	font-style: italic;
@@ -189,7 +189,7 @@ Nav
 }
 
 .side-menu a:link {
-	color: #f0c575;
+	color: #fde1ce;
 }
 
 .side-menu a:visited {
@@ -419,7 +419,7 @@ table.viewledger td
 }
 div.pageheading
 {
-	color: #dfa620;
+	color: #804000;
 }
 table.viewheader td
 {

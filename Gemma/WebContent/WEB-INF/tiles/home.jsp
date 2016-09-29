@@ -11,7 +11,7 @@
 	<h5>We proudly feature the following products:</h5>
 	<p>
 		<img alt="Image not available"
-			src="<c:url value='static/images/web/bluenoteslogo.png'/>" />
+			src="<c:url value='/static/images/web/bluenoteslogo.png'/>" />
 	<p>
 		<img alt="Image not available"
 			src="<c:url value='/static/images/web/artisanlogo.png' />" />
