@@ -48,9 +48,9 @@
 
 					<td>${item.productName}</td>
 					<td>${item.amount}</td>
-					<td class="currency" ><fmt:formatNumber type='currency' currencySymbol='${currencySymbol}'
+					<td><fmt:formatNumber type='currency' currencySymbol='${currencySymbol}'
 							value='${pr * rate}' /></td>
-					<td class="currency" ><fmt:formatNumber type='currency' currencySymbol='${currencySymbol}'
+					<td><fmt:formatNumber type='currency' currencySymbol='${currencySymbol}'
 							value='${tx * rate}' /></td>
 					<td>&nbsp;</td>
 					<c:if test="${invoice.invoiceHeader.processed == null}">

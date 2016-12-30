@@ -227,28 +227,9 @@ public class ShopController implements Serializable {
 	@RequestMapping("/setsubcategory")
 	public String setSubCategory(@ModelAttribute("cat") String cat, Model model, Principal principal) throws ClientProtocolException, IOException, URISyntaxException{
 		UserProfile user = userProfileService.getUser(principal.getName());
-		double rate = 1;
-		String currencySymbol = "₱";
-
 		if (categories == null) {
-			if (principal != null) {
-				CurrencyExchange currency = new CurrencyExchange();
-				rate = currency.getRate(user.getCurrency());
-				currencySymbol = currency.getSymbol(user.getCurrency());
-			}
-			
-			String fileLoc = fileLocations.getImageLoc();
-			
-			List<Inventory> inventory = inventoryService.listSaleItems();
-
-			model.addAttribute("currencySymbol", currencySymbol);
-			model.addAttribute("rate", rate);
-			model.addAttribute("inventory",inventory);
-			model.addAttribute("fileLoc", fileLoc);
-			
 			return "home";
 		}
-		
 		String fileLoc = fileLocations.getImageLoc();
 		if (inventoryList != null) {
 			inventoryList.getSource().clear();
