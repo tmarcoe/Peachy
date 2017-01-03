@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
+<beans 	xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:mvc="http://www.springframework.org/schema/mvc"
-	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:webflow-config="http://www.springframework.org/schema/webflow-config"
+	xmlns:context="http://www.springframework.org/schema/context"
 	xsi:schemaLocation="http://www.springframework.org/schema/webflow-config http://www.springframework.org/schema/webflow-config/spring-webflow-config-2.4.xsd
 		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
-		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd">
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
 
 
 	<context:component-scan base-package="com.peachy.web.controllers">
@@ -16,12 +16,11 @@
 
 
 	<mvc:resources location="/resources/" mapping="/static/**" />
-	
+
 
 	<bean id="messageSource"
 		class="org.springframework.context.support.ResourceBundleMessageSource">
-		<property name="basename"
-			value="com.peachy.web.messages.messages"></property>
+		<property name="basename" value="com.peachy.web.messages.messages"></property>
 	</bean>
 
 	<bean id="tilesViewResolver"
@@ -63,13 +62,14 @@
 	</bean>
 
 	<webflow-config:flow-builder-services
-		id="flowBuilderServices" view-factory-creator="mvcViewFactoryCreator" validator="validator"/>
+		id="flowBuilderServices" view-factory-creator="mvcViewFactoryCreator"
+		validator="validator" />
 
 	<bean id="mvcViewFactoryCreator"
 		class="org.springframework.webflow.mvc.builder.MvcViewFactoryCreator">
 		<property name="viewResolvers" ref="tilesViewResolver"></property>
 	</bean>
-	
+
 	<bean id="validator"
 		class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
 	</bean>

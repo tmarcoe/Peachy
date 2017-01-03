@@ -104,7 +104,7 @@ Layout styles
 }
 
 .nav-bar {
-	background: #000;
+	background: #804000;
 	padding: 0;
 	margin: 0;
 	font-size: 12px;
@@ -121,7 +121,7 @@ Layout styles
 
 .footer {
 	color: #ffffff;
-	background: #000000;
+	background: #804000;
 	padding: .5em;
 }
 
@@ -310,10 +310,11 @@ Wide styles
 .footer {
 	float: bottom;
 	font-size: 10px;
+	
 }
 
 .content {
-	height: 534px;
+	height: 636px;
 	background: -webkit-linear-gradient(#d5e6ee, white);
 	/* For Safari 5.1 to 6.0 */
 	background: -o-linear-gradient(#d5e6ee, white);
@@ -445,11 +446,16 @@ tfoot.tablefooter td
 
 /*The specifics for each table*/
 
-#shoppingtable td, th
+#shoppingtable td
 {
-	text-align: right;
+	text-align: left;
 	padding: .5em;
-	
+    border-width:2px;  
+    border-style:solid;
+}
+#shoppingtable td:nth-child(2)
+{
+		text-align: right;
 }
 
 #viewsurvey 
@@ -463,7 +469,12 @@ tfoot.tablefooter td
 	padding: 0 2em;
 	border: 1px solid black;
 }
-
+#listusers td { 
+	border: 1px solid black;
+}
+#listusers td:nth-child(4) {
+	text-align: right;
+}
 #listaccounts {
 	border-collapse: collapse;
 	width: 70%;
@@ -652,4 +663,10 @@ table.leftside td {
 .shadow 
 {
 	box-shadow:  2px 2px 4px #83615c;
+}
+table.surveytable td
+{
+	vertical-align: text-bottom;
+	padding-bottom: 1.75em;
+	padding-right: 3em;
 }

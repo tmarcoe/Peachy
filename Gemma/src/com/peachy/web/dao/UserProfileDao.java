@@ -123,14 +123,15 @@ public class UserProfileDao {
 
 	public void updateMisc(UserProfile user) {
 		String hqlUpdate = "update UserProfile as u set monthlyMailing = :monthlyMailing, "
+				+ "shippingInfo = :shippingInfo,"
 				+ "authority = :authority, "
 				+ "enabled = :enabled, "
 				+ "dailySpecials = :dailySpecials, "
 				+ "enabled = :enabled "
 				+ "where userID=:userID";
-
 		session().createQuery(hqlUpdate)
 				.setBoolean("monthlyMailing", user.isMonthlyMailing())
+				.setString("shippingInfo", user.getShippingInfo())
 				.setString("authority", user.getAuthority())
 				.setBoolean("enabled", user.isEnabled())
 				.setBoolean("dailySpecials", user.isDailySpecials())

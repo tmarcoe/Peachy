@@ -124,13 +124,13 @@ public class UserProfileController implements Serializable {
 		return "signup";
 	}
 
-	@RequestMapping("/mydonzalmart")
+	@RequestMapping("/myprofile")
 	public String showMyDonzalMart(Model model, Principal principal) {
 
 		UserProfile user = userProfileService.getUser(principal.getName());
 		model.addAttribute("userProfile", user);
 
-		return "mydonzalmart";
+		return "myprofile";
 	}
 
 	@RequestMapping("/saveuser")
@@ -146,40 +146,56 @@ public class UserProfileController implements Serializable {
 			result.hasFieldErrors("currency") || 
 			result.hasFieldErrors("username")) {
 			
-			return "mydonzalmart";
+			return "myprofile";
 		}
 		userProfileService.partialUpdate(userProfile);
+		
+		String fileLoc = fileLocations.getImageLoc();
+		List<Inventory> inventory = inventoryService.listSaleItems();
+		CurrencyExchange currency = new CurrencyExchange();
 
-		if (userProfile.getAuthority().compareTo("ROLE_ADMIN") == 0) {
-			if (userList != null) {
-				userList.getSource().clear();
-				userList = null;
-				System.gc();
-			}
-			userList = userProfileService.getPagedList();
-			userList.setPageSize(10);
-			userList.setPage(0);
-
-			model.addAttribute("objectList", userList);
-			model.addAttribute("pagelink", pageLink);
-
-			return "users";
-		} else {
-			String fileLoc = fileLocations.getImageLoc();
-
-			List<Inventory> inventory = inventoryService.listSaleItems();
-			CurrencyExchange currency = new CurrencyExchange();
-
-			model.addAttribute("rate",
-					currency.getRate(userProfile.getCurrency()));
-			model.addAttribute("currencySymbol",
-					currency.getSymbol(userProfile.getCurrency()));
-			model.addAttribute("inventory", inventory);
-			model.addAttribute("fileLoc", fileLoc);
-		}
+		model.addAttribute("rate",
+				currency.getRate(userProfile.getCurrency()));
+		model.addAttribute("currencySymbol",
+				currency.getSymbol(userProfile.getCurrency()));
+		model.addAttribute("inventory", inventory);
+		model.addAttribute("fileLoc", fileLoc);
+		
 		return "home";
 	}
 
+	@RequestMapping("/adminsaveuser")
+	public String adminPartialUpdate(
+			@Valid @ModelAttribute("userProfile") UserProfile userProfile, BindingResult result, Model model)
+			throws ClientProtocolException, IOException, URISyntaxException {
+		if (result.hasFieldErrors("firstname") || 
+			result.hasFieldErrors("lastname") || 
+			result.hasFieldErrors("maleFemale") || 
+			result.hasFieldErrors("address1") || 
+			result.hasFieldErrors("city") || 
+			result.hasFieldErrors("country") || 
+			result.hasFieldErrors("currency") || 
+			result.hasFieldErrors("username")) {
+			
+			return "myprofile";
+		}
+		userProfileService.partialUpdate(userProfile);
+
+		if (userList != null) {
+			userList.getSource().clear();
+			userList = null;
+			System.gc();
+		}
+		userList = userProfileService.getPagedList();
+		userList.setPageSize(10);
+		userList.setPage(0);
+
+		model.addAttribute("objectList", userList);
+		model.addAttribute("pagelink", pageLink);
+
+		return "users";
+	}
+	
 	@RequestMapping("/createprofile")
 	public String createProfile(HttpServletRequest request, 
 			@Valid @ModelAttribute("userProfile") UserProfile user, BindingResult result,
@@ -252,7 +268,7 @@ public class UserProfileController implements Serializable {
 		logger.info("'" + user.getUsername()
 				+ "' has just changed the user info.");
 
-		return ("mydonzalmart");
+		return ("myprofile");
 	}
 
 	@RequestMapping(value = "/userpaging", method = RequestMethod.GET)

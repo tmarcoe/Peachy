@@ -3,7 +3,7 @@
 
 <sf:form action="${pageContext.request.contextPath}/submitsurvey"
 	method="post" commandName="survey">
-	<table>
+	<table class="surveytable">
 		<tr>
 			<td>Did you find the item you wanted?</td>
 			<td>What product were you looking for?</td>

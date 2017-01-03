@@ -24,7 +24,6 @@
 				<th>&nbsp;</th>
 				<th>&nbsp;</th>
 				<th>Delete</th>
-				<th>&nbsp;</th>
 				<th>Edit</th>
 			</tr>
 		</thead>
@@ -34,14 +33,13 @@
 				<td>${user.firstname}</td>
 				<td>${user.lastname}</td>
 				<td>${user.username}</td>
-				<td>${user.userID}</td>
+				<td><fmt:formatNumber type="number" pattern="00000000" value="${user.userID}" />  </td>
 				<td><input type="hidden" value="${user.username}" /></td>
 				<td><input type="hidden" value="${user.firstname}" /></td>
 				<td><input type="hidden" value="${user.lastname}" /></td>
 				<td><a href="#" onclick="rowRemoved(${i.index});"
 					class="removeAccount"><img alt="[Remove]"
 						src="<c:url value='/static/images/web/delete.jpg' />"></a></td>
-				<td>&nbsp;</td>
 				<td><a href="#" onclick="getDetail(${i.index});"
 					class="inventorydetail"><img alt="[Show Detail]"
 						src="<c:url value='/static/images/web/edit.jpg' />"></a></td>
@@ -49,7 +47,7 @@
 		</c:forEach>
 		<tfoot>
 			<tr>
-				<td colspan="10"><button type="button" onclick="followLink('/admin');">Back</button></td>
+				<td colspan="9"><button type="button" onclick="followLink('/admin');">Back</button></td>
 			</tr>
 		</tfoot>
 	</table>

@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:security="http://www.springframework.org/schema/security"
-	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd
-		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"	
+       xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/security 
+						http://www.springframework.org/schema/security/spring-security-3.1.xsd
+						http://www.springframework.org/schema/beans 
+						http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
 
 
 	<security:authentication-manager>
@@ -38,7 +40,7 @@
 		<security:intercept-url pattern="/productdetails" access="isAuthenticated()"/>
 		<security:intercept-url pattern="/paging" access="isAuthenticated()"/>
 		<security:intercept-url pattern="/userdetails" access="isAuthenticated()"/>
-		<security:intercept-url pattern="/mydonzalmart" access="isAuthenticated()"/>
+		<security:intercept-url pattern="/myprofile" access="isAuthenticated()"/>
 		<security:intercept-url pattern="/saveuser" access="isAuthenticated()"/>
 		<security:intercept-url pattern="/changepassword" access="isAuthenticated()"/>
 		<security:intercept-url pattern="/passwordchanged" access="isAuthenticated()"/>
@@ -106,6 +108,7 @@
 		<security:intercept-url pattern="/accountdetail" access="hasRole('ROLE_ADMIN')"/>
 		<security:intercept-url pattern="/saveaccount" access="hasRole('ROLE_ADMIN')"/>
 		<security:intercept-url pattern="/users" access="hasRole('ROLE_ADMIN')"/>
+		<security:intercept-url pattern="/adminsaveuser" access="hasRole('ROLE_ADMIN')"/>
 		<security:intercept-url pattern="/userpaging" access="hasRole('ROLE_ADMIN')"/>
 		<security:intercept-url pattern="/podnotify" access="hasRole('ROLE_ADMIN')"/>
 		<security:intercept-url pattern="/podconfirm" access="hasRole('ROLE_ADMIN')"/>

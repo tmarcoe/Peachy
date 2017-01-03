@@ -9,10 +9,10 @@
 	<configs>
 		<config>WebContent/WEB-INF/peachy-servlet.xml</config>
 		<config>test/com/peachy/spring/web/test/config/datasource.xml</config>
-		<config>src/com/peachy/web/config/config-context.xml</config>
 		<config>src/com/peachy/web/config/dao-context.xml</config>
 		<config>src/com/peachy/web/config/security-context.xml</config>
 		<config>src/com/peachy/web/config/service-context.xml</config>
+		<config>src/com/peachy/web/config/config-context.xml</config>
 	</configs>
 	<autoconfigs>
 	</autoconfigs>

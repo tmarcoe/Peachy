@@ -192,11 +192,11 @@
 		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/tiles/userdetails.jsp"></put-attribute>
 	</definition>
-	<definition name="mydonzalmart" extends="peachy.base">
+	<definition name="myprofile" extends="peachy.base">
 		<put-attribute name="heading_title" value="My Profile"></put-attribute>
 		<put-attribute name="title" value="User Details"></put-attribute>
 		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
-		<put-attribute name="content" value="/WEB-INF/tiles/userdetails.jsp"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/myprofile.jsp"></put-attribute>
 	</definition>
 	<definition name="thankyou" extends="peachy.base">
 		<put-attribute name="heading_title" value="Salamat"></put-attribute>

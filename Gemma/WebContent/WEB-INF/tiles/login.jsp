@@ -32,8 +32,8 @@
 		</tr>
 		<tr>
 			<td>Remember me:</td>
-			<td><input type='checkbox' name='_spring_security_remember_me'
-				checked="checked" /></td>
+			<td><input type='checkbox' name='_spring_security_remember_me' 
+				id='remember_me' onchange='alertUser()' /></td>
 		</tr>
 		<tr>
 			<td colspan='2'><input name="submit" type="submit" value="Login" /></td>
@@ -45,4 +45,11 @@
 	<a href="<c:url value="/signup"/>">Create new user profile</a>
 </p>
 
+<script type="text/javascript">
 
+function alertUser() {
+	if (document.getElementById("remember_me").checked == true) {
+		alert("It is not recommended to used this feature on public computers!");
+	}
+}
+</script>

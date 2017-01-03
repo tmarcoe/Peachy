@@ -7,7 +7,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <sf:form id="details" method="post"
-	action="${pageContext.request.contextPath}/adminsaveuser"
+	action="${pageContext.request.contextPath}/saveuser"
 	commandName="userProfile">
 	<table class="signup">
 		<thead>
@@ -214,29 +214,18 @@
 		</tr>
 		<tr>
 			<td><input type="submit" value="Submit" /></td>
-			<td><button type="button" onclick="followLink('/users')">Cancel</button>
-		</tr>
-		<tr>
-			<td>Authority: <sf:input path="authority" /></td>
-			<td><div class="error">
-					<sf:errors path="authority"></sf:errors>
-				</div></td>
-			<td>User Enabled: </td>
-			<td><input type="hidden" value="on"
-					name="_active" /> <sf:checkbox path="enabled" class="control" /></td>
+			<td><button onclick='goBack()'>Cancel</button></td>
 		</tr>
 	</table>
 
 	<sf:hidden path="password" />
 	<sf:hidden path="userID" />
 	<sf:hidden path="dateAdded" />
-	<sec:authorize access="!hasRole('ROLE_ADMIN')">
-		<sf:hidden path="enabled" />
-		<sf:hidden path="authority" />
-	</sec:authorize>
+	<sf:hidden path="enabled" />
+	<sf:hidden path="authority" />
 </sf:form>
 <script type="text/javascript">
-	function followLink(link) {
-		window.location.href = "${pageContext.request.contextPath}" + link;
+	function goBack() {
+		window.history.back();
 	}
 </script>
