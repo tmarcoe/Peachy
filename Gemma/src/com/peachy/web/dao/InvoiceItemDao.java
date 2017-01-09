@@ -45,12 +45,14 @@ public class InvoiceItemDao {
 
 	@SuppressWarnings("unchecked")
 	public List<InvoiceItem> getInvoice(InvoiceHeader header) {
-		String hql = "from InvoiceItem where invoiceNum = :invoiceNum";
-		List<InvoiceItem> itmList = (List<InvoiceItem>) session()
-				.createQuery(hql)
-				.setInteger("invoiceNum", header.getInvoiceNum()).list();
-		session().disconnect();
-		
+		List<InvoiceItem> itmList = null;
+		if (header != null) {
+			String hql = "from InvoiceItem where invoiceNum = :invoiceNum";
+			itmList = (List<InvoiceItem>) session()
+					.createQuery(hql)
+					.setInteger("invoiceNum", header.getInvoiceNum()).list();
+			session().disconnect();
+		}
 		return itmList;
 
 	}
