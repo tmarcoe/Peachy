@@ -141,6 +141,11 @@
 					<td colspan="9">&nbsp;</td>
 				</tr> -->
 			</c:if>
+			<c:if test="${invoice.invoiceHeader.processed != null}">
+				<tr>
+					<td><button type="button" onclick="goBack()">Back</button></td>
+				</tr>
+			</c:if>
 		</tfoot>
 	</table>
 </sf:form>
@@ -185,4 +190,8 @@
 			window.location.href = "${pageContext.request.contextPath}/pod";
 		}
 	}
+	function goBack() {
+		window.history.back();
+	}
+
 </script>

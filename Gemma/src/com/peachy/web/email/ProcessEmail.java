@@ -57,7 +57,7 @@ public class ProcessEmail {
 			}
 		};
 
-		Session session = Session.getDefaultInstance(properties, auth);
+		Session session = Session.getInstance(properties, auth);
 		MimeMessage msg = new MimeMessage(session);
 			
 		msg.setSubject(email.getSubject());

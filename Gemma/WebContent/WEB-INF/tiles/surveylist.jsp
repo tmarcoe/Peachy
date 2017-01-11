@@ -25,7 +25,7 @@
 					<c:set var="firstName" value="${row.firstname}" />
 					<c:set var="lastName" value="${row.lastname}" />
 				</c:forEach>
-				<td>${firstName}${lastName}</td>
+				<td>${firstName} ${lastName}</td>
 				<td>${item.question3 + 1}</td>
 				<td>${item.question5 + 1}</td>
 				<td>${item.question7 + 1}</td>
