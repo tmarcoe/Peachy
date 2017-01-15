@@ -8,6 +8,7 @@
 	<table class="tableview" id="listinventory">
 		<thead>
 			<tr>
+				<th>SKU Number</th>
 				<th>Product Name</th>
 				<th>On Sale?</th>
 				<th>&nbsp;</th>
@@ -23,6 +24,7 @@
 			<c:forEach items="${objectList.pageList}" var="item" varStatus="i"
 				begin="0">
 				<tr class="account">
+					<td>${item.skuNum}</td>
 					<td>${item.productName}</td>
 					<td>${item.onSale}</td>
 					<td><input type="hidden" value="${item.skuNum}" /></td>
@@ -39,7 +41,7 @@
 		</tbody>
 		<tfoot>
 			<tr>
-				<td colspan="7">&nbsp;</td>
+				<td colspan="8">&nbsp;</td>
 			</tr>
 
 			<tr>

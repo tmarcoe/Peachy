@@ -1,5 +1,5 @@
 begin
-	long itemQty = getItemQty("0033383530109");
+	long itemQty = getItemQty("0099557009");
 	
 	if (itemQty >= 2 ) {
 		"halfoff0033383530109.cpn"

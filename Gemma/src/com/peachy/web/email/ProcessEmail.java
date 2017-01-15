@@ -194,7 +194,7 @@ public class ProcessEmail {
 		email.setPassword(password);
 		email.setSubject("Daily Specials");
 		for (UserProfile user : users) {
-			email.setName(user.getFirstname() + " " + user.getLastname());
+			email.setName("Peachy's Coffee");
 			email.setTo(user.getUsername());
 			email.setMessage(message);
 			sendMail(email);

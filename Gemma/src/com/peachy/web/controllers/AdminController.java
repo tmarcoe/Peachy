@@ -235,25 +235,9 @@ public class AdminController implements Serializable {
 		
 		
 		pe.sendDailySpecials(userList, pe.getDailySpecials(inventoryList));
-
-		UserProfile user = userProfileService.getUser(principal.getName());
+		model.addAttribute("mailCount", userList.size());
 		
-		if (headerList != null) {
-			headerList.getSource().clear();
-			headerList = null;
-			System.gc();
-		}
-		PagedListHolder<InvoiceHeader> headerList = invoiceHeaderService.getProcessedInvoices();
-		headerList.setPage(0);
-		headerList.setPageSize(10);
-		CurrencyExchange currency = new CurrencyExchange();
-		
-		model.addAttribute("rate", currency.getRate(user.getCurrency()));
-		model.addAttribute("currencySymbol", currency.getSymbol(user.getCurrency()));
-		model.addAttribute("objectList", headerList);
-		model.addAttribute("pagelink", pageLink);
-		
-		return "admin";
+		return "senddailyspecials";
 	}
 	
 	/*********************************************************************************************************************

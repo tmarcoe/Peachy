@@ -1,7 +1,8 @@
 /* -----------------------
 Base styles
 ------------------------*/
-body {
+html, body {
+	height: 100%;
 	margin: 0;
 	padding: 0;
 	color: #333;
@@ -65,7 +66,7 @@ a:link {
 }
 
 a:visited {
-	color: purple;
+	color: #ffff80;
 }
 
 a:focus {
@@ -113,16 +114,6 @@ Layout styles
 	float: right;
 	margin: 0 0;
 	box-shadow: 2px 2px 2px #83615c;
-}
-.content {
-	padding: 1em 1.25em;
-	background-color: #fff;
-}
-
-.footer {
-	color: #ffffff;
-	background: #804000;
-	padding: .5em;
 }
 
 /* -----------------------
@@ -307,14 +298,8 @@ Wide styles
 	}
 }
 
-.footer {
-	float: bottom;
-	font-size: 10px;
-	
-}
-
 .content {
-	height: 636px;
+	min-height: 72%;
 	background: -webkit-linear-gradient(#d5e6ee, white);
 	/* For Safari 5.1 to 6.0 */
 	background: -o-linear-gradient(#d5e6ee, white);
@@ -323,6 +308,15 @@ Wide styles
 	/* For Firefox 3.6 to 15 */
 	background: linear-gradient(#d5e6ee, white);
 	/* Standard syntax (must be last) */
+}
+
+.footer {
+	color: #ffffff;
+	background: #804000;
+  	height: 15px;
+  	margin-top: -10px;
+	float: bottom;
+	font-size: 10px;	
 }
 
 .error {
@@ -475,10 +469,11 @@ tfoot.tablefooter td
 #listusers td:nth-child(4) {
 	text-align: right;
 }
-#listaccounts {
-	border-collapse: collapse;
-	width: 70%;
+
+#listaccounts td {
+	border: 1px solid black;
 }
+
 #listinventory
 {
 	text-align: center;

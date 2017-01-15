@@ -160,6 +160,13 @@
 		<put-attribute name="content" value="/WEB-INF/tiles/admin.jsp"></put-attribute>
 		<put-attribute name="footer" value="/WEB-INF/tiles/pageinator.jsp"></put-attribute>
 	</definition>
+	<definition name="senddailyspecials" extends="peachy.base">
+		<put-attribute name="heading_title" value="Daily Specials Sent"></put-attribute>
+		<put-attribute name="title" value="Admin"></put-attribute>
+		<put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/senddailyspecials.jsp"></put-attribute>
+		<put-attribute name="footer" value="/WEB-INF/tiles/footer.jsp"></put-attribute>
+	</definition>
 	<definition name="manageaccount" extends="peachy.base">
 		<put-attribute name="heading_title" value="Manage Accounts"></put-attribute>
 		<put-attribute name="title" value="Manage Accounts"></put-attribute>

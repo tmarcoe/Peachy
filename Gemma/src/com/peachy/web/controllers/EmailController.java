@@ -68,10 +68,12 @@ public class EmailController implements Serializable {
 	}
 	
 	@RequestMapping("/mailsent")
-	public String sendMonthlyNewsLetter(@ModelAttribute("fileUpload") FileUpload fu, BindingResult result) throws Exception {
+	public String sendMonthlyNewsLetter(@ModelAttribute("fileUpload") FileUpload fu, BindingResult result, Model model) throws Exception {
 		List<UserProfile> users = userProfileService.getMonthlyNewsLetterUsers();
 		ProcessEmail pe = new ProcessEmail();
 		pe.monthlyNewsLetter(users, fu);
+		
+		model.addAttribute("mailCount", users.size());
 		
 		return "mailsent";
 	}

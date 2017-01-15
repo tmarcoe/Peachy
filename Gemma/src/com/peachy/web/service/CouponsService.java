@@ -28,7 +28,10 @@ public class CouponsService {
 	public Coupons retrieve(String couponNumber) {
 		return couponsDao.retrieve(couponNumber);
 	}
-
+	
+	public Coupons retrieveById(String couponId) {
+		return couponsDao.retrieveById(couponId);
+	}
 	public PagedListHolder<Coupons> getList() {
 		return new PagedListHolder<Coupons>(couponsDao.getList());
 	}

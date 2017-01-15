@@ -161,7 +161,8 @@ public class CouponController implements Serializable {
 	
 	@RequestMapping("/editcoupon")
 	public String editCoupon(@ModelAttribute("key") String key, Model model) {
-		model.addAttribute("coupon", couponsService.retrieve(key));
+		Coupons coupon = couponsService.retrieveById(key);
+		model.addAttribute("coupon", coupon);
 		
 		return "editcoupon";
 	}

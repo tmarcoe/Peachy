@@ -49,7 +49,7 @@
 
 function alertUser() {
 	if (document.getElementById("remember_me").checked == true) {
-		alert("It is not recommended to used this feature on public computers!");
+		alert("It is not recommended to use this feature on public computers!");
 	}
 }
 </script>

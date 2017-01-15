@@ -45,6 +45,15 @@ public class CouponsDao {
 		
 		return coupons;
 	}
+	public Coupons retrieveById(String couponId) {
+		
+		Criteria crit = session().createCriteria(Coupons.class);
+		crit.add(Restrictions.idEq(couponId));
+		Coupons coupons = (Coupons) crit.uniqueResult();
+		session().disconnect();
+		
+		return coupons;
+	}
 	@SuppressWarnings("unchecked")
 	public List<Coupons> getList() {
 		List<Coupons> couponsList = session().createQuery("from Coupons").list();

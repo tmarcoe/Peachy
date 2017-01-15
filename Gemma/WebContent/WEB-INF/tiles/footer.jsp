@@ -1,1 +1,1 @@
-<div class="footer">Copyrite © 2016 Peachy's Coffee</div>
+<div class="footer">Copyright © 2016, 2017 Peachy's Coffee</div>
